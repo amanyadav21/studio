@@ -1,18 +1,26 @@
 
 "use client";
 
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { AppLogo } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
+import { AddToolDialog } from "@/components/add-tool-dialog";
+import type { Tool } from "@/lib/types";
 
 interface HeaderProps {
   searchTerm: string;
   onSearchTermChange: (term: string) => void;
+  onAddTool: (tool: Omit<Tool, "id" | "category">) => void;
 }
 
-export function Header({ searchTerm, onSearchTermChange }: HeaderProps) {
+export function Header({
+  searchTerm,
+  onSearchTermChange,
+  onAddTool,
+}: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between gap-4">
@@ -34,7 +42,13 @@ export function Header({ searchTerm, onSearchTermChange }: HeaderProps) {
           </div>
         </div>
 
-        <div className="flex-shrink-0">
+        <div className="flex flex-shrink-0 items-center gap-2">
+          <AddToolDialog onAddTool={onAddTool}>
+            <Button>
+              <Plus className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Add Tool</span>
+            </Button>
+          </AddToolDialog>
           <ThemeToggle />
         </div>
       </div>

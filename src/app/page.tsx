@@ -3,9 +3,10 @@
 
 import * as React from "react";
 
-import { tools, categories } from "@/data/tools";
-import type { Category } from "@/lib/types";
+import { tools as defaultTools, categories } from "@/data/tools";
+import type { Category, Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
+import { useToast } from "@/hooks/use-toast";
 
 import { BundleBar } from "@/components/bundle-bar";
 import { Header } from "@/components/page/Header";
@@ -15,11 +16,21 @@ import { ToolGrid } from "@/components/page/ToolGrid";
 
 export default function Home() {
   const [favorites, setFavorites] = useLocalStorage<string[]>("favorites", []);
+  const [customTools, setCustomTools] = useLocalStorage<Tool[]>(
+    "custom-tools",
+    []
+  );
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] =
     React.useState<Category>("All");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
+  const { toast } = useToast();
+
+  const allTools = React.useMemo(
+    () => [...defaultTools, ...customTools],
+    [customTools]
+  );
 
   React.useEffect(() => {
     const timerId = setTimeout(() => {
@@ -30,6 +41,19 @@ export default function Home() {
       clearTimeout(timerId);
     };
   }, [searchTerm]);
+
+  const addTool = (newToolData: Omit<Tool, "id" | "category">) => {
+    const newTool: Tool = {
+      ...newToolData,
+      id: `custom-${new Date().getTime()}`,
+      category: "Dev Utilities", // Assign a default category
+    };
+    setCustomTools((prev) => [...prev, newTool]);
+    toast({
+      title: "Tool Added!",
+      description: `${newTool.name} has been added to your collection.`,
+    });
+  };
 
   const toggleFavorite = (toolId: string) => {
     setFavorites((prev) =>
@@ -52,12 +76,12 @@ export default function Home() {
   };
 
   const filteredTools = React.useMemo(() => {
-    let currentTools = tools;
+    let currentTools = allTools;
 
     if (selectedCategory === "Favorites") {
-      currentTools = tools.filter((tool) => favorites.includes(tool.id));
+      currentTools = allTools.filter((tool) => favorites.includes(tool.id));
     } else if (selectedCategory !== "All") {
-      currentTools = tools.filter(
+      currentTools = allTools.filter(
         (tool) => tool.category === selectedCategory
       );
     }
@@ -73,13 +97,17 @@ export default function Home() {
     }
 
     return currentTools;
-  }, [debouncedSearchTerm, selectedCategory, favorites]);
+  }, [debouncedSearchTerm, selectedCategory, favorites, allTools]);
 
   const navCategories: Category[] = ["All", ...categories, "Favorites"];
 
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
-      <Header searchTerm={searchTerm} onSearchTermChange={setSearchTerm} />
+      <Header
+        searchTerm={searchTerm}
+        onSearchTermChange={setSearchTerm}
+        onAddTool={addTool}
+      />
       <div className="container flex flex-1">
         <Sidebar
           navCategories={navCategories}
@@ -99,7 +127,7 @@ export default function Home() {
           />
         </main>
       </div>
-      <BundleBar bundle={bundle} onClear={clearBundle} tools={tools} />
+      <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
     </div>
   );
 }
