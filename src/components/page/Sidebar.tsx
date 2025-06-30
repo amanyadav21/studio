@@ -55,6 +55,23 @@ export function Sidebar({
         isCollapsed ? "w-20 items-center px-2" : "w-64 px-4"
       )}
     >
+      <div className="w-full mb-4">
+        <Button
+          onClick={onToggle}
+          variant="outline"
+          className={cn("w-full", isCollapsed && "h-10 w-10 p-0")}
+        >
+          {isCollapsed ? (
+            <PanelRightClose className="h-5 w-5" />
+          ) : (
+            <>
+              <PanelLeftClose className="mr-2 h-4 w-4" />
+              Collapse
+            </>
+          )}
+          <span className="sr-only">Toggle Sidebar</span>
+        </Button>
+      </div>
       <div className="flex-1">
         <TooltipProvider delayDuration={0}>
           <nav
@@ -108,24 +125,6 @@ export function Sidebar({
             })}
           </nav>
         </TooltipProvider>
-      </div>
-
-      <div className="w-full mt-auto pt-4">
-        <Button
-          onClick={onToggle}
-          variant="outline"
-          className={cn("w-full", isCollapsed && "h-10 w-10 p-0")}
-        >
-          {isCollapsed ? (
-            <PanelRightClose className="h-5 w-5" />
-          ) : (
-            <>
-              <PanelLeftClose className="mr-2 h-4 w-4" />
-              Collapse
-            </>
-          )}
-          <span className="sr-only">Toggle Sidebar</span>
-        </Button>
       </div>
     </aside>
   );
