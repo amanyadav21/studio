@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -25,6 +24,7 @@ export default function Home() {
     React.useState<Category>("All");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
   const { toast } = useToast();
 
   const allTools = React.useMemo(
@@ -75,6 +75,10 @@ export default function Home() {
     setBundle([]);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarCollapsed((prev) => !prev);
+  };
+
   const filteredTools = React.useMemo(() => {
     let currentTools = allTools;
 
@@ -114,9 +118,11 @@ export default function Home() {
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
           favoritesCount={favorites.length}
+          isCollapsed={isSidebarCollapsed}
+          onToggle={toggleSidebar}
         />
 
-        <main className="flex-1 py-6">
+        <main className="flex-1 py-6 pl-6">
           <CategoryHeader selectedCategory={selectedCategory} />
           <ToolGrid
             tools={filteredTools}
