@@ -78,7 +78,7 @@ export default function ToolPage({ params }: { params: { slug:string[] } }) {
     mobile: { width: "375px", icon: Smartphone },
   };
 
-  return (
+  const pageContent = (
     <div className="flex h-screen w-screen flex-col bg-muted/30">
       <header className="flex h-14 w-full flex-shrink-0 items-center justify-between border-b bg-background px-4">
         <div className="flex flex-1 items-center gap-4">
@@ -227,4 +227,6 @@ export default function ToolPage({ params }: { params: { slug:string[] } }) {
       </main>
     </div>
   );
+
+  return pageContent;
 }
