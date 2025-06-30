@@ -3,16 +3,16 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Star, PlusCircle, MinusCircle, ArrowRight } from "lucide-react";
+import { Star, PlusCircle, MinusCircle, Rocket } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
 import {
   Card,
+  CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
   CardFooter,
+  CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -67,16 +67,13 @@ export const ToolCard = React.memo(function ToolCard({
         backgroundColor: textColor,
         color: cardColor,
       },
-      footerLink: {
-        color: textColor,
-      },
     };
   }, [cardColor]);
 
   return (
     <Link href={`/tool/${tool.id}`} className="group block h-full">
       <Card
-        className="flex h-full flex-col overflow-hidden rounded-lg transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-1.5"
+        className="flex h-full flex-col overflow-hidden rounded-xl transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-1.5"
         style={styles?.card}
       >
         <div className="relative overflow-hidden">
@@ -144,7 +141,7 @@ export const ToolCard = React.memo(function ToolCard({
             </TooltipProvider>
           </div>
         </div>
-        <CardHeader className="p-4">
+        <CardContent className="flex flex-col flex-grow p-4">
           <Badge
             variant="outline"
             className="mb-2 w-fit"
@@ -161,15 +158,15 @@ export const ToolCard = React.memo(function ToolCard({
           >
             {tool.description}
           </CardDescription>
-        </CardHeader>
-        <CardFooter className="mt-auto p-4 pt-0">
-          <div
-            className="w-full font-semibold text-primary transition-transform group-hover:translate-x-1"
-            style={styles?.footerLink}
+        </CardContent>
+        <CardFooter className="p-4 pt-0">
+          <Button
+            className="w-full font-semibold"
+            style={styles?.button}
           >
             Launch Now
-            <ArrowRight className="ml-2 inline h-4 w-4" />
-          </div>
+            <Rocket className="ml-2" />
+          </Button>
         </CardFooter>
       </Card>
     </Link>
