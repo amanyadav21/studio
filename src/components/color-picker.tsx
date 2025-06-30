@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -9,6 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { getContrastingTextColor } from "@/lib/utils";
 
@@ -47,39 +49,48 @@ export function ColorPicker({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-4" align="end">
-        <div className="grid grid-cols-6 gap-2">
-          {colors.map((color) => (
+        <div className="space-y-4">
+            <div>
+                <h4 className="font-medium leading-none">Card Color</h4>
+                <p className="text-sm text-muted-foreground">
+                Personalize the look of your tool cards.
+                </p>
+            </div>
+            <Separator />
+            <div className="grid grid-cols-6 gap-2">
+            {colors.map((color) => (
+                <Button
+                key={color}
+                variant="outline"
+                className={cn(
+                    "h-8 w-8 rounded-full border-2 p-0",
+                    selectedColor === color && "ring-2 ring-ring ring-offset-2"
+                )}
+                style={{ backgroundColor: color }}
+                onClick={() => onColorChange(color)}
+                >
+                {selectedColor === color && (
+                    <Check
+                    className="h-4 w-4"
+                    style={{ color: getContrastingTextColor(color) }}
+                    />
+                )}
+                <span className="sr-only">{color}</span>
+                </Button>
+            ))}
+            </div>
+            {selectedColor && (
             <Button
-              key={color}
-              variant="outline"
-              className={cn(
-                "h-8 w-8 rounded-full border p-0",
-                selectedColor === color && "ring-2 ring-ring ring-offset-2"
-              )}
-              style={{ backgroundColor: color }}
-              onClick={() => onColorChange(color)}
+                variant="ghost"
+                size="sm"
+                className="w-full justify-center"
+                onClick={onClear}
             >
-              {selectedColor === color && (
-                <Check
-                  className="h-4 w-4"
-                  style={{ color: getContrastingTextColor(color) }}
-                />
-              )}
-              <span className="sr-only">{color}</span>
+                <X className="mr-2 h-4 w-4" />
+                Reset Color
             </Button>
-          ))}
+            )}
         </div>
-        {selectedColor && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-full justify-center mt-4"
-            onClick={onClear}
-          >
-            <X className="mr-2 h-4 w-4" />
-            Reset Color
-          </Button>
-        )}
       </PopoverContent>
     </Popover>
   );
