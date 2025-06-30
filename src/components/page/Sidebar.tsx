@@ -50,29 +50,12 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        "sticky top-16 h-[calc(100vh-4rem)] hidden flex-col border-r py-6 md:flex",
+        "fixed top-16 left-0 z-30 h-[calc(100vh-4rem)] hidden flex-col border-r bg-background md:flex",
         "transition-all duration-300 ease-in-out",
-        isCollapsed ? "w-20 items-center px-2" : "w-64 px-4"
+        isCollapsed ? "w-20" : "w-64"
       )}
     >
-      <div className="w-full mb-4">
-        <Button
-          onClick={onToggle}
-          variant="outline"
-          className={cn("w-full", isCollapsed && "h-10 w-10 p-0")}
-        >
-          {isCollapsed ? (
-            <PanelRightClose className="h-5 w-5" />
-          ) : (
-            <>
-              <PanelLeftClose className="mr-2 h-4 w-4" />
-              Collapse
-            </>
-          )}
-          <span className="sr-only">Toggle Sidebar</span>
-        </Button>
-      </div>
-      <div className="flex-1">
+      <div className={cn("flex-1 overflow-y-auto py-6", isCollapsed ? "px-2" : "px-4")}>
         <TooltipProvider delayDuration={0}>
           <nav
             className={cn(
@@ -125,6 +108,24 @@ export function Sidebar({
             })}
           </nav>
         </TooltipProvider>
+      </div>
+      
+      <div className={cn("mt-auto border-t", isCollapsed ? "p-2" : "p-4")}>
+        <Button
+          onClick={onToggle}
+          variant="outline"
+          className={cn("w-full", isCollapsed && "h-10 w-10 p-0")}
+        >
+          {isCollapsed ? (
+            <PanelRightClose className="h-5 w-5" />
+          ) : (
+            <>
+              <PanelLeftClose className="mr-2 h-4 w-4" />
+              Collapse
+            </>
+          )}
+          <span className="sr-only">Toggle Sidebar</span>
+        </Button>
       </div>
     </aside>
   );

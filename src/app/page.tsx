@@ -6,6 +6,7 @@ import { tools as defaultTools, categories } from "@/data/tools";
 import type { Category, Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 import { BundleBar } from "@/components/bundle-bar";
 import { Header } from "@/components/page/Header";
@@ -119,7 +120,7 @@ export default function Home() {
         onCardColorChange={setCardColor}
         onClearCardColor={() => setCardColor(null)}
       />
-      <div className="container flex flex-1">
+      <div className="flex">
         <Sidebar
           navCategories={navCategories}
           selectedCategory={selectedCategory}
@@ -129,7 +130,12 @@ export default function Home() {
           onToggle={toggleSidebar}
         />
 
-        <main className="flex-1 py-6 pl-6">
+        <main
+          className={cn(
+            "flex-1 p-6 transition-all duration-300 ease-in-out",
+            isSidebarCollapsed ? "md:ml-20" : "md:ml-64"
+          )}
+        >
           <CategoryHeader selectedCategory={selectedCategory} />
           <ToolGrid
             tools={filteredTools}
