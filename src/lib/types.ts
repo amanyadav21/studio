@@ -1,4 +1,11 @@
-export type Category = "Dev Utilities" | "Formatters" | "Calculators" | "Mind Tools" | "All" | "Favorites";
+export type Category =
+  | "Dev Utilities"
+  | "Design & UI Tools"
+  | "Writing & Notes"
+  | "Productivity Tools"
+  | "Utility Tools"
+  | "All"
+  | "Favorites";
 
 export interface Tool {
   id: string;

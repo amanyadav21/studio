@@ -4,10 +4,11 @@ import * as React from "react";
 import {
   Star,
   Code2,
-  Calculator,
-  BrainCircuit,
-  PenTool,
   LayoutGrid,
+  Paintbrush,
+  FilePenLine,
+  Timer,
+  Wrench,
 } from "lucide-react";
 import type { Category } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -22,9 +23,10 @@ import {
 const categoryIcons: Record<Category, React.ElementType> = {
   All: LayoutGrid,
   "Dev Utilities": Code2,
-  Formatters: PenTool,
-  Calculators: Calculator,
-  "Mind Tools": BrainCircuit,
+  "Design & UI Tools": Paintbrush,
+  "Writing & Notes": FilePenLine,
+  "Productivity Tools": Timer,
+  "Utility Tools": Wrench,
   Favorites: Star,
 };
 
