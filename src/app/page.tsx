@@ -10,7 +10,6 @@ import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { BundleBar } from "@/components/bundle-bar";
 import { Header } from "@/components/page/Header";
 import { Sidebar } from "@/components/page/Sidebar";
-import { PageHeader } from "@/components/page/PageHeader";
 import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
 
@@ -90,7 +89,6 @@ export default function Home() {
         />
 
         <main className="flex-1 py-6">
-          <PageHeader />
           <CategoryHeader selectedCategory={selectedCategory} />
           <ToolGrid
             tools={filteredTools}
