@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Plus, Search } from "lucide-react";
@@ -9,17 +8,24 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { AddToolDialog } from "@/components/add-tool-dialog";
 import type { Tool } from "@/lib/types";
+import { ColorPicker } from "@/components/color-picker";
 
 interface HeaderProps {
   searchTerm: string;
   onSearchTermChange: (term: string) => void;
   onAddTool: (tool: Omit<Tool, "id" | "category">) => void;
+  cardColor: string | null;
+  onCardColorChange: (color: string) => void;
+  onClearCardColor: () => void;
 }
 
 export function Header({
   searchTerm,
   onSearchTermChange,
   onAddTool,
+  cardColor,
+  onCardColorChange,
+  onClearCardColor,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -49,6 +55,11 @@ export function Header({
               <span className="hidden sm:inline">Add Tool</span>
             </Button>
           </AddToolDialog>
+          <ColorPicker
+            selectedColor={cardColor}
+            onColorChange={onCardColorChange}
+            onClear={onClearCardColor}
+          />
           <ThemeToggle />
         </div>
       </div>

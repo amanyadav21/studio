@@ -1,4 +1,3 @@
-
 "use client";
 
 import { BookOpen } from "lucide-react";
@@ -11,6 +10,7 @@ interface ToolGridProps {
   onToggleFavorite: (id: string) => void;
   bundle: string[];
   onToggleBundle: (id: string) => void;
+  cardColor: string | null;
 }
 
 export function ToolGrid({
@@ -19,6 +19,7 @@ export function ToolGrid({
   onToggleFavorite,
   bundle,
   onToggleBundle,
+  cardColor,
 }: ToolGridProps) {
   if (tools.length === 0) {
     return (
@@ -42,6 +43,7 @@ export function ToolGrid({
           onToggleFavorite={onToggleFavorite}
           isInBundle={bundle.includes(tool.id)}
           onToggleBundle={onToggleBundle}
+          cardColor={cardColor}
         />
       ))}
     </div>

@@ -19,6 +19,10 @@ export default function Home() {
     "custom-tools",
     []
   );
+  const [cardColor, setCardColor] = useLocalStorage<string | null>(
+    "card-color",
+    null
+  );
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] =
     React.useState<Category>("All");
@@ -111,6 +115,9 @@ export default function Home() {
         searchTerm={searchTerm}
         onSearchTermChange={setSearchTerm}
         onAddTool={addTool}
+        cardColor={cardColor}
+        onCardColorChange={setCardColor}
+        onClearCardColor={() => setCardColor(null)}
       />
       <div className="container flex flex-1">
         <Sidebar
@@ -130,6 +137,7 @@ export default function Home() {
             onToggleFavorite={toggleFavorite}
             bundle={bundle}
             onToggleBundle={toggleBundle}
+            cardColor={cardColor}
           />
         </main>
       </div>
