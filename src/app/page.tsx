@@ -132,6 +132,8 @@ export default function Home() {
         cardColor={cardColor}
         onCardColorChange={setCardColor}
         onClearCardColor={onClearCardColor}
+        isSidebarCollapsed={isSidebarCollapsed}
+        onToggleSidebar={toggleSidebar}
       />
       <div className="flex">
         <Sidebar
@@ -140,7 +142,6 @@ export default function Home() {
           onSelectCategory={setSelectedCategory}
           favoritesCount={favorites.length}
           isCollapsed={isSidebarCollapsed}
-          onToggle={toggleSidebar}
         />
 
         <main

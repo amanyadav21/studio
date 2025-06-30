@@ -8,8 +8,6 @@ import {
   BrainCircuit,
   PenTool,
   LayoutGrid,
-  PanelLeftClose,
-  PanelRightClose,
 } from "lucide-react";
 import type { Category } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -36,7 +34,6 @@ interface SidebarProps {
   onSelectCategory: (category: Category) => void;
   favoritesCount: number;
   isCollapsed: boolean;
-  onToggle: () => void;
 }
 
 export const Sidebar = React.memo(function Sidebar({
@@ -45,7 +42,6 @@ export const Sidebar = React.memo(function Sidebar({
   onSelectCategory,
   favoritesCount,
   isCollapsed,
-  onToggle,
 }: SidebarProps) {
   return (
     <aside
@@ -55,7 +51,12 @@ export const Sidebar = React.memo(function Sidebar({
         isCollapsed ? "w-20" : "w-64"
       )}
     >
-      <div className={cn("flex-1 overflow-y-auto py-6", isCollapsed ? "px-2" : "px-4")}>
+      <div
+        className={cn(
+          "flex-1 overflow-y-auto py-6",
+          isCollapsed ? "px-2" : "px-4"
+        )}
+      >
         <TooltipProvider delayDuration={0}>
           <nav
             className={cn(
@@ -94,7 +95,9 @@ export const Sidebar = React.memo(function Sidebar({
               return (
                 <Button
                   key={category}
-                  variant={selectedCategory === category ? "secondary" : "ghost"}
+                  variant={
+                    selectedCategory === category ? "secondary" : "ghost"
+                  }
                   className="w-full justify-start"
                   onClick={() => onSelectCategory(category)}
                 >
@@ -108,24 +111,6 @@ export const Sidebar = React.memo(function Sidebar({
             })}
           </nav>
         </TooltipProvider>
-      </div>
-      
-      <div className={cn("mt-auto border-t", isCollapsed ? "p-2" : "p-4")}>
-        <Button
-          onClick={onToggle}
-          variant="outline"
-          className={cn("w-full", isCollapsed && "h-10 w-10 p-0")}
-        >
-          {isCollapsed ? (
-            <PanelRightClose className="h-5 w-5" />
-          ) : (
-            <>
-              <PanelLeftClose className="mr-2 h-4 w-4" />
-              Collapse
-            </>
-          )}
-          <span className="sr-only">Toggle Sidebar</span>
-        </Button>
       </div>
     </aside>
   );
