@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Star, ExternalLink, Info, Loader2, ServerCrash, Plus, Minus } from "lucide-react";
+import { Star, ExternalLink, Info, Loader2, ServerCrash, PlusCircle, MinusCircle } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { toolSummarizer } from "@/ai/flows/tool-summarizer";
@@ -64,7 +64,7 @@ export function ToolCard({ tool, isFavorite, onToggleFavorite, isInBundle, onTog
 
   return (
     <>
-      <Card className="flex flex-col">
+      <Card className="flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
         <CardHeader>
           <CardTitle className="flex items-start justify-between">
             <span className="pr-2">{tool.name}</span>
@@ -81,7 +81,7 @@ export function ToolCard({ tool, isFavorite, onToggleFavorite, isInBundle, onTog
                       )}
                       onClick={() => onToggleBundle(tool.id)}
                     >
-                      {isInBundle ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                      {isInBundle ? <MinusCircle className="h-4 w-4" /> : <PlusCircle className="h-4 w-4" />}
                       <span className="sr-only">
                         {isInBundle ? "Remove from bundle" : "Add to bundle"}
                       </span>

@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { X, Layers, ExternalLink } from "lucide-react";
+import { X, Layers, Rocket } from "lucide-react";
 import type { Tool } from "@/lib/types";
 
 import { Button } from "@/components/ui/button";
@@ -67,7 +67,7 @@ export function BundleBar({ bundle, tools, onClear }: BundleBarProps) {
             </div>
             <Button asChild className="w-full">
               <Link href={bundleUrl}>
-                <ExternalLink />
+                <Rocket />
                 Launch Bundle
               </Link>
             </Button>
