@@ -161,7 +161,7 @@ export const ToolCard = React.memo(function ToolCard({
         </CardContent>
         <CardFooter className="p-4 pt-0">
           <Button
-            className="w-full font-semibold"
+            className="w-full font-semibold rounded-full"
             style={styles?.button}
           >
             Launch Now
