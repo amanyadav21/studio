@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -30,7 +31,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export default function ToolPage({ params }: { params: { slug:string[] } }) {
+export default function ToolPage({ params }: { params: { slug: string[] } }) {
   const [customTools] = useLocalStorage<Tool[]>("custom-tools", []);
   const allTools = React.useMemo(
     () => [...defaultTools, ...customTools],
@@ -42,7 +43,9 @@ export default function ToolPage({ params }: { params: { slug:string[] } }) {
     .map((id) => allTools.find((t) => t.id === id))
     .filter(Boolean) as Tool[];
 
-  const [viewport, setViewport] = React.useState<"desktop" | "tablet" | "mobile">("desktop");
+  const [viewport, setViewport] = React.useState<
+    "desktop" | "tablet" | "mobile"
+  >("desktop");
   const iframeRefs = React.useRef<(HTMLIFrameElement | null)[]>([]);
 
   React.useEffect(() => {
@@ -78,7 +81,7 @@ export default function ToolPage({ params }: { params: { slug:string[] } }) {
     mobile: { width: "375px", icon: Smartphone },
   };
 
-  const pageContent = (
+  return (
     <div className="flex h-screen w-screen flex-col bg-muted/30">
       <header className="flex h-14 w-full flex-shrink-0 items-center justify-between border-b bg-background px-4">
         <div className="flex flex-1 items-center gap-4">
@@ -100,7 +103,11 @@ export default function ToolPage({ params }: { params: { slug:string[] } }) {
         {!isBundle && (
           <div className="hidden items-center gap-2 rounded-lg border bg-background p-1 shadow-sm md:flex">
             <TooltipProvider delayDuration={0}>
-              {(Object.keys(viewportConfig) as Array<keyof typeof viewportConfig>).map((key) => (
+              {(
+                Object.keys(viewportConfig) as Array<
+                  keyof typeof viewportConfig
+                >
+              ).map((key) => (
                 <Tooltip key={key}>
                   <TooltipTrigger asChild>
                     <Button
@@ -199,7 +206,7 @@ export default function ToolPage({ params }: { params: { slug:string[] } }) {
                     <TooltipProvider delayDuration={0}>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                           <Button
+                          <Button
                             variant="ghost"
                             size="icon"
                             className="h-7 w-7"
@@ -227,6 +234,4 @@ export default function ToolPage({ params }: { params: { slug:string[] } }) {
       </main>
     </div>
   );
-
-  return pageContent;
 }
