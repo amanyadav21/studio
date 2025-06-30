@@ -3,7 +3,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Star, ExternalLink, Info, Loader2, ServerCrash, PlusCircle, MinusCircle } from "lucide-react";
+import Image from "next/image";
+import { Star, Info, Loader2, ServerCrash, PlusCircle, MinusCircle, ExternalLink } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { toolSummarizer } from "@/ai/flows/tool-summarizer";
@@ -45,9 +46,15 @@ export function ToolCard({ tool, isFavorite, onToggleFavorite, isInBundle, onTog
   const [error, setError] = React.useState("");
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
+  const handleInteraction = (e: React.MouseEvent, callback: () => void) => {
+    e.preventDefault();
+    e.stopPropagation();
+    callback();
+  };
+
   const handleGetSummary = async () => {
     setIsDialogOpen(true);
-    if (summary) return; // Don't re-fetch if we already have it
+    if (summary) return;
 
     setIsLoading(true);
     setError("");
@@ -62,82 +69,78 @@ export function ToolCard({ tool, isFavorite, onToggleFavorite, isInBundle, onTog
     }
   };
 
+  const getToolHint = (name: string) => {
+    return name.toLowerCase().split(/[ -]/).slice(0, 2).join(' ');
+  }
+
   return (
     <>
-      <Card className="flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <CardHeader>
-          <CardTitle className="flex items-start justify-between">
-            <span className="pr-2">{tool.name}</span>
-            <div className="flex items-center">
+      <Link href={`/tool/${tool.id}`} className="group block h-full">
+        <Card className="flex h-full flex-col overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
+          <div className="relative overflow-hidden">
+            <Image
+              src={`https://placehold.co/600x400.png`}
+              alt={tool.name}
+              width={600}
+              height={400}
+              className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              data-ai-hint={getToolHint(tool.name)}
+            />
+            <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transition-opacity group-hover:opacity-100">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      variant="ghost"
+                      variant="secondary"
                       size="icon"
-                      className={cn(
-                        "h-7 w-7 flex-shrink-0",
-                        isInBundle && "bg-accent/20 text-accent-foreground"
-                      )}
-                      onClick={() => onToggleBundle(tool.id)}
+                      className="h-9 w-9 rounded-full shadow-lg"
+                      onClick={(e) => handleInteraction(e, () => onToggleBundle(tool.id))}
                     >
-                      {isInBundle ? <MinusCircle className="h-4 w-4" /> : <PlusCircle className="h-4 w-4" />}
-                      <span className="sr-only">
-                        {isInBundle ? "Remove from bundle" : "Add to bundle"}
-                      </span>
+                      {isInBundle ? <MinusCircle className="h-4 w-4 text-primary" /> : <PlusCircle className="h-4 w-4" />}
+                      <span className="sr-only">{isInBundle ? "Remove from bundle" : "Add to bundle"}</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      {isInBundle ? "Remove from bundle" : "Add to bundle"}
-                    </p>
-                  </TooltipContent>
+                  <TooltipContent><p>{isInBundle ? "Remove from bundle" : "Add to bundle"}</p></TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      variant="ghost"
+                      variant="secondary"
                       size="icon"
-                      className="h-7 w-7 flex-shrink-0"
-                      onClick={() => onToggleFavorite(tool.id)}
+                      className="h-9 w-9 rounded-full shadow-lg"
+                      onClick={(e) => handleInteraction(e, () => onToggleFavorite(tool.id))}
                     >
-                      <Star
-                        className={cn(
-                          "h-5 w-5 text-muted-foreground transition-all duration-200 hover:text-amber-500",
-                          isFavorite && "fill-amber-400 text-amber-500"
-                        )}
-                      />
+                      <Star className={cn("h-4 w-4 text-muted-foreground", isFavorite && "fill-amber-400 text-amber-500")} />
                       <span className="sr-only">Toggle Favorite</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{isFavorite ? "Remove from favorites" : "Add to favorites"}</p>
-                  </TooltipContent>
+                  <TooltipContent><p>{isFavorite ? "Remove from favorites" : "Add to favorites"}</p></TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </div>
-          </CardTitle>
-          <CardDescription>{tool.description}</CardDescription>
-        </CardHeader>
-        <CardContent className="flex-grow"></CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline" size="sm" onClick={handleGetSummary}>
-            <Info className="mr-2 h-4 w-4" />
-            Info
-          </Button>
-          <div className="flex gap-2">
-            <Button asChild size="sm">
-              <Link href={`/tool/${tool.id}`}>
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Launch
-              </Link>
-            </Button>
           </div>
-        </CardFooter>
-      </Card>
+          <CardHeader>
+            <CardTitle>{tool.name}</CardTitle>
+            <CardDescription className="line-clamp-2">{tool.description}</CardDescription>
+          </CardHeader>
+          <CardContent className="flex-grow" />
+          <CardFooter className="border-t p-3">
+             <div className="flex w-full justify-between items-center">
+                <Button variant="ghost" size="sm" onClick={(e) => handleInteraction(e, handleGetSummary)}>
+                    <Info className="mr-2 h-4 w-4" />
+                    AI Summary
+                </Button>
+                 <div className="flex items-center text-sm text-muted-foreground">
+                    Launch
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                </div>
+             </div>
+          </CardFooter>
+        </Card>
+      </Link>
+      
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
