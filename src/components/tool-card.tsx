@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Star, PlusCircle, MinusCircle, ExternalLink } from "lucide-react";
+import { Star, PlusCircle, MinusCircle } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -12,8 +12,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -82,17 +83,16 @@ export function ToolCard({ tool, isFavorite, onToggleFavorite, isInBundle, onTog
               </Tooltip>
             </TooltipProvider>
           </div>
-          <div className="absolute bottom-2 right-2 flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-            <div className="flex items-center rounded-md bg-background/80 px-2 py-1 text-xs font-semibold backdrop-blur-sm">
-                Launch
-                <ExternalLink className="ml-1.5 h-3 w-3" />
-            </div>
-          </div>
         </div>
         <CardHeader className="flex-grow">
           <CardTitle>{tool.name}</CardTitle>
           <CardDescription className="line-clamp-2">{tool.description}</CardDescription>
         </CardHeader>
+        <CardFooter className="p-4 pt-0">
+           <div className={cn(buttonVariants({ variant: 'default' }), "w-full")}>
+            Launch Now
+          </div>
+        </CardFooter>
       </Card>
     </Link>
   );
