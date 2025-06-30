@@ -34,7 +34,7 @@ export default function ToolPage({ params }: { params: { slug: string[] } }) {
 
   return (
     <div className="flex h-screen w-screen flex-col bg-background">
-      <header className="flex h-16 w-full flex-shrink-0 items-center justify-between border-b px-6">
+      <header className="flex h-14 w-full flex-shrink-0 items-center justify-between border-b px-6">
         <div className="flex items-center gap-4">
           <Button asChild variant="outline" size="icon">
             <Link href="/">
