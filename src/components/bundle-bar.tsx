@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { X, Layers, Rocket } from "lucide-react";
 import type { Tool } from "@/lib/types";
+import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +22,7 @@ interface BundleBarProps {
   onClear: () => void;
 }
 
-export function BundleBar({ bundle, tools, onClear }: BundleBarProps) {
+export const BundleBar = React.memo(function BundleBar({ bundle, tools, onClear }: BundleBarProps) {
   if (bundle.length === 0) {
     return null;
   }
@@ -76,4 +77,4 @@ export function BundleBar({ bundle, tools, onClear }: BundleBarProps) {
       </Card>
     </div>
   );
-}
+});

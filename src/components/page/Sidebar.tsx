@@ -39,7 +39,7 @@ interface SidebarProps {
   onToggle: () => void;
 }
 
-export function Sidebar({
+export const Sidebar = React.memo(function Sidebar({
   navCategories,
   selectedCategory,
   onSelectCategory,
@@ -129,4 +129,4 @@ export function Sidebar({
       </div>
     </aside>
   );
-}
+});

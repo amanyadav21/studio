@@ -3,6 +3,7 @@
 import { BookOpen } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { ToolCard } from "@/components/tool-card";
+import * as React from "react";
 
 interface ToolGridProps {
   tools: Tool[];
@@ -13,7 +14,7 @@ interface ToolGridProps {
   cardColor: string | null;
 }
 
-export function ToolGrid({
+export const ToolGrid = React.memo(function ToolGrid({
   tools,
   favorites,
   onToggleFavorite,
@@ -48,4 +49,4 @@ export function ToolGrid({
       ))}
     </div>
   );
-}
+});

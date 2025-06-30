@@ -47,42 +47,55 @@ export default function Home() {
     };
   }, [searchTerm]);
 
-  const addTool = (newToolData: Omit<Tool, "id" | "category">) => {
-    const newTool: Tool = {
-      ...newToolData,
-      id: `custom-${new Date().getTime()}`,
-      category: "Dev Utilities", // Assign a default category
-    };
-    setCustomTools((prev) => [...prev, newTool]);
-    toast({
-      title: "Tool Added!",
-      description: `${newTool.name} has been added to your collection.`,
-    });
-  };
+  const addTool = React.useCallback(
+    (newToolData: Omit<Tool, "id" | "category">) => {
+      const newTool: Tool = {
+        ...newToolData,
+        id: `custom-${new Date().getTime()}`,
+        category: "Dev Utilities", // Assign a default category
+      };
+      setCustomTools((prev) => [...prev, newTool]);
+      toast({
+        title: "Tool Added!",
+        description: `${newTool.name} has been added to your collection.`,
+      });
+    },
+    [setCustomTools, toast]
+  );
 
-  const toggleFavorite = (toolId: string) => {
-    setFavorites((prev) =>
-      prev.includes(toolId)
-        ? prev.filter((id) => id !== toolId)
-        : [...prev, toolId]
-    );
-  };
+  const toggleFavorite = React.useCallback(
+    (toolId: string) => {
+      setFavorites((prev) =>
+        prev.includes(toolId)
+          ? prev.filter((id) => id !== toolId)
+          : [...prev, toolId]
+      );
+    },
+    [setFavorites]
+  );
 
-  const toggleBundle = (toolId: string) => {
-    setBundle((prev) =>
-      prev.includes(toolId)
-        ? prev.filter((id) => id !== toolId)
-        : [...prev, toolId]
-    );
-  };
+  const toggleBundle = React.useCallback(
+    (toolId: string) => {
+      setBundle((prev) =>
+        prev.includes(toolId)
+          ? prev.filter((id) => id !== toolId)
+          : [...prev, toolId]
+      );
+    },
+    [setBundle]
+  );
 
-  const clearBundle = () => {
+  const clearBundle = React.useCallback(() => {
     setBundle([]);
-  };
+  }, [setBundle]);
 
-  const toggleSidebar = () => {
+  const toggleSidebar = React.useCallback(() => {
     setIsSidebarCollapsed((prev) => !prev);
-  };
+  }, [setIsSidebarCollapsed]);
+
+  const onClearCardColor = React.useCallback(() => {
+    setCardColor(null);
+  }, [setCardColor]);
 
   const filteredTools = React.useMemo(() => {
     let currentTools = allTools;
@@ -118,7 +131,7 @@ export default function Home() {
         onAddTool={addTool}
         cardColor={cardColor}
         onCardColorChange={setCardColor}
-        onClearCardColor={() => setCardColor(null)}
+        onClearCardColor={onClearCardColor}
       />
       <div className="flex">
         <Sidebar

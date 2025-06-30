@@ -1,11 +1,12 @@
 
 import type { Category } from "@/lib/types";
+import * as React from "react";
 
 interface CategoryHeaderProps {
     selectedCategory: Category;
 }
 
-export function CategoryHeader({ selectedCategory }: CategoryHeaderProps) {
+export const CategoryHeader = React.memo(function CategoryHeader({ selectedCategory }: CategoryHeaderProps) {
     return (
         <div className="mb-6">
             <h1 className="text-3xl font-bold tracking-tight">
@@ -18,4 +19,4 @@ export function CategoryHeader({ selectedCategory }: CategoryHeaderProps) {
             </p>
         </div>
     );
-}
+});

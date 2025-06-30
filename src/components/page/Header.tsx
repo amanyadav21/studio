@@ -1,6 +1,7 @@
 "use client";
 
 import { Plus, Search } from "lucide-react";
+import * as React from "react";
 
 import { Input } from "@/components/ui/input";
 import { AppLogo } from "@/components/icons";
@@ -19,7 +20,7 @@ interface HeaderProps {
   onClearCardColor: () => void;
 }
 
-export function Header({
+export const Header = React.memo(function Header({
   searchTerm,
   onSearchTermChange,
   onAddTool,
@@ -65,4 +66,4 @@ export function Header({
       </div>
     </header>
   );
-}
+});

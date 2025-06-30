@@ -14,7 +14,7 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
@@ -32,7 +32,7 @@ interface ToolCardProps {
   cardColor: string | null;
 }
 
-export function ToolCard({
+export const ToolCard = React.memo(function ToolCard({
   tool,
   isFavorite,
   onToggleFavorite,
@@ -66,6 +66,9 @@ export function ToolCard({
       button: {
         backgroundColor: textColor,
         color: cardColor,
+      },
+      footerLink: {
+        color: textColor,
       },
     };
   }, [cardColor]);
@@ -141,7 +144,7 @@ export function ToolCard({
             </TooltipProvider>
           </div>
         </div>
-        <CardHeader className="flex-grow p-4">
+        <CardHeader className="p-4">
           <Badge
             variant="outline"
             className="mb-2 w-fit"
@@ -159,19 +162,16 @@ export function ToolCard({
             {tool.description}
           </CardDescription>
         </CardHeader>
-        <CardFooter className="p-4 pt-0">
+        <CardFooter className="mt-auto p-4 pt-0">
           <div
-            className={cn(
-              buttonVariants({ variant: "default" }),
-              "w-full font-semibold"
-            )}
-            style={styles?.button}
+            className="w-full font-semibold text-primary transition-transform group-hover:translate-x-1"
+            style={styles?.footerLink}
           >
             Launch Now
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <ArrowRight className="ml-2 inline h-4 w-4" />
           </div>
         </CardFooter>
       </Card>
     </Link>
   );
-}
+});
