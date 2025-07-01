@@ -1,18 +1,10 @@
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   BookOpen,
   ChevronLeft,
-  Code2,
-  Heart,
   Layers,
   LayoutGrid,
   LayoutPanelLeft,
@@ -27,178 +19,136 @@ import * as React from 'react';
 
 export default function DocsPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-muted/20 text-foreground">
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container flex h-16 items-center justify-start">
           <Button asChild variant="outline">
             <Link href="/">
               <ChevronLeft className="mr-2 h-4 w-4" />
               Back to App
             </Link>
           </Button>
-          <h1 className="flex items-center gap-2 text-xl font-bold">
-            <BookOpen className="h-5 w-5" />
-            How to Use LocalOpen
-          </h1>
-          <div className="w-[115px]" />
         </div>
       </header>
-      <main className="container mx-auto max-w-4xl py-12">
-        <div className="space-y-12">
-          <Card>
+      <main className="container mx-auto max-w-5xl py-12 px-6 sm:py-16">
+        <div className="mb-16 text-center">
+          <BookOpen className="mx-auto h-12 w-12 text-primary" />
+          <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            How to Use LocalOpen
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            A quick guide to help you get the most out of your instant web
+            toolkit.
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="flex flex-col">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Search className="h-6 w-6 text-primary" />
-                Finding Your Tools
-              </CardTitle>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Search className="h-6 w-6" />
+              </div>
+              <CardTitle>Finding Your Tools</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-muted-foreground">
+            <CardContent className="flex-grow text-muted-foreground">
               <p>
-                Quickly find any tool using the global search bar at the top of
-                the page. Start typing, and the list of tools will instantly
-                filter based on their name or description.
-              </p>
-              <p>
-                You can also browse tools by category using the sidebar on the
-                left. Click on a category like{' '}
-                <Badge variant="secondary">
-                  <Code2 className="mr-1 h-3 w-3" />
-                  Dev Utilities
-                </Badge>{' '}
-                to see all related tools.
+                Use the global search bar to instantly find any tool by name or
+                description. You can also browse by category in the sidebar.
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="flex flex-col">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Star className="h-6 w-6 text-amber-500" />
-                Managing Favorites
-              </CardTitle>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-amber-400/10 text-amber-500">
+                <Star className="h-6 w-6" />
+              </div>
+              <CardTitle>Managing Favorites</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-muted-foreground">
+            <CardContent className="flex-grow text-muted-foreground">
               <p>
-                Hover over any tool card and click the{' '}
-                <Badge variant="outline" className="inline-flex items-center">
-                  <Star className="h-3 w-3" />
-                </Badge>{' '}
-                icon to add it to your favorites. This makes it easy to access
-                your most-used tools.
-              </p>
-              <p>
-                Click on the{' '}
-                <Badge variant="secondary">
-                  <Heart className="mr-1 h-3 w-3" />
-                  Favorites
-                </Badge>{' '}
-                category in the sidebar to view all your favorited tools in one
-                place.
+                Click the{' '}
+                <Star className="inline-block h-4 w-4 fill-amber-400 text-amber-500" />{' '}
+                icon on any tool to add it to your favorites for quick access.
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="flex flex-col">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Layers className="h-6 w-6 text-primary" />
-                Bundling Tools
-              </CardTitle>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Layers className="h-6 w-6" />
+              </div>
+              <CardTitle>Bundling Tools</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-muted-foreground">
+            <CardContent className="flex-grow text-muted-foreground">
               <p>
-                LocalOpen allows you to group multiple tools together into a
-                "bundle" for simultaneous use. To add a tool to your current
-                bundle, hover over its card and click the{' '}
-                <Badge variant="outline" className="inline-flex items-center">
-                  <Plus className="h-3 w-3" />
+                Group multiple tools into a "bundle" by clicking the{' '}
+                <Plus className="inline-block h-4 w-4" /> icon. Launch them all
+                at once from the bundle bar.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="flex flex-col">
+            <CardHeader>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <LayoutGrid className="h-6 w-6" />
+              </div>
+              <CardTitle>Multi-Tool Views</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-grow text-muted-foreground">
+              <p>
+                When you launch a bundle, switch between{' '}
+                <Badge
+                  variant="outline"
+                  className="inline-flex items-center gap-1"
+                >
+                  <LayoutPanelLeft className="h-3 w-3" />
+                  Single
                 </Badge>{' '}
-                icon.
-              </p>
-              <p>
-                Once you've added tools, a bundle bar will appear at the bottom
-                of the screen. Click <Badge>Launch Bundle</Badge> to open all
-                selected tools at once.
-              </p>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>
-                    How do I use multiple tools at once?
-                  </AccordionTrigger>
-                  <AccordionContent className="space-y-2 text-muted-foreground">
-                    <p>
-                      On the bundle page, you can switch between two viewing
-                      modes using the header controls:
-                    </p>
-                    <ul className="list-inside list-disc space-y-1 pl-2">
-                      <li>
-                        <strong>Single View</strong> (
-                        <LayoutPanelLeft className="inline-block h-4 w-4" />
-                        ): View one tool at a time and switch between them using
-                        tabs.
-                      </li>
-                      <li>
-                        <strong>Parallel View</strong> (
-                        <LayoutGrid className="inline-block h-4 w-4" />
-                        ): View all bundled tools side-by-side in a
-                        split-screen layout. This is great for tasks like
-                        converting JSON while taking notes.
-                      </li>
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Plus className="h-6 w-6 text-primary" />
-                Adding Your Own Tools
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-muted-foreground">
-              <p>
-                Your toolkit is not limited to the defaults. Click the{' '}
-                <Badge>Add Tool</Badge> button in the main header to add any
-                website or web app to your collection.
-              </p>
-              <p>
-                Simply provide a name, description, and URL. Your custom tool
-                will appear on the dashboard alongside the others, and it's saved
-                locally in your browser.
+                and{' '}
+                <Badge
+                  variant="outline"
+                  className="inline-flex items-center gap-1"
+                >
+                  <LayoutGrid className="h-3 w-3" />
+                  Parallel
+                </Badge>{' '}
+                views.
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="flex flex-col">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Palette className="h-6 w-6 text-primary" />
-                Personalizing Your Dashboard
-              </CardTitle>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Plus className="h-6 w-6" />
+              </div>
+              <CardTitle>Adding Your Own Tools</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-muted-foreground">
+            <CardContent className="flex-grow text-muted-foreground">
               <p>
-                Make LocalOpen your own by customizing the appearance of the
+                Expand your toolkit by clicking the <Badge>Add Tool</Badge>{' '}
+                button. Your custom tools are saved locally in your browser.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="flex flex-col">
+            <CardHeader>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Palette className="h-6 w-6" />
+              </div>
+              <CardTitle>Personalization</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-grow text-muted-foreground">
+              <p>
+                Customize the dashboard using the{' '}
+                <SunMoon className="inline-block h-4 w-4" /> theme toggle and the{' '}
+                <Palette className="inline-block h-4 w-4" /> color picker for
                 tool cards.
               </p>
-              <ul className="list-inside list-disc space-y-2 pl-2">
-                <li>
-                  <strong>Card Color</strong> (
-                  <Palette className="inline-block h-4 w-4" />
-                  ): Click the palette icon in the header to open the color
-                  picker. Choose any color to apply it as the background for all
-                  tool cards. Click "Reset Color" to go back to the default.
-                </li>
-                <li>
-                  <strong>Theme</strong> (
-                  <SunMoon className="inline-block h-4 w-4" />
-                  ): Switch between light and dark modes using the theme toggle
-                  in the header to match your preference.
-                </li>
-              </ul>
             </CardContent>
           </Card>
         </div>
