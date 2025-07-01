@@ -3,7 +3,14 @@
 import * as React from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, Maximize, Minimize, X } from "lucide-react";
+import {
+  ChevronLeft,
+  Maximize,
+  Minimize,
+  X,
+  LayoutGrid,
+  LayoutPanelLeft,
+} from "lucide-react";
 
 import { tools as defaultTools } from "@/data/tools";
 import type { Tool } from "@/lib/types";
@@ -41,6 +48,9 @@ const ToolPage = () => {
     bundledTools[0]?.id || ""
   );
   const [isFullscreen, setIsFullscreen] = React.useState(false);
+  const [viewMode, setViewMode] = React.useState<"single" | "parallel">(
+    "single"
+  );
 
   React.useEffect(() => {
     if (bundledTools.length > 0 && !activeTab) {
@@ -95,7 +105,7 @@ const ToolPage = () => {
         </h1>
       </div>
 
-      {bundledTools.length > 1 && (
+      {bundledTools.length > 1 && viewMode === "single" && (
         <div className="hidden md:flex flex-1 justify-center">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList>
@@ -110,6 +120,35 @@ const ToolPage = () => {
       )}
 
       <div className="flex flex-1 items-center justify-end gap-2">
+        {bundledTools.length > 1 && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() =>
+                    setViewMode(viewMode === "single" ? "parallel" : "single")
+                  }
+                >
+                  {viewMode === "single" ? <LayoutGrid /> : <LayoutPanelLeft />}
+                  <span className="sr-only">
+                    {viewMode === "single"
+                      ? "Switch to Parallel View"
+                      : "Switch to Single View"}
+                  </span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>
+                  {viewMode === "single"
+                    ? "Parallel View"
+                    : "Single View"}
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -189,6 +228,25 @@ const ToolPage = () => {
     </Tabs>
   );
 
+  const parallelView = (
+    <main className="flex flex-1 overflow-hidden">
+      <div className="flex h-full w-full flex-row">
+        {bundledTools.map((tool) => (
+          <div
+            key={tool.id}
+            className="h-full flex-1 border-r last:border-r-0"
+          >
+            <iframe
+              src={tool.url}
+              title={tool.name}
+              className="h-full w-full border-0"
+            />
+          </div>
+        ))}
+      </div>
+    </main>
+  );
+
   return (
     <div
       className={cn(
@@ -197,7 +255,11 @@ const ToolPage = () => {
       )}
     >
       {header}
-      {bundledTools.length > 1 ? multiToolView : singleToolView}
+      {bundledTools.length > 1
+        ? viewMode === "single"
+          ? multiToolView
+          : parallelView
+        : singleToolView}
     </div>
   );
 };
