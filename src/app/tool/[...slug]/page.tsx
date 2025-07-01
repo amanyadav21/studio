@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -19,12 +20,7 @@ import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { FloatingSidebar } from "@/components/floating-sidebar";
 
 const ToolPage = () => {
   const params = useParams();
@@ -71,6 +67,14 @@ const ToolPage = () => {
     setIsFullscreen(!isFullscreen);
   };
 
+  const handleToggleViewMode = () => {
+    setViewMode(viewMode === "single" ? "parallel" : "single");
+  }
+
+  const handleClose = () => {
+    router.push("/");
+  }
+
   if (bundledTools.length === 0) {
     return (
       <div className="flex h-screen w-screen flex-col items-center justify-center bg-background">
@@ -85,100 +89,6 @@ const ToolPage = () => {
       </div>
     );
   }
-
-  const header = (
-    <header
-      className={cn(
-        "flex h-14 w-full flex-shrink-0 items-center justify-between border-b bg-background px-4",
-        isFullscreen && "hidden"
-      )}
-    >
-      <div className="flex flex-1 items-center gap-4">
-        <Button asChild variant="outline" size="icon">
-          <Link href="/">
-            <ChevronLeft />
-            <span className="sr-only">Back to Home</span>
-          </Link>
-        </Button>
-        <h1 className="hidden sm:block text-lg font-semibold">
-          {bundledTools.length > 1 ? "Tool Bundle" : bundledTools[0].name}
-        </h1>
-      </div>
-
-      {bundledTools.length > 1 && viewMode === "single" && (
-        <div className="hidden md:flex flex-1 justify-center">
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList>
-              {bundledTools.map((tool) => (
-                <TabsTrigger key={tool.id} value={tool.id}>
-                  {tool.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
-        </div>
-      )}
-
-      <div className="flex flex-1 items-center justify-end gap-2">
-        {bundledTools.length > 1 && (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() =>
-                    setViewMode(viewMode === "single" ? "parallel" : "single")
-                  }
-                >
-                  {viewMode === "single" ? <LayoutGrid /> : <LayoutPanelLeft />}
-                  <span className="sr-only">
-                    {viewMode === "single"
-                      ? "Switch to Parallel View"
-                      : "Switch to Single View"}
-                  </span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>
-                  {viewMode === "single"
-                    ? "Parallel View"
-                    : "Single View"}
-                </p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={toggleFullscreen}
-              >
-                {isFullscreen ? <Minimize /> : <Maximize />}
-                <span className="sr-only">
-                  {isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
-                </span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => router.push("/")}
-        >
-          <X />
-          <span className="sr-only">Close Bundle</span>
-        </Button>
-      </div>
-    </header>
-  );
 
   const singleToolView = (
     <main className="flex-1">
@@ -254,7 +164,14 @@ const ToolPage = () => {
         isFullscreen && "fixed inset-0 z-50 bg-background"
       )}
     >
-      {header}
+      <FloatingSidebar 
+        isFullscreen={isFullscreen}
+        viewMode={viewMode}
+        onToggleFullscreen={toggleFullscreen}
+        onToggleViewMode={handleToggleViewMode}
+        onClose={handleClose}
+      />
+
       {bundledTools.length > 1
         ? viewMode === "single"
           ? multiToolView
