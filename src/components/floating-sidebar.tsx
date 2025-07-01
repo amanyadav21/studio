@@ -57,7 +57,6 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
   );
   
   const nodeRef = React.useRef<HTMLDivElement>(null);
-  const isDraggingRef = React.useRef(false);
 
   React.useLayoutEffect(() => {
       const node = nodeRef.current;
@@ -70,6 +69,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
           const x = side === "left" ? PADDING : window.innerWidth - sidebarWidth - PADDING;
           const newYPos = Math.max(PADDING, Math.min(yPos, window.innerHeight - sidebarHeight - PADDING));
           
+          node.style.transition = 'transform 0.3s cubic-bezier(0, 0, 0.2, 1)';
           node.style.transform = `translate(${x}px, ${newYPos}px)`;
           node.style.opacity = '1'; 
       };
@@ -83,45 +83,58 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
   const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
       if (e.button !== 0 || !nodeRef.current) return;
       
-      isDraggingRef.current = true;
       const node = nodeRef.current;
-      node.style.transition = 'none';
+      node.style.transition = 'none'; // Disable transitions during drag
 
+      const startX = e.clientX;
+      const startY = e.clientY;
       const initialRect = node.getBoundingClientRect();
-      const offsetX = e.clientX - initialRect.left;
-      const offsetY = e.clientY - initialRect.top;
 
       const handleMouseMove = (moveEvent: MouseEvent) => {
         moveEvent.preventDefault();
-        if (!isDraggingRef.current || !node) return;
         
         requestAnimationFrame(() => {
-          const newX = moveEvent.clientX - offsetX;
-          const newY = moveEvent.clientY - offsetY;
+          let newX = initialRect.left + (moveEvent.clientX - startX);
+          let newY = initialRect.top + (moveEvent.clientY - startY);
+          
+          // Clamp position within viewport
+          const sidebarWidth = node.offsetWidth;
+          const sidebarHeight = node.offsetHeight;
+          newX = Math.max(PADDING, Math.min(newX, window.innerWidth - sidebarWidth - PADDING));
+          newY = Math.max(PADDING, Math.min(newY, window.innerHeight - sidebarHeight - PADDING));
+
           node.style.transform = `translate(${newX}px, ${newY}px)`;
         });
       };
 
-      const handleMouseUp = () => {
-        isDraggingRef.current = false;
+      const handleMouseUp = (upEvent: MouseEvent) => {
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
         
         if(!node) return;
 
         const finalRect = node.getBoundingClientRect();
-        const finalY = Math.max(PADDING, Math.min(finalRect.top, window.innerHeight - finalRect.height - PADDING));
         const screenCenter = window.innerWidth / 2;
-        const newSide = (finalRect.left + finalRect.width / 2) < screenCenter ? "left" : "right";
         
-        setSide(newSide);
-        setYPos(finalY);
+        const dragThreshold = 5;
+        const draggedDistance = Math.hypot(upEvent.clientX - startX, upEvent.clientY - startY);
+        
+        if (draggedDistance > dragThreshold) {
+            const newSide = (finalRect.left + finalRect.width / 2) < screenCenter ? "left" : "right";
+            setSide(newSide);
+            setYPos(finalRect.top);
+        } else {
+             // It's a click, not a drag. Reset to original position with transition.
+             const x = side === 'left' ? PADDING : window.innerWidth - node.offsetWidth - PADDING;
+             node.style.transition = 'transform 0.3s cubic-bezier(0, 0, 0.2, 1)';
+             node.style.transform = `translate(${x}px, ${yPos}px)`;
+        }
       };
 
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
     },
-    [setSide, setYPos]
+    [setSide, setYPos, side, yPos]
   );
   
   if (isFullscreen) {
@@ -160,7 +173,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
   return (
       <div
         ref={nodeRef}
-        className="fixed z-50 flex flex-col items-center gap-2 rounded-lg border bg-background/80 p-2 shadow-2xl backdrop-blur-md transition-opacity duration-300"
+        className="fixed z-50 flex flex-col items-center gap-2 rounded-lg border bg-background/80 p-2 shadow-2xl backdrop-blur-md will-change-transform"
         style={{ top: 0, left: 0, opacity: 0 }}
       >
         <div onMouseDown={handleMouseDown} className="drag-handle cursor-move p-1 text-muted-foreground hover:text-foreground">
