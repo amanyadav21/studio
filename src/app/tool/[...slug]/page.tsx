@@ -63,17 +63,18 @@ const ToolPage = () => {
     }
   }, [activeTab, bundledTools]);
 
-  const toggleFullscreen = () => {
-    setIsFullscreen(!isFullscreen);
-  };
+  const toggleFullscreen = React.useCallback(() => {
+    setIsFullscreen((prev) => !prev);
+  }, []);
 
-  const handleToggleViewMode = () => {
-    setViewMode(viewMode === "single" ? "parallel" : "single");
-  }
+  const handleToggleViewMode = React.useCallback(() => {
+    setViewMode((prev) => (prev === "single" ? "parallel" : "single"));
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = React.useCallback(() => {
     router.push("/");
-  }
+  }, [router]);
+
 
   if (bundledTools.length === 0) {
     return (

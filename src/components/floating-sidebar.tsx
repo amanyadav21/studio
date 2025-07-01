@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import Draggable from "react-draggable";
+import type { DraggableData, DraggableEvent } from "react-draggable";
 import {
   ChevronLeft,
   GripVertical,
@@ -38,7 +39,7 @@ interface FloatingSidebarProps {
 const SIDEBAR_WIDTH = 64;
 const PADDING = 16;
 
-export function FloatingSidebar({
+export const FloatingSidebar = React.memo(function FloatingSidebar({
   isFullscreen,
   viewMode,
   onToggleFullscreen,
@@ -53,30 +54,44 @@ export function FloatingSidebar({
     "floating-sidebar-position",
     "left"
   );
-  const [snapKey, setSnapKey] = React.useState(0);
+  
+  const [position, setPosition] = React.useState({ x: 0, y: 0 });
+  const [isInitialized, setIsInitialized] = React.useState(false);
   const nodeRef = React.useRef<HTMLDivElement>(null);
 
-  const handleStop = (e: any, data: { x: number }) => {
-    const newSide =
-      data.x + (nodeRef.current?.offsetWidth || SIDEBAR_WIDTH) / 2 <
-      window.innerWidth / 2
-        ? "left"
-        : "right";
-    setSide(newSide);
-    setSnapKey((prev) => prev + 1);
+  React.useEffect(() => {
+    // This effect runs once on mount to set the initial position from localStorage.
+    if (typeof window !== "undefined") {
+      const height = nodeRef.current?.offsetHeight || 300;
+      const width = nodeRef.current?.offsetWidth || SIDEBAR_WIDTH;
+      const y = window.innerHeight / 2 - height / 2;
+      const x = side === "left" ? PADDING : window.innerWidth - width - PADDING;
+      setPosition({ x, y });
+      setIsInitialized(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleDrag = (e: DraggableEvent, data: DraggableData) => {
+    setPosition({ x: data.x, y: data.y });
   };
 
-  // This function is only executed on the client, so `window` is safe.
-  const getDefaultPosition = () => {
-    const height = nodeRef.current?.offsetHeight || 300; // Use an approximation if ref not ready
+  const handleStop = (e: DraggableEvent, data: DraggableData) => {
     const width = nodeRef.current?.offsetWidth || SIDEBAR_WIDTH;
-    const y = window.innerHeight / 2 - height / 2;
-    const x =
-      side === "left" ? PADDING : window.innerWidth - width - PADDING;
-    return { x, y };
+    const screenCenter = window.innerWidth / 2;
+    
+    const newSide = (data.x + width / 2) < screenCenter ? 'left' : 'right';
+    const snapX = newSide === 'left' ? PADDING : window.innerWidth - width - PADDING;
+    
+    if (newSide !== side) {
+      setSide(newSide);
+    }
+    setPosition({ x: snapX, y: data.y });
   };
 
-  if (isFullscreen) return null;
+  if (isFullscreen || !isInitialized) {
+    return null;
+  }
 
   if (!isVisible) {
     return (
@@ -109,11 +124,11 @@ export function FloatingSidebar({
 
   return (
     <Draggable
-      key={snapKey}
       handle=".drag-handle"
       nodeRef={nodeRef}
+      position={position}
+      onDrag={handleDrag}
       onStop={handleStop}
-      defaultPosition={getDefaultPosition()}
     >
       <div
         ref={nodeRef}
@@ -207,4 +222,4 @@ export function FloatingSidebar({
       </div>
     </Draggable>
   );
-}
+});
