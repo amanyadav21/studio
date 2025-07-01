@@ -1,10 +1,9 @@
-
 "use client";
 
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Star, PlusCircle, MinusCircle, Rocket, Info } from "lucide-react";
+import { Star, PlusCircle, MinusCircle, Rocket } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -32,7 +31,6 @@ interface ToolCardProps {
   isInBundle: boolean;
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
-  onSummarize: (tool: Tool) => void;
 }
 
 export const ToolCard = React.memo(function ToolCard({
@@ -42,7 +40,6 @@ export const ToolCard = React.memo(function ToolCard({
   isInBundle,
   onToggleBundle,
   cardColor,
-  onSummarize,
 }: ToolCardProps) {
   const handleInteraction = (e: React.MouseEvent, callback: () => void) => {
     e.preventDefault();
@@ -92,22 +89,6 @@ export const ToolCard = React.memo(function ToolCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    className="h-9 w-9 rounded-full shadow-lg"
-                    onClick={(e) => handleInteraction(e, () => onSummarize(tool))}
-                  >
-                    <Info className="h-4 w-4" />
-                    <span className="sr-only">Get AI Summary</span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Get AI Summary</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>

@@ -13,7 +13,6 @@ import { Header } from "@/components/page/Header";
 import { Sidebar } from "@/components/page/Sidebar";
 import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
-import { ToolInfoDialog } from "@/components/tool-summary-dialog";
 
 export default function Home() {
   const [favorites, setFavorites] = useLocalStorage<string[]>("favorites", []);
@@ -31,7 +30,6 @@ export default function Home() {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
-  const [summarizeTool, setSummarizeTool] = React.useState<Tool | null>(null);
   const { toast } = useToast();
 
   const allTools = React.useMemo(
@@ -160,15 +158,10 @@ export default function Home() {
             bundle={bundle}
             onToggleBundle={toggleBundle}
             cardColor={cardColor}
-            onSummarize={setSummarizeTool}
           />
         </main>
       </div>
       <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
-      <ToolInfoDialog
-        tool={summarizeTool}
-        onOpenChange={(open) => !open && setSummarizeTool(null)}
-      />
     </div>
   );
 }
