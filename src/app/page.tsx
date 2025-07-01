@@ -13,7 +13,7 @@ import { Header } from "@/components/page/Header";
 import { Sidebar } from "@/components/page/Sidebar";
 import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
-import { ToolSummaryDialog } from "@/components/tool-summary-dialog";
+import { ToolInfoDialog } from "@/components/tool-summary-dialog";
 
 export default function Home() {
   const [favorites, setFavorites] = useLocalStorage<string[]>("favorites", []);
@@ -165,7 +165,7 @@ export default function Home() {
         </main>
       </div>
       <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
-      <ToolSummaryDialog
+      <ToolInfoDialog
         tool={summarizeTool}
         onOpenChange={(open) => !open && setSummarizeTool(null)}
       />
