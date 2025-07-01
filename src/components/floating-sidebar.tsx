@@ -73,6 +73,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
           node.style.transition = 'transform 0.3s cubic-bezier(0, 0, 0.2, 1)';
           node.style.transform = `translate(${x}px, ${newYPos}px)`;
           node.style.opacity = '1'; 
+          node.style.willChange = 'transform';
       };
       
       updatePosition();
@@ -135,10 +136,6 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
     [setSide, setYPos]
   );
   
-  if (isFullscreen) {
-    return null;
-  }
-
   if (!isVisible) {
     return (
       <div
@@ -170,10 +167,11 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
 
   return (
     <>
-      {isDragging && <div className="fixed inset-0 z-40 cursor-move" />}
+      {/* This overlay prevents iframes from stealing mouse events during drag */}
+      {isDragging && <div className="fixed inset-0 z-[55] cursor-move" />}
       <div
         ref={nodeRef}
-        className="fixed z-50 flex flex-col items-center gap-2 rounded-lg border bg-background/80 p-2 shadow-2xl backdrop-blur-md will-change-transform"
+        className="fixed z-60 flex flex-col items-center gap-2 rounded-lg border bg-background/80 p-2 shadow-2xl backdrop-blur-md"
         style={{ top: 0, left: 0, opacity: 0 }}
       >
         <div onMouseDown={handleMouseDown} className="drag-handle cursor-move p-1 text-muted-foreground hover:text-foreground">
