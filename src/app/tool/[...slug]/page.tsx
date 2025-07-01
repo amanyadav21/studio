@@ -2,12 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { tools as defaultTools } from "@/data/tools";
-import { useLocalStorage } from "@/lib/hooks/use-local-storage";
-import type { Tool } from "@/lib/types";
-import { cn } from "@/lib/utils";
-
-import { Button } from "@/components/ui/button";
 import {
   ChevronLeft,
   ExternalLink,
@@ -16,7 +10,14 @@ import {
   Tablet,
   RefreshCw,
 } from "lucide-react";
+
+import { tools as defaultTools } from "@/data/tools";
+import { useLocalStorage } from "@/lib/hooks/use-local-storage";
+import type { Tool } from "@/lib/types";
+import { cn } from "@/lib/utils";
+
 import { AppLogo } from "@/components/icons";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,7 +31,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export default function ToolPage({ params }: { params: { slug: string[] } }) {
+interface ToolPageProps {
+  params: { slug: string[] };
+}
+
+export default function ToolPage({ params }: ToolPageProps) {
   const [customTools] = useLocalStorage<Tool[]>("custom-tools", []);
   const allTools = React.useMemo(
     () => [...defaultTools, ...customTools],
