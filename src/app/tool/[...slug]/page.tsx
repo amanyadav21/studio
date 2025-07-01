@@ -2,13 +2,9 @@
 "use client";
 
 import * as React from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import {
-  ChevronLeft,
-  Maximize,
-  Minimize,
-  X,
   LayoutGrid,
   LayoutPanelLeft,
 } from "lucide-react";
@@ -24,7 +20,6 @@ import { FloatingSidebar } from "@/components/floating-sidebar";
 
 const ToolPage = () => {
   const params = useParams();
-  const router = useRouter();
   const { slug } = params;
   const toolIds = Array.isArray(slug) ? slug : slug ? [slug] : [];
 
@@ -70,11 +65,6 @@ const ToolPage = () => {
   const handleToggleViewMode = React.useCallback(() => {
     setViewMode((prev) => (prev === "single" ? "parallel" : "single"));
   }, []);
-
-  const handleClose = React.useCallback(() => {
-    router.push("/");
-  }, [router]);
-
 
   if (bundledTools.length === 0) {
     return (
@@ -170,7 +160,6 @@ const ToolPage = () => {
         viewMode={viewMode}
         onToggleFullscreen={toggleFullscreen}
         onToggleViewMode={handleToggleViewMode}
-        onClose={handleClose}
       />
 
       {bundledTools.length > 1

@@ -11,7 +11,6 @@ import {
   Minimize,
   PanelLeftClose,
   PanelRightOpen,
-  X,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -31,7 +30,6 @@ interface FloatingSidebarProps {
   viewMode: "single" | "parallel";
   onToggleFullscreen: () => void;
   onToggleViewMode: () => void;
-  onClose: () => void;
 }
 
 const PADDING = 16;
@@ -41,7 +39,6 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
   viewMode,
   onToggleFullscreen,
   onToggleViewMode,
-  onClose,
 }: FloatingSidebarProps) {
   const [isVisible, setIsVisible] = useLocalStorage(
     "floating-sidebar-visible",
@@ -167,21 +164,20 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
 
   return (
     <>
-      {/* This overlay prevents iframes from stealing mouse events during drag */}
       {isDragging && <div className="fixed inset-0 z-[55] cursor-move" />}
       <div
         ref={nodeRef}
-        className="fixed z-60 flex flex-col items-center gap-2 rounded-lg border bg-background/80 p-2 shadow-2xl backdrop-blur-md"
-        style={{ top: 0, left: 0, opacity: 0 }}
+        className="fixed z-60 flex flex-col items-center gap-1.5 rounded-xl border bg-background/80 p-2 shadow-2xl backdrop-blur-md"
+        style={{ top: 0, left: 0, opacity: 0, willChange: 'transform' }}
       >
-        <div onMouseDown={handleMouseDown} className="drag-handle cursor-move p-1 text-muted-foreground hover:text-foreground">
+        <div onMouseDown={handleMouseDown} className="drag-handle cursor-move rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent">
           <GripVertical className="h-5 w-5" />
         </div>
 
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button asChild variant="outline" size="icon">
+              <Button asChild variant="ghost" size="icon">
                 <Link href="/">
                   <ChevronLeft />
                   <span className="sr-only">Back</span>
@@ -194,12 +190,10 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
           </Tooltip>
         </TooltipProvider>
 
-        <Separator />
-
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="outline" size="icon" onClick={onToggleViewMode}>
+              <Button variant="ghost" size="icon" onClick={onToggleViewMode}>
                 {viewMode === "single" ? <LayoutGrid /> : <LayoutPanelLeft />}
               </Button>
             </TooltipTrigger>
@@ -213,7 +207,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 onClick={onToggleFullscreen}
               >
@@ -228,20 +222,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
           </Tooltip>
         </TooltipProvider>
 
-        <Separator />
-
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="outline" size="icon" onClick={onClose}>
-                <X />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side={side === "left" ? "right" : "left"}>
-              <p>Close</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Separator className="my-1" />
 
         <TooltipProvider>
           <Tooltip>
