@@ -10,7 +10,7 @@ import {
   Maximize,
   Minimize,
   PanelLeftClose,
-  PanelRightClose,
+  PanelRightOpen,
   X,
 } from "lucide-react";
 import Link from "next/link";
@@ -53,49 +53,39 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
   );
   const [yPos, setYPos] = useLocalStorage<number>(
     "floating-sidebar-y",
-    typeof window !== "undefined" ? window.innerHeight / 2 - 150 : 150
+    150
   );
   
   const nodeRef = React.useRef<HTMLDivElement>(null);
-  const dragState = React.useRef({ isDragging: false });
+  const isDraggingRef = React.useRef(false);
 
-  const [position, setPosition] = React.useState({ x: 0, y: yPos });
-  const [isInitialized, setIsInitialized] = React.useState(false);
+  React.useLayoutEffect(() => {
+      const node = nodeRef.current;
+      if (!node) return;
 
+      const updatePosition = () => {
+          const sidebarWidth = node.offsetWidth;
+          const sidebarHeight = node.offsetHeight;
+          
+          const x = side === "left" ? PADDING : window.innerWidth - sidebarWidth - PADDING;
+          const newYPos = Math.max(PADDING, Math.min(yPos, window.innerHeight - sidebarHeight - PADDING));
+          
+          node.style.transform = `translate(${x}px, ${newYPos}px)`;
+          node.style.opacity = '1'; 
+      };
+      
+      updatePosition();
 
-  // Effect to set initial position and handle window resize
-  React.useEffect(() => {
-    const updatePosition = () => {
-      if (typeof window !== "undefined" && nodeRef.current) {
-        const sidebarWidth = nodeRef.current.offsetWidth;
-        const sidebarHeight = nodeRef.current.offsetHeight;
-        
-        const x = side === "left" ? PADDING : window.innerWidth - sidebarWidth - PADDING;
-        const y = Math.max(PADDING, Math.min(yPos, window.innerHeight - sidebarHeight - PADDING));
-        
-        setPosition({ x, y });
-        if (!isInitialized) setIsInitialized(true);
-      }
-    };
-
-    // Need a slight delay for the ref to be available on first render
-    const timeoutId = setTimeout(updatePosition, 0);
-    window.addEventListener('resize', updatePosition);
-
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', updatePosition);
-    };
-  }, [side, yPos, isInitialized]);
-
+      window.addEventListener('resize', updatePosition);
+      return () => window.removeEventListener('resize', updatePosition);
+  }, [side, yPos]);
 
   const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
       if (e.button !== 0 || !nodeRef.current) return;
       
-      dragState.current.isDragging = true;
-      
+      isDraggingRef.current = true;
       const node = nodeRef.current;
-      node.style.transition = 'none'; // Disable transition while dragging
+      node.style.transition = 'none';
 
       const initialRect = node.getBoundingClientRect();
       const offsetX = e.clientX - initialRect.left;
@@ -103,8 +93,9 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
 
       const handleMouseMove = (moveEvent: MouseEvent) => {
         moveEvent.preventDefault();
+        if (!isDraggingRef.current || !node) return;
+        
         requestAnimationFrame(() => {
-          if (!dragState.current.isDragging) return;
           const newX = moveEvent.clientX - offsetX;
           const newY = moveEvent.clientY - offsetY;
           node.style.transform = `translate(${newX}px, ${newY}px)`;
@@ -112,22 +103,19 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
       };
 
       const handleMouseUp = () => {
-        dragState.current.isDragging = false;
+        isDraggingRef.current = false;
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
         
+        if(!node) return;
+
         const finalRect = node.getBoundingClientRect();
         const finalY = Math.max(PADDING, Math.min(finalRect.top, window.innerHeight - finalRect.height - PADDING));
         const screenCenter = window.innerWidth / 2;
         const newSide = (finalRect.left + finalRect.width / 2) < screenCenter ? "left" : "right";
-        const finalX = newSide === 'left' ? PADDING : window.innerWidth - finalRect.width - PADDING;
         
-        node.style.transition = 'transform 0.1s ease-out';
-        node.style.transform = `translate(${finalX}px, ${finalY}px)`;
-
         setSide(newSide);
         setYPos(finalY);
-        setPosition({ x: finalX, y: finalY });
       };
 
       document.addEventListener('mousemove', handleMouseMove);
@@ -136,7 +124,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
     [setSide, setYPos]
   );
   
-  if (isFullscreen || !isInitialized) {
+  if (isFullscreen) {
     return null;
   }
 
@@ -157,7 +145,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
                 onClick={() => setIsVisible(true)}
                 className="rounded-full shadow-lg"
               >
-                <PanelRightClose />
+                <PanelRightOpen />
               </Button>
             </TooltipTrigger>
             <TooltipContent side={side === "left" ? "right" : "left"}>
@@ -172,12 +160,8 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
   return (
       <div
         ref={nodeRef}
-        className="fixed z-50 flex flex-col items-center gap-2 rounded-lg border bg-background/80 p-2 shadow-2xl backdrop-blur-md"
-        style={{
-          top: 0,
-          left: 0,
-          transform: `translate(${position.x}px, ${position.y}px)`,
-        }}
+        className="fixed z-50 flex flex-col items-center gap-2 rounded-lg border bg-background/80 p-2 shadow-2xl backdrop-blur-md transition-opacity duration-300"
+        style={{ top: 0, left: 0, opacity: 0 }}
       >
         <div onMouseDown={handleMouseDown} className="drag-handle cursor-move p-1 text-muted-foreground hover:text-foreground">
           <GripVertical className="h-5 w-5" />
