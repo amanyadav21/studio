@@ -19,6 +19,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
 
 const categoryIcons: Record<Category, React.ElementType> = {
   All: LayoutGrid,
@@ -62,51 +63,67 @@ export const Sidebar = React.memo(function Sidebar({
         <TooltipProvider delayDuration={0}>
           <nav
             className={cn(
-              "flex w-full flex-col gap-2",
+              "flex w-full flex-col gap-1",
               isCollapsed && "items-center"
             )}
           >
             {navCategories.map((category) => {
               const Icon = categoryIcons[category];
+              const isActive = selectedCategory === category;
+
               if (isCollapsed) {
                 return (
                   <Tooltip key={category}>
                     <TooltipTrigger asChild>
                       <Button
-                        variant={
-                          selectedCategory === category ? "secondary" : "ghost"
-                        }
-                        className="h-10 w-10 justify-center p-0"
+                        variant={isActive ? "secondary" : "ghost"}
+                        className="relative h-10 w-10 justify-center p-0"
                         onClick={() => onSelectCategory(category)}
                       >
                         <Icon className="h-5 w-5" />
                         <span className="sr-only">{category}</span>
+                        {category === "Favorites" && favoritesCount > 0 && (
+                          <Badge
+                            variant="destructive"
+                            className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full p-0 text-[10px] font-medium"
+                          >
+                            {favoritesCount}
+                          </Badge>
+                        )}
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="right">
-                      {category}
-                      {category === "Favorites" && (
-                        <span className="ml-2 text-xs text-muted-foreground">
-                          {favoritesCount}
-                        </span>
-                      )}
-                    </TooltipContent>
+                    <TooltipContent side="right">{category}</TooltipContent>
                   </Tooltip>
                 );
               }
+
               return (
                 <Button
                   key={category}
-                  variant={
-                    selectedCategory === category ? "secondary" : "ghost"
-                  }
-                  className="w-full justify-start"
+                  variant="ghost"
+                  className={cn(
+                    "w-full justify-start h-10 relative",
+                    isActive && "bg-secondary font-semibold"
+                  )}
                   onClick={() => onSelectCategory(category)}
                 >
-                  <Icon className="mr-2 h-4 w-4" />
+                  {isActive && (
+                    <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
+                  )}
+                  <Icon
+                    className={cn(
+                      "mr-3 h-5 w-5",
+                      isActive ? "text-primary" : "text-muted-foreground"
+                    )}
+                  />
                   {category}
-                  {category === "Favorites" && (
-                    <span className="ml-auto text-xs">{favoritesCount}</span>
+                  {category === "Favorites" && favoritesCount > 0 && (
+                    <Badge
+                      variant={isActive ? "default" : "secondary"}
+                      className="ml-auto"
+                    >
+                      {favoritesCount}
+                    </Badge>
                   )}
                 </Button>
               );
