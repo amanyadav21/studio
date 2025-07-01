@@ -91,7 +91,7 @@ export default function Home() {
 
   const toggleSidebar = React.useCallback(() => {
     setIsSidebarCollapsed((prev) => !prev);
-  }, [setIsSidebarCollapsed]);
+  }, []);
 
   const onClearCardColor = React.useCallback(() => {
     setCardColor(null);

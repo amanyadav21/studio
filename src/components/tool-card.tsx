@@ -41,11 +41,23 @@ export const ToolCard = React.memo(function ToolCard({
   onToggleBundle,
   cardColor,
 }: ToolCardProps) {
-  const handleInteraction = (e: React.MouseEvent, callback: () => void) => {
-    e.preventDefault();
-    e.stopPropagation();
-    callback();
-  };
+  const handleToggleBundle = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onToggleBundle(tool.id);
+    },
+    [onToggleBundle, tool.id]
+  );
+
+  const handleToggleFavorite = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onToggleFavorite(tool.id);
+    },
+    [onToggleFavorite, tool.id]
+  );
 
   const styles = React.useMemo(() => {
     if (!cardColor) return null;
@@ -96,9 +108,7 @@ export const ToolCard = React.memo(function ToolCard({
                     variant="secondary"
                     size="icon"
                     className="h-9 w-9 rounded-full shadow-lg"
-                    onClick={(e) =>
-                      handleInteraction(e, () => onToggleBundle(tool.id))
-                    }
+                    onClick={handleToggleBundle}
                   >
                     {isInBundle ? (
                       <MinusCircle className="h-4 w-4 text-primary" />
@@ -122,9 +132,7 @@ export const ToolCard = React.memo(function ToolCard({
                     variant="secondary"
                     size="icon"
                     className="h-9 w-9 rounded-full shadow-lg"
-                    onClick={(e) =>
-                      handleInteraction(e, () => onToggleFavorite(tool.id))
-                    }
+                    onClick={handleToggleFavorite}
                   >
                     <Star
                       className={cn(

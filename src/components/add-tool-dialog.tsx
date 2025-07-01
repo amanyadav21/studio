@@ -56,11 +56,11 @@ export function AddToolDialog({ onAddTool, children }: AddToolDialogProps) {
     },
   });
 
-  function onSubmit(values: FormValues) {
+  const onSubmit = React.useCallback((values: FormValues) => {
     onAddTool(values);
     form.reset();
     setIsOpen(false);
-  }
+  }, [onAddTool, form]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
