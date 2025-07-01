@@ -19,6 +19,7 @@ import {
   Palette,
   Plus,
   Search,
+  Star,
   SunMoon,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -72,15 +73,18 @@ export default function DocsPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
-                <Heart className="h-6 w-6 text-red-500" />
+                <Star className="h-6 w-6 text-amber-500" />
                 Managing Favorites
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
                 Hover over any tool card and click the{' '}
-                <Badge variant="outline">Star</Badge> icon to add it to your
-                favorites. This makes it easy to access your most-used tools.
+                <Badge variant="outline" className="inline-flex items-center">
+                  <Star className="h-3 w-3" />
+                </Badge>{' '}
+                icon to add it to your favorites. This makes it easy to access
+                your most-used tools.
               </p>
               <p>
                 Click on the{' '}
@@ -106,12 +110,15 @@ export default function DocsPage() {
                 LocalOpen allows you to group multiple tools together into a
                 "bundle" for simultaneous use. To add a tool to your current
                 bundle, hover over its card and click the{' '}
-                <Badge variant="outline">Add to bundle</Badge> icon.
+                <Badge variant="outline" className="inline-flex items-center">
+                  <Plus className="h-3 w-3" />
+                </Badge>{' '}
+                icon.
               </p>
               <p>
                 Once you've added tools, a bundle bar will appear at the bottom
                 of the screen. Click <Badge>Launch Bundle</Badge> to open all
-                selected tools.
+                selected tools at once.
               </p>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
@@ -147,7 +154,7 @@ export default function DocsPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
-                <Plus className="h-6 w-6 text-green-500" />
+                <Plus className="h-6 w-6 text-primary" />
                 Adding Your Own Tools
               </CardTitle>
             </CardHeader>
@@ -168,7 +175,7 @@ export default function DocsPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
-                <Palette className="h-6 w-6 text-purple-500" />
+                <Palette className="h-6 w-6 text-primary" />
                 Personalizing Your Dashboard
               </CardTitle>
             </CardHeader>

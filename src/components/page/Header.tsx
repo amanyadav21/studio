@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -56,10 +57,10 @@ export const Header = React.memo(function Header({
             )}
             <span className="sr-only">Toggle sidebar</span>
           </Button>
-          <a href="/" className="flex flex-shrink-0 items-center gap-2">
+          <Link href="/" className="flex flex-shrink-0 items-center gap-2">
             <AppLogo className="h-6 w-6" />
             <span className="hidden font-bold sm:inline-block">LocalOpen</span>
-          </a>
+          </Link>
         </div>
 
         <div className="flex flex-1 justify-center px-4">
