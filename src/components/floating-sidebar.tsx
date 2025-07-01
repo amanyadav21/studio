@@ -2,8 +2,6 @@
 "use client";
 
 import * as React from "react";
-import Draggable from "react-draggable";
-import type { DraggableData, DraggableEvent } from "react-draggable";
 import {
   ChevronLeft,
   GripVertical,
@@ -36,7 +34,6 @@ interface FloatingSidebarProps {
   onClose: () => void;
 }
 
-const SIDEBAR_WIDTH = 64;
 const PADDING = 16;
 
 export const FloatingSidebar = React.memo(function FloatingSidebar({
@@ -54,41 +51,91 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
     "floating-sidebar-position",
     "left"
   );
+  const [yPos, setYPos] = useLocalStorage<number>(
+    "floating-sidebar-y",
+    typeof window !== "undefined" ? window.innerHeight / 2 - 150 : 150
+  );
   
-  const [position, setPosition] = React.useState({ x: 0, y: 0 });
-  const [isInitialized, setIsInitialized] = React.useState(false);
   const nodeRef = React.useRef<HTMLDivElement>(null);
+  const dragState = React.useRef({ isDragging: false });
 
+  const [position, setPosition] = React.useState({ x: 0, y: yPos });
+  const [isInitialized, setIsInitialized] = React.useState(false);
+
+
+  // Effect to set initial position and handle window resize
   React.useEffect(() => {
-    // This effect runs once on mount to set the initial position from localStorage.
-    if (typeof window !== "undefined") {
-      const height = nodeRef.current?.offsetHeight || 300;
-      const width = nodeRef.current?.offsetWidth || SIDEBAR_WIDTH;
-      const y = window.innerHeight / 2 - height / 2;
-      const x = side === "left" ? PADDING : window.innerWidth - width - PADDING;
-      setPosition({ x, y });
-      setIsInitialized(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const updatePosition = () => {
+      if (typeof window !== "undefined" && nodeRef.current) {
+        const sidebarWidth = nodeRef.current.offsetWidth;
+        const sidebarHeight = nodeRef.current.offsetHeight;
+        
+        const x = side === "left" ? PADDING : window.innerWidth - sidebarWidth - PADDING;
+        const y = Math.max(PADDING, Math.min(yPos, window.innerHeight - sidebarHeight - PADDING));
+        
+        setPosition({ x, y });
+        if (!isInitialized) setIsInitialized(true);
+      }
+    };
 
-  const handleDrag = (e: DraggableEvent, data: DraggableData) => {
-    setPosition({ x: data.x, y: data.y });
-  };
+    // Need a slight delay for the ref to be available on first render
+    const timeoutId = setTimeout(updatePosition, 0);
+    window.addEventListener('resize', updatePosition);
 
-  const handleStop = (e: DraggableEvent, data: DraggableData) => {
-    const width = nodeRef.current?.offsetWidth || SIDEBAR_WIDTH;
-    const screenCenter = window.innerWidth / 2;
-    
-    const newSide = (data.x + width / 2) < screenCenter ? 'left' : 'right';
-    const snapX = newSide === 'left' ? PADDING : window.innerWidth - width - PADDING;
-    
-    if (newSide !== side) {
-      setSide(newSide);
-    }
-    setPosition({ x: snapX, y: data.y });
-  };
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [side, yPos, isInitialized]);
 
+
+  const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.button !== 0 || !nodeRef.current) return;
+      
+      dragState.current.isDragging = true;
+      
+      const node = nodeRef.current;
+      node.style.transition = 'none'; // Disable transition while dragging
+
+      const initialRect = node.getBoundingClientRect();
+      const offsetX = e.clientX - initialRect.left;
+      const offsetY = e.clientY - initialRect.top;
+
+      const handleMouseMove = (moveEvent: MouseEvent) => {
+        moveEvent.preventDefault();
+        requestAnimationFrame(() => {
+          if (!dragState.current.isDragging) return;
+          const newX = moveEvent.clientX - offsetX;
+          const newY = moveEvent.clientY - offsetY;
+          node.style.transform = `translate(${newX}px, ${newY}px)`;
+        });
+      };
+
+      const handleMouseUp = () => {
+        dragState.current.isDragging = false;
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+        
+        const finalRect = node.getBoundingClientRect();
+        const finalY = Math.max(PADDING, Math.min(finalRect.top, window.innerHeight - finalRect.height - PADDING));
+        const screenCenter = window.innerWidth / 2;
+        const newSide = (finalRect.left + finalRect.width / 2) < screenCenter ? "left" : "right";
+        const finalX = newSide === 'left' ? PADDING : window.innerWidth - finalRect.width - PADDING;
+        
+        node.style.transition = 'transform 0.1s ease-out';
+        node.style.transform = `translate(${finalX}px, ${finalY}px)`;
+
+        setSide(newSide);
+        setYPos(finalY);
+        setPosition({ x: finalX, y: finalY });
+      };
+
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    },
+    [setSide, setYPos]
+  );
+  
   if (isFullscreen || !isInitialized) {
     return null;
   }
@@ -123,18 +170,16 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
   }
 
   return (
-    <Draggable
-      handle=".drag-handle"
-      nodeRef={nodeRef}
-      position={position}
-      onDrag={handleDrag}
-      onStop={handleStop}
-    >
       <div
         ref={nodeRef}
         className="fixed z-50 flex flex-col items-center gap-2 rounded-lg border bg-background/80 p-2 shadow-2xl backdrop-blur-md"
+        style={{
+          top: 0,
+          left: 0,
+          transform: `translate(${position.x}px, ${position.y}px)`,
+        }}
       >
-        <div className="drag-handle cursor-move p-1 text-muted-foreground hover:text-foreground">
+        <div onMouseDown={handleMouseDown} className="drag-handle cursor-move p-1 text-muted-foreground hover:text-foreground">
           <GripVertical className="h-5 w-5" />
         </div>
 
@@ -220,6 +265,5 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
           </Tooltip>
         </TooltipProvider>
       </div>
-    </Draggable>
   );
 });
