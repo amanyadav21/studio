@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -73,7 +74,7 @@ export const ToolCard = React.memo(function ToolCard({
   return (
     <Link href={`/tool/${tool.id}`} className="group block h-full">
       <Card
-        className="flex h-full flex-col overflow-hidden rounded-xl transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-1.5"
+        className="relative flex h-full flex-col overflow-hidden rounded-xl transition-all duration-300 group-hover:z-10 group-hover:shadow-2xl group-hover:-translate-y-1.5"
         style={styles?.card}
       >
         <div className="relative overflow-hidden">
