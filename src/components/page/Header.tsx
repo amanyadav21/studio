@@ -1,8 +1,14 @@
-
 "use client";
 
-import { PanelLeftClose, PanelRightClose, Plus, Search } from "lucide-react";
+import {
+  BookOpen,
+  PanelLeftClose,
+  PanelRightClose,
+  Plus,
+  Search,
+} from "lucide-react";
 import * as React from "react";
+import Link from "next/link";
 
 import { Input } from "@/components/ui/input";
 import { AppLogo } from "@/components/icons";
@@ -76,6 +82,12 @@ export const Header = React.memo(function Header({
               <span className="hidden sm:inline">Add Tool</span>
             </Button>
           </AddToolDialog>
+          <Button asChild variant="outline">
+            <Link href="/docs">
+              <BookOpen className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Docs</span>
+            </Link>
+          </Button>
           <ColorPicker
             selectedColor={cardColor}
             onColorChange={onCardColorChange}
