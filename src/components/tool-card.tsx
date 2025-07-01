@@ -4,7 +4,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Star, PlusCircle, MinusCircle, Rocket } from "lucide-react";
+import { Star, PlusCircle, MinusCircle, Rocket, Info } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -13,6 +13,7 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
+  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,7 @@ interface ToolCardProps {
   isInBundle: boolean;
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
+  onSummarize: (tool: Tool) => void;
 }
 
 export const ToolCard = React.memo(function ToolCard({
@@ -40,6 +42,7 @@ export const ToolCard = React.memo(function ToolCard({
   isInBundle,
   onToggleBundle,
   cardColor,
+  onSummarize,
 }: ToolCardProps) {
   const handleInteraction = (e: React.MouseEvent, callback: () => void) => {
     e.preventDefault();
@@ -96,6 +99,22 @@ export const ToolCard = React.memo(function ToolCard({
                     variant="secondary"
                     size="icon"
                     className="h-9 w-9 rounded-full shadow-lg"
+                    onClick={(e) => handleInteraction(e, () => onSummarize(tool))}
+                  >
+                    <Info className="h-4 w-4" />
+                    <span className="sr-only">Get AI Summary</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Get AI Summary</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className="h-9 w-9 rounded-full shadow-lg"
                     onClick={(e) =>
                       handleInteraction(e, () => onToggleBundle(tool.id))
                     }
@@ -142,7 +161,7 @@ export const ToolCard = React.memo(function ToolCard({
             </TooltipProvider>
           </div>
         </div>
-        <CardContent className="flex flex-col flex-grow p-4">
+        <CardHeader className="flex flex-col flex-grow p-4">
           <Badge
             variant="outline"
             className="mb-2 w-fit"
@@ -159,8 +178,8 @@ export const ToolCard = React.memo(function ToolCard({
           >
             {tool.description}
           </CardDescription>
-        </CardContent>
-        <CardFooter className="p-4 pt-0">
+        </CardHeader>
+        <CardFooter className="p-4 pt-0 mt-auto">
           <Button
             className="w-full font-semibold rounded-full"
             style={styles?.button}
