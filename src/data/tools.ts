@@ -94,6 +94,13 @@ export const tools: Tool[] = [
     category: "Design & UI Tools",
   },
   {
+    id: "realtimecolors",
+    name: "Realtime Colors",
+    description: "Visualize colors & fonts on a real site.",
+    url: "https://realtimecolors.com/",
+    category: "Design & UI Tools",
+  },
+  {
     id: "stackedit",
     name: "StackEdit.io",
     description: "Markdown editor with offline local sync.",
