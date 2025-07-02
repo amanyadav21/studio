@@ -2,8 +2,8 @@
 
 import * as React from "react";
 
-import { tools as defaultTools, categories } from "@/data/tools";
-import type { Category, Tool } from "@/lib/types";
+import { tools as defaultTools } from "@/data/tools";
+import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,10 @@ import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
 
 export default function Home() {
-  const [favorites, setFavorites] = useLocalStorage<string[]>("favorites", []);
+  const [pinnedTools, setPinnedTools] = useLocalStorage<string[]>(
+    "pinned-tools",
+    []
+  );
   const [customTools, setCustomTools] = useLocalStorage<Tool[]>(
     "custom-tools",
     []
@@ -25,8 +28,9 @@ export default function Home() {
     null
   );
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [selectedCategory, setSelectedCategory] =
-    React.useState<Category>("All");
+  const [activeView, setActiveView] = React.useState<"All" | "Pinned">(
+    "All"
+  );
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
@@ -52,7 +56,7 @@ export default function Home() {
       const newTool: Tool = {
         ...newToolData,
         id: `custom-${new Date().getTime()}`,
-        category: "Dev Utilities", // Assign a default category
+        category: "Dev Utilities",
       };
       setCustomTools((prev) => [...prev, newTool]);
       toast({
@@ -63,15 +67,15 @@ export default function Home() {
     [setCustomTools, toast]
   );
 
-  const toggleFavorite = React.useCallback(
+  const togglePinned = React.useCallback(
     (toolId: string) => {
-      setFavorites((prev) =>
+      setPinnedTools((prev) =>
         prev.includes(toolId)
           ? prev.filter((id) => id !== toolId)
           : [...prev, toolId]
       );
     },
-    [setFavorites]
+    [setPinnedTools]
   );
 
   const toggleBundle = React.useCallback(
@@ -100,12 +104,8 @@ export default function Home() {
   const filteredTools = React.useMemo(() => {
     let currentTools = allTools;
 
-    if (selectedCategory === "Favorites") {
-      currentTools = allTools.filter((tool) => favorites.includes(tool.id));
-    } else if (selectedCategory !== "All") {
-      currentTools = allTools.filter(
-        (tool) => tool.category === selectedCategory
-      );
+    if (activeView === "Pinned") {
+      currentTools = allTools.filter((tool) => pinnedTools.includes(tool.id));
     }
 
     if (debouncedSearchTerm) {
@@ -119,9 +119,7 @@ export default function Home() {
     }
 
     return currentTools;
-  }, [debouncedSearchTerm, selectedCategory, favorites, allTools]);
-
-  const navCategories: Category[] = ["All", ...categories, "Favorites"];
+  }, [debouncedSearchTerm, activeView, pinnedTools, allTools]);
 
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
@@ -137,10 +135,9 @@ export default function Home() {
       />
       <div className="flex">
         <Sidebar
-          navCategories={navCategories}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          favoritesCount={favorites.length}
+          activeView={activeView}
+          onViewChange={setActiveView}
+          pinnedCount={pinnedTools.length}
           isCollapsed={isSidebarCollapsed}
         />
 
@@ -150,11 +147,11 @@ export default function Home() {
             isSidebarCollapsed ? "md:ml-20" : "md:ml-64"
           )}
         >
-          <CategoryHeader selectedCategory={selectedCategory} />
+          <CategoryHeader activeView={activeView} />
           <ToolGrid
             tools={filteredTools}
-            favorites={favorites}
-            onToggleFavorite={toggleFavorite}
+            pinnedTools={pinnedTools}
+            onTogglePinned={togglePinned}
             bundle={bundle}
             onToggleBundle={toggleBundle}
             cardColor={cardColor}

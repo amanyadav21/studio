@@ -1,16 +1,14 @@
-export type Category =
+export type ToolCategory =
   | "Dev Utilities"
   | "Design & UI Tools"
   | "Writing & Notes"
   | "Productivity Tools"
-  | "Utility Tools"
-  | "All"
-  | "Favorites";
+  | "Utility Tools";
 
 export interface Tool {
   id: string;
   name: string;
   description: string;
   url: string;
-  category: Category;
+  category: ToolCategory;
 }

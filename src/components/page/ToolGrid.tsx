@@ -7,8 +7,8 @@ import * as React from "react";
 
 interface ToolGridProps {
   tools: Tool[];
-  favorites: string[];
-  onToggleFavorite: (id: string) => void;
+  pinnedTools: string[];
+  onTogglePinned: (id: string) => void;
   bundle: string[];
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
@@ -16,8 +16,8 @@ interface ToolGridProps {
 
 export const ToolGrid = React.memo(function ToolGrid({
   tools,
-  favorites,
-  onToggleFavorite,
+  pinnedTools,
+  onTogglePinned,
   bundle,
   onToggleBundle,
   cardColor,
@@ -40,8 +40,8 @@ export const ToolGrid = React.memo(function ToolGrid({
         <ToolCard
           key={tool.id}
           tool={tool}
-          isFavorite={favorites.includes(tool.id)}
-          onToggleFavorite={onToggleFavorite}
+          isPinned={pinnedTools.includes(tool.id)}
+          onTogglePinned={onTogglePinned}
           isInBundle={bundle.includes(tool.id)}
           onToggleBundle={onToggleBundle}
           cardColor={cardColor}

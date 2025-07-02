@@ -1,6 +1,6 @@
-import type { Tool, Category } from "@/lib/types";
+import type { Tool, ToolCategory } from "@/lib/types";
 
-export const categories: Category[] = [
+export const categories: ToolCategory[] = [
   "Dev Utilities",
   "Design & UI Tools",
   "Writing & Notes",

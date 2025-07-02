@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Star, PlusCircle, MinusCircle, Rocket } from "lucide-react";
+import { Pin, PlusCircle, MinusCircle, Rocket } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -26,8 +26,8 @@ import {
 
 interface ToolCardProps {
   tool: Tool;
-  isFavorite: boolean;
-  onToggleFavorite: (id: string) => void;
+  isPinned: boolean;
+  onTogglePinned: (id: string) => void;
   isInBundle: boolean;
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
@@ -35,8 +35,8 @@ interface ToolCardProps {
 
 export const ToolCard = React.memo(function ToolCard({
   tool,
-  isFavorite,
-  onToggleFavorite,
+  isPinned,
+  onTogglePinned,
   isInBundle,
   onToggleBundle,
   cardColor,
@@ -50,13 +50,13 @@ export const ToolCard = React.memo(function ToolCard({
     [onToggleBundle, tool.id]
   );
 
-  const handleToggleFavorite = React.useCallback(
+  const handleTogglePinned = React.useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      onToggleFavorite(tool.id);
+      onTogglePinned(tool.id);
     },
-    [onToggleFavorite, tool.id]
+    [onTogglePinned, tool.id]
   );
 
   const styles = React.useMemo(() => {
@@ -132,19 +132,19 @@ export const ToolCard = React.memo(function ToolCard({
                     variant="secondary"
                     size="icon"
                     className="h-9 w-9 rounded-full shadow-lg"
-                    onClick={handleToggleFavorite}
+                    onClick={handleTogglePinned}
                   >
-                    <Star
+                    <Pin
                       className={cn(
                         "h-4 w-4 text-muted-foreground",
-                        isFavorite && "fill-amber-400 text-amber-500"
+                        isPinned && "fill-primary text-primary"
                       )}
                     />
-                    <span className="sr-only">Toggle Favorite</span>
+                    <span className="sr-only">Toggle Pinned</span>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  {isFavorite ? "Remove from favorites" : "Add to favorites"}
+                  {isPinned ? "Unpin tool" : "Pin tool"}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
