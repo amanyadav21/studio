@@ -5,7 +5,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Plus } from "lucide-react";
+import { Plus, Save } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +14,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -39,14 +38,22 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
+type ToolFormData = Omit<Tool, "id" | "category">;
 
 interface AddToolDialogProps {
-  onAddTool: (tool: Omit<Tool, "id" | "category">) => void;
-  children: React.ReactNode;
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+  onSave: (data: ToolFormData) => void;
+  initialData?: Tool | null;
+  children?: React.ReactNode;
 }
 
-export function AddToolDialog({ onAddTool, children }: AddToolDialogProps) {
-  const [isOpen, setIsOpen] = React.useState(false);
+export function AddToolDialog({
+  isOpen,
+  onOpenChange,
+  onSave,
+  initialData,
+}: AddToolDialogProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,20 +63,33 @@ export function AddToolDialog({ onAddTool, children }: AddToolDialogProps) {
     },
   });
 
-  const onSubmit = React.useCallback((values: FormValues) => {
-    onAddTool(values);
-    form.reset();
-    setIsOpen(false);
-  }, [onAddTool, form]);
+  const mode = initialData ? "edit" : "add";
+
+  React.useEffect(() => {
+    if (isOpen) {
+      form.reset(initialData || { name: "", description: "", url: "" });
+    }
+  }, [isOpen, initialData, form]);
+
+  const onSubmit = React.useCallback(
+    (values: FormValues) => {
+      onSave(values);
+      onOpenChange(false);
+    },
+    [onSave, onOpenChange]
+  );
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add a New Tool</DialogTitle>
+          <DialogTitle>
+            {mode === "edit" ? "Edit Tool" : "Add a New Tool"}
+          </DialogTitle>
           <DialogDescription>
-            Add your own favorite web tool to your LocalOpen dashboard.
+            {mode === "edit"
+              ? "Update the details for your tool."
+              : "Add your own favorite web tool to your LocalOpen dashboard."}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -117,7 +137,12 @@ export function AddToolDialog({ onAddTool, children }: AddToolDialogProps) {
               )}
             />
             <Button type="submit" className="w-full">
-              <Plus className="mr-2 h-4 w-4" /> Add Tool
+              {mode === "edit" ? (
+                <Save className="mr-2 h-4 w-4" />
+              ) : (
+                <Plus className="mr-2 h-4 w-4" />
+              )}
+              {mode === "edit" ? "Save Changes" : "Add Tool"}
             </Button>
           </form>
         </Form>

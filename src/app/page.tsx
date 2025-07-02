@@ -13,6 +13,9 @@ import { Header } from "@/components/page/Header";
 import { Sidebar } from "@/components/page/Sidebar";
 import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
+import { AddToolDialog } from "@/components/add-tool-dialog";
+
+type ToolFormData = Omit<Tool, "id" | "category">;
 
 export default function Home() {
   const [pinnedTools, setPinnedTools] = useLocalStorage<string[]>(
@@ -36,6 +39,9 @@ export default function Home() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
   const { toast } = useToast();
 
+  const [isToolDialogOpen, setIsToolDialogOpen] = React.useState(false);
+  const [editingTool, setEditingTool] = React.useState<Tool | null>(null);
+
   const allTools = React.useMemo(
     () => [...defaultTools, ...customTools],
     [customTools]
@@ -51,22 +57,43 @@ export default function Home() {
     };
   }, [searchTerm]);
 
-  const addTool = React.useCallback(
-    (newToolData: Omit<Tool, "id" | "category">) => {
-      const newTool: Tool = {
-        ...newToolData,
-        id: `custom-${new Date().getTime()}`,
-        category: "My Tools",
-      };
-      setCustomTools((prev) => [...prev, newTool]);
-      toast({
-        title: "Tool Added!",
-        description: `${newTool.name} has been added to your collection.`,
-      });
-      setSelectedCategory("My Tools");
+  const handleSaveTool = React.useCallback(
+    (data: ToolFormData) => {
+      if (editingTool) {
+        setCustomTools((prev) =>
+          prev.map((t) => (t.id === editingTool.id ? { ...t, ...data } : t))
+        );
+        toast({
+          title: "Tool Updated!",
+          description: `"${data.name}" has been updated.`,
+        });
+        setEditingTool(null);
+      } else {
+        const newTool: Tool = {
+          ...data,
+          id: `custom-${new Date().getTime()}`,
+          category: "My Tools",
+        };
+        setCustomTools((prev) => [...prev, newTool]);
+        toast({
+          title: "Tool Added!",
+          description: `${newTool.name} has been added to your collection.`,
+        });
+        setSelectedCategory("My Tools");
+      }
     },
-    [setCustomTools, toast]
+    [editingTool, setCustomTools, toast]
   );
+
+  const handleOpenAddToolDialog = React.useCallback(() => {
+    setEditingTool(null);
+    setIsToolDialogOpen(true);
+  }, []);
+
+  const handleOpenEditToolDialog = React.useCallback((tool: Tool) => {
+    setEditingTool(tool);
+    setIsToolDialogOpen(true);
+  }, []);
   
   const deleteTool = React.useCallback(
     (toolId: string) => {
@@ -148,7 +175,7 @@ export default function Home() {
       <Header
         searchTerm={searchTerm}
         onSearchTermChange={setSearchTerm}
-        onAddTool={addTool}
+        onAddTool={handleOpenAddToolDialog}
         cardColor={cardColor}
         onCardColorChange={setCardColor}
         onClearCardColor={onClearCardColor}
@@ -184,6 +211,7 @@ export default function Home() {
                 onToggleBundle={toggleBundle}
                 cardColor={cardColor}
                 onDeleteTool={deleteTool}
+                onEditTool={handleOpenEditToolDialog}
               />
             </>
           ) : selectedCategory === "My Tools" ? (
@@ -200,6 +228,7 @@ export default function Home() {
                 onToggleBundle={toggleBundle}
                 cardColor={cardColor}
                 onDeleteTool={deleteTool}
+                onEditTool={handleOpenEditToolDialog}
               />
             </>
           ) : selectedCategory === "All" ? (
@@ -218,6 +247,7 @@ export default function Home() {
                   onToggleBundle={toggleBundle}
                   cardColor={cardColor}
                   onDeleteTool={deleteTool}
+                  onEditTool={handleOpenEditToolDialog}
                 />
               </div>
             )})
@@ -235,12 +265,19 @@ export default function Home() {
                 onToggleBundle={toggleBundle}
                 cardColor={cardColor}
                 onDeleteTool={deleteTool}
+                onEditTool={handleOpenEditToolDialog}
               />
             </>
           )}
         </main>
       </div>
       <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
+      <AddToolDialog
+        isOpen={isToolDialogOpen}
+        onOpenChange={setIsToolDialogOpen}
+        onSave={handleSaveTool}
+        initialData={editingTool}
+      />
     </div>
   );
 }

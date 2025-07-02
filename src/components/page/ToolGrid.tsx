@@ -13,6 +13,7 @@ interface ToolGridProps {
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
   onDeleteTool?: (id: string) => void;
+  onEditTool?: (tool: Tool) => void;
 }
 
 export const ToolGrid = React.memo(function ToolGrid({
@@ -23,6 +24,7 @@ export const ToolGrid = React.memo(function ToolGrid({
   onToggleBundle,
   cardColor,
   onDeleteTool,
+  onEditTool,
 }: ToolGridProps) {
   if (tools.length === 0) {
     return (
@@ -48,6 +50,7 @@ export const ToolGrid = React.memo(function ToolGrid({
           onToggleBundle={onToggleBundle}
           cardColor={cardColor}
           onDeleteTool={onDeleteTool}
+          onEditTool={onEditTool}
         />
       ))}
     </div>

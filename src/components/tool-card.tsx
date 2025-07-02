@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Pin, PlusCircle, MinusCircle, Rocket, Trash2 } from "lucide-react";
+import { Pin, PlusCircle, MinusCircle, Rocket, Trash2, Pencil } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -43,6 +43,7 @@ interface ToolCardProps {
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
   onDeleteTool?: (id: string) => void;
+  onEditTool?: (tool: Tool) => void;
 }
 
 export const ToolCard = React.memo(function ToolCard({
@@ -53,6 +54,7 @@ export const ToolCard = React.memo(function ToolCard({
   onToggleBundle,
   cardColor,
   onDeleteTool,
+  onEditTool,
 }: ToolCardProps) {
   const handleToggleBundle = React.useCallback(
     (e: React.MouseEvent) => {
@@ -77,6 +79,17 @@ export const ToolCard = React.memo(function ToolCard({
       onDeleteTool(tool.id);
     }
   }, [onDeleteTool, tool.id]);
+
+  const handleEditTool = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (onEditTool) {
+        onEditTool(tool);
+      }
+    },
+    [onEditTool, tool]
+  );
 
   const isCustomTool = tool.id.startsWith("custom-");
 
@@ -122,6 +135,24 @@ export const ToolCard = React.memo(function ToolCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            {isCustomTool && onEditTool && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="h-9 w-9 rounded-full shadow-lg"
+                      onClick={handleEditTool}
+                    >
+                      <Pencil className="h-4 w-4" />
+                      <span className="sr-only">Edit tool</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Edit tool</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
             {isCustomTool && onDeleteTool && (
               <AlertDialog>
                 <TooltipProvider>
@@ -142,7 +173,7 @@ export const ToolCard = React.memo(function ToolCard({
                     <TooltipContent>Delete tool</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
-                <AlertDialogContent onClick={(e) => e.preventDefault()}>
+                <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle>
                       Are you absolutely sure?

@@ -14,15 +14,13 @@ import { Input } from "@/components/ui/input";
 import { AppLogo } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { AddToolDialog } from "@/components/add-tool-dialog";
-import type { Tool } from "@/lib/types";
 import { ColorPicker } from "@/components/color-picker";
 import { Kbd } from "@/components/ui/kbd";
 
 interface HeaderProps {
   searchTerm: string;
   onSearchTermChange: (term: string) => void;
-  onAddTool: (tool: Omit<Tool, "id" | "category">) => void;
+  onAddTool: () => void;
   cardColor: string | null;
   onCardColorChange: (color: string) => void;
   onClearCardColor: () => void;
@@ -95,12 +93,10 @@ export const Header = React.memo(function Header({
         </div>
 
         <div className="flex flex-shrink-0 items-center gap-2">
-          <AddToolDialog onAddTool={onAddTool}>
-            <Button variant="outline">
-              <Plus className="h-4 w-4" />
-              <span className="hidden sm:inline">Add Tool</span>
-            </Button>
-          </AddToolDialog>
+          <Button variant="outline" onClick={onAddTool}>
+            <Plus className="h-4 w-4" />
+            <span className="hidden sm:inline">Add Tool</span>
+          </Button>
           <Button asChild variant="ghost">
             <Link href="/docs">
               <BookOpen className="h-4 w-4" />
