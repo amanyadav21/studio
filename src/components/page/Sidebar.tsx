@@ -9,7 +9,8 @@ import {
   PenSquare,
   Zap,
   Wrench,
-  Sparkles
+  Sparkles,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -30,10 +31,11 @@ const categoryIcons: Record<ToolCategory, React.ElementType> = {
   "Writing & Notes": PenSquare,
   "Productivity Tools": Zap,
   "Utility Tools": Wrench,
+  "My Tools": User,
 };
 
 type NavItem = {
-  id: "Pinned" | "All" | ToolCategory;
+  id: "Pinned" | "All" | "My Tools" | ToolCategory;
   label: string;
   icon: React.ElementType;
 };
@@ -41,6 +43,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { id: "Pinned", label: "Pinned", icon: Pin },
   { id: "All", label: "All Tools", icon: LayoutGrid },
+  { id: "My Tools", label: "My Tools", icon: User },
 ];
 
 const categoryNavItems: NavItem[] = categories.map((cat) => ({
@@ -50,9 +53,12 @@ const categoryNavItems: NavItem[] = categories.map((cat) => ({
 }));
 
 interface SidebarProps {
-  selectedCategory: "All" | "Pinned" | ToolCategory;
-  onCategoryChange: (category: "All" | "Pinned" | ToolCategory) => void;
+  selectedCategory: "All" | "Pinned" | "My Tools" | ToolCategory;
+  onCategoryChange: (
+    category: "All" | "Pinned" | "My Tools" | ToolCategory
+  ) => void;
   pinnedCount: number;
+  customToolCount: number;
   isCollapsed: boolean;
 }
 
@@ -60,12 +66,19 @@ export const Sidebar = React.memo(function Sidebar({
   selectedCategory,
   onCategoryChange,
   pinnedCount,
+  customToolCount,
   isCollapsed,
 }: SidebarProps) {
-
   const renderNavItem = (item: NavItem, isCategory: boolean = false) => {
     const Icon = item.icon;
     const isActive = selectedCategory === item.id;
+
+    const getCount = () => {
+      if (item.id === "Pinned") return pinnedCount;
+      if (item.id === "My Tools") return customToolCount;
+      return 0;
+    };
+    const count = getCount();
 
     if (isCollapsed) {
       return (
@@ -78,14 +91,15 @@ export const Sidebar = React.memo(function Sidebar({
             >
               <Icon className="h-5 w-5" />
               <span className="sr-only">{item.label}</span>
-              {item.id === "Pinned" && pinnedCount > 0 && (
-                <Badge
-                  variant="destructive"
-                  className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full p-0 text-[10px] font-medium"
-                >
-                  {pinnedCount}
-                </Badge>
-              )}
+              {(item.id === "Pinned" || item.id === "My Tools") &&
+                count > 0 && (
+                  <Badge
+                    variant="destructive"
+                    className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full p-0 text-[10px] font-medium"
+                  >
+                    {count}
+                  </Badge>
+                )}
             </Button>
           </TooltipTrigger>
           <TooltipContent side="right">{item.label}</TooltipContent>
@@ -114,12 +128,12 @@ export const Sidebar = React.memo(function Sidebar({
           )}
         />
         {item.label}
-        {item.id === "Pinned" && pinnedCount > 0 && (
+        {(item.id === "Pinned" || item.id === "My Tools") && count > 0 && (
           <Badge
             variant={isActive ? "default" : "secondary"}
             className="ml-auto"
           >
-            {pinnedCount}
+            {count}
           </Badge>
         )}
       </Button>

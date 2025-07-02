@@ -3,7 +3,8 @@ export type ToolCategory =
   | "Design & UI Tools"
   | "Writing & Notes"
   | "Productivity Tools"
-  | "Utility Tools";
+  | "Utility Tools"
+  | "My Tools";
 
 export interface Tool {
   id: string;

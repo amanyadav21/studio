@@ -29,7 +29,7 @@ export default function Home() {
   );
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<
-    "All" | "Pinned" | ToolCategory
+    "All" | "Pinned" | "My Tools" | ToolCategory
   >("All");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
@@ -56,15 +56,30 @@ export default function Home() {
       const newTool: Tool = {
         ...newToolData,
         id: `custom-${new Date().getTime()}`,
-        category: "Dev Utilities", // Or make this selectable
+        category: "My Tools",
       };
       setCustomTools((prev) => [...prev, newTool]);
       toast({
         title: "Tool Added!",
         description: `${newTool.name} has been added to your collection.`,
       });
+      setSelectedCategory("My Tools");
     },
     [setCustomTools, toast]
+  );
+  
+  const deleteTool = React.useCallback(
+    (toolId: string) => {
+      setCustomTools((prev) => prev.filter((tool) => tool.id !== toolId));
+      setPinnedTools((prev) => prev.filter((id) => id !== toolId));
+      setBundle((prev) => prev.filter((id) => id !== toolId));
+      toast({
+        title: "Tool Deleted",
+        description: "The custom tool has been removed from your collection.",
+        variant: "destructive",
+      });
+    },
+    [setCustomTools, setPinnedTools, setBundle, toast]
   );
 
   const togglePinned = React.useCallback(
@@ -102,9 +117,12 @@ export default function Home() {
   }, [setCardColor]);
 
   const getFilteredTools = (category?: ToolCategory) => {
-    let currentTools = allTools;
+    let currentTools: Tool[] = allTools;
+    
     if (selectedCategory === "Pinned") {
       currentTools = allTools.filter((tool) => pinnedTools.includes(tool.id));
+    } else if (selectedCategory === "My Tools") {
+      currentTools = customTools;
     } else if (category) {
       currentTools = allTools.filter((tool) => tool.category === category);
     } else if (selectedCategory !== "All") {
@@ -125,11 +143,6 @@ export default function Home() {
     return currentTools;
   };
   
-  const pinnedToolsList = React.useMemo(
-    () => allTools.filter((tool) => pinnedTools.includes(tool.id)),
-    [allTools, pinnedTools]
-  );
-
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
       <Header
@@ -147,6 +160,7 @@ export default function Home() {
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
           pinnedCount={pinnedTools.length}
+          customToolCount={customTools.length}
           isCollapsed={isSidebarCollapsed}
         />
 
@@ -169,6 +183,23 @@ export default function Home() {
                 bundle={bundle}
                 onToggleBundle={toggleBundle}
                 cardColor={cardColor}
+                onDeleteTool={deleteTool}
+              />
+            </>
+          ) : selectedCategory === "My Tools" ? (
+             <>
+              <CategoryHeader
+                title="My Tools"
+                description="Your personal collection of added web tools."
+              />
+              <ToolGrid
+                tools={getFilteredTools()}
+                pinnedTools={pinnedTools}
+                onTogglePinned={togglePinned}
+                bundle={bundle}
+                onToggleBundle={toggleBundle}
+                cardColor={cardColor}
+                onDeleteTool={deleteTool}
               />
             </>
           ) : selectedCategory === "All" ? (
@@ -186,6 +217,7 @@ export default function Home() {
                   bundle={bundle}
                   onToggleBundle={toggleBundle}
                   cardColor={cardColor}
+                  onDeleteTool={deleteTool}
                 />
               </div>
             )})
@@ -202,6 +234,7 @@ export default function Home() {
                 bundle={bundle}
                 onToggleBundle={toggleBundle}
                 cardColor={cardColor}
+                onDeleteTool={deleteTool}
               />
             </>
           )}
