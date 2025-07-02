@@ -8,77 +8,84 @@ import {
   SetStateAction,
 } from "react";
 
+// A custom event to trigger state updates across hooks
+const CUSTOM_STORAGE_EVENT_NAME = 'onLocalStorageChange';
+
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] {
-  // Initialize state with the initialValue.
-  // This is important for SSR/Next.js to avoid hydration errors.
+  // This state is initialized on the client, preventing hydration mismatches.
   const [storedValue, setStoredValue] = useState<T>(initialValue);
 
-  // The setValue function is memoized and uses the functional update form
-  // to avoid needing `storedValue` in its dependency array.
+  // Memoize the setter function to avoid unnecessary re-renders.
   const setValue: Dispatch<SetStateAction<T>> = useCallback(
     (value) => {
+      // Allow value to be a function, mirroring useState's API.
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      
+      // Update state and localStorage.
+      setStoredValue(valueToStore);
       try {
-        // Allow value to be a function so we have the same API as useState
-        setStoredValue((current) => {
-          const valueToStore =
-            value instanceof Function ? value(current) : value;
-
-          if (typeof window !== "undefined") {
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
-          }
-
-          return valueToStore;
-        });
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          // Dispatch a custom event to notify other instances of this hook.
+          window.dispatchEvent(new StorageEvent('storage', { key }));
+          window.dispatchEvent(new CustomEvent(CUSTOM_STORAGE_EVENT_NAME, { detail: { key, value: valueToStore } }));
+        }
       } catch (error) {
         console.warn(`Error setting localStorage key “${key}”:`, error);
       }
     },
-    [key]
+    [key, storedValue]
   );
-
-  // This useEffect runs only once on the client side after hydration.
-  // It reads the value from localStorage and updates the state.
-  // This is the correct way to handle client-side state without causing
-  // an infinite loop or hydration mismatch.
+  
+  // This effect runs once on component mount to load the initial value
+  // from localStorage, ensuring it's only done on the client-side.
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
     try {
       const item = window.localStorage.getItem(key);
       if (item) {
         setStoredValue(JSON.parse(item));
+      } else {
+        // If no value is in localStorage, set the initial value.
+        window.localStorage.setItem(key, JSON.stringify(initialValue));
       }
     } catch (error) {
       console.warn(`Error reading localStorage key “${key}”:`, error);
+      // Fallback to initialValue if parsing fails.
+      setStoredValue(initialValue);
     }
-  // We want this to run only once on mount, so we pass an empty dependency array.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // Empty array ensures this runs only once.
 
-  // This effect handles the cross-tab sync.
+  // This effect handles synchronization across browser tabs.
   useEffect(() => {
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === key && event.storageArea === window.localStorage) {
+    const handleStorageChange = (event: StorageEvent | CustomEvent) => {
+      const eventKey = 'detail' in event ? event.detail.key : event.key;
+      if (eventKey === key) {
         try {
-          const newValue = event.newValue ? JSON.parse(event.newValue) : initialValue;
-          setStoredValue(newValue);
+          if ('detail' in event) {
+             setStoredValue(event.detail.value);
+          } else {
+            const newValue = event.newValue ? JSON.parse(event.newValue) : initialValue;
+            setStoredValue(newValue);
+          }
         } catch (error) {
           console.warn(`Error parsing stored value for key “${key}”:`, error);
         }
       }
     };
+    
+    // Listen to both the standard 'storage' event and our custom event.
+    window.addEventListener(CUSTOM_STORAGE_EVENT_NAME, handleStorageChange);
+    window.addEventListener('storage', handleStorageChange);
 
-    window.addEventListener("storage", handleStorageChange);
+    // Cleanup listeners on component unmount.
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener(CUSTOM_STORAGE_EVENT_NAME, handleStorageChange);
+      window.removeEventListener('storage', handleStorageChange);
     };
-  // The key is stable, and we assume initialValue is conceptually static.
-  // Adding initialValue to the array would cause the listener to be re-added on every render.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
