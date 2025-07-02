@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "react";
@@ -17,7 +18,7 @@ export function useLocalStorage<T>(
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] {
   // State to store our value. We use a lazy initializer to read from localStorage
-  // only on the client, which prevents hydration mismatches.
+  // only on the client, which prevents hydration mismatches with server rendering.
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -31,17 +32,19 @@ export function useLocalStorage<T>(
     }
   });
 
-  // This setter function is stable because its dependency (key) does not change.
-  // It uses a functional update for setting state, so it doesn't need 'storedValue'
-  // from its outer scope, preventing re-renders.
+  // The setter function is wrapped in useCallback to ensure it is stable and
+  // doesn't change on every render, preventing unnecessary re-renders in consumer components.
   const setValue: Dispatch<SetStateAction<T>> = useCallback(
     (value) => {
       try {
+        // The `setStoredValue` from `useState` can take a function,
+        // which receives the current state. This avoids needing `storedValue` in the dependencies.
         setStoredValue(currentValue => {
             const valueToStore = value instanceof Function ? value(currentValue) : value;
-
+            
             if (typeof window !== "undefined") {
                 window.localStorage.setItem(key, JSON.stringify(valueToStore));
+                // Dispatch a custom event so other instances of the hook on the same page can sync up.
                 window.dispatchEvent(
                     new CustomEvent(CUSTOM_STORAGE_EVENT_NAME, {
                     detail: { key, value: valueToStore },
@@ -57,7 +60,8 @@ export function useLocalStorage<T>(
     [key]
   );
 
-  // This effect synchronizes state across browser tabs and within the same page.
+  // This effect synchronizes state across browser tabs (via 'storage' event)
+  // and within the same page (via our custom event).
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent | CustomEvent) => {
         const eventKey = 'detail' in event ? event.detail.key : event.key;

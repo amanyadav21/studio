@@ -52,7 +52,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
 
   React.useLayoutEffect(() => {
       const node = nodeRef.current;
-      if (!node || isDragging) return;
+      if (!isVisible || !node || isDragging) return;
 
       const updatePosition = () => {
           const sidebarWidth = node.offsetWidth;
@@ -71,7 +71,7 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
 
       window.addEventListener('resize', updatePosition);
       return () => window.removeEventListener('resize', updatePosition);
-  }, [side, yPos, isDragging]);
+  }, [side, yPos, isDragging, isVisible]);
 
   const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
       if (e.button !== 0 || !nodeRef.current) return;
