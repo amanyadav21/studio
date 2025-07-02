@@ -2,8 +2,8 @@
 
 import * as React from "react";
 
-import { tools as defaultTools } from "@/data/tools";
-import type { Tool } from "@/lib/types";
+import { categories, tools as defaultTools } from "@/data/tools";
+import type { Tool, ToolCategory } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -28,9 +28,9 @@ export default function Home() {
     null
   );
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [activeView, setActiveView] = React.useState<"All" | "Pinned">(
-    "All"
-  );
+  const [selectedCategory, setSelectedCategory] = React.useState<
+    "All" | "Pinned" | ToolCategory
+  >("All");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
@@ -56,7 +56,7 @@ export default function Home() {
       const newTool: Tool = {
         ...newToolData,
         id: `custom-${new Date().getTime()}`,
-        category: "Dev Utilities",
+        category: "Dev Utilities", // Or make this selectable
       };
       setCustomTools((prev) => [...prev, newTool]);
       toast({
@@ -101,11 +101,16 @@ export default function Home() {
     setCardColor(null);
   }, [setCardColor]);
 
-  const filteredTools = React.useMemo(() => {
+  const getFilteredTools = (category?: ToolCategory) => {
     let currentTools = allTools;
-
-    if (activeView === "Pinned") {
+    if (selectedCategory === "Pinned") {
       currentTools = allTools.filter((tool) => pinnedTools.includes(tool.id));
+    } else if (category) {
+      currentTools = allTools.filter((tool) => tool.category === category);
+    } else if (selectedCategory !== "All") {
+      currentTools = allTools.filter(
+        (tool) => tool.category === selectedCategory
+      );
     }
 
     if (debouncedSearchTerm) {
@@ -117,9 +122,13 @@ export default function Home() {
             .includes(debouncedSearchTerm.toLowerCase())
       );
     }
-
     return currentTools;
-  }, [debouncedSearchTerm, activeView, pinnedTools, allTools]);
+  };
+  
+  const pinnedToolsList = React.useMemo(
+    () => allTools.filter((tool) => pinnedTools.includes(tool.id)),
+    [allTools, pinnedTools]
+  );
 
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
@@ -135,8 +144,8 @@ export default function Home() {
       />
       <div className="flex">
         <Sidebar
-          activeView={activeView}
-          onViewChange={setActiveView}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
           pinnedCount={pinnedTools.length}
           isCollapsed={isSidebarCollapsed}
         />
@@ -147,15 +156,55 @@ export default function Home() {
             isSidebarCollapsed ? "md:ml-20" : "md:ml-64"
           )}
         >
-          <CategoryHeader activeView={activeView} />
-          <ToolGrid
-            tools={filteredTools}
-            pinnedTools={pinnedTools}
-            onTogglePinned={togglePinned}
-            bundle={bundle}
-            onToggleBundle={toggleBundle}
-            cardColor={cardColor}
-          />
+          {selectedCategory === "Pinned" ? (
+            <>
+              <CategoryHeader
+                title="Pinned Tools"
+                description="Your hand-picked tools for quick and easy access."
+              />
+              <ToolGrid
+                tools={getFilteredTools()}
+                pinnedTools={pinnedTools}
+                onTogglePinned={togglePinned}
+                bundle={bundle}
+                onToggleBundle={toggleBundle}
+                cardColor={cardColor}
+              />
+            </>
+          ) : selectedCategory === "All" ? (
+            categories.map((category) => {
+              const toolsForCategory = getFilteredTools(category);
+              if (toolsForCategory.length === 0 && debouncedSearchTerm) return null;
+              
+              return (
+              <div key={category} className="mb-12">
+                <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
+                <ToolGrid
+                  tools={toolsForCategory}
+                  pinnedTools={pinnedTools}
+                  onTogglePinned={togglePinned}
+                  bundle={bundle}
+                  onToggleBundle={toggleBundle}
+                  cardColor={cardColor}
+                />
+              </div>
+            )})
+          ) : (
+            <>
+              <CategoryHeader
+                title={selectedCategory}
+                description={`A collection of tools for ${selectedCategory.toLowerCase()}.`}
+              />
+              <ToolGrid
+                tools={getFilteredTools()}
+                pinnedTools={pinnedTools}
+                onTogglePinned={togglePinned}
+                bundle={bundle}
+                onToggleBundle={toggleBundle}
+                cardColor={cardColor}
+              />
+            </>
+          )}
         </main>
       </div>
       <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
