@@ -92,7 +92,7 @@ export const Header = React.memo(function Header({
           </div>
         </div>
 
-        <div className="flex flex-shrink-0 items-center gap-2">
+        <div className="flex flex-shrink-0 items-center gap-1">
           <Button variant="outline" onClick={onAddTool}>
             <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">Add Tool</span>

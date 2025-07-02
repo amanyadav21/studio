@@ -66,7 +66,7 @@ export function ColorPicker({
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Palette className="h-[1.2rem] w-[1.2rem]" />
+          <Palette className="h-4 w-4" />
           <span className="sr-only">Choose card color</span>
         </Button>
       </PopoverTrigger>
