@@ -38,7 +38,6 @@ const ToolPage = () => {
   const [activeTab, setActiveTab] = React.useState<string>(
     bundledTools[0]?.id || ""
   );
-  const [isFullscreen, setIsFullscreen] = React.useState(false);
   const [viewMode, setViewMode] = React.useState<"single" | "parallel">(
     "single"
   );
@@ -57,10 +56,6 @@ const ToolPage = () => {
       setActiveTab(bundledTools[0].id);
     }
   }, [activeTab, bundledTools]);
-
-  const toggleFullscreen = React.useCallback(() => {
-    setIsFullscreen((prev) => !prev);
-  }, []);
 
   const handleToggleViewMode = React.useCallback(() => {
     setViewMode((prev) => (prev === "single" ? "parallel" : "single"));
@@ -100,8 +95,7 @@ const ToolPage = () => {
     >
       <TabsList
         className={cn(
-          "mx-4 mt-4 self-center md:hidden",
-          isFullscreen && "hidden"
+          "mx-4 mt-4 self-center md:hidden"
         )}
       >
         {bundledTools.map((tool) => (
@@ -150,15 +144,10 @@ const ToolPage = () => {
 
   return (
     <div
-      className={cn(
-        "flex h-screen w-screen flex-col bg-muted/30",
-        isFullscreen && "fixed inset-0 z-50 bg-background"
-      )}
+      className="flex h-screen w-screen flex-col bg-muted/30"
     >
       <FloatingSidebar 
-        isFullscreen={isFullscreen}
         viewMode={viewMode}
-        onToggleFullscreen={toggleFullscreen}
         onToggleViewMode={handleToggleViewMode}
       />
 

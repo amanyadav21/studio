@@ -7,8 +7,6 @@ import {
   GripVertical,
   LayoutGrid,
   LayoutPanelLeft,
-  Maximize,
-  Minimize,
   PanelLeftClose,
   PanelRightOpen,
 } from "lucide-react";
@@ -26,18 +24,14 @@ import {
 } from "@/components/ui/tooltip";
 
 interface FloatingSidebarProps {
-  isFullscreen: boolean;
   viewMode: "single" | "parallel";
-  onToggleFullscreen: () => void;
   onToggleViewMode: () => void;
 }
 
 const PADDING = 16;
 
 export const FloatingSidebar = React.memo(function FloatingSidebar({
-  isFullscreen,
   viewMode,
-  onToggleFullscreen,
   onToggleViewMode,
 }: FloatingSidebarProps) {
   const [isVisible, setIsVisible] = useLocalStorage(
@@ -199,25 +193,6 @@ export const FloatingSidebar = React.memo(function FloatingSidebar({
             </TooltipTrigger>
             <TooltipContent side={side === "left" ? "right" : "left"}>
               <p>{viewMode === "single" ? "Parallel View" : "Single View"}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={onToggleFullscreen}
-              >
-                {isFullscreen ? <Minimize /> : <Maximize />}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side={side === "left" ? "right" : "left"}>
-              <p>
-                {isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
-              </p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
