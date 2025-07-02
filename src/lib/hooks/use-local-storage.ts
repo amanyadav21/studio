@@ -8,7 +8,8 @@ import {
   SetStateAction,
 } from "react";
 
-// A custom event to trigger state updates across hooks
+// Custom event to trigger state updates across hooks on the same page,
+// as the 'storage' event only works for other tabs.
 const CUSTOM_STORAGE_EVENT_NAME = 'onLocalStorageChange';
 
 export function useLocalStorage<T>(
@@ -18,67 +19,64 @@ export function useLocalStorage<T>(
   // This state is initialized on the client, preventing hydration mismatches.
   const [storedValue, setStoredValue] = useState<T>(initialValue);
 
-  // Memoize the setter function to avoid unnecessary re-renders.
-  const setValue: Dispatch<SetStateAction<T>> = useCallback(
-    (value) => {
-      // Allow value to be a function, mirroring useState's API.
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      
-      // Update state and localStorage.
-      setStoredValue(valueToStore);
-      try {
-        if (typeof window !== "undefined") {
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
-          // Dispatch a custom event to notify other instances of this hook.
-          window.dispatchEvent(new StorageEvent('storage', { key }));
-          window.dispatchEvent(new CustomEvent(CUSTOM_STORAGE_EVENT_NAME, { detail: { key, value: valueToStore } }));
-        }
-      } catch (error) {
-        console.warn(`Error setting localStorage key “${key}”:`, error);
-      }
-    },
-    [key, storedValue]
-  );
-  
-  // This effect runs once on component mount to load the initial value
-  // from localStorage, ensuring it's only done on the client-side.
+  // Effect to read the value from localStorage on mount.
+  // This runs only on the client-side after initial render.
   useEffect(() => {
     try {
       const item = window.localStorage.getItem(key);
-      if (item) {
+      if (item !== null) {
         setStoredValue(JSON.parse(item));
       } else {
-        // If no value is in localStorage, set the initial value.
         window.localStorage.setItem(key, JSON.stringify(initialValue));
       }
     } catch (error) {
       console.warn(`Error reading localStorage key “${key}”:`, error);
-      // Fallback to initialValue if parsing fails.
-      setStoredValue(initialValue);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty array ensures this runs only once.
+  }, [key]);
 
-  // This effect handles synchronization across browser tabs.
+  // A stable setter function that updates state, localStorage, and notifies other hooks/tabs.
+  // It is wrapped in useCallback with only `key` as a dependency to ensure it is stable
+  // and doesn't cause re-renders for components that depend on it.
+  const setValue: Dispatch<SetStateAction<T>> = useCallback(
+    (value) => {
+      try {
+        // We use a functional update to ensure we have the latest previous value.
+        setStoredValue((prev) => {
+          const valueToStore = value instanceof Function ? value(prev) : value;
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          // Dispatch a custom event to notify other instances of this hook on the same page.
+          window.dispatchEvent(new CustomEvent(CUSTOM_STORAGE_EVENT_NAME, { detail: { key, value: valueToStore } }));
+          return valueToStore;
+        });
+      } catch (error) {
+        console.warn(`Error setting localStorage key “${key}”:`, error);
+      }
+    },
+    [key]
+  );
+
+  // This effect handles synchronization across browser tabs and within the same page.
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent | CustomEvent) => {
       const eventKey = 'detail' in event ? event.detail.key : event.key;
+      
       if (eventKey === key) {
         try {
-          if ('detail' in event) {
-             setStoredValue(event.detail.value);
-          } else {
-            const newValue = event.newValue ? JSON.parse(event.newValue) : initialValue;
-            setStoredValue(newValue);
-          }
+          const newValue = 'detail' in event 
+            ? event.detail.value 
+            : event.newValue ? JSON.parse(event.newValue) : initialValue;
+          
+          setStoredValue(newValue);
         } catch (error) {
           console.warn(`Error parsing stored value for key “${key}”:`, error);
         }
       }
     };
     
-    // Listen to both the standard 'storage' event and our custom event.
+    // Listen to our custom event for same-page updates.
     window.addEventListener(CUSTOM_STORAGE_EVENT_NAME, handleStorageChange);
+    // Listen to the standard 'storage' event for cross-tab updates.
     window.addEventListener('storage', handleStorageChange);
 
     // Cleanup listeners on component unmount.
