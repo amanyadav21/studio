@@ -1,11 +1,17 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
-): [T, (value: T | ((val: T) => T)) => void] {
+): [T, Dispatch<SetStateAction<T>>] {
   const readValue = useCallback((): T => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -20,25 +26,51 @@ export function useLocalStorage<T>(
     }
   }, [initialValue, key]);
 
-  const [storedValue, setStoredValue] = useState<T>(readValue);
+  const [storedValue, setStoredValue] = useState<T>(initialValue);
 
-  const setValue = (value: T | ((val: T) => T)) => {
-    try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+  const setValue: Dispatch<SetStateAction<T>> = useCallback(
+    (value) => {
+      try {
+        setStoredValue((current) => {
+          const valueToStore =
+            value instanceof Function ? value(current) : value;
+
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          }
+
+          return valueToStore;
+        });
+      } catch (error) {
+        console.warn(`Error setting localStorage key “${key}”:`, error);
       }
-    } catch (error) {
-      console.warn(`Error setting localStorage key “${key}”:`, error);
-    }
-  };
-  
+    },
+    [key]
+  );
+
   useEffect(() => {
     setStoredValue(readValue());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [readValue]);
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === key && event.storageArea === window.localStorage) {
+        try {
+          setStoredValue(
+            event.newValue ? JSON.parse(event.newValue) : initialValue
+          );
+        } catch (error) {
+          console.warn(`Error parsing stored value for key “${key}”:`, error);
+          setStoredValue(initialValue);
+        }
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [key, initialValue]);
 
   return [storedValue, setValue];
 }
