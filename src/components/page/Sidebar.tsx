@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -94,8 +95,8 @@ export const Sidebar = React.memo(function Sidebar({
               {(item.id === "Pinned" || item.id === "My Tools") &&
                 count > 0 && (
                   <Badge
-                    variant="destructive"
-                    className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full p-0 text-[10px] font-medium"
+                    variant="default"
+                    className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full p-0 text-[9px] font-bold"
                   >
                     {count}
                   </Badge>
@@ -123,11 +124,11 @@ export const Sidebar = React.memo(function Sidebar({
         )}
         <Icon
           className={cn(
-            "mr-3 h-5 w-5",
+            "h-5 w-5",
             isActive ? "text-primary" : "text-muted-foreground"
           )}
         />
-        {item.label}
+        <span className="truncate">{item.label}</span>
         {(item.id === "Pinned" || item.id === "My Tools") && count > 0 && (
           <Badge
             variant={isActive ? "default" : "secondary"}
