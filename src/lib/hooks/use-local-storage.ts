@@ -12,25 +12,16 @@ export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] {
-  const readValue = useCallback((): T => {
-    if (typeof window === "undefined") {
-      return initialValue;
-    }
-
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? (JSON.parse(item) as T) : initialValue;
-    } catch (error) {
-      console.warn(`Error reading localStorage key “${key}”:`, error);
-      return initialValue;
-    }
-  }, [initialValue, key]);
-
+  // Initialize state with the initialValue.
+  // This is important for SSR/Next.js to avoid hydration errors.
   const [storedValue, setStoredValue] = useState<T>(initialValue);
 
+  // The setValue function is memoized and uses the functional update form
+  // to avoid needing `storedValue` in its dependency array.
   const setValue: Dispatch<SetStateAction<T>> = useCallback(
     (value) => {
       try {
+        // Allow value to be a function so we have the same API as useState
         setStoredValue((current) => {
           const valueToStore =
             value instanceof Function ? value(current) : value;
@@ -48,20 +39,36 @@ export function useLocalStorage<T>(
     [key]
   );
 
+  // This useEffect runs only once on the client side after hydration.
+  // It reads the value from localStorage and updates the state.
+  // This is the correct way to handle client-side state without causing
+  // an infinite loop or hydration mismatch.
   useEffect(() => {
-    setStoredValue(readValue());
-  }, [readValue]);
+    if (typeof window === "undefined") {
+      return;
+    }
 
+    try {
+      const item = window.localStorage.getItem(key);
+      if (item) {
+        setStoredValue(JSON.parse(item));
+      }
+    } catch (error) {
+      console.warn(`Error reading localStorage key “${key}”:`, error);
+    }
+  // We want this to run only once on mount, so we pass an empty dependency array.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // This effect handles the cross-tab sync.
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === key && event.storageArea === window.localStorage) {
         try {
-          setStoredValue(
-            event.newValue ? JSON.parse(event.newValue) : initialValue
-          );
+          const newValue = event.newValue ? JSON.parse(event.newValue) : initialValue;
+          setStoredValue(newValue);
         } catch (error) {
           console.warn(`Error parsing stored value for key “${key}”:`, error);
-          setStoredValue(initialValue);
         }
       }
     };
@@ -70,7 +77,10 @@ export function useLocalStorage<T>(
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [key, initialValue]);
+  // The key is stable, and we assume initialValue is conceptually static.
+  // Adding initialValue to the array would cause the listener to be re-added on every render.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
   return [storedValue, setValue];
 }
