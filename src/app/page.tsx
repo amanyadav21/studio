@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { categories, tools as defaultTools } from "@/data/tools";
+import { categories as defaultCategories, tools as defaultTools } from "@/data/tools";
 import type { Tool, ToolCategory } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { useToast } from "@/hooks/use-toast";
@@ -143,7 +143,7 @@ export default function Home() {
     setCardColor(null);
   }, [setCardColor]);
 
-  const getFilteredTools = (category?: ToolCategory) => {
+  const getFilteredTools = React.useCallback((category?: ToolCategory) => {
     let currentTools: Tool[] = allTools;
     
     if (selectedCategory === "Pinned") {
@@ -168,7 +168,7 @@ export default function Home() {
       );
     }
     return currentTools;
-  };
+  }, [allTools, customTools, debouncedSearchTerm, pinnedTools, selectedCategory]);
   
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
@@ -232,25 +232,51 @@ export default function Home() {
               />
             </>
           ) : selectedCategory === "All" ? (
-            categories.map((category) => {
-              const toolsForCategory = getFilteredTools(category);
-              if (toolsForCategory.length === 0 && debouncedSearchTerm) return null;
-              
-              return (
-              <div key={category} className="mb-12">
-                <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
-                <ToolGrid
-                  tools={toolsForCategory}
-                  pinnedTools={pinnedTools}
-                  onTogglePinned={togglePinned}
-                  bundle={bundle}
-                  onToggleBundle={toggleBundle}
-                  cardColor={cardColor}
-                  onDeleteTool={deleteTool}
-                  onEditTool={handleOpenEditToolDialog}
-                />
-              </div>
-            )})
+            <>
+              {defaultCategories.map((category) => {
+                const toolsForCategory = getFilteredTools(category);
+                if (toolsForCategory.length === 0 && debouncedSearchTerm) return null;
+                
+                return (
+                <div key={category} className="mb-12">
+                  <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
+                  <ToolGrid
+                    tools={toolsForCategory}
+                    pinnedTools={pinnedTools}
+                    onTogglePinned={togglePinned}
+                    bundle={bundle}
+                    onToggleBundle={toggleBundle}
+                    cardColor={cardColor}
+                    onDeleteTool={deleteTool}
+                    onEditTool={handleOpenEditToolDialog}
+                  />
+                </div>
+              )})}
+              {(() => {
+                const myToolsFiltered = getFilteredTools("My Tools");
+                if (myToolsFiltered.length > 0) {
+                  return (
+                    <div key="my-tools" className="mb-12">
+                      <CategoryHeader
+                        title="My Tools"
+                        description="Your personal collection of added web tools."
+                      />
+                      <ToolGrid
+                        tools={myToolsFiltered}
+                        pinnedTools={pinnedTools}
+                        onTogglePinned={togglePinned}
+                        bundle={bundle}
+                        onToggleBundle={toggleBundle}
+                        cardColor={cardColor}
+                        onDeleteTool={deleteTool}
+                        onEditTool={handleOpenEditToolDialog}
+                      />
+                    </div>
+                  );
+                }
+                return null;
+              })()}
+            </>
           ) : (
             <>
               <CategoryHeader
