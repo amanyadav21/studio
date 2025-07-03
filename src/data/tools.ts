@@ -374,6 +374,22 @@ export const tools: Tool[] = [
     subcategory: "Build Tools",
   },
   {
+    id: "rollup",
+    name: "Rollup",
+    description: "A module bundler for JavaScript which compiles small pieces of code into something larger.",
+    url: "https://rollupjs.org/",
+    category: "Frameworks & Libraries",
+    subcategory: "Build Tools",
+  },
+  {
+    id: "esbuild",
+    name: "esbuild",
+    description: "An extremely fast bundler for the web.",
+    url: "https://esbuild.github.io/",
+    category: "Frameworks & Libraries",
+    subcategory: "Build Tools",
+  },
+  {
     id: "stackedit",
     name: "StackEdit.io",
     description: "Markdown editor with offline local sync.",
@@ -465,3 +481,5 @@ export const tools: Tool[] = [
     category: "Utility Tools",
   },
 ];
+
+    
