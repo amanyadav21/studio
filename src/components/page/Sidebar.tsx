@@ -164,27 +164,31 @@ export const Sidebar = React.memo(function Sidebar({
 
     return (
        <Collapsible open={isFrameworksOpen} onOpenChange={setIsFrameworksOpen} className="w-full">
-        <CollapsibleTrigger asChild>
-          <Button
-            variant="ghost"
-            className={cn(
-              "w-full justify-start h-10 relative text-muted-foreground font-normal",
-               isFrameworksActive && "bg-secondary font-semibold text-secondary-foreground"
-            )}
-          >
-             {isFrameworksActive && !isFrameworksOpen && (
-              <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
-            )}
-            <Package
-              className={cn(
-                "h-5 w-5 mr-3",
-                isFrameworksActive ? "text-primary" : "text-muted-foreground"
-              )}
-            />
-            <span className="truncate">{frameworkParentCategory}</span>
-            <ChevronRight className={cn("ml-auto h-4 w-4 transition-transform", isFrameworksOpen && "rotate-90")} />
-          </Button>
-        </CollapsibleTrigger>
+        <div className="relative flex w-full items-center">
+            <Button
+                variant="ghost"
+                className={cn(
+                "w-full justify-start h-10 relative text-muted-foreground font-normal",
+                isFrameworksActive && "bg-secondary font-semibold text-secondary-foreground"
+                )}
+                onClick={() => onCategoryChange(frameworkParentCategory)}
+            >
+                {selectedCategory === frameworkParentCategory && (
+                <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
+                )}
+                <Package
+                className={cn(
+                    "h-5 w-5 mr-3",
+                    isFrameworksActive ? "text-primary" : "text-muted-foreground"
+                )}
+                />
+                <span className="truncate pr-8">{frameworkParentCategory}</span>
+            </Button>
+            <CollapsibleTrigger className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground">
+                <ChevronRight className={cn("h-4 w-4 transition-transform", isFrameworksOpen && "rotate-90")} />
+                <span className="sr-only">Toggle Subcategories</span>
+            </CollapsibleTrigger>
+        </div>
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
           <div className="flex flex-col gap-1 mt-1">
             {frameworkSubCategories.map(subCat => {

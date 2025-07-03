@@ -13,6 +13,7 @@ import { Header } from "@/components/page/Header";
 import { Sidebar } from "@/components/page/Sidebar";
 import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
+import { categories } from "@/data/tools";
 
 const INITIAL_PINNED_TOOLS: string[] = [];
 
@@ -121,7 +122,10 @@ export default function Home() {
     } else if (frameworkSubCategories.includes(selectedCategory as any)) {
         title = `${selectedCategory} Tools`;
         description = `A collection of ${selectedCategory.toLowerCase()} frameworks and libraries.`;
+    } else if (categories.includes(title as any)) {
+      description = `A collection of tools for ${selectedCategory.toLowerCase()}.`;
     }
+
     return { pageTitle: title, pageDescription: description };
   }, [selectedCategory]);
   
@@ -154,9 +158,11 @@ export default function Home() {
             <>
               {defaultCategories.map((category) => {
                 const toolsForCategory = allTools.filter(t => {
+                  if (t.category !== category) return false;
+                  if (!debouncedSearchTerm) return true;
                   const nameMatch = t.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
                   const descMatch = t.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
-                  return t.category === category && (nameMatch || descMatch);
+                  return nameMatch || descMatch;
                 });
 
                 if (toolsForCategory.length === 0) return null;
@@ -174,6 +180,41 @@ export default function Home() {
                   />
                 </div>
               )})}
+            </>
+          ) : selectedCategory === "Frameworks & Libraries" ? (
+            <>
+              <CategoryHeader
+                title={pageTitle}
+                description={pageDescription}
+              />
+              {frameworkSubCategories.map((subCategory) => {
+                const toolsForSubCategory = allTools.filter(t => {
+                  if (t.subcategory !== subCategory) return false;
+                  if (!debouncedSearchTerm) return true;
+        
+                  const nameMatch = t.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+                  const descMatch = t.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+                  return nameMatch || descMatch;
+                });
+
+                if (toolsForSubCategory.length === 0) return null;
+                
+                return (
+                  <div key={subCategory} className="mb-12">
+                    <h2 className="mb-6 border-b pb-2 text-2xl font-semibold tracking-tight">
+                      {subCategory}
+                    </h2>
+                    <ToolGrid
+                      tools={toolsForSubCategory}
+                      pinnedTools={pinnedTools}
+                      onTogglePinned={togglePinned}
+                      bundle={bundle}
+                      onToggleBundle={toggleBundle}
+                      cardColor={cardColor}
+                    />
+                  </div>
+                );
+              })}
             </>
           ) : (
             <>
