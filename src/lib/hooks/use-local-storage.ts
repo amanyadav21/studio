@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 // This hook has been re-architected for maximum stability by removing the
 // cross-tab synchronization feature that was causing data corruption and race conditions.
@@ -25,16 +25,7 @@ export function useLocalStorage<T>(
     }
   });
 
-  // 2. The setter function. It is the single source of truth for updates.
-  // It updates the React state, and a side effect persists it to localStorage.
-  // The empty dependency array ensures this function is stable and doesn't
-  // cause unnecessary re-renders in child components.
-  const setValue: Dispatch<SetStateAction<T>> = useCallback((value) => {
-    setStoredValue(value);
-  }, []);
-
-  // 3. Persist state to localStorage whenever it changes. This effect
-  // decouples the state update from the side-effect of writing to storage.
+  // 2. Persist state to localStorage whenever it changes.
   useEffect(() => {
     try {
       if (typeof window !== "undefined") {
@@ -45,5 +36,8 @@ export function useLocalStorage<T>(
     }
   }, [key, storedValue]);
 
-  return [storedValue, setValue];
+  // 3. Return the state and the setter function from useState.
+  // React guarantees that the setter function identity is stable and won't
+  // change on re-renders, making it safe to use in dependency arrays.
+  return [storedValue, setStoredValue];
 }
