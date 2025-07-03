@@ -102,6 +102,27 @@ export const tools: Tool[] = [
     category: "Design & UI Tools",
   },
   {
+    id: "uiverse-io",
+    name: "UIVerse.io",
+    description: "Open-source UI elements for any project.",
+    url: "https://uiverse.io/",
+    category: "Design & UI Tools",
+  },
+  {
+    id: "blobmaker",
+    name: "Blobmaker",
+    description: "Make organic SVG shapes for your designs.",
+    url: "https://www.blobmaker.app/",
+    category: "Design & UI Tools",
+  },
+  {
+    id: "fontjoy",
+    name: "Fontjoy",
+    description: "Generate beautiful font pairings in one click.",
+    url: "https://fontjoy.com/",
+    category: "Design & UI Tools",
+  },
+  {
     id: "react",
     name: "React Docs",
     description: "The library for web and native user interfaces.",
