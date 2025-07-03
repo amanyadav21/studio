@@ -3,14 +3,15 @@
 
 import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "react";
 
-// This hook has been simplified to remove faulty custom event logic that was causing
-// race conditions and data corruption. It now uses the standard 'storage' event
-// for robust cross-tab synchronization.
+// This hook has been re-architected for maximum stability by removing the
+// cross-tab synchronization feature that was causing data corruption and race conditions.
+// State is now managed reliably within a single browser tab.
 
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] {
+  // 1. Initialize state from localStorage. This runs only once on the client.
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -24,51 +25,25 @@ export function useLocalStorage<T>(
     }
   });
 
-  const setValue: Dispatch<SetStateAction<T>> = useCallback(
-    (value) => {
-      try {
-        // Use the functional update form of useState's setter to ensure we always
-        // have the latest state, preventing race conditions.
-        setStoredValue((currentValue) => {
-          const valueToStore =
-            value instanceof Function ? value(currentValue) : value;
-          
-          if (typeof window !== "undefined") {
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
-            // The 'storage' event will automatically be fired in other tabs,
-            // which is handled by the useEffect below.
-          }
-          return valueToStore;
-        });
-      } catch (error) {
-        console.warn(`Error setting localStorage key “${key}”:`, error);
-      }
-    },
-    [key]
-  );
+  // 2. The setter function. It is the single source of truth for updates.
+  // It updates the React state, and a side effect persists it to localStorage.
+  // The empty dependency array ensures this function is stable and doesn't
+  // cause unnecessary re-renders in child components.
+  const setValue: Dispatch<SetStateAction<T>> = useCallback((value) => {
+    setStoredValue(value);
+  }, []);
 
+  // 3. Persist state to localStorage whenever it changes. This effect
+  // decouples the state update from the side-effect of writing to storage.
   useEffect(() => {
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === key) {
-        try {
-          // When storage changes in another tab, update the state here.
-          // If the item was removed, newValue will be null, so we fall back to initialValue.
-          const newValue = event.newValue ? JSON.parse(event.newValue) : initialValue;
-          setStoredValue(newValue);
-        } catch (error) {
-          console.warn(`Error handling storage change for key “${key}”:`, error);
-        }
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(key, JSON.stringify(storedValue));
       }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-    // initialValue is required here to ensure that if the component is remounted
-    // with a different initialValue, it gets the correct state.
-  }, [key, initialValue]);
+    } catch (error) {
+      console.warn(`Error setting localStorage key “${key}”:`, error);
+    }
+  }, [key, storedValue]);
 
   return [storedValue, setValue];
 }
