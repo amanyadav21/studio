@@ -4,7 +4,7 @@ export type ToolCategory =
   | "Writing & Notes"
   | "Productivity Tools"
   | "Utility Tools"
-  | "Frameworks";
+  | "Frameworks & Libraries";
 
 export interface Tool {
   id: string;

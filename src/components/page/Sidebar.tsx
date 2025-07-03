@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -32,7 +31,7 @@ const categoryIcons: Record<ToolCategory, React.ElementType> = {
   "Writing & Notes": PenSquare,
   "Productivity Tools": Zap,
   "Utility Tools": Wrench,
-  Frameworks: Package,
+  "Frameworks & Libraries": Package,
 };
 
 type NavItem = {
