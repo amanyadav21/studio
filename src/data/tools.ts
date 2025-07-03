@@ -43,6 +43,20 @@ export const tools: Tool[] = [
     category: "Dev Utilities",
   },
   {
+    id: "jwt-io",
+    name: "JWT.io",
+    description: "Decode, verify, and generate JWTs.",
+    url: "https://jwt.io/",
+    category: "Dev Utilities",
+  },
+  {
+    id: "diffchecker",
+    name: "Diffchecker",
+    description: "Online tool to compare text differences.",
+    url: "https://www.diffchecker.com/",
+    category: "Dev Utilities",
+  },
+  {
     id: "devdocs",
     name: "DevDocs.io",
     description: "Fast API documentation browser (with offline caching).",
@@ -106,10 +120,24 @@ export const tools: Tool[] = [
     category: "Design & UI Tools",
   },
   {
+    id: "css-gradient",
+    name: "CSS Gradient",
+    description: "A happy little web app for generating CSS gradients.",
+    url: "https://cssgradient.io/",
+    category: "Design & UI Tools",
+  },
+  {
     id: "realtimecolors",
     name: "Realtime Colors",
     description: "Visualize colors & fonts on a real site.",
     url: "https://realtimecolors.com/",
+    category: "Design & UI Tools",
+  },
+  {
+    id: "lucide-icons",
+    name: "Lucide Icons",
+    description: "Beautiful & consistent open-source icons.",
+    url: "https://lucide.dev/icons/",
     category: "Design & UI Tools",
   },
   {
@@ -190,6 +218,14 @@ export const tools: Tool[] = [
     subcategory: "Backend",
   },
   {
+    id: "nestjs",
+    name: "NestJS",
+    description: "A progressive Node.js framework for building efficient, reliable and scalable server-side applications.",
+    url: "https://docs.nestjs.com/",
+    category: "Frameworks & Libraries",
+    subcategory: "Backend",
+  },
+  {
     id: "flask",
     name: "Flask",
     description: "A lightweight WSGI web application framework in Python.",
@@ -234,6 +270,14 @@ export const tools: Tool[] = [
     name: "Astro Docs",
     description: "Build the future of the web.",
     url: "https://docs.astro.build/en/getting-started/",
+    category: "Frameworks & Libraries",
+    subcategory: "Fullstack",
+  },
+  {
+    id: "sveltekit",
+    name: "SvelteKit",
+    description: "The official application framework for Svelte.",
+    url: "https://kit.svelte.dev/docs/introduction",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
   },
@@ -404,6 +448,13 @@ export const tools: Tool[] = [
     category: "Writing & Notes",
   },
   {
+    id: "tldraw",
+    name: "tldraw",
+    description: "A collaborative digital whiteboard.",
+    url: "https://tldraw.com/",
+    category: "Writing & Notes",
+  },
+  {
     id: "minimal-notes",
     name: "Minimal Notes",
     description: "Lightweight localStorage note app.",
@@ -422,6 +473,13 @@ export const tools: Tool[] = [
     name: "Pomofocus.io",
     description: "Pomodoro timer with local save.",
     url: "https://pomofocus.io/",
+    category: "Productivity Tools",
+  },
+  {
+    id: "excalidraw",
+    name: "Excalidraw",
+    description: "Virtual whiteboard for sketching hand-drawn like diagrams.",
+    url: "https://excalidraw.com/",
     category: "Productivity Tools",
   },
   {
@@ -467,6 +525,13 @@ export const tools: Tool[] = [
     category: "Utility Tools",
   },
   {
+    id: "tinypng",
+    name: "TinyPNG",
+    description: "Smart PNG and JPEG compression.",
+    url: "https://tinypng.com/",
+    category: "Utility Tools",
+  },
+  {
     id: "browserling",
     name: "Browserling",
     description: "Small browser-based dev tools.",
@@ -481,5 +546,3 @@ export const tools: Tool[] = [
     category: "Utility Tools",
   },
 ];
-
-    
