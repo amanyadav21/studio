@@ -58,7 +58,7 @@ const categoryNavItems: NavItem[] = categories
 
 interface SidebarProps {
   selectedCategory: string;
-  onCategoryChange: (category: string) => void;
+  onCategoryChange: (category: string, subCategoryToScroll?: string) => void;
   pinnedCount: number;
   isCollapsed: boolean;
 }
@@ -71,13 +71,14 @@ export const Sidebar = React.memo(function Sidebar({
 }: SidebarProps) {
   const frameworkParentCategory = "Frameworks & Libraries";
   const [isFrameworksOpen, setIsFrameworksOpen] = React.useState(false);
-  const isFrameworksActive = selectedCategory === frameworkParentCategory || frameworkSubCategories.some(sub => sub === selectedCategory);
+  const isFrameworksActive = selectedCategory === frameworkParentCategory;
 
   React.useEffect(() => {
-    if (frameworkSubCategories.some(sub => sub === selectedCategory)) {
+    // Open the collapsible if the user selects the parent category.
+    if (isFrameworksActive) {
         setIsFrameworksOpen(true);
     }
-  }, [selectedCategory]);
+  }, [isFrameworksActive]);
 
   const renderNavItem = (item: NavItem) => {
     const Icon = item.icon;
@@ -173,7 +174,7 @@ export const Sidebar = React.memo(function Sidebar({
                 )}
                 onClick={() => onCategoryChange(frameworkParentCategory)}
             >
-                {selectedCategory === frameworkParentCategory && (
+                {isFrameworksActive && (
                 <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
                 )}
                 <Package
@@ -192,20 +193,13 @@ export const Sidebar = React.memo(function Sidebar({
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
           <div className="flex flex-col gap-1 mt-1">
             {frameworkSubCategories.map(subCat => {
-              const isSubActive = selectedCategory === subCat;
               return (
                 <Button
                   key={subCat}
                   variant="ghost"
-                  className={cn(
-                    "w-full justify-start h-9 relative text-muted-foreground font-normal",
-                    isSubActive && "bg-accent font-semibold text-accent-foreground"
-                  )}
-                  onClick={() => onCategoryChange(subCat)}
+                  className="w-full justify-start h-9 relative text-muted-foreground font-normal"
+                  onClick={() => onCategoryChange(frameworkParentCategory, subCat)}
                 >
-                   {isSubActive && (
-                      <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />
-                    )}
                   {subCat}
                 </Button>
               )

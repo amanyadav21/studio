@@ -31,6 +31,7 @@ export default function Home() {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
+  const [scrollTo, setScrollTo] = React.useState<string | null>(null);
 
   const allTools = defaultTools;
 
@@ -43,6 +44,37 @@ export default function Home() {
       clearTimeout(timerId);
     };
   }, [searchTerm]);
+
+  React.useEffect(() => {
+    if (!scrollTo) return;
+
+    const element = document.getElementById(scrollTo);
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+    }
+    setScrollTo(null); // Reset after scrolling
+  }, [scrollTo]);
+
+  const handleCategoryChange = React.useCallback((category: string, subCategoryToScroll?: string) => {
+      // If clicking the same category again, scroll to top
+      if (category === selectedCategory && !subCategoryToScroll) {
+           window.scrollTo({ top: 0, behavior: 'smooth' });
+           return;
+      }
+
+      setSelectedCategory(category);
+      
+      if (subCategoryToScroll) {
+          // A short delay ensures the DOM has updated before we try to find the element
+          setTimeout(() => setScrollTo(subCategoryToScroll), 50);
+      } else if (category !== selectedCategory) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+  }, [selectedCategory]);
+
 
   const togglePinned = React.useCallback(
     (toolId: string) => {
@@ -87,23 +119,28 @@ export default function Home() {
 
     if (selectedCategory === "Pinned") {
       currentTools = allTools.filter((tool) => pinnedTools.includes(tool.id));
-    } else if (frameworkSubCategories.includes(selectedCategory as any)) {
-      currentTools = allTools.filter(
-        (tool) => tool.subcategory === selectedCategory
-      );
-    } else if (selectedCategory !== "All") {
+    } else if (selectedCategory !== "All" && selectedCategory !== "Frameworks & Libraries") {
       currentTools = allTools.filter(
         (tool) => tool.category === selectedCategory
       );
     }
 
     if (debouncedSearchTerm) {
+      const lowercasedTerm = debouncedSearchTerm.toLowerCase();
+      // If showing all tools, filter from the entire list
+      if (selectedCategory === "All" || selectedCategory === "Frameworks & Libraries") {
+        return allTools.filter(tool => 
+            tool.name.toLowerCase().includes(lowercasedTerm) ||
+            tool.description.toLowerCase().includes(lowercasedTerm)
+        );
+      }
+      // Otherwise, filter from the already-categorized list
       return currentTools.filter(
         (tool) =>
-          tool.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+          tool.name.toLowerCase().includes(lowercasedTerm) ||
           tool.description
             .toLowerCase()
-            .includes(debouncedSearchTerm.toLowerCase())
+            .includes(lowercasedTerm)
       );
     }
     return currentTools;
@@ -111,7 +148,7 @@ export default function Home() {
 
   const { pageTitle, pageDescription } = React.useMemo(() => {
     let title = selectedCategory;
-    let description = `A collection of tools for ${selectedCategory.toLowerCase()}.`;
+    let description = "";
 
     if (selectedCategory === 'All') {
         title = "All Tools";
@@ -119,10 +156,10 @@ export default function Home() {
     } else if (selectedCategory === 'Pinned') {
         title = "Pinned Tools";
         description = "Your hand-picked tools for quick and easy access.";
-    } else if (frameworkSubCategories.includes(selectedCategory as any)) {
-        title = `${selectedCategory} Tools`;
-        description = `A collection of ${selectedCategory.toLowerCase()} frameworks and libraries.`;
-    } else if (categories.includes(title as any)) {
+    } else if (selectedCategory === "Frameworks & Libraries") {
+        title = "Frameworks & Libraries";
+        description = "A curated collection of essential frameworks and libraries.";
+    } else if (categories.some(c => c === title)) {
       description = `A collection of tools for ${selectedCategory.toLowerCase()}.`;
     }
 
@@ -143,7 +180,7 @@ export default function Home() {
       <div className="flex">
         <Sidebar
           selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
+          onCategoryChange={handleCategoryChange}
           pinnedCount={pinnedTools.length}
           isCollapsed={isSidebarCollapsed}
         />
@@ -157,13 +194,7 @@ export default function Home() {
           {selectedCategory === "All" ? (
             <>
               {defaultCategories.map((category) => {
-                const toolsForCategory = allTools.filter(t => {
-                  if (t.category !== category) return false;
-                  if (!debouncedSearchTerm) return true;
-                  const nameMatch = t.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
-                  const descMatch = t.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
-                  return nameMatch || descMatch;
-                });
+                const toolsForCategory = filteredTools.filter(t => t.category === category);
 
                 if (toolsForCategory.length === 0) return null;
                 
@@ -188,19 +219,12 @@ export default function Home() {
                 description={pageDescription}
               />
               {frameworkSubCategories.map((subCategory) => {
-                const toolsForSubCategory = allTools.filter(t => {
-                  if (t.subcategory !== subCategory) return false;
-                  if (!debouncedSearchTerm) return true;
-        
-                  const nameMatch = t.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
-                  const descMatch = t.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
-                  return nameMatch || descMatch;
-                });
+                 const toolsForSubCategory = filteredTools.filter(t => t.subcategory === subCategory);
 
                 if (toolsForSubCategory.length === 0) return null;
                 
                 return (
-                  <div key={subCategory} className="mb-12">
+                  <div key={subCategory} id={subCategory} className="mb-12 scroll-mt-24">
                     <h2 className="mb-6 border-b pb-2 text-2xl font-semibold tracking-tight">
                       {subCategory}
                     </h2>
