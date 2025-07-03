@@ -6,7 +6,6 @@ import * as React from "react";
 import { categories as defaultCategories, tools as defaultTools } from "@/data/tools";
 import type { Tool, ToolCategory } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
-import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 import { BundleBar } from "@/components/bundle-bar";
@@ -14,21 +13,13 @@ import { Header } from "@/components/page/Header";
 import { Sidebar } from "@/components/page/Sidebar";
 import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
-import { AddToolDialog } from "@/components/add-tool-dialog";
-
-type ToolFormData = Omit<Tool, "id" | "category">;
 
 const INITIAL_PINNED_TOOLS: string[] = [];
-const INITIAL_CUSTOM_TOOLS: Tool[] = [];
 
 export default function Home() {
   const [pinnedTools, setPinnedTools] = useLocalStorage<string[]>(
     "pinned-tools",
     INITIAL_PINNED_TOOLS
-  );
-  const [customTools, setCustomTools] = useLocalStorage<Tool[]>(
-    "custom-tools",
-    INITIAL_CUSTOM_TOOLS
   );
   const [cardColor, setCardColor] = useLocalStorage<string | null>(
     "card-color",
@@ -36,20 +27,13 @@ export default function Home() {
   );
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<
-    "All" | "Pinned" | "My Tools" | ToolCategory
+    "All" | "Pinned" | ToolCategory
   >("All");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
-  const { toast } = useToast();
 
-  const [isToolDialogOpen, setIsToolDialogOpen] = React.useState(false);
-  const [editingTool, setEditingTool] = React.useState<Tool | null>(null);
-
-  const allTools = React.useMemo(
-    () => [...defaultTools, ...customTools],
-    [customTools]
-  );
+  const allTools = defaultTools;
 
   React.useEffect(() => {
     const timerId = setTimeout(() => {
@@ -60,58 +44,6 @@ export default function Home() {
       clearTimeout(timerId);
     };
   }, [searchTerm]);
-
-  const handleSaveTool = React.useCallback(
-    (data: ToolFormData) => {
-      if (editingTool) {
-        setCustomTools((prev) =>
-          prev.map((t) => (t.id === editingTool.id ? { ...t, ...data } : t))
-        );
-        toast({
-          title: "Tool Updated!",
-          description: `"${data.name}" has been updated.`,
-        });
-        setEditingTool(null);
-      } else {
-        const newTool: Tool = {
-          ...data,
-          id: `custom-${new Date().getTime()}`,
-          category: "My Tools",
-        };
-        setCustomTools((prev) => [...prev, newTool]);
-        toast({
-          title: "Tool Added!",
-          description: `${newTool.name} has been added to your collection.`,
-        });
-        setSelectedCategory("My Tools");
-      }
-    },
-    [editingTool, setCustomTools, toast]
-  );
-
-  const handleOpenAddToolDialog = React.useCallback(() => {
-    setEditingTool(null);
-    setIsToolDialogOpen(true);
-  }, []);
-
-  const handleOpenEditToolDialog = React.useCallback((tool: Tool) => {
-    setEditingTool(tool);
-    setIsToolDialogOpen(true);
-  }, []);
-  
-  const deleteTool = React.useCallback(
-    (toolId: string) => {
-      setCustomTools((prev) => prev.filter((tool) => tool.id !== toolId));
-      setPinnedTools((prev) => prev.filter((id) => id !== toolId));
-      setBundle((prev) => prev.filter((id) => id !== toolId));
-      toast({
-        title: "Tool Deleted",
-        description: "The custom tool has been removed from your collection.",
-        variant: "destructive",
-      });
-    },
-    [setCustomTools, setPinnedTools, setBundle, toast]
-  );
 
   const togglePinned = React.useCallback(
     (toolId: string) => {
@@ -156,8 +88,6 @@ export default function Home() {
     
     if (selectedCategory === "Pinned") {
       currentTools = allTools.filter((tool) => pinnedTools.includes(tool.id));
-    } else if (selectedCategory === "My Tools") {
-      currentTools = customTools;
     } else if (category) {
       currentTools = allTools.filter((tool) => tool.category === category);
     } else if (selectedCategory !== "All") {
@@ -176,14 +106,13 @@ export default function Home() {
       );
     }
     return currentTools;
-  }, [allTools, customTools, debouncedSearchTerm, pinnedTools, selectedCategory]);
+  }, [allTools, debouncedSearchTerm, pinnedTools, selectedCategory]);
   
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
       <Header
         searchTerm={searchTerm}
         onSearchTermChange={setSearchTerm}
-        onAddTool={handleOpenAddToolDialog}
         cardColor={cardColor}
         onCardColorChange={onCardColorChange}
         onClearCardColor={onClearCardColor}
@@ -195,7 +124,6 @@ export default function Home() {
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
           pinnedCount={pinnedTools.length}
-          customToolCount={customTools.length}
           isCollapsed={isSidebarCollapsed}
         />
 
@@ -218,25 +146,6 @@ export default function Home() {
                 bundle={bundle}
                 onToggleBundle={toggleBundle}
                 cardColor={cardColor}
-                onDeleteTool={deleteTool}
-                onEditTool={handleOpenEditToolDialog}
-              />
-            </>
-          ) : selectedCategory === "My Tools" ? (
-             <>
-              <CategoryHeader
-                title="My Tools"
-                description="Your personal collection of added web tools."
-              />
-              <ToolGrid
-                tools={getFilteredTools()}
-                pinnedTools={pinnedTools}
-                onTogglePinned={togglePinned}
-                bundle={bundle}
-                onToggleBundle={toggleBundle}
-                cardColor={cardColor}
-                onDeleteTool={deleteTool}
-                onEditTool={handleOpenEditToolDialog}
               />
             </>
           ) : selectedCategory === "All" ? (
@@ -255,35 +164,9 @@ export default function Home() {
                     bundle={bundle}
                     onToggleBundle={toggleBundle}
                     cardColor={cardColor}
-                    onDeleteTool={deleteTool}
-                    onEditTool={handleOpenEditToolDialog}
                   />
                 </div>
               )})}
-              {(() => {
-                const myToolsFiltered = getFilteredTools("My Tools");
-                if (myToolsFiltered.length > 0) {
-                  return (
-                    <div key="my-tools" className="mb-12">
-                      <CategoryHeader
-                        title="My Tools"
-                        description="Your personal collection of added web tools."
-                      />
-                      <ToolGrid
-                        tools={myToolsFiltered}
-                        pinnedTools={pinnedTools}
-                        onTogglePinned={togglePinned}
-                        bundle={bundle}
-                        onToggleBundle={toggleBundle}
-                        cardColor={cardColor}
-                        onDeleteTool={deleteTool}
-                        onEditTool={handleOpenEditToolDialog}
-                      />
-                    </div>
-                  );
-                }
-                return null;
-              })()}
             </>
           ) : (
             <>
@@ -298,20 +181,12 @@ export default function Home() {
                 bundle={bundle}
                 onToggleBundle={toggleBundle}
                 cardColor={cardColor}
-                onDeleteTool={deleteTool}
-                onEditTool={handleOpenEditToolDialog}
               />
             </>
           )}
         </main>
       </div>
       <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
-      <AddToolDialog
-        isOpen={isToolDialogOpen}
-        onOpenChange={setIsToolDialogOpen}
-        onSave={handleSaveTool}
-        initialData={editingTool}
-      />
     </div>
   );
 }

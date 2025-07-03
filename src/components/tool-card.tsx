@@ -4,7 +4,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Pin, PlusCircle, MinusCircle, Rocket, Trash2, Pencil } from "lucide-react";
+import { Pin, PlusCircle, MinusCircle, Rocket } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -24,17 +24,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "./ui/alert-dialog";
 
 interface ToolCardProps {
   tool: Tool;
@@ -43,8 +32,6 @@ interface ToolCardProps {
   isInBundle: boolean;
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
-  onDeleteTool?: (id: string) => void;
-  onEditTool?: (tool: Tool) => void;
 }
 
 export const ToolCard = React.memo(function ToolCard({
@@ -54,8 +41,6 @@ export const ToolCard = React.memo(function ToolCard({
   isInBundle,
   onToggleBundle,
   cardColor,
-  onDeleteTool,
-  onEditTool,
 }: ToolCardProps) {
   const handleToggleBundle = React.useCallback(
     (e: React.MouseEvent) => {
@@ -74,25 +59,6 @@ export const ToolCard = React.memo(function ToolCard({
     },
     [onTogglePinned, tool.id]
   );
-
-  const handleDeleteTool = React.useCallback(() => {
-    if (onDeleteTool) {
-      onDeleteTool(tool.id);
-    }
-  }, [onDeleteTool, tool.id]);
-
-  const handleEditTool = React.useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (onEditTool) {
-        onEditTool(tool);
-      }
-    },
-    [onEditTool, tool]
-  );
-
-  const isCustomTool = tool.id.startsWith("custom-");
 
   const styles = React.useMemo(() => {
     if (!cardColor) return null;
@@ -136,63 +102,6 @@ export const ToolCard = React.memo(function ToolCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            {isCustomTool && onEditTool && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      className="h-9 w-9 rounded-full shadow-lg"
-                      onClick={handleEditTool}
-                    >
-                      <Pencil className="h-4 w-4" />
-                      <span className="sr-only">Edit tool</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Edit tool</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
-            {isCustomTool && onDeleteTool && (
-              <AlertDialog>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          variant="destructive"
-                          size="icon"
-                          className="h-9 w-9 rounded-full shadow-lg"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                          <span className="sr-only">Delete tool</span>
-                        </Button>
-                      </AlertDialogTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent>Delete tool</TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you absolutely sure?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This action will permanently delete the "{tool.name}" tool
-                      and cannot be undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDeleteTool}>
-                      Delete
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            )}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>

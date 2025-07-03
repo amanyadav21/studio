@@ -11,7 +11,6 @@ import {
 
 import { tools as defaultTools } from "@/data/tools";
 import type { Tool } from "@/lib/types";
-import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
@@ -23,11 +22,7 @@ const ToolPage = () => {
   const { slug } = params;
   const toolIds = Array.isArray(slug) ? slug : slug ? [slug] : [];
 
-  const [customTools] = useLocalStorage<Tool[]>("custom-tools", []);
-  const allTools = React.useMemo(
-    () => [...defaultTools, ...customTools],
-    [customTools]
-  );
+  const allTools = defaultTools;
 
   const bundledTools = React.useMemo(() => {
     return toolIds

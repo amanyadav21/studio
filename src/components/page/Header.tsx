@@ -5,7 +5,6 @@ import {
   BookOpen,
   PanelLeftClose,
   PanelRightClose,
-  Plus,
   Search,
 } from "lucide-react";
 import * as React from "react";
@@ -21,7 +20,6 @@ import { Kbd } from "@/components/ui/kbd";
 interface HeaderProps {
   searchTerm: string;
   onSearchTermChange: (term: string) => void;
-  onAddTool: () => void;
   cardColor: string | null;
   onCardColorChange: (color: string) => void;
   onClearCardColor: () => void;
@@ -32,7 +30,6 @@ interface HeaderProps {
 export const Header = React.memo(function Header({
   searchTerm,
   onSearchTermChange,
-  onAddTool,
   cardColor,
   onCardColorChange,
   onClearCardColor,
@@ -94,10 +91,6 @@ export const Header = React.memo(function Header({
         </div>
 
         <div className="flex flex-shrink-0 items-center gap-1">
-          <Button variant="outline" onClick={onAddTool}>
-            <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline">Add Tool</span>
-          </Button>
           <Button asChild variant="ghost">
             <Link href="/docs">
               <BookOpen className="h-4 w-4" />

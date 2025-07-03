@@ -11,7 +11,6 @@ import {
   Zap,
   Wrench,
   Sparkles,
-  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -32,11 +31,10 @@ const categoryIcons: Record<ToolCategory, React.ElementType> = {
   "Writing & Notes": PenSquare,
   "Productivity Tools": Zap,
   "Utility Tools": Wrench,
-  "My Tools": User,
 };
 
 type NavItem = {
-  id: "Pinned" | "All" | "My Tools" | ToolCategory;
+  id: "Pinned" | "All" | ToolCategory;
   label: string;
   icon: React.ElementType;
 };
@@ -44,7 +42,6 @@ type NavItem = {
 const navItems: NavItem[] = [
   { id: "Pinned", label: "Pinned", icon: Pin },
   { id: "All", label: "All Tools", icon: LayoutGrid },
-  { id: "My Tools", label: "My Tools", icon: User },
 ];
 
 const categoryNavItems: NavItem[] = categories.map((cat) => ({
@@ -54,12 +51,11 @@ const categoryNavItems: NavItem[] = categories.map((cat) => ({
 }));
 
 interface SidebarProps {
-  selectedCategory: "All" | "Pinned" | "My Tools" | ToolCategory;
+  selectedCategory: "All" | "Pinned" | ToolCategory;
   onCategoryChange: (
-    category: "All" | "Pinned" | "My Tools" | ToolCategory
+    category: "All" | "Pinned" | ToolCategory
   ) => void;
   pinnedCount: number;
-  customToolCount: number;
   isCollapsed: boolean;
 }
 
@@ -67,19 +63,13 @@ export const Sidebar = React.memo(function Sidebar({
   selectedCategory,
   onCategoryChange,
   pinnedCount,
-  customToolCount,
   isCollapsed,
 }: SidebarProps) {
   const renderNavItem = (item: NavItem, isCategory: boolean = false) => {
     const Icon = item.icon;
     const isActive = selectedCategory === item.id;
 
-    const getCount = () => {
-      if (item.id === "Pinned") return pinnedCount;
-      if (item.id === "My Tools") return customToolCount;
-      return 0;
-    };
-    const count = getCount();
+    const count = item.id === "Pinned" ? pinnedCount : 0;
 
     if (isCollapsed) {
       return (
@@ -92,7 +82,7 @@ export const Sidebar = React.memo(function Sidebar({
             >
               <Icon className="h-5 w-5" />
               <span className="sr-only">{item.label}</span>
-              {(item.id === "Pinned" || item.id === "My Tools") &&
+              {item.id === "Pinned" &&
                 count > 0 && (
                   <Badge
                     variant="default"
@@ -129,7 +119,7 @@ export const Sidebar = React.memo(function Sidebar({
           )}
         />
         <span className="truncate">{item.label}</span>
-        {(item.id === "Pinned" || item.id === "My Tools") && count > 0 && (
+        {item.id === "Pinned" && count > 0 && (
           <Badge
             variant={isActive ? "default" : "secondary"}
             className="ml-auto"
