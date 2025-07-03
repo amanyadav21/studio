@@ -85,11 +85,11 @@ export function useLocalStorage<T>(
       window.removeEventListener(CUSTOM_STORAGE_EVENT_NAME, handleStorageChange);
       window.removeEventListener("storage", handleStorageChange);
     };
-    // This dependency array is critical. Removing `initialValue` prevents an infinite
-    // loop when non-primitive initial values (like arrays) are passed. The hook's
-    // contract is that `initialValue` is only used on the first render or
-    // when storage is cleared, so we don't need to re-run the effect if it changes.
-  }, [key]);
+    // This dependency array is critical. By including `initialValue`, we ensure that
+    // if it were to change, the event handler would be updated. To prevent infinite loops,
+    // any non-primitive initialValues (like arrays or objects) should be memoized
+    // at the call site (e.g., with useMemo or by defining them as constants).
+  }, [key, initialValue]);
 
   return [storedValue, setValue];
 }

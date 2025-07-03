@@ -18,14 +18,17 @@ import { AddToolDialog } from "@/components/add-tool-dialog";
 
 type ToolFormData = Omit<Tool, "id" | "category">;
 
+const INITIAL_PINNED_TOOLS: string[] = [];
+const INITIAL_CUSTOM_TOOLS: Tool[] = [];
+
 export default function Home() {
   const [pinnedTools, setPinnedTools] = useLocalStorage<string[]>(
     "pinned-tools",
-    []
+    INITIAL_PINNED_TOOLS
   );
   const [customTools, setCustomTools] = useLocalStorage<Tool[]>(
     "custom-tools",
-    []
+    INITIAL_CUSTOM_TOOLS
   );
   const [cardColor, setCardColor] = useLocalStorage<string | null>(
     "card-color",
@@ -144,6 +147,10 @@ export default function Home() {
     setCardColor(null);
   }, [setCardColor]);
 
+  const onCardColorChange = React.useCallback((color: string | null) => {
+    setCardColor(color);
+  }, [setCardColor]);
+  
   const getFilteredTools = React.useCallback((category?: ToolCategory) => {
     let currentTools: Tool[] = allTools;
     
@@ -178,7 +185,7 @@ export default function Home() {
         onSearchTermChange={setSearchTerm}
         onAddTool={handleOpenAddToolDialog}
         cardColor={cardColor}
-        onCardColorChange={setCardColor}
+        onCardColorChange={onCardColorChange}
         onClearCardColor={onClearCardColor}
         isSidebarCollapsed={isSidebarCollapsed}
         onToggleSidebar={toggleSidebar}
