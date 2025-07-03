@@ -68,6 +68,8 @@ export function useLocalStorage<T>(
         if(eventKey !== key) return;
         
         try {
+            // When a storage event occurs, parse the new value.
+            // If the new value is null (e.g., localStorage.clear()), fall back to initialValue.
             const newValue = 'detail' in event 
                 ? event.detail.value 
                 : (event.newValue ? JSON.parse(event.newValue) : initialValue);
@@ -83,7 +85,11 @@ export function useLocalStorage<T>(
       window.removeEventListener(CUSTOM_STORAGE_EVENT_NAME, handleStorageChange);
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [key, initialValue]);
+    // This dependency array is critical. Removing `initialValue` prevents an infinite
+    // loop when non-primitive initial values (like arrays) are passed. The hook's
+    // contract is that `initialValue` is only used on the first render or
+    // when storage is cleared, so we don't need to re-run the effect if it changes.
+  }, [key]);
 
   return [storedValue, setValue];
 }
