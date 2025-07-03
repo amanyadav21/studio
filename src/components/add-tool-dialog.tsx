@@ -5,7 +5,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Plus, Save } from "lucide-react";
+import { Loader2, Plus, Save, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +26,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import type { Tool } from "@/lib/types";
+import { summarizeTool } from "@/ai/flows/tool-summarizer";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -63,6 +66,8 @@ export function AddToolDialog({
     },
   });
 
+  const { toast } = useToast();
+  const [isAnalyzing, setIsAnalyzing] = React.useState(false);
   const mode = initialData ? "edit" : "add";
 
   React.useEffect(() => {
@@ -79,6 +84,28 @@ export function AddToolDialog({
     [onSave, onOpenChange]
   );
 
+  const handleAnalyzeUrl = React.useCallback(async () => {
+    const url = form.getValues("url");
+    const isUrlValid = await form.trigger("url");
+    if (!isUrlValid) return;
+
+    setIsAnalyzing(true);
+    try {
+      const result = await summarizeTool({ url });
+      form.setValue("name", result.name, { shouldValidate: true });
+      form.setValue("description", result.description, { shouldValidate: true });
+    } catch (error) {
+      console.error("Failed to analyze URL:", error);
+      toast({
+        variant: "destructive",
+        title: "Analysis Failed",
+        description: "Could not retrieve details from the provided URL. Please fill them in manually.",
+      });
+    } finally {
+      setIsAnalyzing(false);
+    }
+  }, [form, toast]);
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
@@ -89,11 +116,41 @@ export function AddToolDialog({
           <DialogDescription>
             {mode === "edit"
               ? "Update the details for your tool."
-              : "Add your own favorite web tool to your LocalOpen dashboard."}
+              : "Add your own favorite web tool. Paste a URL and click Analyze to auto-fill the details."}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>URL</FormLabel>
+                  <div className="flex items-center gap-2">
+                    <FormControl>
+                      <Input placeholder="https://example.com" {...field} />
+                    </FormControl>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      onClick={handleAnalyzeUrl}
+                      disabled={isAnalyzing}
+                      className="flex-shrink-0"
+                    >
+                      {isAnalyzing ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Sparkles className="h-4 w-4" />
+                      )}
+                      <span className="sr-only">Analyze URL</span>
+                    </Button>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="name"
@@ -118,19 +175,6 @@ export function AddToolDialog({
                       placeholder="A short description of what this tool does."
                       {...field}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>URL</FormLabel>
-                  <FormControl>
-                    <Input placeholder="https://example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

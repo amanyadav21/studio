@@ -265,8 +265,8 @@ export const ToolCard = React.memo(function ToolCard({
             className="w-full font-semibold rounded-full"
             style={styles?.button}
           >
-            Launch Now
             <Rocket className="h-4 w-4" />
+            Launch Now
           </Button>
         </CardFooter>
       </Card>
