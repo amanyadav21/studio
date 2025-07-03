@@ -1,3 +1,4 @@
+
 import type { FrameworkSubCategory, Tool, ToolCategory } from "@/lib/types";
 
 export const categories: ToolCategory[] = [
@@ -12,6 +13,9 @@ export const categories: ToolCategory[] = [
 export const frameworkSubCategories: FrameworkSubCategory[] = [
   "Frontend",
   "Backend",
+  "Fullstack",
+  "Mobile",
+  "Desktop",
   "Testing",
   "Build Tools",
 ];
@@ -170,14 +174,6 @@ export const tools: Tool[] = [
     subcategory: "Frontend",
   },
   {
-    id: "remix",
-    name: "Remix Docs",
-    description: "Focused on web standards and modern web app UX.",
-    url: "https://remix.run/docs/en/main",
-    category: "Frameworks & Libraries",
-    subcategory: "Frontend",
-  },
-  {
     id: "astro",
     name: "Astro Docs",
     description: "Build the future of the web.",
@@ -194,6 +190,54 @@ export const tools: Tool[] = [
     subcategory: "Backend",
   },
   {
+    id: "remix",
+    name: "Remix Docs",
+    description: "Focused on web standards and modern web app UX.",
+    url: "https://remix.run/docs/en/main",
+    category: "Frameworks & Libraries",
+    subcategory: "Fullstack",
+  },
+  {
+    id: "qwik",
+    name: "Qwik Docs",
+    description: "The HTML-first framework.",
+    url: "https://qwik.builder.io/docs/overview/",
+    category: "Frameworks & Libraries",
+    subcategory: "Fullstack",
+  },
+  {
+    id: "react-native",
+    name: "React Native Docs",
+    description: "Learn once, write anywhere.",
+    url: "https://reactnative.dev/docs/getting-started",
+    category: "Frameworks & Libraries",
+    subcategory: "Mobile",
+  },
+  {
+    id: "flutter",
+    name: "Flutter Docs",
+    description: "Build apps for any screen.",
+    url: "https://docs.flutter.dev/",
+    category: "Frameworks & Libraries",
+    subcategory: "Mobile",
+  },
+  {
+    id: "electron",
+    name: "Electron Docs",
+    description: "Build cross-platform desktop apps with JavaScript, HTML, and CSS.",
+    url: "https://www.electronjs.org/docs/latest/",
+    category: "Frameworks & Libraries",
+    subcategory: "Desktop",
+  },
+  {
+    id: "tauri",
+    name: "Tauri Docs",
+    description: "Build smaller, faster, and more secure desktop applications.",
+    url: "https://tauri.app/v1/guides/",
+    category: "Frameworks & Libraries",
+    subcategory: "Desktop",
+  },
+  {
     id: "jest",
     name: "Jest",
     description: "Delightful JavaScript Testing Framework with a focus on simplicity.",
@@ -206,6 +250,22 @@ export const tools: Tool[] = [
     name: "Webpack",
     description: "A static module bundler for modern JavaScript applications.",
     url: "https://webpack.js.org/",
+    category: "Frameworks & Libraries",
+    subcategory: "Build Tools",
+  },
+  {
+    id: "vite",
+    name: "Vite",
+    description: "Next Generation Frontend Tooling.",
+    url: "https://vitejs.dev/guide/",
+    category: "Frameworks & Libraries",
+    subcategory: "Build Tools",
+  },
+  {
+    id: "parcel",
+    name: "Parcel",
+    description: "The zero configuration build tool for the web.",
+    url: "https://parceljs.org/docs/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
   },
