@@ -3,7 +3,7 @@
 
 import * as React from "react";
 
-import { categories as defaultCategories, tools as defaultTools } from "@/data/tools";
+import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories } from "@/data/tools";
 import type { Tool, ToolCategory } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
@@ -26,9 +26,7 @@ export default function Home() {
     null
   );
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [selectedCategory, setSelectedCategory] = React.useState<
-    "All" | "Pinned" | ToolCategory
-  >("All");
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
@@ -83,13 +81,15 @@ export default function Home() {
     setCardColor(color);
   }, [setCardColor]);
   
-  const getFilteredTools = React.useCallback((category?: ToolCategory) => {
+  const filteredTools = React.useMemo(() => {
     let currentTools: Tool[] = allTools;
-    
+
     if (selectedCategory === "Pinned") {
       currentTools = allTools.filter((tool) => pinnedTools.includes(tool.id));
-    } else if (category) {
-      currentTools = allTools.filter((tool) => tool.category === category);
+    } else if (frameworkSubCategories.includes(selectedCategory as any)) {
+      currentTools = allTools.filter(
+        (tool) => tool.subcategory === selectedCategory
+      );
     } else if (selectedCategory !== "All") {
       currentTools = allTools.filter(
         (tool) => tool.category === selectedCategory
@@ -107,6 +107,23 @@ export default function Home() {
     }
     return currentTools;
   }, [allTools, debouncedSearchTerm, pinnedTools, selectedCategory]);
+
+  const { pageTitle, pageDescription } = React.useMemo(() => {
+    let title = selectedCategory;
+    let description = `A collection of tools for ${selectedCategory.toLowerCase()}.`;
+
+    if (selectedCategory === 'All') {
+        title = "All Tools";
+        description = "A comprehensive list of all available tools, sorted by category.";
+    } else if (selectedCategory === 'Pinned') {
+        title = "Pinned Tools";
+        description = "Your hand-picked tools for quick and easy access.";
+    } else if (frameworkSubCategories.includes(selectedCategory as any)) {
+        title = `${selectedCategory} Tools`;
+        description = `A collection of ${selectedCategory.toLowerCase()} frameworks and libraries.`;
+    }
+    return { pageTitle: title, pageDescription: description };
+  }, [selectedCategory]);
   
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
@@ -133,26 +150,16 @@ export default function Home() {
             isSidebarCollapsed ? "md:ml-20" : "md:ml-64"
           )}
         >
-          {selectedCategory === "Pinned" ? (
-            <>
-              <CategoryHeader
-                title="Pinned Tools"
-                description="Your hand-picked tools for quick and easy access."
-              />
-              <ToolGrid
-                tools={getFilteredTools()}
-                pinnedTools={pinnedTools}
-                onTogglePinned={togglePinned}
-                bundle={bundle}
-                onToggleBundle={toggleBundle}
-                cardColor={cardColor}
-              />
-            </>
-          ) : selectedCategory === "All" ? (
+          {selectedCategory === "All" ? (
             <>
               {defaultCategories.map((category) => {
-                const toolsForCategory = getFilteredTools(category);
-                if (toolsForCategory.length === 0 && debouncedSearchTerm) return null;
+                const toolsForCategory = allTools.filter(t => {
+                  const nameMatch = t.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+                  const descMatch = t.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+                  return t.category === category && (nameMatch || descMatch);
+                });
+
+                if (toolsForCategory.length === 0) return null;
                 
                 return (
                 <div key={category} className="mb-12">
@@ -171,11 +178,11 @@ export default function Home() {
           ) : (
             <>
               <CategoryHeader
-                title={selectedCategory}
-                description={`A collection of tools for ${selectedCategory.toLowerCase()}.`}
+                title={pageTitle}
+                description={pageDescription}
               />
               <ToolGrid
-                tools={getFilteredTools()}
+                tools={filteredTools}
                 pinnedTools={pinnedTools}
                 onTogglePinned={togglePinned}
                 bundle={bundle}

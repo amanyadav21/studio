@@ -6,10 +6,20 @@ export type ToolCategory =
   | "Utility Tools"
   | "Frameworks & Libraries";
 
+export type FrameworkSubCategory =
+  | "Frontend"
+  | "Backend"
+  | "Fullstack"
+  | "Mobile"
+  | "Desktop"
+  | "Testing"
+  | "Build Tools";
+
 export interface Tool {
   id: string;
   name: string;
   description: string;
   url: string;
   category: ToolCategory;
+  subcategory?: FrameworkSubCategory;
 }

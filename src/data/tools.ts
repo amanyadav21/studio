@@ -1,4 +1,4 @@
-import type { Tool, ToolCategory } from "@/lib/types";
+import type { FrameworkSubCategory, Tool, ToolCategory } from "@/lib/types";
 
 export const categories: ToolCategory[] = [
   "Dev Utilities",
@@ -7,6 +7,13 @@ export const categories: ToolCategory[] = [
   "Writing & Notes",
   "Productivity Tools",
   "Utility Tools",
+];
+
+export const frameworkSubCategories: FrameworkSubCategory[] = [
+  "Frontend",
+  "Backend",
+  "Testing",
+  "Build Tools",
 ];
 
 export const tools: Tool[] = [
@@ -128,6 +135,7 @@ export const tools: Tool[] = [
     description: "The library for web and native user interfaces.",
     url: "https://react.dev/",
     category: "Frameworks & Libraries",
+    subcategory: "Frontend",
   },
   {
     id: "nextjs",
@@ -135,6 +143,7 @@ export const tools: Tool[] = [
     description: "The React Framework for the Web.",
     url: "https://nextjs.org/docs",
     category: "Frameworks & Libraries",
+    subcategory: "Frontend",
   },
   {
     id: "vuejs",
@@ -142,6 +151,7 @@ export const tools: Tool[] = [
     description: "The Progressive JavaScript Framework.",
     url: "https://vuejs.org/guide/introduction.html",
     category: "Frameworks & Libraries",
+    subcategory: "Frontend",
   },
   {
     id: "angular",
@@ -149,6 +159,7 @@ export const tools: Tool[] = [
     description: "The web development framework for building the future.",
     url: "https://angular.dev/overview",
     category: "Frameworks & Libraries",
+    subcategory: "Frontend",
   },
   {
     id: "svelte",
@@ -156,6 +167,7 @@ export const tools: Tool[] = [
     description: "Cybernetically enhanced web apps.",
     url: "https://svelte.dev/docs/introduction",
     category: "Frameworks & Libraries",
+    subcategory: "Frontend",
   },
   {
     id: "remix",
@@ -163,6 +175,7 @@ export const tools: Tool[] = [
     description: "Focused on web standards and modern web app UX.",
     url: "https://remix.run/docs/en/main",
     category: "Frameworks & Libraries",
+    subcategory: "Frontend",
   },
   {
     id: "astro",
@@ -170,6 +183,31 @@ export const tools: Tool[] = [
     description: "Build the future of the web.",
     url: "https://docs.astro.build/en/getting-started/",
     category: "Frameworks & Libraries",
+    subcategory: "Frontend",
+  },
+  {
+    id: "expressjs",
+    name: "Express.js",
+    description: "Fast, unopinionated, minimalist web framework for Node.js.",
+    url: "https://expressjs.com/",
+    category: "Frameworks & Libraries",
+    subcategory: "Backend",
+  },
+  {
+    id: "jest",
+    name: "Jest",
+    description: "Delightful JavaScript Testing Framework with a focus on simplicity.",
+    url: "https://jestjs.io/",
+    category: "Frameworks & Libraries",
+    subcategory: "Testing",
+  },
+  {
+    id: "webpack",
+    name: "Webpack",
+    description: "A static module bundler for modern JavaScript applications.",
+    url: "https://webpack.js.org/",
+    category: "Frameworks & Libraries",
+    subcategory: "Build Tools",
   },
   {
     id: "stackedit",
