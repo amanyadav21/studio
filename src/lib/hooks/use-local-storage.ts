@@ -3,22 +3,14 @@
 
 import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "react";
 
-// A custom event to trigger state updates across hooks on the same page,
-// as the 'storage' event only works for other tabs.
-const CUSTOM_STORAGE_EVENT_NAME = 'onLocalStorageChange';
-
-declare global {
-  interface WindowEventMap {
-    [CUSTOM_STORAGE_EVENT_NAME]: CustomEvent<{ key: string; value: any }>;
-  }
-}
+// This hook has been simplified to remove faulty custom event logic that was causing
+// race conditions and data corruption. It now uses the standard 'storage' event
+// for robust cross-tab synchronization.
 
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] {
-  // State to store our value. We use a lazy initializer to read from localStorage
-  // only on the client, which prevents hydration mismatches with server rendering.
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -32,26 +24,21 @@ export function useLocalStorage<T>(
     }
   });
 
-  // The setter function is wrapped in useCallback to ensure it is stable and
-  // doesn't change on every render, preventing unnecessary re-renders in consumer components.
   const setValue: Dispatch<SetStateAction<T>> = useCallback(
     (value) => {
       try {
-        // The `setStoredValue` from `useState` can take a function,
-        // which receives the current state. This avoids needing `storedValue` in the dependencies.
-        setStoredValue(currentValue => {
-            const valueToStore = value instanceof Function ? value(currentValue) : value;
-            
-            if (typeof window !== "undefined") {
-                window.localStorage.setItem(key, JSON.stringify(valueToStore));
-                // Dispatch a custom event so other instances of the hook on the same page can sync up.
-                window.dispatchEvent(
-                    new CustomEvent(CUSTOM_STORAGE_EVENT_NAME, {
-                    detail: { key, value: valueToStore },
-                    })
-                );
-            }
-            return valueToStore;
+        // Use the functional update form of useState's setter to ensure we always
+        // have the latest state, preventing race conditions.
+        setStoredValue((currentValue) => {
+          const valueToStore =
+            value instanceof Function ? value(currentValue) : value;
+          
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            // The 'storage' event will automatically be fired in other tabs,
+            // which is handled by the useEffect below.
+          }
+          return valueToStore;
         });
       } catch (error) {
         console.warn(`Error setting localStorage key “${key}”:`, error);
@@ -60,35 +47,27 @@ export function useLocalStorage<T>(
     [key]
   );
 
-  // This effect synchronizes state across browser tabs (via 'storage' event)
-  // and within the same page (via our custom event).
   useEffect(() => {
-    const handleStorageChange = (event: StorageEvent | CustomEvent) => {
-        const eventKey = 'detail' in event ? event.detail.key : event.key;
-        if(eventKey !== key) return;
-        
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === key) {
         try {
-            // When a storage event occurs, parse the new value.
-            // If the new value is null (e.g., localStorage.clear()), fall back to initialValue.
-            const newValue = 'detail' in event 
-                ? event.detail.value 
-                : (event.newValue ? JSON.parse(event.newValue) : initialValue);
-            setStoredValue(newValue);
+          // When storage changes in another tab, update the state here.
+          // If the item was removed, newValue will be null, so we fall back to initialValue.
+          const newValue = event.newValue ? JSON.parse(event.newValue) : initialValue;
+          setStoredValue(newValue);
         } catch (error) {
-            console.warn(`Error handling storage change for key “${key}”:`, error);
+          console.warn(`Error handling storage change for key “${key}”:`, error);
         }
+      }
     };
 
-    window.addEventListener(CUSTOM_STORAGE_EVENT_NAME, handleStorageChange);
     window.addEventListener("storage", handleStorageChange);
+    
     return () => {
-      window.removeEventListener(CUSTOM_STORAGE_EVENT_NAME, handleStorageChange);
       window.removeEventListener("storage", handleStorageChange);
     };
-    // This dependency array is critical. By including `initialValue`, we ensure that
-    // if it were to change, the event handler would be updated. To prevent infinite loops,
-    // any non-primitive initialValues (like arrays or objects) should be memoized
-    // at the call site (e.g., with useMemo or by defining them as constants).
+    // initialValue is required here to ensure that if the component is remounted
+    // with a different initialValue, it gets the correct state.
   }, [key, initialValue]);
 
   return [storedValue, setValue];
