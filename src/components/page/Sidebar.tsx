@@ -11,6 +11,7 @@ import {
   Zap,
   Wrench,
   Sparkles,
+  Package,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -31,6 +32,7 @@ const categoryIcons: Record<ToolCategory, React.ElementType> = {
   "Writing & Notes": PenSquare,
   "Productivity Tools": Zap,
   "Utility Tools": Wrench,
+  Frameworks: Package,
 };
 
 type NavItem = {
