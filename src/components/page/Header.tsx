@@ -3,6 +3,8 @@
 
 import {
   BookOpen,
+  LayoutGrid,
+  List,
   Search,
 } from "lucide-react";
 import * as React from "react";
@@ -26,6 +28,8 @@ interface HeaderProps {
   onClearCardColor: () => void;
   openMode: 'embed' | 'external';
   onOpenModeChange: (checked: boolean) => void;
+  viewMode: 'grid' | 'list';
+  onViewModeChange: (mode: 'grid' | 'list') => void;
 }
 
 export const Header = React.memo(function Header({
@@ -36,6 +40,8 @@ export const Header = React.memo(function Header({
   onClearCardColor,
   openMode,
   onOpenModeChange,
+  viewMode,
+  onViewModeChange,
 }: HeaderProps) {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -62,23 +68,45 @@ export const Header = React.memo(function Header({
         </div>
 
         <div className="flex flex-1 justify-center px-4">
-          <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              ref={searchInputRef}
-              type="search"
-              placeholder="Search tools..."
-              className="w-full pl-9 pr-16"
-              value={searchTerm}
-              onChange={(e) => onSearchTermChange(e.target.value)}
-            />
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-              <Kbd>⌘K</Kbd>
+         {viewMode === 'grid' && (
+            <div className="relative w-full max-w-md">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                ref={searchInputRef}
+                type="search"
+                placeholder="Search tools..."
+                className="w-full pl-9 pr-16"
+                value={searchTerm}
+                onChange={(e) => onSearchTermChange(e.target.value)}
+              />
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                <Kbd>⌘K</Kbd>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className="flex flex-shrink-0 items-center gap-2">
+           <div className="hidden sm:flex items-center gap-1 rounded-md bg-muted p-1">
+             <Button
+                variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
+                size="sm"
+                className="px-2"
+                onClick={() => onViewModeChange('grid')}
+              >
+                <LayoutGrid className="h-4 w-4" />
+                <span className="sr-only">Grid View</span>
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'secondary' : 'ghost'}
+                size="sm"
+                className="px-2"
+                onClick={() => onViewModeChange('list')}
+              >
+                <List className="h-4 w-4" />
+                <span className="sr-only">List View</span>
+              </Button>
+          </div>
           <Button asChild variant="ghost">
             <Link href="/docs">
               <BookOpen className="h-4 w-4" />
