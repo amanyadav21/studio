@@ -4,10 +4,6 @@
 import * as React from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import {
-  LayoutGrid,
-  LayoutPanelLeft,
-} from "lucide-react";
 
 import { tools as defaultTools } from "@/data/tools";
 import type { Tool } from "@/lib/types";
@@ -15,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FloatingSidebar } from "@/components/floating-sidebar";
+import { ToolHeader } from "@/components/page/ToolHeader";
 
 const ToolPage = () => {
   const params = useParams();
@@ -52,8 +48,8 @@ const ToolPage = () => {
     }
   }, [activeTab, bundledTools]);
 
-  const handleToggleViewMode = React.useCallback(() => {
-    setViewMode((prev) => (prev === "single" ? "parallel" : "single"));
+  const handleViewModeChange = React.useCallback((mode: "single" | "parallel") => {
+    setViewMode(mode);
   }, []);
 
   if (bundledTools.length === 0) {
@@ -71,17 +67,19 @@ const ToolPage = () => {
     );
   }
 
+  // This view is for a single tool, no tabs or special views needed.
   const singleToolView = (
-    <main className="flex-1">
+    <div className="flex-1">
       <iframe
         key={bundledTools[0].id}
         src={bundledTools[0].url}
         title={bundledTools[0].name}
         className="h-full w-full border-0"
       />
-    </main>
+    </div>
   );
 
+  // This view is for multiple tools, but shown one at a time with tabs.
   const multiToolView = (
     <Tabs
       value={activeTab}
@@ -100,7 +98,7 @@ const ToolPage = () => {
         ))}
       </TabsList>
 
-      <main className="flex-1 bg-background">
+      <div className="flex-1 bg-background">
         {bundledTools.map((tool) => (
           <TabsContent
             key={tool.id}
@@ -114,17 +112,18 @@ const ToolPage = () => {
             />
           </TabsContent>
         ))}
-      </main>
+      </div>
     </Tabs>
   );
-
+  
+  // This view shows multiple tools side-by-side.
   const parallelView = (
-    <main className="flex flex-1 overflow-hidden">
+    <div className="flex flex-1 overflow-hidden">
       <div className="flex h-full w-full flex-row">
         {bundledTools.map((tool) => (
           <div
             key={tool.id}
-            className="h-full flex-1 border-r last:border-r-0"
+            className="h-full flex-1 border-r last:border-r-0 dark:border-slate-800"
           >
             <iframe
               src={tool.url}
@@ -134,23 +133,24 @@ const ToolPage = () => {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 
   return (
-    <div
-      className="flex h-screen w-screen flex-col bg-muted/30"
-    >
-      <FloatingSidebar 
+    <div className="flex h-screen w-screen flex-col bg-background">
+      <ToolHeader 
         viewMode={viewMode}
-        onToggleViewMode={handleToggleViewMode}
+        onViewModeChange={handleViewModeChange}
+        toolCount={bundledTools.length}
       />
-
-      {bundledTools.length > 1
-        ? viewMode === "single"
-          ? multiToolView
-          : parallelView
-        : singleToolView}
+      
+      <main className="flex-1 flex flex-col bg-muted/30 overflow-hidden">
+        {bundledTools.length > 1
+          ? viewMode === "single"
+            ? multiToolView
+            : parallelView
+          : singleToolView}
+      </main>
     </div>
   );
 };
