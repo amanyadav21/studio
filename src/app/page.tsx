@@ -174,8 +174,6 @@ export default function Home() {
         cardColor={cardColor}
         onCardColorChange={onCardColorChange}
         onClearCardColor={onClearCardColor}
-        isSidebarCollapsed={isSidebarCollapsed}
-        onToggleSidebar={toggleSidebar}
       />
       <div className="flex">
         <Sidebar
@@ -183,6 +181,7 @@ export default function Home() {
           onCategoryChange={handleCategoryChange}
           pinnedCount={pinnedTools.length}
           isCollapsed={isSidebarCollapsed}
+          onToggleSidebar={toggleSidebar}
         />
 
         <main

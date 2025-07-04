@@ -3,8 +3,6 @@
 
 import {
   BookOpen,
-  PanelLeftClose,
-  PanelRightClose,
   Search,
 } from "lucide-react";
 import * as React from "react";
@@ -23,8 +21,6 @@ interface HeaderProps {
   cardColor: string | null;
   onCardColorChange: (color: string) => void;
   onClearCardColor: () => void;
-  isSidebarCollapsed: boolean;
-  onToggleSidebar: () => void;
 }
 
 export const Header = React.memo(function Header({
@@ -33,8 +29,6 @@ export const Header = React.memo(function Header({
   cardColor,
   onCardColorChange,
   onClearCardColor,
-  isSidebarCollapsed,
-  onToggleSidebar,
 }: HeaderProps) {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -54,19 +48,6 @@ export const Header = React.memo(function Header({
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Button
-            onClick={onToggleSidebar}
-            variant="ghost"
-            size="icon"
-            className="hidden md:inline-flex"
-          >
-            {isSidebarCollapsed ? (
-              <PanelRightClose className="h-5 w-5" />
-            ) : (
-              <PanelLeftClose className="h-5 w-5" />
-            )}
-            <span className="sr-only">Toggle sidebar</span>
-          </Button>
           <Link href="/" className="flex flex-shrink-0 items-center gap-2">
             <AppLogo className="h-6 w-6" />
             <span className="hidden font-bold sm:inline-block">LocalOpen</span>

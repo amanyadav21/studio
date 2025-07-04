@@ -13,6 +13,8 @@ import {
   Sparkles,
   Package,
   ChevronRight,
+  PanelLeftClose,
+  PanelRightClose,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -61,6 +63,7 @@ interface SidebarProps {
   onCategoryChange: (category: string, subCategoryToScroll?: string) => void;
   pinnedCount: number;
   isCollapsed: boolean;
+  onToggleSidebar: () => void;
 }
 
 export const Sidebar = React.memo(function Sidebar({
@@ -68,6 +71,7 @@ export const Sidebar = React.memo(function Sidebar({
   onCategoryChange,
   pinnedCount,
   isCollapsed,
+  onToggleSidebar,
 }: SidebarProps) {
   const frameworkParentCategory = "Frameworks & Libraries";
   const [isFrameworksOpen, setIsFrameworksOpen] = React.useState(false);
@@ -218,13 +222,13 @@ export const Sidebar = React.memo(function Sidebar({
         isCollapsed ? "w-20" : "w-64"
       )}
     >
-      <div
-        className={cn(
-          "flex-1 overflow-y-auto py-6",
-          isCollapsed ? "px-2" : "px-4"
-        )}
-      >
-        <TooltipProvider delayDuration={0}>
+      <TooltipProvider delayDuration={0}>
+        <div
+          className={cn(
+            "flex-1 overflow-y-auto py-6",
+            isCollapsed ? "px-2" : "px-4"
+          )}
+        >
           <nav
             className={cn(
               "flex w-full flex-col gap-1",
@@ -236,8 +240,37 @@ export const Sidebar = React.memo(function Sidebar({
             {categoryNavItems.map((item) => renderNavItem(item))}
             {renderFrameworks()}
           </nav>
-        </TooltipProvider>
-      </div>
+        </div>
+        <div className={cn("mt-auto border-t", isCollapsed ? "p-2" : "p-4")}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={onToggleSidebar}
+                variant="ghost"
+                className={cn(
+                  "w-full",
+                  isCollapsed ? "justify-center" : "justify-start"
+                )}
+              >
+                {isCollapsed ? (
+                  <PanelRightClose className="h-5 w-5" />
+                ) : (
+                  <>
+                    <PanelLeftClose className="h-5 w-5" />
+                    <span className="ml-3 truncate">Collapse</span>
+                  </>
+                )}
+                <span className="sr-only">Toggle sidebar</span>
+              </Button>
+            </TooltipTrigger>
+            {isCollapsed && (
+              <TooltipContent side="right">
+                <p>Expand Sidebar</p>
+              </TooltipContent>
+            )}
+          </Tooltip>
+        </div>
+      </TooltipProvider>
     </aside>
   );
 });
