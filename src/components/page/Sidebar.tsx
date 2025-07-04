@@ -5,7 +5,6 @@ import * as React from "react";
 import {
   Pin,
   LayoutGrid,
-  Code,
   Palette,
   PenSquare,
   Zap,
@@ -35,7 +34,6 @@ import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
 const categoryIcons: Record<ToolCategory, React.ElementType> = {
-  "Dev Utilities": Code,
   "UI & UX": Palette,
   "Writing & Notes": PenSquare,
   "Productivity Tools": Zap,

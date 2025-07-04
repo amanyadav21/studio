@@ -1,6 +1,5 @@
 
 export type ToolCategory =
-  | "Dev Utilities"
   | "UI & UX"
   | "Writing & Notes"
   | "Productivity Tools"

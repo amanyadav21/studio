@@ -2,7 +2,6 @@
 import type { FrameworkSubCategory, Tool, ToolCategory } from "@/lib/types";
 
 export const categories: ToolCategory[] = [
-  "Dev Utilities",
   "UI & UX",
   "APIs",
   "Fonts",
@@ -25,78 +24,6 @@ export const frameworkSubCategories: FrameworkSubCategory[] = [
 ];
 
 export const tools: Tool[] = [
-  {
-    id: "json-formatter",
-    name: "JSON Formatter",
-    description: "Effortlessly format, beautify, and validate your JSON data structures in a clean, readable tree view. A must-have for any developer working with APIs.",
-    url: "https://jsonformatter.org/",
-    category: "Dev Utilities",
-    embeddable: true,
-  },
-  {
-    id: "code-beautify",
-    name: "Code Beautify",
-    description: "A comprehensive suite of online tools for developers, including formatters, validators, and converters for JSON, XML, HTML, SQL, and many other formats.",
-    url: "https://codebeautify.org/",
-    category: "Dev Utilities",
-    embeddable: true,
-  },
-  {
-    id: "regex101",
-    name: "Regex101",
-    description: "Test, debug, and understand regular expressions with detailed explanations, a reference library, and real-time highlighting. Perfect for both beginners and experts.",
-    url: "https://regex101.com/",
-    category: "Dev Utilities",
-    embeddable: true,
-  },
-  {
-    id: "jwt-io",
-    name: "JWT.io",
-    description: "The essential tool for debugging JSON Web Tokens. Decode, verify, and generate JWTs to ensure your authentication tokens are correct and secure.",
-    url: "https://jwt.io/",
-    category: "Dev Utilities",
-    embeddable: true,
-  },
-  {
-    id: "diffchecker",
-    name: "Diffchecker",
-    description: "Quickly compare two text files or code snippets to find differences. Highlights additions and deletions for easy analysis and merging.",
-    url: "https://www.diffchecker.com/",
-    category: "Dev Utilities",
-    embeddable: true,
-  },
-  {
-    id: "devdocs",
-    name: "DevDocs.io",
-    description: "A single-page app that combines multiple API documentations in a fast, organized, and searchable interface. Works offline for uninterrupted productivity.",
-    url: "https://devdocs.io/",
-    category: "Dev Utilities",
-    embeddable: false,
-  },
-  {
-    id: "caniuse",
-    name: "Can I Use",
-    description: "Provides up-to-date browser support tables for front-end web technologies on desktop and mobile browsers. Essential for cross-browser compatibility.",
-    url: "https://caniuse.com/",
-    category: "Dev Utilities",
-    embeddable: false,
-  },
-  {
-    id: "jsbin",
-    name: "JS Bin",
-    description: "A live pastebin for HTML, CSS, and JavaScript, with a real-time output panel. Great for experimenting, debugging, and sharing web snippets.",
-    url: "https://jsbin.com/?js,console",
-    category: "Dev Utilities",
-    embeddable: true,
-  },
-  {
-    id: "playcode",
-    name: "PlayCode.io",
-    description: "A fast and simple JavaScript playground that runs your code in real-time. Includes package management from npm for quick prototyping with any library.",
-    url: "https://playcode.io/",
-    category: "Dev Utilities",
-    embeddable: true,
-  },
   {
     id: "coolors",
     name: "Coolors",
