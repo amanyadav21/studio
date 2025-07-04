@@ -74,9 +74,11 @@ export const ToolCard = React.memo(function ToolCard({
       title: { color: textColor },
       description: { color: subduedTextColor },
       badge: {
-        borderColor: subduedTextColor,
-        color: textColor,
-        backgroundColor: "transparent",
+        backgroundColor: "hsla(0, 0%, 100%, 0.15)",
+        backdropFilter: "blur(4px)",
+        WebkitBackdropFilter: "blur(4px)",
+        borderColor: "hsla(0, 0%, 100%, 0.2)",
+        color: "#ffffff",
       },
       button: {
         backgroundColor: textColor,
@@ -102,6 +104,13 @@ export const ToolCard = React.memo(function ToolCard({
             className="aspect-video w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <Badge
+            variant={cardColor ? "outline" : "secondary"}
+            className="absolute bottom-3 left-3"
+            style={styles?.badge}
+          >
+            {tool.category}
+          </Badge>
           <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <TooltipProvider>
               <Tooltip>
@@ -163,14 +172,7 @@ export const ToolCard = React.memo(function ToolCard({
             {tool.description}
           </CardDescription>
         </CardHeader>
-        <CardFooter className="flex w-full flex-col items-start gap-4 p-4 mt-auto">
-          <Badge
-            variant="outline"
-            className="w-fit"
-            style={styles?.badge}
-          >
-            {tool.category}
-          </Badge>
+        <CardFooter className="p-4 mt-auto">
           <Button
             className="w-full font-semibold rounded-full"
             style={styles?.button}
