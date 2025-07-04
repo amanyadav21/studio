@@ -121,28 +121,27 @@ export default function Home() {
     setViewMode(mode);
   }, [setViewMode]);
   
-  const filteredTools = React.useMemo(() => {
+  const searchedTools = React.useMemo(() => {
     const lowercasedTerm = debouncedSearchTerm.toLowerCase();
+    if (!lowercasedTerm) return allTools;
 
-    let toolsInCategory;
+    return allTools.filter(
+      (tool) =>
+        tool.name.toLowerCase().includes(lowercasedTerm) ||
+        tool.description.toLowerCase().includes(lowercasedTerm)
+    );
+  }, [allTools, debouncedSearchTerm]);
+
+  const gridTools = React.useMemo(() => {
     if (selectedCategory === "Pinned") {
-      toolsInCategory = allTools.filter((tool) => pinnedTools.includes(tool.id));
-    } else if (selectedCategory === "All") {
-      toolsInCategory = allTools;
-    } else {
-      toolsInCategory = allTools.filter((tool) => tool.category === selectedCategory);
+      return searchedTools.filter((tool) => pinnedTools.includes(tool.id));
     }
+    if (selectedCategory === "All") {
+      return searchedTools;
+    }
+    return searchedTools.filter((tool) => tool.category === selectedCategory);
+  }, [searchedTools, selectedCategory, pinnedTools]);
 
-    if (debouncedSearchTerm) {
-      return toolsInCategory.filter(
-        (tool) =>
-          tool.name.toLowerCase().includes(lowercasedTerm) ||
-          tool.description.toLowerCase().includes(lowercasedTerm)
-      );
-    }
-    
-    return toolsInCategory;
-  }, [allTools, debouncedSearchTerm, pinnedTools, selectedCategory]);
 
   const { pageTitle, pageDescription } = React.useMemo(() => {
     let title = selectedCategory;
@@ -194,7 +193,7 @@ export default function Home() {
             {selectedCategory === "All" ? (
               <>
                 {defaultCategories.map((category) => {
-                  const toolsForCategory = filteredTools.filter(t => t.category === category);
+                  const toolsForCategory = gridTools.filter(t => t.category === category);
                   if (toolsForCategory.length === 0) return null;
                   
                   return (
@@ -219,7 +218,7 @@ export default function Home() {
                   description={pageDescription}
                 />
                 {frameworkSubCategories.map((subCategory) => {
-                   const toolsForSubCategory = filteredTools.filter(t => t.subcategory === subCategory);
+                   const toolsForSubCategory = gridTools.filter(t => t.subcategory === subCategory);
 
                   if (toolsForSubCategory.length === 0) return null;
                   
@@ -247,7 +246,7 @@ export default function Home() {
                   description={pageDescription}
                 />
                 <ToolGrid
-                  tools={filteredTools}
+                  tools={gridTools}
                   pinnedTools={pinnedTools}
                   onTogglePinned={togglePinned}
                   bundle={bundle}
@@ -259,7 +258,7 @@ export default function Home() {
           </main>
         </div>
       ) : (
-        <ListView tools={allTools} categories={defaultCategories} />
+        <ListView tools={searchedTools} categories={defaultCategories} />
       )}
       {viewMode === 'grid' && <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />}
     </div>

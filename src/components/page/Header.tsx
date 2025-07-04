@@ -64,22 +64,20 @@ export const Header = React.memo(function Header({
         </div>
 
         <div className="flex flex-1 justify-center px-4">
-         {viewMode === 'grid' && (
-            <div className="relative w-full max-w-md">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                ref={searchInputRef}
-                type="search"
-                placeholder="Search tools..."
-                className="w-full pl-9 pr-16"
-                value={searchTerm}
-                onChange={(e) => onSearchTermChange(e.target.value)}
-              />
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <Kbd>⌘K</Kbd>
-              </div>
+          <div className="relative w-full max-w-md">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              ref={searchInputRef}
+              type="search"
+              placeholder="Search tools..."
+              className="w-full pl-9 pr-16"
+              value={searchTerm}
+              onChange={(e) => onSearchTermChange(e.target.value)}
+            />
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+              <Kbd>⌘K</Kbd>
             </div>
-          )}
+          </div>
         </div>
 
         <div className="flex flex-shrink-0 items-center gap-2">
