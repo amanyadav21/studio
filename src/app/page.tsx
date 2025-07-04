@@ -4,7 +4,7 @@
 import * as React from "react";
 
 import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories } from "@/data/tools";
-import type { Tool, ToolCategory } from "@/lib/types";
+import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
 
@@ -115,35 +115,26 @@ export default function Home() {
   }, [setCardColor]);
   
   const filteredTools = React.useMemo(() => {
-    let currentTools: Tool[] = allTools;
+    let toolsToFilter: Tool[] = allTools;
 
     if (selectedCategory === "Pinned") {
-      currentTools = allTools.filter((tool) => pinnedTools.includes(tool.id));
-    } else if (selectedCategory !== "All" && selectedCategory !== "Frameworks & Libraries") {
-      currentTools = allTools.filter(
+      toolsToFilter = allTools.filter((tool) => pinnedTools.includes(tool.id));
+    } else if (selectedCategory !== "All") {
+      toolsToFilter = allTools.filter(
         (tool) => tool.category === selectedCategory
       );
     }
 
     if (debouncedSearchTerm) {
       const lowercasedTerm = debouncedSearchTerm.toLowerCase();
-      // If showing all tools, filter from the entire list
-      if (selectedCategory === "All" || selectedCategory === "Frameworks & Libraries") {
-        return allTools.filter(tool => 
-            tool.name.toLowerCase().includes(lowercasedTerm) ||
-            tool.description.toLowerCase().includes(lowercasedTerm)
-        );
-      }
-      // Otherwise, filter from the already-categorized list
-      return currentTools.filter(
+      return toolsToFilter.filter(
         (tool) =>
           tool.name.toLowerCase().includes(lowercasedTerm) ||
-          tool.description
-            .toLowerCase()
-            .includes(lowercasedTerm)
+          tool.description.toLowerCase().includes(lowercasedTerm)
       );
     }
-    return currentTools;
+    
+    return toolsToFilter;
   }, [allTools, debouncedSearchTerm, pinnedTools, selectedCategory]);
 
   const { pageTitle, pageDescription } = React.useMemo(() => {
