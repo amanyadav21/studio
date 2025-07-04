@@ -53,16 +53,6 @@ const ToolPage = () => {
     setViewMode(mode);
   }, []);
 
-  const handleDraw = React.useCallback(() => {
-    if (toolIds.includes('tldraw')) {
-        setActiveTab('tldraw');
-    } else {
-        const newToolIds = [...toolIds, 'tldraw'];
-        router.push(`/tool/${newToolIds.join('/')}`);
-    }
-  }, [toolIds, router, setActiveTab]);
-
-
   if (bundledTools.length === 0) {
     return (
       <div className="flex h-screen w-screen flex-col items-center justify-center bg-background">
@@ -139,7 +129,6 @@ const ToolPage = () => {
                     bundledTools={bundledTools}
                     activeTab={activeTab}
                     onTabChange={setActiveTab}
-                    onDraw={handleDraw}
                 />
                 <main className="flex-1 flex flex-col bg-muted/30 overflow-hidden">
                     {multiToolViewContent}
@@ -158,7 +147,6 @@ const ToolPage = () => {
         bundledTools={bundledTools}
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        onDraw={handleDraw}
       />
       
       <main className="flex-1 flex flex-col bg-muted/30 overflow-hidden">

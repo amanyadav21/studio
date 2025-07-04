@@ -5,7 +5,6 @@ import {
   LayoutGrid,
   LayoutPanelLeft,
   Camera,
-  PenLine,
 } from "lucide-react";
 import * as React from "react";
 import Link from "next/link";
@@ -30,7 +29,6 @@ interface ToolHeaderProps {
   bundledTools: Tool[];
   activeTab: string;
   onTabChange: (tabId: string) => void;
-  onDraw: () => void;
 }
 
 export const ToolHeader = React.memo(function ToolHeader({
@@ -39,7 +37,6 @@ export const ToolHeader = React.memo(function ToolHeader({
   bundledTools,
   activeTab,
   onTabChange,
-  onDraw,
 }: ToolHeaderProps) {
   const toolCount = bundledTools.length;
 
@@ -198,22 +195,6 @@ export const ToolHeader = React.memo(function ToolHeader({
               </TooltipTrigger>
               <TooltipContent>
                 <p>Take Screenshot</p>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
-                  onClick={onDraw}
-                  aria-label="Open Drawing Tool"
-                >
-                  <PenLine className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Open Drawing Tool</p>
               </TooltipContent>
             </Tooltip>
             <ThemeToggle />
