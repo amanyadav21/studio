@@ -1,4 +1,3 @@
-
 "use client";
 
 import { ChevronLeft, LayoutGrid, LayoutPanelLeft } from "lucide-react";
@@ -38,7 +37,7 @@ export const ToolHeader = React.memo(function ToolHeader({
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <TooltipProvider>
-        <div className="container relative flex h-14 items-center justify-between gap-2 px-4">
+        <div className="container relative flex h-12 items-center justify-between gap-2 px-4">
           <div className="flex items-center gap-2">
             <Tooltip>
               <TooltipTrigger asChild>
@@ -117,7 +116,7 @@ export const ToolHeader = React.memo(function ToolHeader({
 
          {/* Responsive Tabs for smaller screens */}
          {toolCount > 1 && viewMode === 'single' && (
-            <div className="container border-t py-2 px-4 lg:hidden">
+            <div className="container border-t py-1 px-4 lg:hidden">
               <Tabs value={activeTab} onValueChange={onTabChange}>
                   <TabsList className="w-full h-auto">
                       <div className="w-full overflow-x-auto p-0.5">
