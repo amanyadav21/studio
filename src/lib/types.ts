@@ -5,7 +5,8 @@ export type ToolCategory =
   | "Writing & Notes"
   | "Productivity Tools"
   | "Utility Tools"
-  | "Frameworks & Libraries";
+  | "Frameworks & Libraries"
+  | "AI & ML";
 
 export type FrameworkSubCategory =
   | "Frontend"

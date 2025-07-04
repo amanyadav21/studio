@@ -15,6 +15,7 @@ import {
   ChevronRight,
   PanelLeftClose,
   PanelRightClose,
+  BrainCircuit,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -37,6 +38,7 @@ const categoryIcons: Record<ToolCategory, React.ElementType> = {
   "Productivity Tools": Zap,
   "Utility Tools": Wrench,
   "Frameworks & Libraries": Package,
+  "AI & ML": BrainCircuit,
 };
 
 type NavItem = {
