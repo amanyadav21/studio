@@ -10,7 +10,6 @@ import { cn, getContrastingTextColor } from "@/lib/utils";
 
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -32,6 +31,8 @@ interface ToolCardProps {
   isInBundle: boolean;
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
+  onDeleteTool?: (id: string) => void;
+  onEditTool?: (tool: Tool) => void;
 }
 
 export const ToolCard = React.memo(function ToolCard({
@@ -152,24 +153,24 @@ export const ToolCard = React.memo(function ToolCard({
           </div>
         </div>
         <CardHeader className="flex flex-col flex-grow p-4">
-          <Badge
-            variant="outline"
-            className="mb-2 w-fit"
-            style={styles?.badge}
-          >
-            {tool.category}
-          </Badge>
           <CardTitle className="text-lg font-semibold" style={styles?.title}>
             {tool.name}
           </CardTitle>
           <CardDescription
-            className="mt-1 line-clamp-2 text-sm"
+            className="mt-1 text-sm"
             style={styles?.description}
           >
             {tool.description}
           </CardDescription>
         </CardHeader>
-        <CardFooter className="p-4 pt-0 mt-auto">
+        <CardFooter className="flex w-full flex-col items-start gap-4 p-4 mt-auto">
+          <Badge
+            variant="outline"
+            className="w-fit"
+            style={styles?.badge}
+          >
+            {tool.category}
+          </Badge>
           <Button
             className="w-full font-semibold rounded-full"
             style={styles?.button}
