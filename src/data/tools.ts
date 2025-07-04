@@ -28,6 +28,7 @@ export const tools: Tool[] = [
     description: "Effortlessly format, beautify, and validate your JSON data structures in a clean, readable tree view. A must-have for any developer working with APIs.",
     url: "https://jsonformatter.org/",
     category: "Dev Utilities",
+    embeddable: true,
   },
   {
     id: "code-beautify",
@@ -35,6 +36,7 @@ export const tools: Tool[] = [
     description: "A comprehensive suite of online tools for developers, including formatters, validators, and converters for JSON, XML, HTML, SQL, and many other formats.",
     url: "https://codebeautify.org/",
     category: "Dev Utilities",
+    embeddable: true,
   },
   {
     id: "regex101",
@@ -42,6 +44,7 @@ export const tools: Tool[] = [
     description: "Test, debug, and understand regular expressions with detailed explanations, a reference library, and real-time highlighting. Perfect for both beginners and experts.",
     url: "https://regex101.com/",
     category: "Dev Utilities",
+    embeddable: true,
   },
   {
     id: "jwt-io",
@@ -49,6 +52,7 @@ export const tools: Tool[] = [
     description: "The essential tool for debugging JSON Web Tokens. Decode, verify, and generate JWTs to ensure your authentication tokens are correct and secure.",
     url: "https://jwt.io/",
     category: "Dev Utilities",
+    embeddable: true,
   },
   {
     id: "diffchecker",
@@ -56,6 +60,7 @@ export const tools: Tool[] = [
     description: "Quickly compare two text files or code snippets to find differences. Highlights additions and deletions for easy analysis and merging.",
     url: "https://www.diffchecker.com/",
     category: "Dev Utilities",
+    embeddable: true,
   },
   {
     id: "devdocs",
@@ -63,6 +68,7 @@ export const tools: Tool[] = [
     description: "A single-page app that combines multiple API documentations in a fast, organized, and searchable interface. Works offline for uninterrupted productivity.",
     url: "https://devdocs.io/",
     category: "Dev Utilities",
+    embeddable: false,
   },
   {
     id: "caniuse",
@@ -70,6 +76,7 @@ export const tools: Tool[] = [
     description: "Provides up-to-date browser support tables for front-end web technologies on desktop and mobile browsers. Essential for cross-browser compatibility.",
     url: "https://caniuse.com/",
     category: "Dev Utilities",
+    embeddable: false,
   },
   {
     id: "jsbin",
@@ -77,6 +84,7 @@ export const tools: Tool[] = [
     description: "A live pastebin for HTML, CSS, and JavaScript, with a real-time output panel. Great for experimenting, debugging, and sharing web snippets.",
     url: "https://jsbin.com/?js,console",
     category: "Dev Utilities",
+    embeddable: true,
   },
   {
     id: "playcode",
@@ -84,6 +92,7 @@ export const tools: Tool[] = [
     description: "A fast and simple JavaScript playground that runs your code in real-time. Includes package management from npm for quick prototyping with any library.",
     url: "https://playcode.io/",
     category: "Dev Utilities",
+    embeddable: true,
   },
   {
     id: "coolors",
@@ -91,6 +100,7 @@ export const tools: Tool[] = [
     description: "Create, save, and share beautiful color schemes in seconds. Lock colors you love and press the spacebar to generate new palettes.",
     url: "https://coolors.co/",
     category: "Design & UI Tools",
+    embeddable: false,
   },
   {
     id: "color-hunt",
@@ -98,6 +108,7 @@ export const tools: Tool[] = [
     description: "A free and open platform for color inspiration with thousands of trendy hand-picked color palettes, updated daily.",
     url: "https://colorhunt.co/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "html-color-codes",
@@ -105,6 +116,7 @@ export const tools: Tool[] = [
     description: "Get HTML color codes, HEX, RGB, and HSL values. Includes a color picker, chart, and tutorials to help you master web colors.",
     url: "https://htmlcolorcodes.com/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "get-waves",
@@ -112,6 +124,7 @@ export const tools: Tool[] = [
     description: "A simple and fun tool to generate unique SVG wave shapes for your website backgrounds and designs. Customize complexity and randomness.",
     url: "https://getwaves.io/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "haikei",
@@ -119,6 +132,7 @@ export const tools: Tool[] = [
     description: "A versatile web app for generating unique SVG shapes, backgrounds, and patterns. Perfect for creating visually interesting design elements.",
     url: "https://app.haikei.app/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "css-gradient",
@@ -126,6 +140,7 @@ export const tools: Tool[] = [
     description: "Visually create beautiful, complex CSS gradients with a user-friendly interface. Generates cross-browser compatible code to copy and paste.",
     url: "https://cssgradient.io/",
     category: "Design & UI Tools",
+    embeddable: false,
   },
   {
     id: "realtimecolors",
@@ -133,6 +148,7 @@ export const tools: Tool[] = [
     description: "Instantly visualize and test color palettes and font pairings on a live, interactive website preview. Perfect for UI/UX design.",
     url: "https://realtimecolors.com/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "lucide-icons",
@@ -140,6 +156,7 @@ export const tools: Tool[] = [
     description: "A community-driven, open-source icon library with a vast collection of simply beautiful and consistent icons for your projects.",
     url: "https://lucide.dev/icons/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "uiverse-io",
@@ -147,6 +164,7 @@ export const tools: Tool[] = [
     description: "An extensive library of free and open-source UI elements made with HTML and CSS. Find buttons, checkboxes, loaders, and more to copy and paste.",
     url: "https://uiverse.io/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "blobmaker",
@@ -154,6 +172,7 @@ export const tools: Tool[] = [
     description: "Easily create unique, organic-looking SVG blob shapes. Adjust complexity and contrast to generate the perfect element for your designs.",
     url: "https://www.blobmaker.app/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "fontjoy",
@@ -161,6 +180,7 @@ export const tools: Tool[] = [
     description: "An AI-powered tool that helps you find the perfect font combination. Generate and preview font pairings for your next design project.",
     url: "https://fontjoy.com/",
     category: "Design & UI Tools",
+    embeddable: true,
   },
   {
     id: "react",
@@ -169,6 +189,7 @@ export const tools: Tool[] = [
     url: "https://react.dev/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "vuejs",
@@ -177,6 +198,7 @@ export const tools: Tool[] = [
     url: "https://vuejs.org/guide/introduction.html",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "angular",
@@ -185,6 +207,7 @@ export const tools: Tool[] = [
     url: "https://angular.dev/overview",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "svelte",
@@ -193,6 +216,7 @@ export const tools: Tool[] = [
     url: "https://svelte.dev/docs/introduction",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "solidjs",
@@ -201,6 +225,7 @@ export const tools: Tool[] = [
     url: "https://www.solidjs.com/guides/getting-started",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "tailwindcss",
@@ -209,6 +234,7 @@ export const tools: Tool[] = [
     url: "https://tailwindcss.com/docs",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "localforage",
@@ -217,6 +243,7 @@ export const tools: Tool[] = [
     url: "https://localforage.github.io/localForage/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "dexie-js",
@@ -225,6 +252,7 @@ export const tools: Tool[] = [
     url: "https://dexie.org/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "pouchdb",
@@ -233,6 +261,7 @@ export const tools: Tool[] = [
     url: "https://pouchdb.com/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "rxdb",
@@ -241,6 +270,7 @@ export const tools: Tool[] = [
     url: "https://rxdb.info/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "zustand",
@@ -249,6 +279,7 @@ export const tools: Tool[] = [
     url: "https://docs.pmnd.rs/zustand/getting-started/introduction",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
+    embeddable: false,
   },
   {
     id: "expressjs",
@@ -257,6 +288,7 @@ export const tools: Tool[] = [
     url: "https://expressjs.com/",
     category: "Frameworks & Libraries",
     subcategory: "Backend",
+    embeddable: false,
   },
   {
     id: "nestjs",
@@ -265,6 +297,7 @@ export const tools: Tool[] = [
     url: "https://docs.nestjs.com/",
     category: "Frameworks & Libraries",
     subcategory: "Backend",
+    embeddable: false,
   },
   {
     id: "flask",
@@ -273,6 +306,7 @@ export const tools: Tool[] = [
     url: "https://flask.palletsprojects.com/en/3.0.x/",
     category: "Frameworks & Libraries",
     subcategory: "Backend",
+    embeddable: false,
   },
   {
     id: "spring",
@@ -281,6 +315,7 @@ export const tools: Tool[] = [
     url: "https://docs.spring.io/spring-framework/docs/current/reference/html/",
     category: "Frameworks & Libraries",
     subcategory: "Backend",
+    embeddable: false,
   },
   {
     id: "nextjs",
@@ -289,6 +324,7 @@ export const tools: Tool[] = [
     url: "https://nextjs.org/docs",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "remix",
@@ -297,6 +333,7 @@ export const tools: Tool[] = [
     url: "https://remix.run/docs/en/main",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "qwik",
@@ -305,6 +342,7 @@ export const tools: Tool[] = [
     url: "https://qwik.builder.io/docs/overview/",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "astro",
@@ -313,6 +351,7 @@ export const tools: Tool[] = [
     url: "https://docs.astro.build/en/getting-started/",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "sveltekit",
@@ -321,6 +360,7 @@ export const tools: Tool[] = [
     url: "https://kit.svelte.dev/docs/introduction",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "django",
@@ -329,6 +369,7 @@ export const tools: Tool[] = [
     url: "https://docs.djangoproject.com/en/stable/",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "rubyonrails",
@@ -337,6 +378,7 @@ export const tools: Tool[] = [
     url: "https://guides.rubyonrails.org/",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "laravel",
@@ -345,6 +387,7 @@ export const tools: Tool[] = [
     url: "https://laravel.com/docs/11.x",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "phoenix",
@@ -353,6 +396,7 @@ export const tools: Tool[] = [
     url: "https://hexdocs.pm/phoenix/overview.html",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
+    embeddable: false,
   },
   {
     id: "react-native",
@@ -361,6 +405,7 @@ export const tools: Tool[] = [
     url: "https://reactnative.dev/docs/getting-started",
     category: "Frameworks & Libraries",
     subcategory: "Mobile",
+    embeddable: false,
   },
   {
     id: "flutter",
@@ -369,6 +414,7 @@ export const tools: Tool[] = [
     url: "https://docs.flutter.dev/",
     category: "Frameworks & Libraries",
     subcategory: "Mobile",
+    embeddable: false,
   },
   {
     id: "swiftui",
@@ -377,6 +423,7 @@ export const tools: Tool[] = [
     url: "https://developer.apple.com/xcode/swiftui/",
     category: "Frameworks & Libraries",
     subcategory: "Mobile",
+    embeddable: false,
   },
   {
     id: "jetpack-compose",
@@ -385,6 +432,7 @@ export const tools: Tool[] = [
     url: "https://developer.android.com/jetpack/compose",
     category: "Frameworks & Libraries",
     subcategory: "Mobile",
+    embeddable: false,
   },
   {
     id: "electron",
@@ -393,6 +441,7 @@ export const tools: Tool[] = [
     url: "https://www.electronjs.org/docs/latest/",
     category: "Frameworks & Libraries",
     subcategory: "Desktop",
+    embeddable: false,
   },
   {
     id: "tauri",
@@ -401,6 +450,7 @@ export const tools: Tool[] = [
     url: "https://tauri.app/v1/guides/",
     category: "Frameworks & Libraries",
     subcategory: "Desktop",
+    embeddable: false,
   },
   {
     id: "jest",
@@ -409,6 +459,7 @@ export const tools: Tool[] = [
     url: "https://jestjs.io/",
     category: "Frameworks & Libraries",
     subcategory: "Testing",
+    embeddable: false,
   },
   {
     id: "playwright",
@@ -417,6 +468,7 @@ export const tools: Tool[] = [
     url: "https://playwright.dev/docs/intro",
     category: "Frameworks & Libraries",
     subcategory: "Testing",
+    embeddable: false,
   },
   {
     id: "cypress",
@@ -425,6 +477,7 @@ export const tools: Tool[] = [
     url: "https://docs.cypress.io/guides/overview/why-cypress",
     category: "Frameworks & Libraries",
     subcategory: "Testing",
+    embeddable: false,
   },
   {
     id: "pytest",
@@ -433,6 +486,7 @@ export const tools: Tool[] = [
     url: "https://docs.pytest.org/en/stable/",
     category: "Frameworks & Libraries",
     subcategory: "Testing",
+    embeddable: false,
   },
   {
     id: "webpack",
@@ -441,6 +495,7 @@ export const tools: Tool[] = [
     url: "https://webpack.js.org/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
+    embeddable: false,
   },
   {
     id: "vite",
@@ -449,6 +504,7 @@ export const tools: Tool[] = [
     url: "https://vitejs.dev/guide/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
+    embeddable: false,
   },
   {
     id: "parcel",
@@ -457,6 +513,7 @@ export const tools: Tool[] = [
     url: "https://parceljs.org/docs/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
+    embeddable: false,
   },
   {
     id: "rollup",
@@ -465,6 +522,7 @@ export const tools: Tool[] = [
     url: "https://rollupjs.org/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
+    embeddable: false,
   },
   {
     id: "esbuild",
@@ -473,6 +531,7 @@ export const tools: Tool[] = [
     url: "https://esbuild.github.io/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
+    embeddable: false,
   },
   {
     id: "hugging-face",
@@ -480,6 +539,7 @@ export const tools: Tool[] = [
     description: "The leading platform for building, training, and deploying state-of-the-art machine learning models. Explore thousands of pre-trained models and datasets.",
     url: "https://huggingface.co/",
     category: "AI & ML",
+    embeddable: false,
   },
   {
     id: "google-colab",
@@ -487,6 +547,7 @@ export const tools: Tool[] = [
     description: "A free Jupyter notebook environment that runs entirely in the cloud. Write and execute Python, access GPUs, and easily share your work.",
     url: "https://colab.research.google.com/",
     category: "AI & ML",
+    embeddable: false,
   },
   {
     id: "tensorflow-playground",
@@ -494,6 +555,7 @@ export const tools: Tool[] = [
     description: "An interactive visualization of a neural network running in your browser. Tweak hyperparameters and see the results in real-time.",
     url: "https://playground.tensorflow.org/",
     category: "AI & ML",
+    embeddable: true,
   },
   {
     id: "netron",
@@ -501,6 +563,7 @@ export const tools: Tool[] = [
     description: "A visualizer for neural network, deep learning, and machine learning models. Supports formats like ONNX, TensorFlow Lite, and Caffe.",
     url: "https://netron.app/",
     category: "AI & ML",
+    embeddable: true,
   },
   {
     id: "teachable-machine",
@@ -508,6 +571,7 @@ export const tools: Tool[] = [
     description: "A fast, easy way to create machine learning models for your sites, apps, and more – no expertise or coding required.",
     url: "https://teachablemachine.withgoogle.com/",
     category: "AI & ML",
+    embeddable: true,
   },
   {
     id: "stackedit",
@@ -515,6 +579,7 @@ export const tools: Tool[] = [
     description: "A full-featured, open-source Markdown editor based on PageDown, the Markdown library used by Stack Overflow. It can sync with Google Drive, Dropbox, and GitHub.",
     url: "https://stackedit.io/app",
     category: "Writing & Notes",
+    embeddable: true,
   },
   {
     id: "marktext",
@@ -522,6 +587,7 @@ export const tools: Tool[] = [
     description: "A simple and elegant open-source markdown editor that is focused on speed and usability. It supports CommonMark Spec, GitHub Flavored Markdown Spec and selective support for Pandoc markdown.",
     url: "https://marktext.app/",
     category: "Writing & Notes",
+    embeddable: false,
   },
   {
     id: "tldraw",
@@ -529,6 +595,7 @@ export const tools: Tool[] = [
     description: "A tiny, fast, and fun open-source collaborative whiteboard. Perfect for brainstorming, sketching, and sharing ideas with your team in real-time.",
     url: "https://tldraw.com/",
     category: "Writing & Notes",
+    embeddable: true,
   },
   {
     id: "minimal-notes",
@@ -536,6 +603,7 @@ export const tools: Tool[] = [
     description: "A beautiful, lightweight, and simple note-taking app that saves your notes directly in your browser's localStorage. Fast, private, and works offline.",
     url: "https://minimal-notes.com/",
     category: "Writing & Notes",
+    embeddable: true,
   },
   {
     id: "notepad-js",
@@ -543,6 +611,7 @@ export const tools: Tool[] = [
     description: "A minimalist, client-side notepad application. It's incredibly fast and stores all your data in your browser, ensuring your notes are always private.",
     url: "https://notepad.js.org/",
     category: "Writing & Notes",
+    embeddable: true,
   },
   {
     id: "pomofocus",
@@ -550,6 +619,7 @@ export const tools: Tool[] = [
     description: "A clean and simple Pomodoro Timer app that works on desktop & mobile browser. Helps you stay focused and manage your time effectively, with settings saved locally.",
     url: "https://pomofocus.io/",
     category: "Productivity Tools",
+    embeddable: true,
   },
   {
     id: "excalidraw",
@@ -557,6 +627,7 @@ export const tools: Tool[] = [
     description: "An open-source virtual whiteboard that lets you easily sketch diagrams with a hand-drawn feel. Great for wireframing, brainstorming, and collaboration.",
     url: "https://excalidraw.com/",
     category: "Productivity Tools",
+    embeddable: true,
   },
   {
     id: "todomvc",
@@ -564,6 +635,7 @@ export const tools: Tool[] = [
     description: "A project which helps you select a client-side MV* framework. It's a simple, yet non-trivial, todo application that demonstrates different frameworks with local storage persistence.",
     url: "http://todomvc.com/",
     category: "Productivity Tools",
+    embeddable: false,
   },
   {
     id: "timer-tab",
@@ -571,6 +643,7 @@ export const tools: Tool[] = [
     description: "A versatile online timer that works as a countdown timer, alarm clock, or stopwatch. Simple, clean, and runs directly in your browser tab.",
     url: "https://timertab.com/",
     category: "Productivity Tools",
+    embeddable: true,
   },
   {
     id: "focus-todo",
@@ -578,6 +651,7 @@ export const tools: Tool[] = [
     description: "A science-based app that will motivate you to stay focused and get things done. It brings Pomodoro Technique and To Do List into one place.",
     url: "https://www.focustodo.cn/",
     category: "Productivity Tools",
+    embeddable: true,
   },
   {
     id: "unit-converter",
@@ -585,6 +659,7 @@ export const tools: Tool[] = [
     description: "A free and easy to use online unit converter that converts between all types of measurement units. From length and weight to temperature and volume.",
     url: "https://www.unitconverters.net/",
     category: "Utility Tools",
+    embeddable: true,
   },
   {
     id: "random-org",
@@ -592,6 +667,7 @@ export const tools: Tool[] = [
     description: "Generates true random numbers based on atmospheric noise. Offers a wide range of tools for games, lotteries, scientific applications, and art.",
     url: "https://www.random.org/",
     category: "Utility Tools",
+    embeddable: false,
   },
   {
     id: "lorem-ipsum",
@@ -599,6 +675,7 @@ export const tools: Tool[] = [
     description: "The standard lorem ipsum generator for creating placeholder text for your designs. Generate paragraphs, words, or lists with ease.",
     url: "https://www.lipsum.com/",
     category: "Utility Tools",
+    embeddable: true,
   },
   {
     id: "tinypng",
@@ -606,6 +683,7 @@ export const tools: Tool[] = [
     description: "Drastically reduce the file size of your PNG and JPEG files with smart lossy compression. Optimize your images for faster load times without losing quality.",
     url: "https://tinypng.com/",
     category: "Utility Tools",
+    embeddable: true,
   },
   {
     id: "browserling",
@@ -613,6 +691,7 @@ export const tools: Tool[] = [
     description: "A collection of simple, free, and easy to use online tools for developers, such as encoders, decoders, formatters, and minifiers. No ads, just tools.",
     url: "https://www.browserling.com/",
     category: "Utility Tools",
+    embeddable: false,
   },
   {
     id: "csv-viewer",
@@ -620,5 +699,6 @@ export const tools: Tool[] = [
     description: "A simple online tool to open and view CSV files directly in your browser. Also allows for basic editing, sorting, and filtering of your data.",
     url: "https://www.convertcsv.com/csv-viewer-editor.htm",
     category: "Utility Tools",
+    embeddable: true,
   },
 ];

@@ -4,7 +4,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Pin, PlusCircle, MinusCircle, Rocket } from "lucide-react";
+import { Pin, PlusCircle, MinusCircle, Rocket, ExternalLink } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -189,8 +189,12 @@ export const ToolCard = React.memo(function ToolCard({
             className="w-full font-semibold rounded-full"
             style={styles?.button}
           >
-            <Rocket className="h-4 w-4 mr-2" />
-            Launch
+            {isEmbeddable ? (
+              <Rocket className="h-4 w-4 mr-2" />
+            ) : (
+              <ExternalLink className="h-4 w-4 mr-2" />
+            )}
+            {isEmbeddable ? "Launch" : "Open Site"}
           </Button>
         </CardFooter>
       </Card>
