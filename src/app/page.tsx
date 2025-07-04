@@ -260,7 +260,7 @@ export default function Home() {
       ) : (
         <ListView tools={searchedTools} categories={defaultCategories} />
       )}
-      {viewMode === 'grid' && <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />}
+      <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
     </div>
   );
 }
