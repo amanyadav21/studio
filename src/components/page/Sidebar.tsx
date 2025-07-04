@@ -16,6 +16,9 @@ import {
   PanelLeftClose,
   PanelRightClose,
   BrainCircuit,
+  Cloud,
+  Share2,
+  Type,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -39,6 +42,9 @@ const categoryIcons: Record<ToolCategory, React.ElementType> = {
   "Utility Tools": Wrench,
   "Frameworks & Libraries": Package,
   "AI & ML": BrainCircuit,
+  "Cloud Provider": Cloud,
+  "APIs": Share2,
+  "Fonts": Type,
 };
 
 type NavItem = {

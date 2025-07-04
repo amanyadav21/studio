@@ -4,6 +4,9 @@ import type { FrameworkSubCategory, Tool, ToolCategory } from "@/lib/types";
 export const categories: ToolCategory[] = [
   "Dev Utilities",
   "Design & UI Tools",
+  "APIs",
+  "Fonts",
+  "Cloud Provider",
   "Frameworks & Libraries",
   "AI & ML",
   "Writing & Notes",
@@ -181,6 +184,110 @@ export const tools: Tool[] = [
     url: "https://fontjoy.com/",
     category: "Design & UI Tools",
     embeddable: true,
+  },
+  {
+    id: 'postman',
+    name: 'Postman',
+    description: 'A collaboration platform for API development. Create, share, test, and document your APIs.',
+    url: 'https://www.postman.com/',
+    category: 'APIs',
+    embeddable: false
+  },
+  {
+    id: 'insomnia',
+    name: 'Insomnia',
+    description: 'The open-source API client. Design, debug, and test APIs like a human, not a robot.',
+    url: 'https://insomnia.rest/',
+    category: 'APIs',
+    embeddable: false
+  },
+  {
+    id: 'public-apis',
+    name: 'Public APIs',
+    description: 'A collective list of free APIs for use in software and web development.',
+    url: 'https://github.com/public-apis/public-apis',
+    category: 'APIs',
+    embeddable: false
+  },
+  {
+    id: 'reqbin',
+    name: 'ReqBin',
+    description: 'An online API testing tool for REST and SOAP APIs. Test APIs directly from your browser.',
+    url: 'https://reqbin.com/',
+    category: 'APIs',
+    embeddable: true
+  },
+  {
+    id: 'google-fonts',
+    name: 'Google Fonts',
+    description: 'Making the web more beautiful, fast, and open through great typography.',
+    url: 'https://fonts.google.com/',
+    category: 'Fonts',
+    embeddable: true
+  },
+  {
+    id: 'adobe-fonts',
+    name: 'Adobe Fonts',
+    description: 'Thousands of beautiful fonts for all your creative projects, included with Creative Cloud.',
+    url: 'https://fonts.adobe.com/',
+    category: 'Fonts',
+    embeddable: false
+  },
+  {
+    id: 'fonts-in-use',
+    name: 'Fonts In Use',
+    description: 'A public archive of typography indexed by typeface, format, and industry.',
+    url: 'https://fontsinuse.com/',
+    category: 'Fonts',
+    embeddable: false
+  },
+  {
+    id: 'font-squirrel',
+    name: 'Font Squirrel',
+    description: 'Free fonts have met their match. We know how hard it is to find quality freeware that is licensed for commercial work.',
+    url: 'https://www.fontsquirrel.com/',
+    category: 'Fonts',
+    embeddable: true
+  },
+  {
+    id: 'aws-console',
+    name: 'AWS Management Console',
+    description: 'The web-based user interface for Amazon Web Services. Manage your cloud infrastructure with ease.',
+    url: 'https://aws.amazon.com/console/',
+    category: 'Cloud Provider',
+    embeddable: false
+  },
+  {
+    id: 'gcp-console',
+    name: 'Google Cloud Console',
+    description: 'The unified web UI for Google Cloud Platform. Manage all your GCP resources in one place.',
+    url: 'https://console.cloud.google.com/',
+    category: 'Cloud Provider',
+    embeddable: false
+  },
+  {
+    id: 'azure-portal',
+    name: 'Microsoft Azure Portal',
+    description: 'Build, manage, and monitor everything from simple web apps to complex cloud applications in a single, unified console.',
+    url: 'https://portal.azure.com/',
+    category: 'Cloud Provider',
+    embeddable: false
+  },
+  {
+    id: 'digitalocean',
+    name: 'DigitalOcean',
+    description: 'A simple cloud hosting platform, built for developers. Deploy, manage, and scale applications of any size.',
+    url: 'https://www.digitalocean.com/',
+    category: 'Cloud Provider',
+    embeddable: false
+  },
+  {
+    id: 'firebase-console',
+    name: 'Firebase Console',
+    description: 'Manage your Firebase projects, check project health, and view analytics.',
+    url: 'https://console.firebase.google.com/',
+    category: 'Cloud Provider',
+    embeddable: false
   },
   {
     id: "react",
@@ -572,6 +679,22 @@ export const tools: Tool[] = [
     url: "https://teachablemachine.withgoogle.com/",
     category: "AI & ML",
     embeddable: true,
+  },
+  {
+    id: 'perplexity-ai',
+    name: 'Perplexity AI',
+    description: 'An AI-chat-based conversational search engine that answers queries using natural language predictive text.',
+    url: 'https://www.perplexity.ai/',
+    category: 'AI & ML',
+    embeddable: true,
+  },
+  {
+    id: 'replicate',
+    name: 'Replicate',
+    description: 'Run open-source machine learning models with a cloud API. No need to manage servers or dependencies.',
+    url: 'https://replicate.com/explore',
+    category: 'AI & ML',
+    embeddable: false,
   },
   {
     id: "stackedit",

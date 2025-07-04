@@ -6,7 +6,10 @@ export type ToolCategory =
   | "Productivity Tools"
   | "Utility Tools"
   | "Frameworks & Libraries"
-  | "AI & ML";
+  | "AI & ML"
+  | "Cloud Provider"
+  | "APIs"
+  | "Fonts";
 
 export type FrameworkSubCategory =
   | "Frontend"
