@@ -3,41 +3,40 @@
 
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
-// This hook has been re-architected for maximum stability by removing the
-// cross-tab synchronization feature that was causing data corruption and race conditions.
-// State is now managed reliably within a single browser tab.
-
+// This hook is designed to be hydration-safe for Next.js applications.
+// It prevents hydration mismatches by initializing with a default value on the server
+// and then safely reading from localStorage on the client after the component has mounted.
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] {
-  // 1. Initialize state from localStorage. This runs only once on the client.
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    if (typeof window === "undefined") {
-      return initialValue;
-    }
+  const [value, setValue] = useState<T>(initialValue);
+  const [isMounted, setIsMounted] = useState(false);
+  
+  // On component mount, we set isMounted to true and read from localStorage.
+  // This ensures that we only access localStorage on the client side, after hydration.
+  useEffect(() => {
+    setIsMounted(true);
     try {
       const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.warn(`Error reading localStorage key “${key}”:`, error);
-      return initialValue;
-    }
-  });
-
-  // 2. Persist state to localStorage whenever it changes.
-  useEffect(() => {
-    try {
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(key, JSON.stringify(storedValue));
+      if (item) {
+        setValue(JSON.parse(item));
       }
     } catch (error) {
-      console.warn(`Error setting localStorage key “${key}”:`, error);
+      console.warn(`Error reading localStorage key “${key}”:`, error);
     }
-  }, [key, storedValue]);
+  }, [key]);
 
-  // 3. Return the state and the setter function from useState.
-  // React guarantees that the setter function identity is stable and won't
-  // change on re-renders, making it safe to use in dependency arrays.
-  return [storedValue, setStoredValue];
+  // When value changes, and if the component is mounted, update localStorage.
+  useEffect(() => {
+    if (isMounted) {
+      try {
+        window.localStorage.setItem(key, JSON.stringify(value));
+      } catch (error) {
+        console.warn(`Error setting localStorage key “${key}”:`, error);
+      }
+    }
+  }, [key, value, isMounted]);
+
+  return [value, setValue];
 }

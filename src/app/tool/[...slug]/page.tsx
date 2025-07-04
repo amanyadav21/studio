@@ -27,7 +27,7 @@ const ToolPage = () => {
   const bundledTools = React.useMemo(() => {
     return toolIds
       .map((id) => allTools.find((tool) => tool.id === id))
-      .filter((tool): tool is Tool => !!tool);
+      .filter((tool): tool is Tool => !!tool && (tool.embeddable ?? true));
   }, [toolIds, allTools]);
 
   const [activeTab, setActiveTab] = React.useState<string>(
