@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { tools as defaultTools } from "@/data/tools";
@@ -15,6 +15,7 @@ import { ToolHeader } from "@/components/page/ToolHeader";
 
 const ToolPage = () => {
   const params = useParams();
+  const router = useRouter();
   const { slug } = params;
   const toolIds = Array.isArray(slug) ? slug : slug ? [slug] : [];
 
@@ -51,6 +52,16 @@ const ToolPage = () => {
   const handleViewModeChange = React.useCallback((mode: "single" | "parallel") => {
     setViewMode(mode);
   }, []);
+
+  const handleDraw = React.useCallback(() => {
+    if (toolIds.includes('tldraw')) {
+        setActiveTab('tldraw');
+    } else {
+        const newToolIds = [...toolIds, 'tldraw'];
+        router.push(`/tool/${newToolIds.join('/')}`);
+    }
+  }, [toolIds, router, setActiveTab]);
+
 
   if (bundledTools.length === 0) {
     return (
@@ -128,6 +139,7 @@ const ToolPage = () => {
                     bundledTools={bundledTools}
                     activeTab={activeTab}
                     onTabChange={setActiveTab}
+                    onDraw={handleDraw}
                 />
                 <main className="flex-1 flex flex-col bg-muted/30 overflow-hidden">
                     {multiToolViewContent}
@@ -146,6 +158,7 @@ const ToolPage = () => {
         bundledTools={bundledTools}
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        onDraw={handleDraw}
       />
       
       <main className="flex-1 flex flex-col bg-muted/30 overflow-hidden">
