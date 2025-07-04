@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { ArrowUp, BookOpen, ExternalLink } from 'lucide-react';
+import { ArrowUp, BookOpen } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -84,7 +84,7 @@ export function ListView({ tools, categories }: ListViewProps) {
         </div>
       </aside>
 
-      <main className="flex-1 space-y-12" id="top">
+      <main className="flex-1" id="top">
         {tools.length === 0 ? (
            <div className="flex h-full min-h-[40vh] flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 p-12 text-center">
             <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
@@ -94,7 +94,7 @@ export function ListView({ tools, categories }: ListViewProps) {
             </p>
           </div>
         ) : (
-          <>
+          <div className="prose dark:prose-invert max-w-none">
             {allCategories.map((category) => {
               const categorySlug = slugify(category);
               const toolsForCategory = tools.filter(
@@ -107,42 +107,34 @@ export function ListView({ tools, categories }: ListViewProps) {
 
               return (
                 <section key={categorySlug} id={categorySlug} className="scroll-mt-24">
-                  <h2 className="text-2xl font-bold tracking-tight mb-6">{category}</h2>
+                  <h2>{category}</h2>
 
                   {subCategories.length > 0 ? (
-                    <div className="space-y-8">
+                    <>
                     {subCategories.map(subCat => (
                       <div key={subCat}>
-                        <h3 className="text-lg font-semibold mb-4 border-b pb-2">{subCat}</h3>
-                        <div className="space-y-4">
+                        <h3>{subCat}</h3>
+                        <ul>
                             {toolsForCategory.filter(t => t.subcategory === subCat).map((tool) => (
-                                <a href={tool.url} key={tool.id} target="_blank" rel="noopener noreferrer" className="group flex flex-col rounded-lg border p-4 transition-colors hover:bg-accent">
-                                    <div className="flex items-center justify-between">
-                                        <h4 className="font-semibold text-base">{tool.name}</h4>
-                                        <ExternalLink className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                                    </div>
-                                    <p className="text-sm text-muted-foreground mt-1">{tool.description}</p>
-                                </a>
+                                <li key={tool.id}>
+                                    <a href={tool.url} target="_blank" rel="noopener noreferrer">{tool.name}</a> — {tool.description}
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                       </div>
                     ))}
-                    </div>
+                    </>
                   ) : (
-                     <div className="space-y-4">
+                    <ul>
                       {toolsForCategory.map((tool) => (
-                        <a href={tool.url} key={tool.id} target="_blank" rel="noopener noreferrer" className="group flex flex-col rounded-lg border p-4 transition-colors hover:bg-accent">
-                           <div className="flex items-center justify-between">
-                                <h4 className="font-semibold text-base">{tool.name}</h4>
-                                <ExternalLink className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                            </div>
-                            <p className="text-sm text-muted-foreground mt-1">{tool.description}</p>
-                        </a>
+                        <li key={tool.id}>
+                           <a href={tool.url} target="_blank" rel="noopener noreferrer">{tool.name}</a> — {tool.description}
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   )}
                   
-                  <div className="text-right mt-6">
+                  <div className="not-prose text-right mt-6">
                       <Button asChild variant="ghost" size="sm">
                           <a href="#top">
                               <ArrowUp className="mr-2 h-4 w-4" /> Back to Top
@@ -153,7 +145,7 @@ export function ListView({ tools, categories }: ListViewProps) {
                 </section>
               );
             })}
-          </>
+          </div>
         )}
       </main>
     </div>
