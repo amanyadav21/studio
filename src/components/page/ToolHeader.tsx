@@ -4,7 +4,6 @@ import {
   ChevronLeft,
   LayoutGrid,
   LayoutPanelLeft,
-  Camera,
 } from "lucide-react";
 import * as React from "react";
 import Link from "next/link";
@@ -21,7 +20,6 @@ import {
 } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Tool } from "@/lib/types";
-import { toast } from "@/hooks/use-toast";
 
 interface ToolHeaderProps {
   viewMode: "single" | "parallel";
@@ -39,53 +37,6 @@ export const ToolHeader = React.memo(function ToolHeader({
   onTabChange,
 }: ToolHeaderProps) {
   const toolCount = bundledTools.length;
-
-  const handleScreenshot = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getDisplayMedia({
-        video: { cursor: "always" },
-        audio: false,
-      });
-
-      const video = document.createElement("video");
-      video.srcObject = stream;
-
-      video.onloadedmetadata = () => {
-        video.play();
-
-        const canvas = document.createElement("canvas");
-        setTimeout(() => {
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          const context = canvas.getContext("2d");
-          if (context) {
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageUrl = canvas.toDataURL("image/png");
-
-            const link = document.createElement("a");
-            link.href = imageUrl;
-            link.download = `screenshot-${new Date()
-              .toISOString()
-              .replace(/[:.]/g, "-")}.png`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          }
-
-          stream.getTracks().forEach((track) => track.stop());
-        }, 150);
-      };
-    } catch (error: any) {
-      console.error("Error taking screenshot:", error);
-      if (error.name !== "NotAllowedError") {
-        toast({
-          variant: "destructive",
-          title: "Screenshot Failed",
-          description: "An unexpected error occurred. Please try again.",
-        });
-      }
-    }
-  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -181,22 +132,6 @@ export const ToolHeader = React.memo(function ToolHeader({
                 </Tooltip>
               </div>
             )}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
-                  onClick={handleScreenshot}
-                  aria-label="Take Screenshot"
-                >
-                  <Camera className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Take Screenshot</p>
-              </TooltipContent>
-            </Tooltip>
             <ThemeToggle />
           </div>
         </div>
