@@ -2,7 +2,6 @@
 "use client";
 
 import {
-  BookOpen,
   LayoutGrid,
   List,
   Search,
@@ -101,12 +100,6 @@ export const Header = React.memo(function Header({
                 <span className="sr-only">List View</span>
               </Button>
           </div>
-          <Button asChild variant="ghost">
-            <Link href="/docs">
-              <BookOpen className="h-4 w-4" />
-              <span className="hidden sm:inline">Docs</span>
-            </Link>
-          </Button>
           <ColorPicker
             selectedColor={cardColor}
             onColorChange={onCardColorChange}
