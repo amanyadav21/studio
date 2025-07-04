@@ -223,27 +223,6 @@ export const Sidebar = React.memo(function Sidebar({
       )}
     >
       <TooltipProvider delayDuration={0}>
-        <div className={cn("flex h-14 items-center border-b", isCollapsed ? "justify-center" : "justify-end px-3")}>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button
-                    onClick={onToggleSidebar}
-                    variant="ghost"
-                    size="icon"
-                    >
-                    {isCollapsed ? (
-                        <PanelRightClose className="h-5 w-5" />
-                    ) : (
-                        <PanelLeftClose className="h-5 w-5" />
-                    )}
-                    <span className="sr-only">Toggle sidebar</span>
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                    <p>{isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}</p>
-                </TooltipContent>
-            </Tooltip>
-        </div>
         <div
           className={cn(
             "flex-1 overflow-y-auto py-4",
@@ -256,6 +235,27 @@ export const Sidebar = React.memo(function Sidebar({
               isCollapsed && "items-center"
             )}
           >
+            <div className={cn("mb-4 flex w-full", isCollapsed ? "justify-center" : "justify-end")}>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button
+                        onClick={onToggleSidebar}
+                        variant="ghost"
+                        size="icon"
+                        >
+                        {isCollapsed ? (
+                            <PanelRightClose className="h-5 w-5" />
+                        ) : (
+                            <PanelLeftClose className="h-5 w-5" />
+                        )}
+                        <span className="sr-only">Toggle sidebar</span>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                        <p>{isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}</p>
+                    </TooltipContent>
+                </Tooltip>
+            </div>
             {navItems.map((item) => renderNavItem(item))}
             {!isCollapsed && <Separator className="my-4" />}
             {categoryNavItems.map((item) => renderNavItem(item))}
