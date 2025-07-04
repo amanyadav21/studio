@@ -36,7 +36,7 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/component
 
 const categoryIcons: Record<ToolCategory, React.ElementType> = {
   "Dev Utilities": Code,
-  "Design & UI Tools": Palette,
+  "UI & UX": Palette,
   "Writing & Notes": PenSquare,
   "Productivity Tools": Zap,
   "Utility Tools": Wrench,

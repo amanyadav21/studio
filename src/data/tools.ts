@@ -3,7 +3,7 @@ import type { FrameworkSubCategory, Tool, ToolCategory } from "@/lib/types";
 
 export const categories: ToolCategory[] = [
   "Dev Utilities",
-  "Design & UI Tools",
+  "UI & UX",
   "APIs",
   "Fonts",
   "Cloud Provider",
@@ -102,7 +102,7 @@ export const tools: Tool[] = [
     name: "Coolors",
     description: "Create, save, and share beautiful color schemes in seconds. Lock colors you love and press the spacebar to generate new palettes.",
     url: "https://coolors.co/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: false,
   },
   {
@@ -110,7 +110,7 @@ export const tools: Tool[] = [
     name: "Color Hunt",
     description: "A free and open platform for color inspiration with thousands of trendy hand-picked color palettes, updated daily.",
     url: "https://colorhunt.co/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
   },
   {
@@ -118,7 +118,7 @@ export const tools: Tool[] = [
     name: "HTML Color Codes",
     description: "Get HTML color codes, HEX, RGB, and HSL values. Includes a color picker, chart, and tutorials to help you master web colors.",
     url: "https://htmlcolorcodes.com/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
   },
   {
@@ -126,7 +126,7 @@ export const tools: Tool[] = [
     name: "Get Waves",
     description: "A simple and fun tool to generate unique SVG wave shapes for your website backgrounds and designs. Customize complexity and randomness.",
     url: "https://getwaves.io/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
   },
   {
@@ -134,7 +134,7 @@ export const tools: Tool[] = [
     name: "Haikei",
     description: "A versatile web app for generating unique SVG shapes, backgrounds, and patterns. Perfect for creating visually interesting design elements.",
     url: "https://app.haikei.app/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
   },
   {
@@ -142,7 +142,7 @@ export const tools: Tool[] = [
     name: "CSS Gradient",
     description: "Visually create beautiful, complex CSS gradients with a user-friendly interface. Generates cross-browser compatible code to copy and paste.",
     url: "https://cssgradient.io/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: false,
   },
   {
@@ -150,7 +150,7 @@ export const tools: Tool[] = [
     name: "Realtime Colors",
     description: "Instantly visualize and test color palettes and font pairings on a live, interactive website preview. Perfect for UI/UX design.",
     url: "https://realtimecolors.com/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
   },
   {
@@ -158,7 +158,7 @@ export const tools: Tool[] = [
     name: "Lucide Icons",
     description: "A community-driven, open-source icon library with a vast collection of simply beautiful and consistent icons for your projects.",
     url: "https://lucide.dev/icons/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
   },
   {
@@ -166,7 +166,7 @@ export const tools: Tool[] = [
     name: "UIVerse.io",
     description: "An extensive library of free and open-source UI elements made with HTML and CSS. Find buttons, checkboxes, loaders, and more to copy and paste.",
     url: "https://uiverse.io/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
   },
   {
@@ -174,7 +174,7 @@ export const tools: Tool[] = [
     name: "Blobmaker",
     description: "Easily create unique, organic-looking SVG blob shapes. Adjust complexity and contrast to generate the perfect element for your designs.",
     url: "https://www.blobmaker.app/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
   },
   {
@@ -182,8 +182,40 @@ export const tools: Tool[] = [
     name: "Fontjoy",
     description: "An AI-powered tool that helps you find the perfect font combination. Generate and preview font pairings for your next design project.",
     url: "https://fontjoy.com/",
-    category: "Design & UI Tools",
+    category: "UI & UX",
     embeddable: true,
+  },
+  {
+    id: "figma",
+    name: "Figma",
+    description: "The collaborative interface design tool. Create, test, and ship better designs from start to finish.",
+    url: "https://www.figma.com/",
+    category: "UI & UX",
+    embeddable: false,
+  },
+  {
+    id: "framer",
+    name: "Framer",
+    description: "A tool to design and build realistic websites and prototypes. Go from idea to production in a flash.",
+    url: "https://www.framer.com/",
+    category: "UI & UX",
+    embeddable: false,
+  },
+  {
+    id: "whimsical",
+    name: "Whimsical",
+    description: "The visual workspace for collaboration. Create flowcharts, wireframes, mind maps, and docs in one place.",
+    url: "https://whimsical.com/",
+    category: "UI & UX",
+    embeddable: true,
+  },
+  {
+    id: "wave-tool",
+    name: "WAVE Accessibility Tool",
+    description: "Evaluate web accessibility within your browser. Get visual feedback about the accessibility of your web content.",
+    url: "https://wave.webaim.org/",
+    category: "UI & UX",
+    embeddable: false,
   },
   {
     id: 'postman',
