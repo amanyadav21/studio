@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { ArrowUp, BookOpen, ExternalLink } from 'lucide-react';
+import { ArrowUp, BookOpen } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -23,25 +23,6 @@ function slugify(text: string) {
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, ''); // Trim - from end of text
 }
-
-const ListToolItem = React.memo(({ tool }: { tool: Tool }) => (
-  <li>
-    <a
-      href={tool.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex items-start justify-between rounded-lg border p-4 transition-colors hover:bg-accent"
-    >
-      <div className="flex-1 pr-4">
-        <h4 className="font-semibold text-primary">{tool.name}</h4>
-        <p className="mt-1 text-sm text-muted-foreground">{tool.description}</p>
-      </div>
-      <ExternalLink className="mt-1 h-5 w-5 flex-shrink-0 text-muted-foreground/60 opacity-0 transition-opacity group-hover:opacity-100" />
-    </a>
-  </li>
-));
-ListToolItem.displayName = "ListToolItem";
-
 
 export function ListView({ tools, categories }: ListViewProps) {
   const [activeCategory, setActiveCategory] = React.useState('');
@@ -103,9 +84,9 @@ export function ListView({ tools, categories }: ListViewProps) {
         </div>
       </aside>
 
-      <main className="flex-1" id="top">
+      <main className="flex-1 prose dark:prose-invert max-w-none" id="top">
         {tools.length === 0 ? (
-           <div className="flex h-full min-h-[40vh] flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 p-12 text-center">
+           <div className="flex h-full min-h-[40vh] flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 p-12 text-center not-prose">
             <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
             <h3 className="mt-4 text-lg font-semibold">No Tools Found</h3>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -113,7 +94,7 @@ export function ListView({ tools, categories }: ListViewProps) {
             </p>
           </div>
         ) : (
-          <div className="space-y-16">
+          <>
             {allCategories.map((category) => {
               const categorySlug = slugify(category);
               const toolsForCategory = tools.filter(
@@ -126,34 +107,34 @@ export function ListView({ tools, categories }: ListViewProps) {
 
               return (
                 <section key={categorySlug} id={categorySlug} className="scroll-mt-24">
-                  <div className="border-b pb-3 mb-8">
-                    <h2 className="text-3xl font-bold tracking-tight">
-                      {category}
-                    </h2>
-                  </div>
+                  <h2>{category}</h2>
 
                   {subCategories.length > 0 ? (
-                    <div className="space-y-10">
+                    <>
                     {subCategories.map(subCat => (
                       <div key={subCat}>
-                        <h3 className="text-xl font-semibold mb-4 text-muted-foreground">{subCat}</h3>
-                        <ul className="space-y-3">
+                        <h3>{subCat}</h3>
+                        <ul>
                             {toolsForCategory.filter(t => t.subcategory === subCat).map((tool) => (
-                              <ListToolItem key={tool.id} tool={tool} />
+                                <li key={tool.id}>
+                                    <a href={tool.url} target="_blank" rel="noopener noreferrer">{tool.name}</a> — {tool.description}
+                                </li>
                             ))}
                         </ul>
                       </div>
                     ))}
-                    </div>
+                    </>
                   ) : (
-                     <ul className="space-y-3">
+                     <ul>
                       {toolsForCategory.map((tool) => (
-                         <ListToolItem key={tool.id} tool={tool} />
+                        <li key={tool.id}>
+                            <a href={tool.url} target="_blank" rel="noopener noreferrer">{tool.name}</a> — {tool.description}
+                        </li>
                       ))}
                     </ul>
                   )}
                   
-                  <div className="text-right mt-8">
+                  <div className="text-right not-prose">
                       <Button asChild variant="ghost" size="sm">
                           <a href="#top">
                               <ArrowUp className="mr-2 h-4 w-4" /> Back to Top
@@ -164,7 +145,7 @@ export function ListView({ tools, categories }: ListViewProps) {
                 </section>
               );
             })}
-          </div>
+          </>
         )}
       </main>
     </div>
