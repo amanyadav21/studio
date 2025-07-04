@@ -53,8 +53,8 @@ export const Header = React.memo(function Header({
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between gap-4 px-6">
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex items-center justify-between gap-4 px-6">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex flex-shrink-0 items-center gap-2">
             <AppLogo className="h-6 w-6" />
