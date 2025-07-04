@@ -31,8 +31,6 @@ interface ToolCardProps {
   isInBundle: boolean;
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
-  onDeleteTool?: (id: string) => void;
-  onEditTool?: (tool: Tool) => void;
 }
 
 export const ToolCard = React.memo(function ToolCard({
@@ -73,13 +71,6 @@ export const ToolCard = React.memo(function ToolCard({
       },
       title: { color: textColor },
       description: { color: subduedTextColor },
-      badge: {
-        backgroundColor: "hsla(0, 0%, 100%, 0.15)",
-        backdropFilter: "blur(4px)",
-        WebkitBackdropFilter: "blur(4px)",
-        borderColor: "hsla(0, 0%, 100%, 0.2)",
-        color: "#ffffff",
-      },
       button: {
         backgroundColor: textColor,
         color: cardColor,
@@ -105,20 +96,19 @@ export const ToolCard = React.memo(function ToolCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <Badge
-            variant={cardColor ? "outline" : "secondary"}
-            className="absolute bottom-3 left-3"
-            style={styles?.badge}
+            variant="outline"
+            className="absolute bottom-3 left-3 border-border/30 bg-background/50 backdrop-blur-sm"
           >
             {tool.category}
           </Badge>
-          <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-60 transition-opacity duration-300 group-hover:opacity-100">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     variant="secondary"
                     size="icon"
-                    className="h-9 w-9 rounded-full shadow-lg"
+                    className="h-8 w-8 rounded-full shadow-lg"
                     onClick={handleToggleBundle}
                   >
                     {isInBundle ? (
@@ -142,7 +132,7 @@ export const ToolCard = React.memo(function ToolCard({
                   <Button
                     variant="secondary"
                     size="icon"
-                    className="h-9 w-9 rounded-full shadow-lg"
+                    className="h-8 w-8 rounded-full shadow-lg"
                     onClick={handleTogglePinned}
                   >
                     <Pin
@@ -177,8 +167,8 @@ export const ToolCard = React.memo(function ToolCard({
             className="w-full font-semibold rounded-full"
             style={styles?.button}
           >
-            <Rocket className="h-4 w-4" />
-            Launch Now
+            <Rocket className="h-4 w-4 mr-2" />
+            Launch
           </Button>
         </CardFooter>
       </Card>
