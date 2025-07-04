@@ -14,6 +14,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { ColorPicker } from "@/components/color-picker";
 import { Kbd } from "@/components/ui/kbd";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Separator } from "../ui/separator";
 
 interface HeaderProps {
   searchTerm: string;
@@ -21,6 +24,8 @@ interface HeaderProps {
   cardColor: string | null;
   onCardColorChange: (color: string) => void;
   onClearCardColor: () => void;
+  openMode: 'embed' | 'external';
+  onOpenModeChange: (checked: boolean) => void;
 }
 
 export const Header = React.memo(function Header({
@@ -29,6 +34,8 @@ export const Header = React.memo(function Header({
   cardColor,
   onCardColorChange,
   onClearCardColor,
+  openMode,
+  onOpenModeChange,
 }: HeaderProps) {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -71,7 +78,7 @@ export const Header = React.memo(function Header({
           </div>
         </div>
 
-        <div className="flex flex-shrink-0 items-center gap-1">
+        <div className="flex flex-shrink-0 items-center gap-2">
           <Button asChild variant="ghost">
             <Link href="/docs">
               <BookOpen className="h-4 w-4" />
@@ -84,6 +91,11 @@ export const Header = React.memo(function Header({
             onClear={onClearCardColor}
           />
           <ThemeToggle />
+          <Separator orientation="vertical" className="h-6" />
+           <div className="flex items-center space-x-2">
+            <Label htmlFor="open-mode" className="hidden sm:inline text-sm font-medium">New Tab</Label>
+            <Switch id="open-mode" checked={openMode === 'external'} onCheckedChange={onOpenModeChange} />
+          </div>
         </div>
       </div>
     </header>

@@ -31,6 +31,7 @@ interface ToolCardProps {
   isInBundle: boolean;
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
+  openMode: 'embed' | 'external';
 }
 
 export const ToolCard = React.memo(function ToolCard({
@@ -40,6 +41,7 @@ export const ToolCard = React.memo(function ToolCard({
   isInBundle,
   onToggleBundle,
   cardColor,
+  openMode,
 }: ToolCardProps) {
   const handleToggleBundle = React.useCallback(
     (e: React.MouseEvent) => {
@@ -75,11 +77,31 @@ export const ToolCard = React.memo(function ToolCard({
         backgroundColor: textColor,
         color: cardColor,
       },
+       badge: {
+        backgroundColor: "hsla(0, 0%, 100%, 0.15)",
+        backdropFilter: "blur(4px)",
+        WebkitBackdropFilter: "blur(4px)",
+        borderColor: "hsla(0, 0%, 100%, 0.2)",
+        color: "#ffffff"
+      }
     };
   }, [cardColor]);
 
+  const isEmbeddable = tool.embeddable ?? true;
+  const openInNewTab = openMode === 'external' || !isEmbeddable;
+
+  const linkProps = openInNewTab
+    ? {
+        href: tool.url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+      }
+    : {
+        href: `/tool/${tool.id}`,
+      };
+
   return (
-    <Link href={`/tool/${tool.id}`} className="group block h-full">
+    <Link {...linkProps} className="group block h-full">
       <Card
         className="relative flex h-full flex-col overflow-hidden rounded-xl transition-all duration-300 group-hover:z-10 group-hover:shadow-2xl group-hover:-translate-y-1.5"
         style={styles?.card}
@@ -98,34 +120,37 @@ export const ToolCard = React.memo(function ToolCard({
           <Badge
             variant="outline"
             className="absolute bottom-3 left-3 border-border/30 bg-background/50 backdrop-blur-sm"
+            style={cardColor ? styles?.badge : {}}
           >
             {tool.category}
           </Badge>
           <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-60 transition-opacity duration-300 group-hover:opacity-100">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    className="h-8 w-8 rounded-full shadow-lg"
-                    onClick={handleToggleBundle}
-                  >
-                    {isInBundle ? (
-                      <MinusCircle className="h-4 w-4 text-primary" />
-                    ) : (
-                      <PlusCircle className="h-4 w-4" />
-                    )}
-                    <span className="sr-only">
-                      {isInBundle ? "Remove from bundle" : "Add to bundle"}
-                    </span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  {isInBundle ? "Remove from bundle" : "Add to bundle"}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {openMode === 'embed' && isEmbeddable && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="h-8 w-8 rounded-full shadow-lg"
+                      onClick={handleToggleBundle}
+                    >
+                      {isInBundle ? (
+                        <MinusCircle className="h-4 w-4 text-primary" />
+                      ) : (
+                        <PlusCircle className="h-4 w-4" />
+                      )}
+                      <span className="sr-only">
+                        {isInBundle ? "Remove from bundle" : "Add to bundle"}
+                      </span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {isInBundle ? "Remove from bundle" : "Add to bundle"}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>

@@ -16,6 +16,7 @@ import { ToolGrid } from "@/components/page/ToolGrid";
 import { categories } from "@/data/tools";
 
 const INITIAL_PINNED_TOOLS: string[] = [];
+type OpenMode = "embed" | "external";
 
 export default function Home() {
   const [pinnedTools, setPinnedTools] = useLocalStorage<string[]>(
@@ -32,6 +33,10 @@ export default function Home() {
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
   const [scrollTo, setScrollTo] = React.useState<string | null>(null);
+  const [openMode, setOpenMode] = useLocalStorage<OpenMode>(
+    "open-mode",
+    "embed"
+  );
 
   const allTools = defaultTools;
 
@@ -113,28 +118,31 @@ export default function Home() {
   const onCardColorChange = React.useCallback((color: string | null) => {
     setCardColor(color);
   }, [setCardColor]);
+
+  const onOpenModeChange = React.useCallback((checked: boolean) => {
+    setOpenMode(checked ? 'external' : 'embed');
+  }, [setOpenMode]);
   
   const filteredTools = React.useMemo(() => {
     let toolsToFilter: Tool[] = allTools;
+    const lowercasedTerm = debouncedSearchTerm.toLowerCase();
 
-    if (selectedCategory === "Pinned") {
-      toolsToFilter = allTools.filter((tool) => pinnedTools.includes(tool.id));
-    } else if (selectedCategory !== "All") {
-      toolsToFilter = allTools.filter(
-        (tool) => tool.category === selectedCategory
-      );
-    }
+    const toolsInCategory =
+      selectedCategory === "Pinned"
+        ? allTools.filter((tool) => pinnedTools.includes(tool.id))
+        : selectedCategory === "All"
+        ? allTools
+        : allTools.filter((tool) => tool.category === selectedCategory);
 
     if (debouncedSearchTerm) {
-      const lowercasedTerm = debouncedSearchTerm.toLowerCase();
-      return toolsToFilter.filter(
+      return toolsInCategory.filter(
         (tool) =>
           tool.name.toLowerCase().includes(lowercasedTerm) ||
           tool.description.toLowerCase().includes(lowercasedTerm)
       );
     }
     
-    return toolsToFilter;
+    return toolsInCategory;
   }, [allTools, debouncedSearchTerm, pinnedTools, selectedCategory]);
 
   const { pageTitle, pageDescription } = React.useMemo(() => {
@@ -165,6 +173,8 @@ export default function Home() {
         cardColor={cardColor}
         onCardColorChange={onCardColorChange}
         onClearCardColor={onClearCardColor}
+        openMode={openMode}
+        onOpenModeChange={onOpenModeChange}
       />
       <div className="flex">
         <Sidebar
@@ -184,7 +194,31 @@ export default function Home() {
           {selectedCategory === "All" ? (
             <>
               {defaultCategories.map((category) => {
-                const toolsForCategory = filteredTools.filter(t => t.category === category);
+                const toolsForCategory = allTools.filter(t => t.category === category);
+                
+                // If search is active, only show categories that have matching tools
+                if (debouncedSearchTerm) {
+                    const searchFilteredTools = toolsForCategory.filter(tool => 
+                        tool.name.toLowerCase().includes(debouncedSearchTerm) || 
+                        tool.description.toLowerCase().includes(debouncedSearchTerm)
+                    );
+                    if (searchFilteredTools.length === 0) return null;
+
+                    return (
+                        <div key={category} className="mb-12">
+                            <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
+                            <ToolGrid
+                                tools={searchFilteredTools}
+                                pinnedTools={pinnedTools}
+                                onTogglePinned={togglePinned}
+                                bundle={bundle}
+                                onToggleBundle={toggleBundle}
+                                cardColor={cardColor}
+                                openMode={openMode}
+                            />
+                        </div>
+                    );
+                }
 
                 if (toolsForCategory.length === 0) return null;
                 
@@ -198,6 +232,7 @@ export default function Home() {
                     bundle={bundle}
                     onToggleBundle={toggleBundle}
                     cardColor={cardColor}
+                    openMode={openMode}
                   />
                 </div>
               )})}
@@ -225,6 +260,7 @@ export default function Home() {
                       bundle={bundle}
                       onToggleBundle={toggleBundle}
                       cardColor={cardColor}
+                      openMode={openMode}
                     />
                   </div>
                 );
@@ -243,12 +279,13 @@ export default function Home() {
                 bundle={bundle}
                 onToggleBundle={toggleBundle}
                 cardColor={cardColor}
+                openMode={openMode}
               />
             </>
           )}
         </main>
       </div>
-      <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
+      {openMode === "embed" && <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />}
     </div>
   );
 }

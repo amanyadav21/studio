@@ -24,4 +24,5 @@ export interface Tool {
   url: string;
   category: ToolCategory;
   subcategory?: FrameworkSubCategory;
+  embeddable?: boolean;
 }

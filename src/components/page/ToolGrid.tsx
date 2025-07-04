@@ -13,6 +13,7 @@ interface ToolGridProps {
   bundle: string[];
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
+  openMode: 'embed' | 'external';
 }
 
 export const ToolGrid = React.memo(function ToolGrid({
@@ -22,6 +23,7 @@ export const ToolGrid = React.memo(function ToolGrid({
   bundle,
   onToggleBundle,
   cardColor,
+  openMode,
 }: ToolGridProps) {
   if (tools.length === 0) {
     return (
@@ -46,6 +48,7 @@ export const ToolGrid = React.memo(function ToolGrid({
           isInBundle={bundle.includes(tool.id)}
           onToggleBundle={onToggleBundle}
           cardColor={cardColor}
+          openMode={openMode}
         />
       ))}
     </div>
