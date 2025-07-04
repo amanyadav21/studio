@@ -78,43 +78,6 @@ const ToolPage = () => {
       />
     </div>
   );
-
-  // This view is for multiple tools, but shown one at a time with tabs.
-  const multiToolView = (
-    <Tabs
-      value={activeTab}
-      onValueChange={setActiveTab}
-      className="flex flex-1 flex-col overflow-hidden"
-    >
-      <TabsList
-        className={cn(
-          "mx-auto mt-4"
-        )}
-      >
-        {bundledTools.map((tool) => (
-          <TabsTrigger key={tool.id} value={tool.id}>
-            {tool.name}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-
-      <div className="flex-1 bg-background">
-        {bundledTools.map((tool) => (
-          <TabsContent
-            key={tool.id}
-            value={tool.id}
-            className="h-full w-full m-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-          >
-            <iframe
-              src={tool.url}
-              title={tool.name}
-              className="h-full w-full border-0"
-            />
-          </TabsContent>
-        ))}
-      </div>
-    </Tabs>
-  );
   
   // This view shows multiple tools side-by-side.
   const parallelView = (
@@ -136,19 +99,58 @@ const ToolPage = () => {
     </div>
   );
 
+  const multiToolViewContent = (
+     <div className="flex-1 bg-background">
+        {bundledTools.map((tool) => (
+          <TabsContent
+            key={tool.id}
+            value={tool.id}
+            className="h-full w-full m-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+          >
+            <iframe
+              src={tool.url}
+              title={tool.name}
+              className="h-full w-full border-0"
+            />
+          </TabsContent>
+        ))}
+      </div>
+  );
+
+  // Render with tabs if multiple tools and in single view mode
+  if (bundledTools.length > 1 && viewMode === "single") {
+      return (
+        <div className="flex h-screen w-screen flex-col bg-background">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-1 flex-col overflow-hidden">
+                <ToolHeader 
+                    viewMode={viewMode}
+                    onViewModeChange={handleViewModeChange}
+                    bundledTools={bundledTools}
+                    activeTab={activeTab}
+                    onTabChange={setActiveTab}
+                />
+                <main className="flex-1 flex flex-col bg-muted/30 overflow-hidden">
+                    {multiToolViewContent}
+                </main>
+            </Tabs>
+        </div>
+      )
+  }
+
+  // Render without tabs for single tool or parallel view
   return (
     <div className="flex h-screen w-screen flex-col bg-background">
       <ToolHeader 
         viewMode={viewMode}
         onViewModeChange={handleViewModeChange}
-        toolCount={bundledTools.length}
+        bundledTools={bundledTools}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
       />
       
       <main className="flex-1 flex flex-col bg-muted/30 overflow-hidden">
         {bundledTools.length > 1
-          ? viewMode === "single"
-            ? multiToolView
-            : parallelView
+          ? parallelView
           : singleToolView}
       </main>
     </div>
