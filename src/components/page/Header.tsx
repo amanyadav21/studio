@@ -26,8 +26,6 @@ interface HeaderProps {
   cardColor: string | null;
   onCardColorChange: (color: string) => void;
   onClearCardColor: () => void;
-  openMode: 'embed' | 'external';
-  onOpenModeChange: (checked: boolean) => void;
   viewMode: 'grid' | 'list';
   onViewModeChange: (mode: 'grid' | 'list') => void;
 }
@@ -38,8 +36,6 @@ export const Header = React.memo(function Header({
   cardColor,
   onCardColorChange,
   onClearCardColor,
-  openMode,
-  onOpenModeChange,
   viewMode,
   onViewModeChange,
 }: HeaderProps) {
@@ -119,11 +115,6 @@ export const Header = React.memo(function Header({
             onClear={onClearCardColor}
           />
           <ThemeToggle />
-          <Separator orientation="vertical" className="h-6" />
-           <div className="flex items-center space-x-2">
-            <Label htmlFor="open-mode" className="hidden sm:inline text-sm font-medium">New Tab</Label>
-            <Switch id="open-mode" checked={openMode === 'external'} onCheckedChange={onOpenModeChange} />
-          </div>
         </div>
       </div>
     </header>

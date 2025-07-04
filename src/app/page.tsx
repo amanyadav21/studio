@@ -17,7 +17,6 @@ import { categories } from "@/data/tools";
 import { ListView } from "@/components/page/ListView";
 
 const INITIAL_PINNED_TOOLS: string[] = [];
-type OpenMode = "embed" | "external";
 type ViewMode = "grid" | "list";
 
 export default function Home() {
@@ -35,10 +34,6 @@ export default function Home() {
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
   const [scrollTo, setScrollTo] = React.useState<string | null>(null);
-  const [openMode, setOpenMode] = useLocalStorage<OpenMode>(
-    "open-mode",
-    "embed"
-  );
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>('view-mode', 'grid');
 
   const allTools = defaultTools;
@@ -122,24 +117,21 @@ export default function Home() {
     setCardColor(color);
   }, [setCardColor]);
 
-  const onOpenModeChange = React.useCallback((checked: boolean) => {
-    setOpenMode(checked ? 'external' : 'embed');
-  }, [setOpenMode]);
-
   const onViewModeChange = React.useCallback((mode: ViewMode) => {
     setViewMode(mode);
   }, [setViewMode]);
   
   const filteredTools = React.useMemo(() => {
-    let toolsToFilter: Tool[] = allTools;
     const lowercasedTerm = debouncedSearchTerm.toLowerCase();
 
-    const toolsInCategory =
-      selectedCategory === "Pinned"
-        ? allTools.filter((tool) => pinnedTools.includes(tool.id))
-        : selectedCategory === "All"
-        ? allTools
-        : allTools.filter((tool) => tool.category === selectedCategory);
+    let toolsInCategory;
+    if (selectedCategory === "Pinned") {
+      toolsInCategory = allTools.filter((tool) => pinnedTools.includes(tool.id));
+    } else if (selectedCategory === "All") {
+      toolsInCategory = allTools;
+    } else {
+      toolsInCategory = allTools.filter((tool) => tool.category === selectedCategory);
+    }
 
     if (debouncedSearchTerm) {
       return toolsInCategory.filter(
@@ -180,8 +172,6 @@ export default function Home() {
         cardColor={cardColor}
         onCardColorChange={onCardColorChange}
         onClearCardColor={onClearCardColor}
-        openMode={openMode}
-        onOpenModeChange={onOpenModeChange}
         viewMode={viewMode}
         onViewModeChange={onViewModeChange}
       />
@@ -204,48 +194,23 @@ export default function Home() {
             {selectedCategory === "All" ? (
               <>
                 {defaultCategories.map((category) => {
-                  const toolsForCategory = allTools.filter(t => t.category === category);
-                  
-                  // If search is active, only show categories that have matching tools
-                  if (debouncedSearchTerm) {
-                      const searchFilteredTools = toolsForCategory.filter(tool => 
-                          tool.name.toLowerCase().includes(debouncedSearchTerm) || 
-                          tool.description.toLowerCase().includes(debouncedSearchTerm)
-                      );
-                      if (searchFilteredTools.length === 0) return null;
-
-                      return (
-                          <div key={category} className="mb-12">
-                              <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
-                              <ToolGrid
-                                  tools={searchFilteredTools}
-                                  pinnedTools={pinnedTools}
-                                  onTogglePinned={togglePinned}
-                                  bundle={bundle}
-                                  onToggleBundle={toggleBundle}
-                                  cardColor={cardColor}
-                                  openMode={openMode}
-                              />
-                          </div>
-                      );
-                  }
-
+                  const toolsForCategory = filteredTools.filter(t => t.category === category);
                   if (toolsForCategory.length === 0) return null;
                   
                   return (
-                  <div key={category} className="mb-12">
-                    <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
-                    <ToolGrid
-                      tools={toolsForCategory}
-                      pinnedTools={pinnedTools}
-                      onTogglePinned={togglePinned}
-                      bundle={bundle}
-                      onToggleBundle={toggleBundle}
-                      cardColor={cardColor}
-                      openMode={openMode}
-                    />
-                  </div>
-                )})}
+                    <div key={category} className="mb-12">
+                      <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
+                      <ToolGrid
+                        tools={toolsForCategory}
+                        pinnedTools={pinnedTools}
+                        onTogglePinned={togglePinned}
+                        bundle={bundle}
+                        onToggleBundle={toggleBundle}
+                        cardColor={cardColor}
+                      />
+                    </div>
+                  )
+                })}
               </>
             ) : selectedCategory === "Frameworks & Libraries" ? (
               <>
@@ -270,7 +235,6 @@ export default function Home() {
                         bundle={bundle}
                         onToggleBundle={toggleBundle}
                         cardColor={cardColor}
-                        openMode={openMode}
                       />
                     </div>
                   );
@@ -289,7 +253,6 @@ export default function Home() {
                   bundle={bundle}
                   onToggleBundle={toggleBundle}
                   cardColor={cardColor}
-                  openMode={openMode}
                 />
               </>
             )}
@@ -298,7 +261,7 @@ export default function Home() {
       ) : (
         <ListView tools={allTools} categories={defaultCategories} />
       )}
-      {viewMode === 'grid' && openMode === "embed" && <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />}
+      {viewMode === 'grid' && <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />}
     </div>
   );
 }

@@ -31,7 +31,6 @@ interface ToolCardProps {
   isInBundle: boolean;
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
-  openMode: 'embed' | 'external';
 }
 
 export const ToolCard = React.memo(function ToolCard({
@@ -41,7 +40,6 @@ export const ToolCard = React.memo(function ToolCard({
   isInBundle,
   onToggleBundle,
   cardColor,
-  openMode,
 }: ToolCardProps) {
   const handleToggleBundle = React.useCallback(
     (e: React.MouseEvent) => {
@@ -88,16 +86,15 @@ export const ToolCard = React.memo(function ToolCard({
   }, [cardColor]);
 
   const isEmbeddable = tool.embeddable ?? true;
-  const openInNewTab = openMode === 'external' || !isEmbeddable;
 
-  const linkProps = openInNewTab
+  const linkProps = isEmbeddable
     ? {
+        href: `/tool/${tool.id}`,
+      }
+    : {
         href: tool.url,
         target: "_blank",
         rel: "noopener noreferrer",
-      }
-    : {
-        href: `/tool/${tool.id}`,
       };
 
   return (
@@ -125,7 +122,7 @@ export const ToolCard = React.memo(function ToolCard({
             {tool.category}
           </Badge>
           <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-60 transition-opacity duration-300 group-hover:opacity-100">
-            {openMode === 'embed' && isEmbeddable && (
+            {isEmbeddable && (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
