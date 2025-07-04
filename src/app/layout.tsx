@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'LocalOpen: Your Instant Web Toolkit',
+  title: 'Coderkart: Your Instant Web Toolkit',
   description: 'Open Powerful Tools, Right From Your Browser — No Login. No Delay.',
 };
 

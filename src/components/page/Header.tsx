@@ -50,7 +50,7 @@ export const Header = React.memo(function Header({
         <div className="flex items-center gap-2">
           <Link href="/" className="flex flex-shrink-0 items-center gap-2">
             <AppLogo className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">LocalOpen</span>
+            <span className="hidden font-bold sm:inline-block">Coderkart</span>
           </Link>
         </div>
 

@@ -141,7 +141,7 @@ const features: FeatureDoc[] = [
     content: (
        <>
         <p className="text-lg text-muted-foreground">
-          Customize the look and feel of your LocalOpen dashboard to match your preferences.
+          Customize the look and feel of your Coderkart dashboard to match your preferences.
         </p>
         <div className="mt-8 space-y-6">
           <div>
