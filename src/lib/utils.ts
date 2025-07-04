@@ -35,3 +35,14 @@ export function getContrastingTextColor(hexColor: string): string {
 
   return luminance > 0.5 ? '#0f172a' : '#ffffff'; // Use a dark slate for better contrast than pure black
 }
+
+export function slugify(text: string) {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/[^\w-]+/g, '') // Remove all non-word chars
+    .replace(/--+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, ''); // Trim - from end of text
+}
