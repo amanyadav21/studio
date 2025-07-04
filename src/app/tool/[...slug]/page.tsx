@@ -90,7 +90,7 @@ const ToolPage = () => {
     >
       <TabsList
         className={cn(
-          "mx-4 mt-4 self-center md:hidden"
+          "mx-4 mt-4 self-center"
         )}
       >
         {bundledTools.map((tool) => (

@@ -177,7 +177,7 @@ export const ToolCard = React.memo(function ToolCard({
           </Link>
         </CardTitle>
         <CardDescription
-          className="mt-1 text-sm"
+          className="mt-1 text-sm line-clamp-2"
           style={styles?.description}
         >
           {tool.description}

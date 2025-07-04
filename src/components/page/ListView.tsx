@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { ArrowUp, BookOpen } from 'lucide-react';
+import { ArrowUp, BookOpen, ExternalLink } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -23,6 +23,25 @@ function slugify(text: string) {
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, ''); // Trim - from end of text
 }
+
+const ListToolItem = React.memo(({ tool }: { tool: Tool }) => (
+  <li>
+    <a
+      href={tool.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex items-start justify-between rounded-lg border p-4 transition-colors hover:bg-accent"
+    >
+      <div className="flex-1 pr-4">
+        <h4 className="font-semibold text-primary">{tool.name}</h4>
+        <p className="mt-1 text-sm text-muted-foreground">{tool.description}</p>
+      </div>
+      <ExternalLink className="mt-1 h-5 w-5 flex-shrink-0 text-muted-foreground/60 opacity-0 transition-opacity group-hover:opacity-100" />
+    </a>
+  </li>
+));
+ListToolItem.displayName = "ListToolItem";
+
 
 export function ListView({ tools, categories }: ListViewProps) {
   const [activeCategory, setActiveCategory] = React.useState('');
@@ -94,7 +113,7 @@ export function ListView({ tools, categories }: ListViewProps) {
             </p>
           </div>
         ) : (
-          <div className="prose prose-sm dark:prose-invert max-w-none prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-headings:scroll-mt-24">
+          <div className="space-y-16">
             {allCategories.map((category) => {
               const categorySlug = slugify(category);
               const toolsForCategory = tools.filter(
@@ -106,41 +125,35 @@ export function ListView({ tools, categories }: ListViewProps) {
               const subCategories = Array.from(new Set(toolsForCategory.map(t => t.subcategory).filter(Boolean))) as string[];
 
               return (
-                <section key={categorySlug} id={categorySlug} className="mb-16">
-                  <h2 className="text-3xl font-bold tracking-tight border-b pb-3 mb-6">
-                    {category}
-                  </h2>
+                <section key={categorySlug} id={categorySlug} className="scroll-mt-24">
+                  <div className="border-b pb-3 mb-8">
+                    <h2 className="text-3xl font-bold tracking-tight">
+                      {category}
+                    </h2>
+                  </div>
 
                   {subCategories.length > 0 ? (
-                    subCategories.map(subCat => (
-                      <div key={subCat} className="mb-8">
-                        <h3 className="text-xl font-semibold mb-4">{subCat}</h3>
-                          <ul className="list-disc pl-5 space-y-2">
+                    <div className="space-y-10">
+                    {subCategories.map(subCat => (
+                      <div key={subCat}>
+                        <h3 className="text-xl font-semibold mb-4 text-muted-foreground">{subCat}</h3>
+                        <ul className="space-y-3">
                             {toolsForCategory.filter(t => t.subcategory === subCat).map((tool) => (
-                              <li key={tool.id}>
-                                  <a href={tool.url} target="_blank" rel="noopener noreferrer">
-                                    <strong>{tool.name}</strong>
-                                  </a>
-                                  — {tool.description}
-                                </li>
+                              <ListToolItem key={tool.id} tool={tool} />
                             ))}
-                          </ul>
+                        </ul>
                       </div>
-                    ))
+                    ))}
+                    </div>
                   ) : (
-                    <ul className="list-disc pl-5 space-y-2">
+                     <ul className="space-y-3">
                       {toolsForCategory.map((tool) => (
-                        <li key={tool.id}>
-                          <a href={tool.url} target="_blank" rel="noopener noreferrer">
-                            <strong>{tool.name}</strong>
-                          </a>
-                          — {tool.description}
-                        </li>
+                         <ListToolItem key={tool.id} tool={tool} />
                       ))}
                     </ul>
                   )}
                   
-                  <div className="text-right mt-6">
+                  <div className="text-right mt-8">
                       <Button asChild variant="ghost" size="sm">
                           <a href="#top">
                               <ArrowUp className="mr-2 h-4 w-4" /> Back to Top
