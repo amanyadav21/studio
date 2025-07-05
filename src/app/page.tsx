@@ -3,7 +3,7 @@
 
 import * as React from "react";
 
-import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories } from "@/data/tools";
+import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories, uiUxSubCategories } from "@/data/tools";
 import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
@@ -156,6 +156,9 @@ export default function Home() {
     } else if (selectedCategory === "Frameworks & Libraries") {
         title = "Frameworks & Libraries";
         description = "A curated collection of essential frameworks and libraries.";
+    } else if (selectedCategory === "UI & UX") {
+        title = "UI & UX";
+        description = "A curated collection of essential design tools, assets, and inspiration.";
     } else if (categories.some(c => c === title)) {
       description = `A collection of tools for ${selectedCategory.toLowerCase()}.`;
     }
@@ -163,6 +166,36 @@ export default function Home() {
     return { pageTitle: title, pageDescription: description };
   }, [selectedCategory]);
   
+  const renderSubcategoryGrid = (subcategories: string[]) => (
+    <>
+      <CategoryHeader
+        title={pageTitle}
+        description={pageDescription}
+      />
+      {subcategories.map((subCategory) => {
+         const toolsForSubCategory = gridTools.filter(t => t.subcategory === subCategory);
+
+        if (toolsForSubCategory.length === 0) return null;
+        
+        return (
+          <div key={subCategory} id={subCategory} className="mb-12 scroll-mt-24">
+            <h2 className="mb-6 border-b pb-2 text-2xl font-semibold tracking-tight">
+              {subCategory}
+            </h2>
+            <ToolGrid
+              tools={toolsForSubCategory}
+              pinnedTools={pinnedTools}
+              onTogglePinned={togglePinned}
+              bundle={bundle}
+              onToggleBundle={toggleBundle}
+              cardColor={cardColor}
+            />
+          </div>
+        );
+      })}
+    </>
+  );
+
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
       <Header
@@ -212,33 +245,9 @@ export default function Home() {
                 })}
               </>
             ) : selectedCategory === "Frameworks & Libraries" ? (
-              <>
-                <CategoryHeader
-                  title={pageTitle}
-                  description={pageDescription}
-                />
-                {frameworkSubCategories.map((subCategory) => {
-                   const toolsForSubCategory = gridTools.filter(t => t.subcategory === subCategory);
-
-                  if (toolsForSubCategory.length === 0) return null;
-                  
-                  return (
-                    <div key={subCategory} id={subCategory} className="mb-12 scroll-mt-24">
-                      <h2 className="mb-6 border-b pb-2 text-2xl font-semibold tracking-tight">
-                        {subCategory}
-                      </h2>
-                      <ToolGrid
-                        tools={toolsForSubCategory}
-                        pinnedTools={pinnedTools}
-                        onTogglePinned={togglePinned}
-                        bundle={bundle}
-                        onToggleBundle={toggleBundle}
-                        cardColor={cardColor}
-                      />
-                    </div>
-                  );
-                })}
-              </>
+              renderSubcategoryGrid(frameworkSubCategories)
+            ) : selectedCategory === "UI & UX" ? (
+              renderSubcategoryGrid(uiUxSubCategories)
             ) : (
               <>
                 <CategoryHeader

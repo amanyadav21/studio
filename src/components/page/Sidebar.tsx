@@ -17,7 +17,6 @@ import {
   BrainCircuit,
   Cloud,
   Share2,
-  Type,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -29,19 +28,16 @@ import {
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import type { ToolCategory } from "@/lib/types";
-import { categories, frameworkSubCategories } from "@/data/tools";
+import { categories, frameworkSubCategories, uiUxSubCategories } from "@/data/tools";
 import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
-const categoryIcons: Record<ToolCategory, React.ElementType> = {
-  "UI & UX": Palette,
+const categoryIcons: Record<Exclude<ToolCategory, "Frameworks & Libraries" | "UI & UX" | "Fonts">, React.ElementType> = {
   "Writing & Notes": PenSquare,
   "Productivity Tools": Zap,
-  "Frameworks & Libraries": Package,
   "AI & ML": BrainCircuit,
   "Cloud Provider": Cloud,
   "APIs": Share2,
-  "Fonts": Type,
 };
 
 type NavItem = {
@@ -56,11 +52,11 @@ const navItems: NavItem[] = [
 ];
 
 const categoryNavItems: NavItem[] = categories
-  .filter(c => c !== "Frameworks & Libraries")
+  .filter(c => c !== "Frameworks & Libraries" && c !== "UI & UX")
   .map((cat) => ({
     id: cat,
     label: cat,
-    icon: categoryIcons[cat] || Sparkles,
+    icon: categoryIcons[cat as keyof typeof categoryIcons] || Sparkles,
 }));
 
 interface SidebarProps {
@@ -78,9 +74,12 @@ export const Sidebar = React.memo(function Sidebar({
   isCollapsed,
   onToggleSidebar,
 }: SidebarProps) {
-  const frameworkParentCategory = "Frameworks & Libraries";
   const [isFrameworksOpen, setIsFrameworksOpen] = React.useState(false);
-  const isFrameworksActive = selectedCategory === frameworkParentCategory;
+  const isFrameworksActive = selectedCategory === "Frameworks & Libraries";
+  
+  const [isUiUxOpen, setIsUiUxOpen] = React.useState(false);
+  const isUiUxActive = selectedCategory === "UI & UX";
+
 
   React.useEffect(() => {
     // Open the collapsible if the user selects the parent category.
@@ -88,6 +87,13 @@ export const Sidebar = React.memo(function Sidebar({
         setIsFrameworksOpen(true);
     }
   }, [isFrameworksActive]);
+
+  React.useEffect(() => {
+    if (isUiUxActive) {
+        setIsUiUxOpen(true);
+    }
+  }, [isUiUxActive]);
+
 
   const renderNavItem = (item: NavItem) => {
     const Icon = item.icon;
@@ -153,61 +159,70 @@ export const Sidebar = React.memo(function Sidebar({
     );
   };
   
-  const renderFrameworks = () => {
+  const renderCollapsibleCategory = (
+    parentCategory: ToolCategory,
+    subCategories: string[],
+    icon: React.ElementType,
+    isOpen: boolean,
+    onOpenChange: (open: boolean) => void,
+    isActive: boolean
+  ) => {
+    const Icon = icon;
+
     if (isCollapsed) {
        return (
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant={isFrameworksActive ? "secondary" : "ghost"}
+              variant={isActive ? "secondary" : "ghost"}
               className="relative h-10 w-10 justify-center p-0"
-              onClick={() => onCategoryChange(frameworkParentCategory)}
+              onClick={() => onCategoryChange(parentCategory)}
             >
-              <Package className="h-5 w-5" />
-              <span className="sr-only">{frameworkParentCategory}</span>
+              <Icon className="h-5 w-5" />
+              <span className="sr-only">{parentCategory}</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent side="right">{frameworkParentCategory}</TooltipContent>
+          <TooltipContent side="right">{parentCategory}</TooltipContent>
         </Tooltip>
       );
     }
 
     return (
-       <Collapsible open={isFrameworksOpen} onOpenChange={setIsFrameworksOpen} className="w-full">
+       <Collapsible open={isOpen} onOpenChange={onOpenChange} className="w-full">
         <div className="relative flex w-full items-center">
             <Button
                 variant="ghost"
                 className={cn(
                 "w-full justify-start h-10 relative text-muted-foreground font-normal",
-                isFrameworksActive && "bg-secondary font-semibold text-secondary-foreground"
+                isActive && "bg-secondary font-semibold text-secondary-foreground"
                 )}
-                onClick={() => onCategoryChange(frameworkParentCategory)}
+                onClick={() => onCategoryChange(parentCategory)}
             >
-                {isFrameworksActive && (
+                {isActive && (
                 <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
                 )}
-                <Package
+                <Icon
                 className={cn(
                     "h-5 w-5 mr-3",
-                    isFrameworksActive ? "text-primary" : "text-muted-foreground"
+                    isActive ? "text-primary" : "text-muted-foreground"
                 )}
                 />
-                <span className="truncate pr-8">{frameworkParentCategory}</span>
+                <span className="truncate pr-8">{parentCategory}</span>
             </Button>
             <CollapsibleTrigger className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground">
-                <ChevronRight className={cn("h-4 w-4 transition-transform", isFrameworksOpen && "rotate-90")} />
+                <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
                 <span className="sr-only">Toggle Subcategories</span>
             </CollapsibleTrigger>
         </div>
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
           <div className="flex flex-col gap-1 mt-1">
-            {frameworkSubCategories.map(subCat => {
+            {subCategories.map(subCat => {
               return (
                 <Button
                   key={subCat}
                   variant="ghost"
                   className="w-full justify-start h-9 relative text-muted-foreground font-normal"
-                  onClick={() => onCategoryChange(frameworkParentCategory, subCat)}
+                  onClick={() => onCategoryChange(parentCategory, subCat)}
                 >
                   {subCat}
                 </Button>
@@ -262,9 +277,10 @@ export const Sidebar = React.memo(function Sidebar({
                 </Tooltip>
             </div>
             {navItems.map((item) => renderNavItem(item))}
-            {!isCollapsed && <Separator className="my-4" />}
+            <Separator className="my-4" />
+            {renderCollapsibleCategory("UI & UX", uiUxSubCategories, Palette, isUiUxOpen, setIsUiUxOpen, isUiUxActive)}
             {categoryNavItems.map((item) => renderNavItem(item))}
-            {renderFrameworks()}
+            {renderCollapsibleCategory("Frameworks & Libraries", frameworkSubCategories, Package, isFrameworksOpen, setIsFrameworksOpen, isFrameworksActive)}
           </nav>
         </div>
       </TooltipProvider>

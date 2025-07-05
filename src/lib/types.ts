@@ -8,8 +8,7 @@ export type ToolCategory =
   | "Frameworks & Libraries"
   | "AI & ML"
   | "Cloud Provider"
-  | "APIs"
-  | "Fonts";
+  | "APIs";
 
 export type FrameworkSubCategory =
   | "Frontend"
@@ -20,13 +19,20 @@ export type FrameworkSubCategory =
   | "Testing"
   | "Build Tools";
 
+export type UiUxSubCategory =
+  | "UI Design Tools"
+  | "UI Kits & Templates"
+  | "Assets"
+  | "Prototyping & Testing"
+  | "Inspiration";
+
 export interface Tool {
   id: string;
   name: string;
   description: string;
   url: string;
   category: ToolCategory;
-  subcategory?: FrameworkSubCategory;
+  subcategory?: FrameworkSubCategory | UiUxSubCategory;
   embeddable?: boolean;
   pricing?: Pricing;
 }
