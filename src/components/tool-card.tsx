@@ -158,7 +158,7 @@ export const ToolCard = React.memo(function ToolCard({
           />
         </Link>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-2">
+        <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-1.5">
           <Badge
             variant="outline"
             className={cn({
@@ -256,10 +256,20 @@ export const ToolCard = React.memo(function ToolCard({
       </CardHeader>
       <CardFooter className="p-4 mt-auto">
         {isEmbeddable ? (
-            <div className="flex w-full items-center gap-2">
+            <div className="flex w-full items-center justify-end gap-2">
               <Button
                 asChild
-                className="w-full"
+                variant="secondary"
+                className="font-semibold"
+              >
+                <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Site
+                </Link>
+              </Button>
+              <Button
+                asChild
+                className="font-semibold"
                 style={styles?.button}
               >
                 <Link href={launchUrl}>
@@ -267,31 +277,11 @@ export const ToolCard = React.memo(function ToolCard({
                   Launch
                 </Link>
               </Button>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      asChild
-                      variant="secondary"
-                      size="icon"
-                      className="flex-shrink-0"
-                    >
-                      <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4" />
-                        <span className="sr-only">Open site in new tab</span>
-                      </Link>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Open site in new tab</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
             </div>
           ) : (
             <Button
               asChild
-              className="w-full"
+              className="w-full font-semibold"
               style={styles?.button}
             >
               <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
