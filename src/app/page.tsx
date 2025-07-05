@@ -30,6 +30,7 @@ export default function Home() {
   );
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
+  const [selectedSubCategory, setSelectedSubCategory] = React.useState<string | null>(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
@@ -69,6 +70,7 @@ export default function Home() {
       }
 
       setSelectedCategory(category);
+      setSelectedSubCategory(subCategoryToScroll || null);
       
       if (subCategoryToScroll) {
           // A short delay ensures the DOM has updated before we try to find the element
@@ -214,6 +216,7 @@ export default function Home() {
         <div className="flex">
           <Sidebar
             selectedCategory={selectedCategory}
+            selectedSubCategory={selectedSubCategory}
             onCategoryChange={handleCategoryChange}
             pinnedCount={pinnedTools.length}
             isCollapsed={isSidebarCollapsed}
