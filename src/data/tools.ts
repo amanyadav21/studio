@@ -42,7 +42,7 @@ export const productivitySubCategories: ProductivitySubCategory[] = [
 
 export const noCodeSubCategories: NoCodeSubCategory[] = [
   "Frontend / Website Builders",
-  "Mobile AppBuilders",
+  "Mobile App Builders",
   "Backend / Database",
   "Automation / Workflow Builders",
   "Design & UI Tools",

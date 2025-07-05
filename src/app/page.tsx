@@ -3,7 +3,7 @@
 
 import * as React from "react";
 
-import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories, uiUxSubCategories, productivitySubCategories } from "@/data/tools";
+import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories } from "@/data/tools";
 import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ const subCategoryMap: Record<string, string[]> = {
   "Frameworks & Libraries": frameworkSubCategories,
   "UI & UX": uiUxSubCategories,
   "Productivity Tools": productivitySubCategories,
+  "No-Code / Low-Code": noCodeSubCategories,
 };
 
 export default function Home() {
@@ -38,7 +39,7 @@ export default function Home() {
   const [selectedSubCategory, setSelectedSubCategory] = React.useState<string | null>(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useLocalStorage<boolean>("sidebar-collapsed", false);
   const [scrollTo, setScrollTo] = React.useState<string | null>(null);
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>('view-mode', 'grid');
 
@@ -114,7 +115,7 @@ export default function Home() {
 
   const toggleSidebar = React.useCallback(() => {
     setIsSidebarCollapsed((prev) => !prev);
-  }, []);
+  }, [setIsSidebarCollapsed]);
 
   const onClearCardColor = React.useCallback(() => {
     setCardColor(null);
