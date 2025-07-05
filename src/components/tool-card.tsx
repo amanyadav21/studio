@@ -159,7 +159,7 @@ export const ToolCard = React.memo(function ToolCard({
           </Badge>
           {tool.pricing && (
             <Badge
-              variant={pricingVariant}
+              variant={cardColor ? "outline" : pricingVariant}
               className={cn({ "backdrop-blur-sm": !cardColor })}
               style={getPricingBadgeStyle()}
             >
