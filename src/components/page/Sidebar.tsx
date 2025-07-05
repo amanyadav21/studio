@@ -28,13 +28,12 @@ import {
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import type { ToolCategory } from "@/lib/types";
-import { categories, frameworkSubCategories, uiUxSubCategories } from "@/data/tools";
+import { categories, frameworkSubCategories, uiUxSubCategories, productivitySubCategories } from "@/data/tools";
 import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
-const categoryIcons: Record<Exclude<ToolCategory, "Frameworks & Libraries" | "UI & UX" | "Fonts">, React.ElementType> = {
+const categoryIcons: Record<Exclude<ToolCategory, "Frameworks & Libraries" | "UI & UX" | "Productivity Tools">, React.ElementType> = {
   "Writing & Notes": PenSquare,
-  "Productivity Tools": Zap,
   "AI & ML": BrainCircuit,
   "Cloud Provider": Cloud,
   "APIs": Share2,
@@ -52,7 +51,7 @@ const navItems: NavItem[] = [
 ];
 
 const categoryNavItems: NavItem[] = categories
-  .filter(c => c !== "Frameworks & Libraries" && c !== "UI & UX")
+  .filter(c => c !== "Frameworks & Libraries" && c !== "UI & UX" && c !== "Productivity Tools")
   .map((cat) => ({
     id: cat,
     label: cat,
@@ -80,6 +79,9 @@ export const Sidebar = React.memo(function Sidebar({
   const [isUiUxOpen, setIsUiUxOpen] = React.useState(false);
   const isUiUxActive = selectedCategory === "UI & UX";
 
+  const [isProductivityOpen, setIsProductivityOpen] = React.useState(false);
+  const isProductivityActive = selectedCategory === "Productivity Tools";
+
 
   React.useEffect(() => {
     // Open the collapsible if the user selects the parent category.
@@ -93,6 +95,12 @@ export const Sidebar = React.memo(function Sidebar({
         setIsUiUxOpen(true);
     }
   }, [isUiUxActive]);
+
+  React.useEffect(() => {
+    if (isProductivityActive) {
+        setIsProductivityOpen(true);
+    }
+  }, [isProductivityActive]);
 
 
   const renderNavItem = (item: NavItem) => {
@@ -278,9 +286,21 @@ export const Sidebar = React.memo(function Sidebar({
             </div>
             {navItems.map((item) => renderNavItem(item))}
             <Separator className="my-4" />
+            
             {renderCollapsibleCategory("UI & UX", uiUxSubCategories, Palette, isUiUxOpen, setIsUiUxOpen, isUiUxActive)}
-            {categoryNavItems.map((item) => renderNavItem(item))}
+
+            {renderNavItem(categoryNavItems.find(i => i.id === "Writing & Notes")!)}
+            
+            {renderCollapsibleCategory("Productivity Tools", productivitySubCategories, Zap, isProductivityOpen, setIsProductivityOpen, isProductivityActive)}
+
+            {renderNavItem(categoryNavItems.find(i => i.id === "AI & ML")!)}
+            
             {renderCollapsibleCategory("Frameworks & Libraries", frameworkSubCategories, Package, isFrameworksOpen, setIsFrameworksOpen, isFrameworksActive)}
+
+            {renderNavItem(categoryNavItems.find(i => i.id === "APIs")!)}
+
+            {renderNavItem(categoryNavItems.find(i => i.id === "Cloud Provider")!)}
+
           </nav>
         </div>
       </TooltipProvider>

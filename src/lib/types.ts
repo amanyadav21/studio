@@ -26,13 +26,20 @@ export type UiUxSubCategory =
   | "Prototyping & Testing"
   | "Inspiration";
 
+export type ProductivitySubCategory =
+  | "To-Do & Task Management"
+  | "Time Tracking / Pomodoro / Focus Tools"
+  | "Mind Mapping / Brainstorming / Notes"
+  | "Other Useful Productivity Utilities"
+  | "Minimal / Developer-Friendly Task Tools";
+
 export interface Tool {
   id: string;
   name: string;
   description: string;
   url: string;
   category: ToolCategory;
-  subcategory?: FrameworkSubCategory | UiUxSubCategory;
+  subcategory?: FrameworkSubCategory | UiUxSubCategory | ProductivitySubCategory;
   embeddable?: boolean;
   pricing?: Pricing;
 }

@@ -3,7 +3,7 @@
 
 import * as React from "react";
 
-import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories, uiUxSubCategories } from "@/data/tools";
+import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories, uiUxSubCategories, productivitySubCategories } from "@/data/tools";
 import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
@@ -159,6 +159,9 @@ export default function Home() {
     } else if (selectedCategory === "UI & UX") {
         title = "UI & UX";
         description = "A curated collection of essential design tools, assets, and inspiration.";
+    } else if (selectedCategory === "Productivity Tools") {
+        title = "Productivity Tools";
+        description = "A curated collection of tools to help you stay focused and organized.";
     } else if (categories.some(c => c === title)) {
       description = `A collection of tools for ${selectedCategory.toLowerCase()}.`;
     }
@@ -248,6 +251,8 @@ export default function Home() {
               renderSubcategoryGrid(frameworkSubCategories)
             ) : selectedCategory === "UI & UX" ? (
               renderSubcategoryGrid(uiUxSubCategories)
+            ) : selectedCategory === "Productivity Tools" ? (
+              renderSubcategoryGrid(productivitySubCategories)
             ) : (
               <>
                 <CategoryHeader
