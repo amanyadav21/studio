@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -42,9 +41,9 @@ export function ListViewSidebar({
   categoryCounts,
 }: ListViewSidebarProps) {
   return (
-    <aside className="hidden w-64 flex-shrink-0 md:block">
+    <aside className="hidden w-56 flex-shrink-0 md:block">
       <div className="sticky top-24">
-        <h3 className="mb-4 text-lg font-semibold tracking-tight">
+        <h3 className="mb-3 px-3 text-xs font-semibold uppercase text-muted-foreground tracking-wider">
           On this page
         </h3>
         <nav className="flex flex-col gap-1">
@@ -62,7 +61,7 @@ export function ListViewSidebar({
                   onCategoryClick(categorySlug);
                 }}
                 className={cn(
-                  'group relative flex items-center justify-between gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  'group relative flex items-center justify-between gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
                   isActive
                     ? 'bg-muted font-semibold text-primary'
                     : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
