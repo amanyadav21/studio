@@ -1,4 +1,6 @@
 
+export type Pricing = "Free" | "Paid" | "Freemium";
+
 export type ToolCategory =
   | "UI & UX"
   | "Writing & Notes"
@@ -27,4 +29,5 @@ export interface Tool {
   category: ToolCategory;
   subcategory?: FrameworkSubCategory;
   embeddable?: boolean;
+  pricing?: Pricing;
 }

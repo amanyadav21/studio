@@ -93,6 +93,13 @@ export const ToolCard = React.memo(function ToolCard({
     ? { href: launchUrl }
     : { href: externalUrl, target: "_blank", rel: "noopener noreferrer" };
 
+  const pricingVariant =
+    tool.pricing === "Paid"
+      ? "destructive"
+      : tool.pricing === "Freemium"
+      ? "default"
+      : "secondary";
+
   return (
     <Card
       className="group relative flex h-full flex-col overflow-hidden rounded-xl transition-all duration-300 hover:z-10 hover:shadow-2xl hover:-translate-y-1.5"
@@ -111,13 +118,24 @@ export const ToolCard = React.memo(function ToolCard({
           />
         </Link>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <Badge
-          variant="outline"
-          className="absolute bottom-3 left-3 border-border/30 bg-background/50 backdrop-blur-sm"
-          style={cardColor ? styles?.badge : {}}
-        >
-          {tool.category}
-        </Badge>
+        <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-2">
+          <Badge
+            variant="outline"
+            className="border-border/30 bg-background/50 backdrop-blur-sm"
+            style={cardColor ? styles?.badge : {}}
+          >
+            {tool.category}
+          </Badge>
+          {tool.pricing && (
+            <Badge
+              variant={pricingVariant}
+              className="backdrop-blur-sm"
+              style={cardColor ? styles?.badge : {}}
+            >
+              {tool.pricing}
+            </Badge>
+          )}
+        </div>
         <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-60 transition-opacity duration-300 group-hover:opacity-100">
           {isEmbeddable && (
             <TooltipProvider>

@@ -6,6 +6,7 @@ import { ArrowUp, BookOpen } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { slugify } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
 interface ListViewContentProps {
   tools: Tool[];
@@ -66,6 +67,14 @@ export const ListViewContent = React.forwardRef<
                                   {tool.name}
                                 </a>{' '}
                                 — {tool.description}
+                                {tool.pricing && (
+                                  <Badge
+                                    variant="outline"
+                                    className="ml-2 align-middle font-normal"
+                                  >
+                                    {tool.pricing}
+                                  </Badge>
+                                )}
                               </li>
                             ))}
                         </ul>
@@ -84,6 +93,14 @@ export const ListViewContent = React.forwardRef<
                           {tool.name}
                         </a>{' '}
                         — {tool.description}
+                        {tool.pricing && (
+                          <Badge
+                            variant="outline"
+                            className="ml-2 align-middle font-normal"
+                          >
+                            {tool.pricing}
+                          </Badge>
+                        )}
                       </li>
                     ))}
                   </ul>
