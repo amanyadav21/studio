@@ -87,7 +87,7 @@ const ToolPage = () => {
         {bundledTools.map((tool) => (
           <div
             key={tool.id}
-            className="h-full flex-1 border-r last:border-r-0 dark:border-slate-800"
+            className="h-full flex-1 border-r border-border last:border-r-0"
           >
             <iframe
               src={tool.url}

@@ -41,6 +41,18 @@ export const ToolCard = React.memo(function ToolCard({
   onToggleBundle,
   cardColor,
 }: ToolCardProps) {
+  const [imgSrc, setImgSrc] = React.useState(
+    `https://s.wordpress.com/mshots/v1/${encodeURIComponent(tool.url)}?w=600&h=400`
+  );
+
+  React.useEffect(() => {
+    setImgSrc(`https://s.wordpress.com/mshots/v1/${encodeURIComponent(tool.url)}?w=600&h=400`);
+  }, [tool.url]);
+
+  const handleImageError = React.useCallback(() => {
+    setImgSrc(`https://placehold.co/600x400.png`);
+  }, []);
+
   const handleToggleBundle = React.useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
@@ -137,9 +149,8 @@ export const ToolCard = React.memo(function ToolCard({
       <div className="relative overflow-hidden">
         <Link {...primaryActionProps}>
           <Image
-            src={`https://s.wordpress.com/mshots/v1/${encodeURIComponent(
-              tool.url
-            )}?w=600&h=400`}
+            src={imgSrc}
+            onError={handleImageError}
             alt={tool.name}
             width={600}
             height={400}
@@ -159,7 +170,7 @@ export const ToolCard = React.memo(function ToolCard({
           </Badge>
           {tool.pricing && (
             <Badge
-              variant={cardColor ? "outline" : pricingVariant}
+              variant={!cardColor ? pricingVariant : "outline"}
               className={cn({ "backdrop-blur-sm": !cardColor })}
               style={getPricingBadgeStyle()}
             >
