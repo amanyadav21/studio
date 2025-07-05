@@ -16,11 +16,13 @@ import {
 import { cn } from '@/lib/utils';
 import { slugify } from '@/lib/utils';
 import type { ToolCategory } from '@/lib/types';
+import { Badge } from '@/components/ui/badge';
 
 interface ListViewSidebarProps {
   categories: ToolCategory[];
   activeCategory: string;
   onCategoryClick: (slug: string) => void;
+  categoryCounts: Record<string, number>;
 }
 
 const categoryIcons: Record<ToolCategory, React.ElementType> = {
@@ -37,6 +39,7 @@ export function ListViewSidebar({
   categories,
   activeCategory,
   onCategoryClick,
+  categoryCounts,
 }: ListViewSidebarProps) {
   return (
     <aside className="hidden w-64 flex-shrink-0 md:block">
@@ -48,6 +51,8 @@ export function ListViewSidebar({
           {categories.map((category) => {
             const categorySlug = slugify(category);
             const Icon = categoryIcons[category];
+            const isActive = activeCategory === categorySlug;
+
             return (
               <Link
                 key={categorySlug}
@@ -57,23 +62,36 @@ export function ListViewSidebar({
                   onCategoryClick(categorySlug);
                 }}
                 className={cn(
-                  'group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                  activeCategory === categorySlug
-                    ? 'bg-muted text-primary'
+                  'group relative flex items-center justify-between gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  isActive
+                    ? 'bg-muted font-semibold text-primary'
                     : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
                 )}
               >
-                {Icon && (
-                  <Icon
-                    className={cn(
-                      'h-4 w-4 flex-shrink-0',
-                      activeCategory === categorySlug
-                        ? 'text-primary'
-                        : 'text-muted-foreground group-hover:text-foreground'
-                    )}
-                  />
+                {isActive && (
+                  <div className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-primary" />
                 )}
-                <span className="truncate">{category}</span>
+                <div className="flex items-center gap-3 truncate">
+                  {Icon && (
+                    <Icon
+                      className={cn(
+                        'h-4 w-4 flex-shrink-0',
+                        isActive
+                          ? 'text-primary'
+                          : 'text-muted-foreground group-hover:text-foreground'
+                      )}
+                    />
+                  )}
+                  <span className="truncate">{category}</span>
+                </div>
+                {categoryCounts[category] > 0 && (
+                  <Badge
+                    variant={isActive ? 'default' : 'secondary'}
+                    className="h-5 rounded-md px-2 text-xs font-normal"
+                  >
+                    {categoryCounts[category]}
+                  </Badge>
+                )}
               </Link>
             );
           })}

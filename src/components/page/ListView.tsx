@@ -20,6 +20,17 @@ export function ListView({ tools, categories }: ListViewProps) {
     return categories.filter(category => tools.some(tool => tool.category === category));
   }, [categories, tools]);
 
+  const categoryCounts = React.useMemo(() => {
+    const counts: Record<string, number> = {};
+    allCategories.forEach(category => {
+      counts[category] = tools.filter(
+        tool => tool.category === category
+      ).length;
+    });
+    return counts;
+  }, [allCategories, tools]);
+
+
   React.useEffect(() => {
     if (allCategories.length > 0 && !activeCategory) {
         setActiveCategory(slugify(allCategories[0]));
@@ -60,6 +71,7 @@ export function ListView({ tools, categories }: ListViewProps) {
         categories={allCategories}
         activeCategory={activeCategory}
         onCategoryClick={handleCategoryClick}
+        categoryCounts={categoryCounts}
       />
       <ListViewContent
         ref={contentRef}
