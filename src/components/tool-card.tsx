@@ -168,6 +168,17 @@ export const ToolCard = React.memo(function ToolCard({
           >
             {tool.category}
           </Badge>
+          {tool.subcategory && (
+            <Badge
+                variant="outline"
+                className={cn({
+                "border-border/30 bg-background/50 backdrop-blur-sm": !cardColor,
+                })}
+                style={cardColor ? styles?.categoryBadge : {}}
+            >
+                {tool.subcategory}
+            </Badge>
+          )}
           {tool.pricing && (
             <Badge
               variant={!cardColor ? pricingVariant : "outline"}
@@ -248,7 +259,7 @@ export const ToolCard = React.memo(function ToolCard({
             <div className="flex w-full items-center gap-2">
               <Button
                 asChild
-                className="w-full font-semibold rounded-full"
+                className="w-full"
                 style={styles?.button}
               >
                 <Link href={launchUrl}>
@@ -263,7 +274,7 @@ export const ToolCard = React.memo(function ToolCard({
                       asChild
                       variant="secondary"
                       size="icon"
-                      className="rounded-full flex-shrink-0"
+                      className="flex-shrink-0"
                     >
                       <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
@@ -280,7 +291,7 @@ export const ToolCard = React.memo(function ToolCard({
           ) : (
             <Button
               asChild
-              className="w-full font-semibold rounded-full"
+              className="w-full"
               style={styles?.button}
             >
               <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
