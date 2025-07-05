@@ -64,6 +64,13 @@ export const ToolCard = React.memo(function ToolCard({
     const textColor = getContrastingTextColor(cardColor);
     const subduedTextColor = `${textColor}B3`; // 70% opacity
 
+    // Tonal badge styles that work on any card color
+    const baseBadgeStyle = {
+      backgroundColor: `${textColor}26`, // ~15% opacity version of the text color
+      borderColor: "transparent",
+      color: textColor,
+    };
+    
     return {
       card: {
         backgroundColor: cardColor,
@@ -75,12 +82,21 @@ export const ToolCard = React.memo(function ToolCard({
         backgroundColor: textColor,
         color: cardColor,
       },
-       badge: {
-        backgroundColor: "hsla(0, 0%, 100%, 0.15)",
-        backdropFilter: "blur(4px)",
-        WebkitBackdropFilter: "blur(4px)",
-        borderColor: "hsla(0, 0%, 100%, 0.2)",
-        color: "#ffffff"
+      categoryBadge: baseBadgeStyle,
+      pricingBadge: {
+        free: baseBadgeStyle,
+        // "Freemium" badge pops more, like the button
+        freemium: {
+          ...baseBadgeStyle,
+          backgroundColor: textColor,
+          color: cardColor,
+        },
+        // "Paid" badge uses a consistent, distinct color
+        paid: {
+          ...baseBadgeStyle,
+          backgroundColor: 'rgba(220, 38, 38, 0.9)', // Tailwind red-600
+          color: '#ffffff',
+        },
       }
     };
   }, [cardColor]);
@@ -99,6 +115,19 @@ export const ToolCard = React.memo(function ToolCard({
       : tool.pricing === "Freemium"
       ? "default"
       : "secondary";
+
+  const getPricingBadgeStyle = () => {
+    if (!cardColor || !styles) return {};
+    switch (tool.pricing) {
+        case "Paid":
+            return styles.pricingBadge.paid;
+        case "Freemium":
+            return styles.pricingBadge.freemium;
+        case "Free":
+        default:
+            return styles.pricingBadge.free;
+    }
+  }
 
   return (
     <Card
@@ -121,16 +150,18 @@ export const ToolCard = React.memo(function ToolCard({
         <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-2">
           <Badge
             variant="outline"
-            className="border-border/30 bg-background/50 backdrop-blur-sm"
-            style={cardColor ? styles?.badge : {}}
+            className={cn({
+              "border-border/30 bg-background/50 backdrop-blur-sm": !cardColor,
+            })}
+            style={cardColor ? styles?.categoryBadge : {}}
           >
             {tool.category}
           </Badge>
           {tool.pricing && (
             <Badge
               variant={pricingVariant}
-              className="backdrop-blur-sm"
-              style={cardColor ? styles?.badge : {}}
+              className={cn({ "backdrop-blur-sm": !cardColor })}
+              style={getPricingBadgeStyle()}
             >
               {tool.pricing}
             </Badge>
