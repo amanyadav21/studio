@@ -55,7 +55,7 @@ export function ListView({ tools, categories }: ListViewProps) {
   }, []);
 
   return (
-    <div className="container mx-auto flex max-w-7xl gap-12 py-8 px-4">
+    <div className="flex w-full gap-8 py-8 px-6 lg:px-8 xl:gap-12 xl:px-12">
       <ListViewSidebar
         categories={allCategories}
         activeCategory={activeCategory}
