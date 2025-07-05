@@ -15,6 +15,7 @@ import {
   BrainCircuit,
   Cloud,
   Share2,
+  MousePointerClick,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -26,7 +27,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import type { ToolCategory } from "@/lib/types";
-import { frameworkSubCategories, uiUxSubCategories, productivitySubCategories } from "@/data/tools";
+import { frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories } from "@/data/tools";
 import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
@@ -54,6 +55,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "UI & UX", label: "UI & UX", icon: Palette, subCategories: uiUxSubCategories, isCollapsible: true },
     { id: "Writing & Notes", label: "Writing & Notes", icon: PenSquare },
     { id: "Productivity Tools", label: "Productivity Tools", icon: Zap, subCategories: productivitySubCategories, isCollapsible: true },
+    { id: "No-Code / Low-Code", label: "No-Code / Low-Code", icon: MousePointerClick, subCategories: noCodeSubCategories, isCollapsible: true },
     { id: "AI & ML", label: "AI & ML", icon: BrainCircuit },
     { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: frameworkSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2 },
@@ -72,7 +74,7 @@ export const Sidebar = React.memo(function Sidebar({
 
   React.useEffect(() => {
     const collapsibleCategory = sidebarStructure.find(
-      item => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
+      (item) => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
     );
     if (collapsibleCategory && 'id' in collapsibleCategory) {
       setOpenCollapsibles(prev => ({ ...prev, [collapsibleCategory.id]: true }));

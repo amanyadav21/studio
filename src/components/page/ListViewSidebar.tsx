@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -10,6 +11,7 @@ import {
   BrainCircuit,
   Cloud,
   Share2,
+  MousePointerClick,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -24,10 +26,11 @@ interface ListViewSidebarProps {
   categoryCounts: Record<string, number>;
 }
 
-const categoryIcons: Record<ToolCategory, React.ElementType> = {
+const categoryIcons: Record<string, React.ElementType> = {
   'UI & UX': Palette,
   'Writing & Notes': PenSquare,
   'Productivity Tools': Zap,
+  'No-Code / Low-Code': MousePointerClick,
   'Frameworks & Libraries': Package,
   'AI & ML': BrainCircuit,
   APIs: Share2,
