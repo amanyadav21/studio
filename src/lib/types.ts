@@ -18,7 +18,9 @@ export type FrameworkSubCategory =
   | "Mobile"
   | "Desktop"
   | "Testing"
-  | "Build Tools";
+  | "Build Tools"
+  | "AI / ML"
+  | "CLI / Dev Tools";
 
 export type UiUxSubCategory =
   | "UI Design Tools"
