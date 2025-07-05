@@ -30,11 +30,11 @@ export type UiUxSubCategory =
   | "Inspiration";
 
 export type ProductivitySubCategory =
-  | "To-Do & Task Management"
-  | "Time Tracking / Pomodoro / Focus Tools"
-  | "Mind Mapping / Brainstorming / Notes"
-  | "Other Useful Productivity Utilities"
-  | "Minimal / Developer-Friendly Task Tools";
+  | "Task Management"
+  | "Time & Focus"
+  | "Mind & Notes"
+  | "Utilities"
+  | "Dev Task Tools";
 
 export type NoCodeSubCategory =
   | "Frontend / Website Builders"
