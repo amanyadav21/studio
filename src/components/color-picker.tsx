@@ -15,40 +15,41 @@ import { getContrastingTextColor } from "@/lib/utils";
 
 const colors = [
   "#ffffff",
-  "#f8fafc", // slate-50
-  "#f1f5f9", // slate-100
-  "#e2e8f0", // slate-200
-  "#94a3b8", // slate-400
-  "#475569", // slate-600
-  "#1e293b", // slate-800
-  "#0f172a", // slate-900
-  "#fca5a5", // red-300
-  "#ef4444", // red-500
-  "#b91c1c", // red-700
-  "#fb923c", // orange-400
-  "#f97316", // orange-500
-  "#c2410c", // orange-700
-  "#a3e635", // lime-400
-  "#84cc16", // lime-500
-  "#4d7c0f", // lime-700
-  "#4ade80", // green-400
-  "#22c55e", // green-500
-  "#15803d", // green-700
-  "#2dd4bf", // teal-400
-  "#14b8a6", // teal-500
-  "#0f766e", // teal-700
-  "#38bdf8", // sky-400
-  "#0ea5e9", // sky-500
-  "#0369a1", // sky-700
-  "#818cf8", // indigo-400
-  "#6366f1", // indigo-500
-  "#4338ca", // indigo-700
-  "#c084fc", // purple-400
-  "#a855f7", // purple-500
-  "#7e22ce", // purple-700
-  "#f472b6", // pink-400
-  "#ec4899", // pink-500
-  "#be185d", // pink-700
+  "#f8fafc",
+  "#f1f5f9",
+  "#e2e8f0",
+  "#94a3b8",
+  "#475569",
+  "#1e293b",
+  "#0f172a",
+  "#000000",
+  "#fca5a5",
+  "#ef4444",
+  "#b91c1c",
+  "#fb923c",
+  "#f97316",
+  "#c2410c",
+  "#a3e635",
+  "#84cc16",
+  "#4d7c0f",
+  "#4ade80",
+  "#22c55e",
+  "#15803d",
+  "#2dd4bf",
+  "#14b8a6",
+  "#0f766e",
+  "#38bdf8",
+  "#0ea5e9",
+  "#0369a1",
+  "#818cf8",
+  "#6366f1",
+  "#4338ca",
+  "#c084fc",
+  "#a855f7",
+  "#7e22ce",
+  "#f472b6",
+  "#ec4899",
+  "#be185d",
 ];
 
 interface ColorPickerProps {
