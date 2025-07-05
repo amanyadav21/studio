@@ -5,7 +5,6 @@ export type ToolCategory =
   | "UI & UX"
   | "Writing & Notes"
   | "Productivity Tools"
-  | "Utility Tools"
   | "Frameworks & Libraries"
   | "AI & ML"
   | "Cloud Provider"

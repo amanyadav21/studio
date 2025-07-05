@@ -37,7 +37,6 @@ const categoryIcons: Record<ToolCategory, React.ElementType> = {
   "UI & UX": Palette,
   "Writing & Notes": PenSquare,
   "Productivity Tools": Zap,
-  "Utility Tools": Wrench,
   "Frameworks & Libraries": Package,
   "AI & ML": BrainCircuit,
   "Cloud Provider": Cloud,
