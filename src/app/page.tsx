@@ -13,11 +13,16 @@ import { Header } from "@/components/page/Header";
 import { Sidebar } from "@/components/page/Sidebar";
 import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
-import { categories } from "@/data/tools";
 import { ListView } from "@/components/page/ListView";
 
 const INITIAL_PINNED_TOOLS: string[] = [];
 type ViewMode = "grid" | "list";
+
+const subCategoryMap: Record<string, string[]> = {
+  "Frameworks & Libraries": frameworkSubCategories,
+  "UI & UX": uiUxSubCategories,
+  "Productivity Tools": productivitySubCategories,
+};
 
 export default function Home() {
   const [pinnedTools, setPinnedTools] = useLocalStorage<string[]>(
@@ -146,29 +151,21 @@ export default function Home() {
 
 
   const { pageTitle, pageDescription } = React.useMemo(() => {
-    let title = selectedCategory;
-    let description = "";
-
+    const category = defaultCategories.find(c => c === selectedCategory);
     if (selectedCategory === 'All') {
-        title = "All Tools";
-        description = "A comprehensive list of all available tools, sorted by category.";
-    } else if (selectedCategory === 'Pinned') {
-        title = "Pinned Tools";
-        description = "Your hand-picked tools for quick and easy access.";
-    } else if (selectedCategory === "Frameworks & Libraries") {
-        title = "Frameworks & Libraries";
-        description = "A curated collection of essential frameworks and libraries.";
-    } else if (selectedCategory === "UI & UX") {
-        title = "UI & UX";
-        description = "A curated collection of essential design tools, assets, and inspiration.";
-    } else if (selectedCategory === "Productivity Tools") {
-        title = "Productivity Tools";
-        description = "A curated collection of tools to help you stay focused and organized.";
-    } else if (categories.some(c => c === title)) {
-      description = `A collection of tools for ${selectedCategory.toLowerCase()}.`;
+        return { pageTitle: "All Tools", pageDescription: "A comprehensive list of all available tools, sorted by category." };
     }
-
-    return { pageTitle: title, pageDescription: description };
+    if (selectedCategory === 'Pinned') {
+        return { pageTitle: "Pinned Tools", pageDescription: "Your hand-picked tools for quick and easy access." };
+    }
+    if (category) {
+        const subcategories = subCategoryMap[category];
+        const description = subcategories 
+            ? `A curated collection of essential tools for ${category}.`
+            : `A collection of tools for ${category.toLowerCase()}.`;
+        return { pageTitle: category, pageDescription: description };
+    }
+    return { pageTitle: "Tools", pageDescription: "" };
   }, [selectedCategory]);
   
   const renderSubcategoryGrid = (subcategories: string[]) => (
@@ -200,6 +197,8 @@ export default function Home() {
       })}
     </>
   );
+
+  const subcategoriesForSelected = subCategoryMap[selectedCategory];
 
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
@@ -250,12 +249,8 @@ export default function Home() {
                   )
                 })}
               </>
-            ) : selectedCategory === "Frameworks & Libraries" ? (
-              renderSubcategoryGrid(frameworkSubCategories)
-            ) : selectedCategory === "UI & UX" ? (
-              renderSubcategoryGrid(uiUxSubCategories)
-            ) : selectedCategory === "Productivity Tools" ? (
-              renderSubcategoryGrid(productivitySubCategories)
+            ) : subcategoriesForSelected ? (
+              renderSubcategoryGrid(subcategoriesForSelected)
             ) : (
               <>
                 <CategoryHeader

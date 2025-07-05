@@ -47,36 +47,7 @@ interface SidebarProps {
   onToggleSidebar: () => void;
 }
 
-export const Sidebar = React.memo(function Sidebar({
-  selectedCategory,
-  selectedSubCategory,
-  onCategoryChange,
-  pinnedCount,
-  isCollapsed,
-  onToggleSidebar,
-}: SidebarProps) {
-  const [isFrameworksOpen, setIsFrameworksOpen] = React.useState(false);
-  const isFrameworksActive = selectedCategory === "Frameworks & Libraries";
-  
-  const [isUiUxOpen, setIsUiUxOpen] = React.useState(false);
-  const isUiUxActive = selectedCategory === "UI & UX";
-
-  const [isProductivityOpen, setIsProductivityOpen] = React.useState(false);
-  const isProductivityActive = selectedCategory === "Productivity Tools";
-
-  React.useEffect(() => {
-    if (isFrameworksActive) setIsFrameworksOpen(true);
-  }, [isFrameworksActive]);
-
-  React.useEffect(() => {
-    if (isUiUxActive) setIsUiUxOpen(true);
-  }, [isUiUxActive]);
-
-  React.useEffect(() => {
-    if (isProductivityActive) setIsProductivityOpen(true);
-  }, [isProductivityActive]);
-
-  const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
+const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "Pinned", label: "Pinned", icon: Pin },
     { id: "All", label: "All Tools", icon: LayoutGrid },
     { type: 'separator' },
@@ -87,15 +58,29 @@ export const Sidebar = React.memo(function Sidebar({
     { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: frameworkSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2 },
     { id: "Cloud Provider", label: "Cloud Provider", icon: Cloud },
-  ];
+];
 
-  const getCollapsibleState = (id: ToolCategory) => {
-      switch (id) {
-          case "UI & UX": return { isOpen: isUiUxOpen, onOpenChange: setIsUiUxOpen, isActive: isUiUxActive };
-          case "Productivity Tools": return { isOpen: isProductivityOpen, onOpenChange: setIsProductivityOpen, isActive: isProductivityActive };
-          case "Frameworks & Libraries": return { isOpen: isFrameworksOpen, onOpenChange: setIsFrameworksOpen, isActive: isFrameworksActive };
-          default: return { isOpen: false, onOpenChange: () => {}, isActive: false };
-      }
+export const Sidebar = React.memo(function Sidebar({
+  selectedCategory,
+  selectedSubCategory,
+  onCategoryChange,
+  pinnedCount,
+  isCollapsed,
+  onToggleSidebar,
+}: SidebarProps) {
+  const [openCollapsibles, setOpenCollapsibles] = React.useState<Record<string, boolean>>({});
+
+  React.useEffect(() => {
+    const collapsibleCategory = sidebarStructure.find(
+      item => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
+    );
+    if (collapsibleCategory && 'id' in collapsibleCategory) {
+      setOpenCollapsibles(prev => ({ ...prev, [collapsibleCategory.id]: true }));
+    }
+  }, [selectedCategory]);
+
+  const handleToggleCollapsible = (id: string) => {
+    setOpenCollapsibles(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
   const renderNavItem = (item: NavItemConfig) => {
@@ -165,8 +150,9 @@ export const Sidebar = React.memo(function Sidebar({
   const renderCollapsibleCategory = (
     item: NavItemConfig
   ) => {
-    const { isOpen, onOpenChange, isActive } = getCollapsibleState(item.id as ToolCategory);
     const Icon = item.icon;
+    const isActive = selectedCategory === item.id;
+    const isOpen = openCollapsibles[item.id] || false;
 
     if (isCollapsed) {
        return (
@@ -187,7 +173,7 @@ export const Sidebar = React.memo(function Sidebar({
     }
 
     return (
-       <Collapsible key={item.id} open={isOpen} onOpenChange={onOpenChange} className="w-full">
+       <Collapsible key={item.id} open={isOpen} onOpenChange={() => handleToggleCollapsible(item.id)} className="w-full">
         <div className="relative flex w-full items-center">
             <Button
                 variant="ghost"
@@ -197,20 +183,22 @@ export const Sidebar = React.memo(function Sidebar({
                 )}
                 onClick={() => onCategoryChange(item.id)}
             >
-                {isActive && (
-                <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
+                {isActive && !selectedSubCategory && (
+                  <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
                 )}
                 <Icon
-                className={cn(
-                    "h-5 w-5 mr-3",
-                    isActive ? "text-primary" : "text-muted-foreground"
-                )}
+                  className={cn(
+                      "h-5 w-5 mr-3",
+                      isActive ? "text-primary" : "text-muted-foreground"
+                  )}
                 />
                 <span className="truncate pr-8">{item.label}</span>
             </Button>
-            <CollapsibleTrigger className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground">
-                <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
-                <span className="sr-only">Toggle Subcategories</span>
+            <CollapsibleTrigger asChild>
+                <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8">
+                    <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
+                    <span className="sr-only">Toggle Subcategories</span>
+                </Button>
             </CollapsibleTrigger>
         </div>
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
@@ -227,6 +215,9 @@ export const Sidebar = React.memo(function Sidebar({
                   )}
                   onClick={() => onCategoryChange(item.id, subCat)}
                 >
+                  {isSubActive && (
+                    <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />
+                  )}
                   {subCat}
                 </Button>
               )
