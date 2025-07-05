@@ -1,7 +1,7 @@
 
 "use client";
 
-import { BookOpen } from "lucide-react";
+import { BookOpen, Pin } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { ToolCard } from "@/components/tool-card";
 import * as React from "react";
@@ -13,6 +13,7 @@ interface ToolGridProps {
   bundle: string[];
   onToggleBundle: (id: string) => void;
   cardColor: string | null;
+  isPinnedSection?: boolean;
 }
 
 export const ToolGrid = React.memo(function ToolGrid({
@@ -22,8 +23,21 @@ export const ToolGrid = React.memo(function ToolGrid({
   bundle,
   onToggleBundle,
   cardColor,
+  isPinnedSection = false,
 }: ToolGridProps) {
   if (tools.length === 0) {
+    if (isPinnedSection) {
+      return (
+        <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 p-12 text-center">
+          <Pin className="mx-auto h-12 w-12 text-muted-foreground" />
+          <h3 className="mt-4 text-lg font-semibold">No Pinned Tools</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Click the pin icon on any tool card to add it to this list for quick
+            access.
+          </p>
+        </div>
+      );
+    }
     return (
       <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 p-12 text-center">
         <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />

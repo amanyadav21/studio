@@ -264,6 +264,7 @@ export default function Home() {
                   bundle={bundle}
                   onToggleBundle={toggleBundle}
                   cardColor={cardColor}
+                  isPinnedSection={selectedCategory === "Pinned"}
                 />
               </>
             )}
