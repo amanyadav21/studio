@@ -53,59 +53,57 @@ export const Header = React.memo(function Header({
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex items-center justify-between gap-4 px-6">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="flex flex-shrink-0 items-center gap-2">
-            <AppLogo className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">Coderkart</span>
-          </Link>
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center justify-between gap-4 px-6">
+        <div className="flex items-center gap-4">
+            <Link href="/" className="flex flex-shrink-0 items-center gap-2">
+                <AppLogo className="h-6 w-6" />
+                <span className="hidden font-bold sm:inline-block">Coderkart</span>
+            </Link>
         </div>
 
-        <div className="flex flex-1 justify-center px-4">
-          <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              ref={searchInputRef}
-              type="search"
-              placeholder="Search tools..."
-              className="w-full pl-9 pr-16"
-              value={searchTerm}
-              onChange={(e) => onSearchTermChange(e.target.value)}
-            />
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-              <Kbd>⌘K</Kbd>
+        <div className="flex flex-1 items-center justify-end gap-2 sm:gap-4">
+            <div className="relative w-full max-w-xs sm:max-w-sm">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                ref={searchInputRef}
+                type="search"
+                placeholder="Search tools..."
+                className="h-9 w-full pl-9 pr-16"
+                value={searchTerm}
+                onChange={(e) => onSearchTermChange(e.target.value)}
+                />
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                <Kbd>⌘K</Kbd>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <div className="flex flex-shrink-0 items-center gap-2">
-           <div className="hidden sm:flex items-center gap-1 rounded-md bg-muted p-1">
-             <Button
-                variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
-                size="sm"
-                className="px-2"
-                onClick={() => onViewModeChange('grid')}
-              >
-                <LayoutGrid className="h-4 w-4" />
-                <span className="sr-only">Grid View</span>
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'secondary' : 'ghost'}
-                size="sm"
-                className="px-2"
-                onClick={() => onViewModeChange('list')}
-              >
-                <List className="h-4 w-4" />
-                <span className="sr-only">List View</span>
-              </Button>
-          </div>
-          <ColorPicker
-            selectedColor={cardColor}
-            onColorChange={onCardColorChange}
-            onClear={onClearCardColor}
-          />
-          <ThemeToggle />
+            <div className="hidden sm:flex items-center gap-1 rounded-md bg-muted p-1">
+                <Button
+                    variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
+                    size="sm"
+                    className="px-2"
+                    onClick={() => onViewModeChange('grid')}
+                >
+                    <LayoutGrid className="h-4 w-4" />
+                    <span className="sr-only">Grid View</span>
+                </Button>
+                <Button
+                    variant={viewMode === 'list' ? 'secondary' : 'ghost'}
+                    size="sm"
+                    className="px-2"
+                    onClick={() => onViewModeChange('list')}
+                >
+                    <List className="h-4 w-4" />
+                    <span className="sr-only">List View</span>
+                </Button>
+            </div>
+            <ColorPicker
+                selectedColor={cardColor}
+                onColorChange={onCardColorChange}
+                onClear={onClearCardColor}
+            />
+            <ThemeToggle />
         </div>
       </div>
     </header>
