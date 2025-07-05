@@ -17,6 +17,36 @@ export const ListViewContent = React.forwardRef<
   HTMLElement,
   ListViewContentProps
 >(function ListViewContent({ tools, categories }, ref) {
+  const renderToolItem = (tool: Tool) => {
+    const pricingVariant =
+      tool.pricing === 'Paid'
+        ? 'destructive'
+        : tool.pricing === 'Freemium'
+        ? 'default'
+        : 'secondary';
+
+    return (
+      <li key={tool.id}>
+        <a
+          href={tool.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {tool.name}
+        </a>{' '}
+        — {tool.description}
+        {tool.pricing && (
+          <Badge
+            variant={pricingVariant}
+            className="ml-2 align-middle font-normal"
+          >
+            {tool.pricing}
+          </Badge>
+        )}
+      </li>
+    );
+  };
+
   return (
     <main className="flex-1" id="top" ref={ref}>
       {tools.length === 0 ? (
@@ -57,53 +87,13 @@ export const ListViewContent = React.forwardRef<
                         <ul>
                           {toolsForCategory
                             .filter((t) => t.subcategory === subCat)
-                            .map((tool) => (
-                              <li key={tool.id}>
-                                <a
-                                  href={tool.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {tool.name}
-                                </a>{' '}
-                                — {tool.description}
-                                {tool.pricing && (
-                                  <Badge
-                                    variant="outline"
-                                    className="ml-2 align-middle font-normal"
-                                  >
-                                    {tool.pricing}
-                                  </Badge>
-                                )}
-                              </li>
-                            ))}
+                            .map(renderToolItem)}
                         </ul>
                       </div>
                     ))}
                   </>
                 ) : (
-                  <ul>
-                    {toolsForCategory.map((tool) => (
-                      <li key={tool.id}>
-                        <a
-                          href={tool.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {tool.name}
-                        </a>{' '}
-                        — {tool.description}
-                        {tool.pricing && (
-                          <Badge
-                            variant="outline"
-                            className="ml-2 align-middle font-normal"
-                          >
-                            {tool.pricing}
-                          </Badge>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
+                  <ul>{toolsForCategory.map(renderToolItem)}</ul>
                 )}
 
                 <div className="not-prose mt-6 text-right">
