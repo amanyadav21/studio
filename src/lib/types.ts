@@ -37,16 +37,16 @@ export type ProductivitySubCategory =
   | "Dev Task Tools";
 
 export type NoCodeSubCategory =
-  | "Frontend / Website Builders"
+  | "Website Builders"
   | "Mobile App Builders"
   | "Backend / Database"
-  | "Automation / Workflow Builders"
-  | "Design & UI Tools"
-  | "AI-Powered No-Code Tools"
-  | "Form, Survey & CRM Tools"
+  | "Automation"
+  | "Design Tools"
+  | "AI Tools"
+  | "Forms & CRM"
   | "Auth & Login"
   | "Analytics"
-  | "Multi-Purpose No-Code Platforms";
+  | "Platforms";
 
 export interface Tool {
   id: string;
