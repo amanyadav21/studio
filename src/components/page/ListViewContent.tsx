@@ -6,7 +6,6 @@ import { ArrowUp, BookOpen } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { slugify } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
 
 interface ListViewContentProps {
   tools: Tool[];
@@ -18,13 +17,6 @@ export const ListViewContent = React.forwardRef<
   ListViewContentProps
 >(function ListViewContent({ tools, categories }, ref) {
   const renderToolItem = (tool: Tool) => {
-    const pricingVariant =
-      tool.pricing === 'Paid'
-        ? 'destructive'
-        : tool.pricing === 'Freemium'
-        ? 'default'
-        : 'secondary';
-
     const hasFreeTier =
       (tool.pricing === "Freemium" && tool.freeUrl) || tool.pricing === "Free";
     const freeLink = (
@@ -42,26 +34,16 @@ export const ListViewContent = React.forwardRef<
         </a>{' '}
         — {tool.description}
         {tool.pricing && (
-          <Badge
-            variant={pricingVariant}
-            className="ml-2 align-middle font-normal"
-          >
-            {tool.pricing}
-          </Badge>
-        )}
+          <span className="ml-1 italic underline">{tool.pricing}</span>
+        )}.
         {hasFreeTier && (
           <a
             href={freeLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-2 no-underline"
+            className="ml-2 underline"
           >
-            <Badge
-              variant="outline"
-              className="border-primary/50 font-normal text-primary hover:bg-primary/10"
-            >
-              Try Free
-            </Badge>
+            Try Free
           </a>
         )}
       </li>
