@@ -25,6 +25,12 @@ export const ListViewContent = React.forwardRef<
         ? 'default'
         : 'secondary';
 
+    const hasFreeTier =
+      (tool.pricing === "Freemium" && tool.freeUrl) || tool.pricing === "Free";
+    const freeLink = (
+      tool.pricing === "Freemium" ? tool.freeUrl : tool.url
+    ) as string;
+
     return (
       <li key={tool.id}>
         <a
@@ -42,6 +48,21 @@ export const ListViewContent = React.forwardRef<
           >
             {tool.pricing}
           </Badge>
+        )}
+        {hasFreeTier && (
+          <a
+            href={freeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 no-underline"
+          >
+            <Badge
+              variant="outline"
+              className="border-primary/50 font-normal text-primary hover:bg-primary/10"
+            >
+              Try Free
+            </Badge>
+          </a>
         )}
       </li>
     );
