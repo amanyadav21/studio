@@ -88,7 +88,7 @@ export function ListViewSidebar({
                 </div>
                 {categoryCounts[category] > 0 && (
                   <Badge
-                    variant={isActive ? 'default' : 'secondary'}
+                    variant={isActive ? 'default' : 'outline'}
                     className="h-5 rounded-md px-2 text-xs font-normal"
                   >
                     {categoryCounts[category]}
