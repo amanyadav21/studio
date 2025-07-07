@@ -250,14 +250,14 @@ export const ToolCard = React.memo(function ToolCard({
           {tool.description}
         </CardDescription>
       </CardHeader>
-      <CardFooter className="px-4 pt-0 pb-4 mt-auto">
+      <CardFooter className="px-4 pt-0 pb-4">
         {isEmbeddable ? (
             <div className="flex w-full items-center justify-end gap-2">
               <Button
                 asChild
                 variant="secondary"
                 size="default"
-                className="font-semibold rounded-full"
+                className="font-semibold rounded-xl"
               >
                 <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="h-4 w-4 mr-2" />
@@ -267,7 +267,7 @@ export const ToolCard = React.memo(function ToolCard({
               <Button
                 asChild
                 size="default"
-                className="font-semibold rounded-full"
+                className="font-semibold rounded-xl"
                 style={styles?.button}
               >
                 <Link href={launchUrl}>
@@ -280,7 +280,7 @@ export const ToolCard = React.memo(function ToolCard({
             <Button
               asChild
               size="default"
-              className="w-full font-semibold rounded-full"
+              className="w-full font-semibold rounded-xl"
               style={styles?.button}
             >
               <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
