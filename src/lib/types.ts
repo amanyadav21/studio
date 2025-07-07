@@ -56,6 +56,5 @@ export interface Tool {
   freeUrl?: string;
   category: ToolCategory;
   subcategory?: FrameworkSubCategory | UiUxSubCategory | ProductivitySubCategory | NoCodeSubCategory;
-  embeddable?: boolean;
   pricing?: Pricing;
 }

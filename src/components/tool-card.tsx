@@ -4,7 +4,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Pin, PlusCircle, MinusCircle, Rocket, ExternalLink } from "lucide-react";
+import { Pin, ExternalLink } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -28,8 +28,6 @@ interface ToolCardProps {
   tool: Tool;
   isPinned: boolean;
   onTogglePinned: (id: string) => void;
-  isInBundle: boolean;
-  onToggleBundle: (id: string) => void;
   cardColor: string | null;
 }
 
@@ -37,8 +35,6 @@ export const ToolCard = React.memo(function ToolCard({
   tool,
   isPinned,
   onTogglePinned,
-  isInBundle,
-  onToggleBundle,
   cardColor,
 }: ToolCardProps) {
   const [imgSrc, setImgSrc] = React.useState(
@@ -48,15 +44,6 @@ export const ToolCard = React.memo(function ToolCard({
   const handleImageError = React.useCallback(() => {
     setImgSrc(`https://placehold.co/600x400.png`);
   }, []);
-
-  const handleToggleBundle = React.useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      onToggleBundle(tool.id);
-    },
-    [onToggleBundle, tool.id]
-  );
 
   const handleTogglePinned = React.useCallback(
     (e: React.MouseEvent) => {
@@ -109,14 +96,8 @@ export const ToolCard = React.memo(function ToolCard({
     };
   }, [cardColor]);
 
-  const isEmbeddable = tool.embeddable ?? true;
-  const launchUrl = `/tool/${tool.id}`;
-
   const hasFreeTier =
     (tool.pricing === "Freemium" && tool.freeUrl) || tool.pricing === "Free";
-
-  const mainActionUrl = isEmbeddable ? launchUrl : tool.url;
-  const mainActionTarget = isEmbeddable ? "_self" : "_blank";
 
   const pricingVariant =
     tool.pricing === "Paid"
@@ -144,7 +125,7 @@ export const ToolCard = React.memo(function ToolCard({
       style={styles?.card}
     >
       <div className="relative overflow-hidden">
-        <Link href={mainActionUrl} target={mainActionTarget} rel={!isEmbeddable ? "noopener noreferrer" : undefined}>
+        <Link href={tool.url} target="_blank" rel="noopener noreferrer">
           <Image
             src={imgSrc}
             onError={handleImageError}
@@ -188,30 +169,6 @@ export const ToolCard = React.memo(function ToolCard({
         </div>
         <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-60 transition-opacity duration-300 group-hover:opacity-100">
           <TooltipProvider>
-            {isEmbeddable && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    className="h-8 w-8 rounded-full shadow-lg"
-                    onClick={handleToggleBundle}
-                  >
-                    {isInBundle ? (
-                      <MinusCircle className="h-4 w-4 text-primary" />
-                    ) : (
-                      <PlusCircle className="h-4 w-4" />
-                    )}
-                    <span className="sr-only">
-                      {isInBundle ? "Remove from bundle" : "Add to bundle"}
-                    </span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  {isInBundle ? "Remove from bundle" : "Add to bundle"}
-                </TooltipContent>
-              </Tooltip>
-            )}
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
@@ -238,7 +195,7 @@ export const ToolCard = React.memo(function ToolCard({
       </div>
       <CardHeader className="flex flex-col flex-grow p-4">
         <CardTitle className="text-lg font-semibold" style={styles?.title}>
-           <Link href={mainActionUrl} target={mainActionTarget} rel={!isEmbeddable ? "noopener noreferrer" : undefined} className="hover:underline">
+           <Link href={tool.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
             {tool.name}
           </Link>
         </CardTitle>
@@ -270,7 +227,7 @@ export const ToolCard = React.memo(function ToolCard({
               style={styles?.button}
             >
               <Link href={tool.freeUrl} target="_blank" rel="noopener noreferrer">
-                <Rocket className="h-4 w-4 mr-2" />
+                <ExternalLink className="h-4 w-4 mr-2" />
                 Try Free
               </Link>
             </Button>
@@ -283,23 +240,9 @@ export const ToolCard = React.memo(function ToolCard({
               className="w-full font-semibold rounded-xl"
               style={styles?.button}
             >
-              <Link href={mainActionUrl} target={mainActionTarget} rel={!isEmbeddable ? "noopener noreferrer" : undefined}>
-                {hasFreeTier ? (
-                  <>
-                    <Rocket className="h-4 w-4 mr-2" />
-                    Try Free
-                  </>
-                ) : isEmbeddable ? (
-                  <>
-                    <Rocket className="h-4 w-4 mr-2" />
-                    Launch
-                  </>
-                ) : (
-                  <>
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Visit Site
-                  </>
-                )}
+              <Link href={tool.url} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                {hasFreeTier ? 'Try Free' : 'Visit Site'}
               </Link>
             </Button>
           </div>

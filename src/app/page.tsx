@@ -8,7 +8,6 @@ import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn, slugify } from "@/lib/utils";
 
-import { BundleBar } from "@/components/bundle-bar";
 import { Header } from "@/components/page/Header";
 import { Sidebar } from "@/components/page/Sidebar";
 import { CategoryHeader } from "@/components/page/CategoryHeader";
@@ -39,7 +38,6 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = React.useState<string>("All");
   const [selectedSubCategory, setSelectedSubCategory] = React.useState<string | null>(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
-  const [bundle, setBundle] = React.useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useLocalStorage<boolean>("sidebar-collapsed", false);
   const [scrollTo, setScrollTo] = React.useState<string | null>(null);
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>('view-mode', 'grid');
@@ -141,21 +139,6 @@ export default function Home() {
     [setPinnedTools]
   );
 
-  const toggleBundle = React.useCallback(
-    (toolId: string) => {
-      setBundle((prev) =>
-        prev.includes(toolId)
-          ? prev.filter((id) => id !== toolId)
-          : [...prev, toolId]
-      );
-    },
-    [setBundle]
-  );
-
-  const clearBundle = React.useCallback(() => {
-    setBundle([]);
-  }, [setBundle]);
-
   const toggleSidebar = React.useCallback(() => {
     setIsSidebarCollapsed((prev) => !prev);
   }, [setIsSidebarCollapsed]);
@@ -245,8 +228,6 @@ export default function Home() {
               tools={toolsForSubCategory}
               pinnedTools={pinnedTools}
               onTogglePinned={togglePinned}
-              bundle={bundle}
-              onToggleBundle={toggleBundle}
               cardColor={cardColor}
             />
           </div>
@@ -298,8 +279,6 @@ export default function Home() {
                         tools={toolsForCategory}
                         pinnedTools={pinnedTools}
                         onTogglePinned={togglePinned}
-                        bundle={bundle}
-                        onToggleBundle={toggleBundle}
                         cardColor={cardColor}
                       />
                     </div>
@@ -318,8 +297,6 @@ export default function Home() {
                   tools={gridTools}
                   pinnedTools={pinnedTools}
                   onTogglePinned={togglePinned}
-                  bundle={bundle}
-                  onToggleBundle={toggleBundle}
                   cardColor={cardColor}
                   isPinnedSection={selectedCategory === "Pinned"}
                 />
@@ -330,7 +307,6 @@ export default function Home() {
       ) : (
         <ListView tools={searchedTools} categories={defaultCategories} />
       )}
-      <BundleBar bundle={bundle} onClear={clearBundle} tools={allTools} />
     </div>
   );
 }

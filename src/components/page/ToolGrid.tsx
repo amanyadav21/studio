@@ -10,8 +10,6 @@ interface ToolGridProps {
   tools: Tool[];
   pinnedTools: string[];
   onTogglePinned: (id: string) => void;
-  bundle: string[];
-  onToggleBundle: (id: string) => void;
   cardColor: string | null;
   isPinnedSection?: boolean;
 }
@@ -20,8 +18,6 @@ export const ToolGrid = React.memo(function ToolGrid({
   tools,
   pinnedTools,
   onTogglePinned,
-  bundle,
-  onToggleBundle,
   cardColor,
   isPinnedSection = false,
 }: ToolGridProps) {
@@ -57,8 +53,6 @@ export const ToolGrid = React.memo(function ToolGrid({
           tool={tool}
           isPinned={pinnedTools.includes(tool.id)}
           onTogglePinned={onTogglePinned}
-          isInBundle={bundle.includes(tool.id)}
-          onToggleBundle={onToggleBundle}
           cardColor={cardColor}
         />
       ))}

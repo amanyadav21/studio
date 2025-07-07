@@ -63,7 +63,6 @@ export const tools: Tool[] = [
     freeUrl: "https://www.figma.com/signup/",
     category: "UI & UX",
     subcategory: "UI Design Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -73,7 +72,6 @@ export const tools: Tool[] = [
     url: "https://penpot.app/",
     category: "UI & UX",
     subcategory: "UI Design Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -83,7 +81,6 @@ export const tools: Tool[] = [
     url: "https://icons8.com/lunacy",
     category: "UI & UX",
     subcategory: "UI Design Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -94,7 +91,6 @@ export const tools: Tool[] = [
     freeUrl: "https://www.framer.com/signup/",
     category: "UI & UX",
     subcategory: "UI Design Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -105,7 +101,6 @@ export const tools: Tool[] = [
     freeUrl: "https://www.canva.com/signup/",
     category: "UI & UX",
     subcategory: "UI Design Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -115,7 +110,6 @@ export const tools: Tool[] = [
     url: "https://www.sketch.com/",
     category: "UI & UX",
     subcategory: "UI Design Tools",
-    embeddable: false,
     pricing: "Paid",
   },
   {
@@ -125,7 +119,6 @@ export const tools: Tool[] = [
     url: "https://www.adobe.com/products/xd.html",
     category: "UI & UX",
     subcategory: "UI Design Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -135,7 +128,6 @@ export const tools: Tool[] = [
     url: "https://uideck.com/",
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -145,7 +137,6 @@ export const tools: Tool[] = [
     url: "https://freebiesui.com/",
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -155,7 +146,6 @@ export const tools: Tool[] = [
     url: "https://www.figma.com/community",
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -165,7 +155,6 @@ export const tools: Tool[] = [
     url: "https://ui8.net/freebies",
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -175,7 +164,6 @@ export const tools: Tool[] = [
     url: "https://cruip.com/",
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -185,7 +173,6 @@ export const tools: Tool[] = [
     url: "https://tailwindui.com/",
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
-    embeddable: false,
     pricing: "Paid",
   },
   {
@@ -195,7 +182,6 @@ export const tools: Tool[] = [
     url: "https://ui.shadcn.com/",
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -205,7 +191,6 @@ export const tools: Tool[] = [
     url: "https://www.sketchrepo.com/",
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -215,7 +200,6 @@ export const tools: Tool[] = [
     url: "https://heroicons.com/",
     category: "UI & UX",
     subcategory: "Assets",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -225,7 +209,6 @@ export const tools: Tool[] = [
     url: "https://fontawesome.com/",
     category: "UI & UX",
     subcategory: "Assets",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -235,7 +218,6 @@ export const tools: Tool[] = [
     url: "https://feathericons.com/",
     category: "UI & UX",
     subcategory: "Assets",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -245,7 +227,6 @@ export const tools: Tool[] = [
     url: "https://lucide.dev/",
     category: "UI & UX",
     subcategory: "Assets",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -255,7 +236,6 @@ export const tools: Tool[] = [
     url: "https://undraw.co/illustrations",
     category: "UI & UX",
     subcategory: "Assets",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -265,7 +245,6 @@ export const tools: Tool[] = [
     url: "https://blush.design/",
     category: "UI & UX",
     subcategory: "Assets",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -275,7 +254,6 @@ export const tools: Tool[] = [
     url: "https://www.pexels.com/",
     category: "UI & UX",
     subcategory: "Assets",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -285,7 +263,6 @@ export const tools: Tool[] = [
     url: 'https://fonts.google.com/',
     category: 'UI & UX',
     subcategory: 'Assets',
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -295,7 +272,6 @@ export const tools: Tool[] = [
     url: "https://iconscout.com/free-assets",
     category: "UI & UX",
     subcategory: "Assets",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -306,7 +282,6 @@ export const tools: Tool[] = [
     freeUrl: "https://maze.co/users/signup/",
     category: "UI & UX",
     subcategory: "Prototyping & Testing",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -316,7 +291,6 @@ export const tools: Tool[] = [
     url: "https://lookback.io/",
     category: "UI & UX",
     subcategory: "Prototyping & Testing",
-    embeddable: false,
     pricing: "Paid",
   },
   {
@@ -326,7 +300,6 @@ export const tools: Tool[] = [
     url: "https://www.useberry.com/",
     category: "UI & UX",
     subcategory: "Prototyping & Testing",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -336,7 +309,6 @@ export const tools: Tool[] = [
     url: "https://www.protopie.io/",
     category: "UI & UX",
     subcategory: "Prototyping & Testing",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -346,7 +318,6 @@ export const tools: Tool[] = [
     url: "https://www.hotjar.com/",
     category: "UI & UX",
     subcategory: "Prototyping & Testing",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -356,7 +327,6 @@ export const tools: Tool[] = [
     url: "https://dribbble.com/",
     category: "UI & UX",
     subcategory: "Inspiration",
-    embeddable: true,
     pricing: "Freemium",
   },
   {
@@ -366,7 +336,6 @@ export const tools: Tool[] = [
     url: "https://www.behance.net/",
     category: "UI & UX",
     subcategory: "Inspiration",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -376,7 +345,6 @@ export const tools: Tool[] = [
     url: "https://mobbin.com/",
     category: "UI & UX",
     subcategory: "Inspiration",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -386,7 +354,6 @@ export const tools: Tool[] = [
     url: "https://uimovement.com/",
     category: "UI & UX",
     subcategory: "Inspiration",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -396,7 +363,6 @@ export const tools: Tool[] = [
     url: "https://www.awwwards.com/",
     category: "UI & UX",
     subcategory: "Inspiration",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -406,7 +372,6 @@ export const tools: Tool[] = [
     url: "https://www.lapa.ninja/",
     category: "UI & UX",
     subcategory: "Inspiration",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -416,7 +381,6 @@ export const tools: Tool[] = [
     url: "https://www.siteinspire.com/",
     category: "UI & UX",
     subcategory: "Inspiration",
-    embeddable: true,
     pricing: "Free",
   },
   // Writing & Notes
@@ -426,7 +390,6 @@ export const tools: Tool[] = [
     description: 'Cloud notes, attachments, syncing, mobile & desktop.',
     url: 'https://evernote.com',
     category: 'Writing & Notes',
-    embeddable: false,
     pricing: 'Freemium',
   },
   {
@@ -436,7 +399,6 @@ export const tools: Tool[] = [
       url: 'https://notion.so',
       freeUrl: "https://www.notion.so/signup",
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -445,7 +407,6 @@ export const tools: Tool[] = [
       description: 'A digital notebook for free-form information gathering and multi-user collaboration.',
       url: 'https://www.onenote.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Free',
   },
   {
@@ -454,7 +415,6 @@ export const tools: Tool[] = [
       description: 'A simple service for taking notes, setting reminders, and making lists.',
       url: 'https://keep.google.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Free',
   },
   {
@@ -463,7 +423,6 @@ export const tools: Tool[] = [
       description: 'A beautiful note-taking app with a card-based UI, available on web and mobile.',
       url: 'https://www.zoho.com/notebook/',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -472,7 +431,6 @@ export const tools: Tool[] = [
       description: 'A light, clean, and free note-taking app with markdown support and cross-platform sync.',
       url: 'https://simplenote.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Free',
   },
   {
@@ -481,7 +439,6 @@ export const tools: Tool[] = [
       description: 'A powerful knowledge base that works on local Markdown files, with linking and graph views.',
       url: 'https://obsidian.md',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -490,7 +447,6 @@ export const tools: Tool[] = [
       description: 'An all-in-one tool for thinking and learning, with notes, flashcards, and PDFs.',
       url: 'https://www.remnote.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -499,7 +455,6 @@ export const tools: Tool[] = [
       description: 'A secure, encrypted, and privacy-focused app for notes, bookmarks, and passwords.',
       url: 'https://turtlapp.com/',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Free',
   },
   {
@@ -508,7 +463,6 @@ export const tools: Tool[] = [
       description: 'An open-source, offline-first note-taking app with synchronization capabilities.',
       url: 'https://joplinapp.org',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Free',
   },
   {
@@ -517,7 +471,6 @@ export const tools: Tool[] = [
       description: 'A platform to write, read, and connect with millions of readers and writers.',
       url: 'https://medium.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -526,7 +479,6 @@ export const tools: Tool[] = [
       description: 'A platform for publishing newsletters and blogs, with options to earn via subscriptions.',
       url: 'https://substack.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -535,7 +487,6 @@ export const tools: Tool[] = [
       description: 'A powerful website builder and blogging platform with full content control.',
       url: 'https://wordpress.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -544,7 +495,6 @@ export const tools: Tool[] = [
       description: 'A professional publishing platform with a clean UI for creating content-driven websites.',
       url: 'https://ghost.org',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Paid',
   },
   {
@@ -553,7 +503,6 @@ export const tools: Tool[] = [
       description: 'A collaborative markdown editor for developers with code blocks and version control.',
       url: 'https://hackmd.io',
       category: 'Writing & Notes',
-      embeddable: true,
       pricing: 'Freemium',
   },
   {
@@ -562,7 +511,6 @@ export const tools: Tool[] = [
       description: 'A cloud-enabled, mobile-ready, offline-storage, AngularJS-powered HTML5 Markdown editor.',
       url: 'https://dillinger.io',
       category: 'Writing & Notes',
-      embeddable: true,
       pricing: 'Free',
   },
   {
@@ -571,7 +519,6 @@ export const tools: Tool[] = [
       description: 'An in-browser Markdown editor that syncs with Google Drive, Dropbox, and GitHub.',
       url: 'https://stackedit.io/app',
       category: 'Writing & Notes',
-      embeddable: true,
       pricing: 'Freemium',
   },
   {
@@ -580,7 +527,6 @@ export const tools: Tool[] = [
       description: 'A notebook built for programmers with support for text, code, and Markdown cells (Mac only).',
       url: 'https://happenapps.com/#quiver',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Paid',
   },
   {
@@ -589,7 +535,6 @@ export const tools: Tool[] = [
       description: 'An AI-powered writing assistant that offers grammar checks, rewrites, and tone suggestions.',
       url: 'https://grammarly.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -598,7 +543,6 @@ export const tools: Tool[] = [
       description: 'An AI writing platform with a paraphraser, summarizer, and grammar checker.',
       url: 'https://quillbot.com',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -607,7 +551,6 @@ export const tools: Tool[] = [
       description: 'An AI-powered storytelling and presentation tool for creating compelling narratives.',
       url: 'https://tome.app',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   {
@@ -616,7 +559,6 @@ export const tools: Tool[] = [
       description: 'A minimal online text editor with a focus mode to help you concentrate on writing.',
       url: 'https://www.calmlywriter.com/online/',
       category: 'Writing & Notes',
-      embeddable: true,
       pricing: 'Freemium',
   },
   {
@@ -625,7 +567,6 @@ export const tools: Tool[] = [
       description: 'A minimal markdown editor that provides a seamless experience between writing and previewing.',
       url: 'https://typora.io',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Paid',
   },
   {
@@ -634,7 +575,6 @@ export const tools: Tool[] = [
       description: 'A minimalist online writing zone that blocks out all distractions for a focused experience.',
       url: 'https://zenpen.io',
       category: 'Writing & Notes',
-      embeddable: true,
       pricing: 'Free',
   },
   {
@@ -643,7 +583,6 @@ export const tools: Tool[] = [
       description: 'A collaborative document-editing service by Dropbox for teams to create and share ideas.',
       url: 'https://www.dropbox.com/paper',
       category: 'Writing & Notes',
-      embeddable: false,
       pricing: 'Freemium',
   },
   // Productivity Tools
@@ -655,7 +594,6 @@ export const tools: Tool[] = [
     freeUrl: "https://trello.com/signup",
     category: "Productivity Tools",
     subcategory: "Task Management",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -666,7 +604,6 @@ export const tools: Tool[] = [
     freeUrl: "https://www.notion.so/signup",
     category: "Productivity Tools",
     subcategory: "Task Management",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -677,7 +614,6 @@ export const tools: Tool[] = [
     freeUrl: "https://clickup.com/signup",
     category: "Productivity Tools",
     subcategory: "Task Management",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -687,7 +623,6 @@ export const tools: Tool[] = [
     url: "https://tasks.google.com/embed/",
     category: "Productivity Tools",
     subcategory: "Task Management",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -697,7 +632,6 @@ export const tools: Tool[] = [
     url: "https://to-do.live.com/tasks/",
     category: "Productivity Tools",
     subcategory: "Task Management",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -707,7 +641,6 @@ export const tools: Tool[] = [
     url: "https://todoist.com/",
     category: "Productivity Tools",
     subcategory: "Task Management",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -717,7 +650,6 @@ export const tools: Tool[] = [
     url: "https://www.ticktick.com/",
     category: "Productivity Tools",
     subcategory: "Task Management",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -727,7 +659,6 @@ export const tools: Tool[] = [
     url: "https://www.any.do/",
     category: "Productivity Tools",
     subcategory: "Task Management",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -737,7 +668,6 @@ export const tools: Tool[] = [
     url: "https://www.rescuetime.com/",
     category: "Productivity Tools",
     subcategory: "Time & Focus",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -747,7 +677,6 @@ export const tools: Tool[] = [
     url: "https://www.forestapp.cc/",
     category: "Productivity Tools",
     subcategory: "Time & Focus",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -757,7 +686,6 @@ export const tools: Tool[] = [
     url: "https://www.focusmate.com/",
     category: "Productivity Tools",
     subcategory: "Time & Focus",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -767,7 +695,6 @@ export const tools: Tool[] = [
     url: "https://toggl.com/track/",
     category: "Productivity Tools",
     subcategory: "Time & Focus",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -777,7 +704,6 @@ export const tools: Tool[] = [
     url: "https://pomofocus.io/",
     category: "Productivity Tools",
     subcategory: "Time & Focus",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -787,7 +713,6 @@ export const tools: Tool[] = [
     url: "https://timertab.com/",
     category: "Productivity Tools",
     subcategory: "Time & Focus",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -797,7 +722,6 @@ export const tools: Tool[] = [
     url: "https://www.focustodo.cn/",
     category: "Productivity Tools",
     subcategory: "Time & Focus",
-    embeddable: true,
     pricing: "Freemium",
   },
   {
@@ -807,7 +731,6 @@ export const tools: Tool[] = [
     url: "https://obsidian.md/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -817,7 +740,6 @@ export const tools: Tool[] = [
     url: "https://www.xmind.net/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -827,7 +749,6 @@ export const tools: Tool[] = [
     url: "https://milanote.com/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -837,7 +758,6 @@ export const tools: Tool[] = [
     url: "https://www.tldraw.com/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -847,7 +767,6 @@ export const tools: Tool[] = [
     url: "https://workflowy.com/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -857,7 +776,6 @@ export const tools: Tool[] = [
     url: "https://www.mindmeister.com/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -867,7 +785,6 @@ export const tools: Tool[] = [
     url: "https://coggle.it/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: true,
     pricing: "Freemium",
   },
   {
@@ -877,7 +794,6 @@ export const tools: Tool[] = [
     url: "https://miro.com/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -887,7 +803,6 @@ export const tools: Tool[] = [
     url: "https://excalidraw.com/",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -897,7 +812,6 @@ export const tools: Tool[] = [
     url: "https://www.microsoft.com/en-us/microsoft-365/microsoft-whiteboard/digital-whiteboard-app",
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -907,7 +821,6 @@ export const tools: Tool[] = [
     url: "https://www.loom.com/",
     category: "Productivity Tools",
     subcategory: "Utilities",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -917,7 +830,6 @@ export const tools: Tool[] = [
     url: "https://zapier.com/",
     category: "Productivity Tools",
     subcategory: "Utilities",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -927,7 +839,6 @@ export const tools: Tool[] = [
     url: "https://www.notion.so/product/calendar",
     category: "Productivity Tools",
     subcategory: "Utilities",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -937,7 +848,6 @@ export const tools: Tool[] = [
     url: "https://reclaim.ai/",
     category: "Productivity Tools",
     subcategory: "Utilities",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -947,7 +857,6 @@ export const tools: Tool[] = [
     url: "https://www.raycast.com/",
     category: "Productivity Tools",
     subcategory: "Utilities",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -957,7 +866,6 @@ export const tools: Tool[] = [
     url: "https://www.taskade.com/",
     category: "Productivity Tools",
     subcategory: "Dev Task Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -967,7 +875,6 @@ export const tools: Tool[] = [
     url: "https://marktext.app/",
     category: "Productivity Tools",
     subcategory: "Dev Task Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -977,7 +884,6 @@ export const tools: Tool[] = [
     url: "https://orgmode.org/",
     category: "Productivity Tools",
     subcategory: "Dev Task Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -987,7 +893,6 @@ export const tools: Tool[] = [
     url: "https://super-productivity.com/",
     category: "Productivity Tools",
     subcategory: "Dev Task Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -997,7 +902,6 @@ export const tools: Tool[] = [
     url: "http://todomvc.com/",
     category: "Productivity Tools",
     subcategory: "Dev Task Tools",
-    embeddable: false,
     pricing: "Free",
   },
   // No-Code / Low-Code
@@ -1008,7 +912,6 @@ export const tools: Tool[] = [
     url: "https://www.wix.com/",
     category: "No-Code / Low-Code",
     subcategory: "Website Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1018,7 +921,6 @@ export const tools: Tool[] = [
     url: "https://www.webflow.com/",
     category: "No-Code / Low-Code",
     subcategory: "Website Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1028,7 +930,6 @@ export const tools: Tool[] = [
     url: "https://carrd.co/",
     category: "No-Code / Low-Code",
     subcategory: "Website Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1038,7 +939,6 @@ export const tools: Tool[] = [
     url: "https://dorik.com/",
     category: "No-Code / Low-Code",
     subcategory: "Website Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1048,7 +948,6 @@ export const tools: Tool[] = [
     url: "https://www.framer.com/",
     category: "No-Code / Low-Code",
     subcategory: "Website Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1058,7 +957,6 @@ export const tools: Tool[] = [
     url: "https://tilda.cc/",
     category: "No-Code / Low-Code",
     subcategory: "Website Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1068,7 +966,6 @@ export const tools: Tool[] = [
     url: "https://sites.google.com/",
     category: "No-Code / Low-Code",
     subcategory: "Website Builders",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -1078,7 +975,6 @@ export const tools: Tool[] = [
     url: "https://www.glideapps.com/",
     category: "No-Code / Low-Code",
     subcategory: "App Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1088,7 +984,6 @@ export const tools: Tool[] = [
     url: "https://thunkable.com/",
     category: "No-Code / Low-Code",
     subcategory: "App Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1098,7 +993,6 @@ export const tools: Tool[] = [
     url: "https://www.adalo.com/",
     category: "No-Code / Low-Code",
     subcategory: "App Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1108,7 +1002,6 @@ export const tools: Tool[] = [
     url: "https://www.kodular.io/",
     category: "No-Code / Low-Code",
     subcategory: "App Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1118,7 +1011,6 @@ export const tools: Tool[] = [
     url: "https://www.bravostudio.app/",
     category: "No-Code / Low-Code",
     subcategory: "App Builders",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1128,7 +1020,6 @@ export const tools: Tool[] = [
     url: "https://www.airtable.com/",
     category: "No-Code / Low-Code",
     subcategory: "Backend & DB",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1138,7 +1029,6 @@ export const tools: Tool[] = [
     url: "https://baserow.io/",
     category: "No-Code / Low-Code",
     subcategory: "Backend & DB",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1148,7 +1038,6 @@ export const tools: Tool[] = [
     url: "https://www.xano.com/",
     category: "No-Code / Low-Code",
     subcategory: "Backend & DB",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1158,7 +1047,6 @@ export const tools: Tool[] = [
     url: "https://backendless.com/",
     category: "No-Code / Low-Code",
     subcategory: "Backend & DB",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1168,7 +1056,6 @@ export const tools: Tool[] = [
     url: "https://firebase.google.com/",
     category: "No-Code / Low-Code",
     subcategory: "Backend & DB",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1178,7 +1065,6 @@ export const tools: Tool[] = [
     url: "https://supabase.com/",
     category: "No-Code / Low-Code",
     subcategory: "Backend & DB",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1188,7 +1074,6 @@ export const tools: Tool[] = [
     url: "https://zapier.com/",
     category: "No-Code / Low-Code",
     subcategory: "Automation",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1198,7 +1083,6 @@ export const tools: Tool[] = [
     url: "https://www.make.com/",
     category: "No-Code / Low-Code",
     subcategory: "Automation",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1208,7 +1092,6 @@ export const tools: Tool[] = [
     url: "https://ifttt.com/",
     category: "No-Code / Low-Code",
     subcategory: "Automation",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1218,7 +1101,6 @@ export const tools: Tool[] = [
     url: "https://n8n.io/",
     category: "No-Code / Low-Code",
     subcategory: "Automation",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1228,7 +1110,6 @@ export const tools: Tool[] = [
     url: "https://www.canva.com/",
     category: "No-Code / Low-Code",
     subcategory: "Design Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1238,7 +1119,6 @@ export const tools: Tool[] = [
     url: "https://create.vista.com/",
     category: "No-Code / Low-Code",
     subcategory: "Design Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1248,7 +1128,6 @@ export const tools: Tool[] = [
     url: "https://relaythat.com/",
     category: "No-Code / Low-Code",
     subcategory: "Design Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1258,7 +1137,6 @@ export const tools: Tool[] = [
     url: "https://looka.com/",
     category: "No-Code / Low-Code",
     subcategory: "Design Tools",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1268,7 +1146,6 @@ export const tools: Tool[] = [
     url: "https://durable.co/",
     category: "No-Code / Low-Code",
     subcategory: "AI",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1278,7 +1155,6 @@ export const tools: Tool[] = [
     url: "https://www.notion.so/product/ai",
     category: "No-Code / Low-Code",
     subcategory: "AI",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1288,7 +1164,6 @@ export const tools: Tool[] = [
     url: "https://gamma.app/",
     category: "No-Code / Low-Code",
     subcategory: "AI",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1298,7 +1173,6 @@ export const tools: Tool[] = [
     url: "https://www.copy.ai/",
     category: "No-Code / Low-Code",
     subcategory: "AI",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1308,7 +1182,6 @@ export const tools: Tool[] = [
     url: "https://tally.so/",
     category: "No-Code / Low-Code",
     subcategory: "Forms",
-    embeddable: true,
     pricing: "Freemium",
   },
   {
@@ -1318,7 +1191,6 @@ export const tools: Tool[] = [
     url: "https://www.typeform.com/",
     category: "No-Code / Low-Code",
     subcategory: "Forms",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1328,7 +1200,6 @@ export const tools: Tool[] = [
     url: "https://www.jotform.com/",
     category: "No-Code / Low-Code",
     subcategory: "Forms",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1338,7 +1209,6 @@ export const tools: Tool[] = [
     url: "https://bentonow.com/",
     category: "No-Code / Low-Code",
     subcategory: "Forms",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1348,7 +1218,6 @@ export const tools: Tool[] = [
     url: "https://auth0.com/",
     category: "No-Code / Low-Code",
     subcategory: "Authentication",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1358,7 +1227,6 @@ export const tools: Tool[] = [
     url: "https://clerk.com/",
     category: "No-Code / Low-Code",
     subcategory: "Authentication",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1368,7 +1236,6 @@ export const tools: Tool[] = [
     url: "https://firebase.google.com/products/auth",
     category: "No-Code / Low-Code",
     subcategory: "Authentication",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1378,7 +1245,6 @@ export const tools: Tool[] = [
     url: "https://plausible.io/",
     category: "No-Code / Low-Code",
     subcategory: "Analytics",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1388,7 +1254,6 @@ export const tools: Tool[] = [
     url: "https://posthog.com/",
     category: "No-Code / Low-Code",
     subcategory: "Analytics",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1398,7 +1263,6 @@ export const tools: Tool[] = [
     url: "https://analytics.google.com/",
     category: "No-Code / Low-Code",
     subcategory: "Analytics",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1408,7 +1272,6 @@ export const tools: Tool[] = [
     url: "https://bubble.io/",
     category: "No-Code / Low-Code",
     subcategory: "Platforms",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1418,7 +1281,6 @@ export const tools: Tool[] = [
     url: "https://www.appgyver.com/",
     category: "No-Code / Low-Code",
     subcategory: "Platforms",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1428,7 +1290,6 @@ export const tools: Tool[] = [
     url: "https://www.softr.io/",
     category: "No-Code / Low-Code",
     subcategory: "Platforms",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1438,7 +1299,6 @@ export const tools: Tool[] = [
     url: "https://www.builder.ai/",
     category: "No-Code / Low-Code",
     subcategory: "Platforms",
-    embeddable: false,
     pricing: "Freemium",
   },
   // Frameworks & Libraries
@@ -1449,7 +1309,6 @@ export const tools: Tool[] = [
     url: "https://react.dev/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1459,7 +1318,6 @@ export const tools: Tool[] = [
     url: "https://vuejs.org/guide/introduction.html",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1469,7 +1327,6 @@ export const tools: Tool[] = [
     url: "https://angular.dev/overview",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1479,7 +1336,6 @@ export const tools: Tool[] = [
     url: "https://svelte.dev/docs/introduction",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1489,7 +1345,6 @@ export const tools: Tool[] = [
     url: "https://www.solidjs.com/guides/getting-started",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1499,7 +1354,6 @@ export const tools: Tool[] = [
     url: "https://tailwindcss.com/docs",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1509,7 +1363,6 @@ export const tools: Tool[] = [
     url: "https://localforage.github.io/localForage/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1519,7 +1372,6 @@ export const tools: Tool[] = [
     url: "https://dexie.org/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1529,7 +1381,6 @@ export const tools: Tool[] = [
     url: "https://pouchdb.com/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1539,7 +1390,6 @@ export const tools: Tool[] = [
     url: "https://rxdb.info/",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1549,7 +1399,6 @@ export const tools: Tool[] = [
     url: "https://docs.pmnd.rs/zustand/getting-started/introduction",
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1559,7 +1408,6 @@ export const tools: Tool[] = [
     url: "https://expressjs.com/",
     category: "Frameworks & Libraries",
     subcategory: "Backend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1569,7 +1417,6 @@ export const tools: Tool[] = [
     url: "https://docs.nestjs.com/",
     category: "Frameworks & Libraries",
     subcategory: "Backend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1579,7 +1426,6 @@ export const tools: Tool[] = [
     url: "https://flask.palletsprojects.com/en/3.0.x/",
     category: "Frameworks & Libraries",
     subcategory: "Backend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1589,7 +1435,6 @@ export const tools: Tool[] = [
     url: "https://docs.spring.io/spring-framework/docs/current/reference/html/",
     category: "Frameworks & Libraries",
     subcategory: "Backend",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1599,7 +1444,6 @@ export const tools: Tool[] = [
     url: "https://nextjs.org/docs",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1609,7 +1453,6 @@ export const tools: Tool[] = [
     url: "https://remix.run/docs/en/main",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1619,7 +1462,6 @@ export const tools: Tool[] = [
     url: "https://qwik.builder.io/docs/overview/",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1629,7 +1471,6 @@ export const tools: Tool[] = [
     url: "https://docs.astro.build/en/getting-started/",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1639,7 +1480,6 @@ export const tools: Tool[] = [
     url: "https://kit.svelte.dev/docs/introduction",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1649,7 +1489,6 @@ export const tools: Tool[] = [
     url: "https://docs.djangoproject.com/en/stable/",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1659,7 +1498,6 @@ export const tools: Tool[] = [
     url: "https://guides.rubyonrails.org/",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1669,7 +1507,6 @@ export const tools: Tool[] = [
     url: "https://laravel.com/docs/11.x",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1679,7 +1516,6 @@ export const tools: Tool[] = [
     url: "https://hexdocs.pm/phoenix/overview.html",
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1689,7 +1525,6 @@ export const tools: Tool[] = [
     url: "https://reactnative.dev/docs/getting-started",
     category: "Frameworks & Libraries",
     subcategory: "Mobile",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1699,7 +1534,6 @@ export const tools: Tool[] = [
     url: "https://docs.flutter.dev/",
     category: "Frameworks & Libraries",
     subcategory: "Mobile",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1709,7 +1543,6 @@ export const tools: Tool[] = [
     url: "https://developer.apple.com/xcode/swiftui/",
     category: "Frameworks & Libraries",
     subcategory: "Mobile",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1719,7 +1552,6 @@ export const tools: Tool[] = [
     url: "https://developer.android.com/jetpack/compose",
     category: "Frameworks & Libraries",
     subcategory: "Mobile",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1729,7 +1561,6 @@ export const tools: Tool[] = [
     url: "https://www.electronjs.org/docs/latest/",
     category: "Frameworks & Libraries",
     subcategory: "Desktop",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1739,7 +1570,6 @@ export const tools: Tool[] = [
     url: "https://tauri.app/v1/guides/",
     category: "Frameworks & Libraries",
     subcategory: "Desktop",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1749,7 +1579,6 @@ export const tools: Tool[] = [
     url: "https://jestjs.io/",
     category: "Frameworks & Libraries",
     subcategory: "Testing",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1759,7 +1588,6 @@ export const tools: Tool[] = [
     url: "https://playwright.dev/docs/intro",
     category: "Frameworks & Libraries",
     subcategory: "Testing",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1769,7 +1597,6 @@ export const tools: Tool[] = [
     url: "https://docs.cypress.io/guides/overview/why-cypress",
     category: "Frameworks & Libraries",
     subcategory: "Testing",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -1779,7 +1606,6 @@ export const tools: Tool[] = [
     url: "https://docs.pytest.org/en/stable/",
     category: "Frameworks & Libraries",
     subcategory: "Testing",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1789,7 +1615,6 @@ export const tools: Tool[] = [
     url: "https://webpack.js.org/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1799,7 +1624,6 @@ export const tools: Tool[] = [
     url: "https://vitejs.dev/guide/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1809,7 +1633,6 @@ export const tools: Tool[] = [
     url: "https://parceljs.org/docs/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1819,7 +1642,6 @@ export const tools: Tool[] = [
     url: "https://rollupjs.org/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -1829,7 +1651,6 @@ export const tools: Tool[] = [
     url: "https://esbuild.github.io/",
     category: "Frameworks & Libraries",
     subcategory: "Build Tools",
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -2091,7 +1912,6 @@ export const tools: Tool[] = [
     description: "The leading platform for building, training, and deploying state-of-the-art machine learning models. Explore thousands of pre-trained models and datasets.",
     url: "https://huggingface.co/",
     category: "AI & ML",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -2100,7 +1920,6 @@ export const tools: Tool[] = [
     description: "A free Jupyter notebook environment that runs entirely in the cloud. Write and execute Python, access GPUs, and easily share your work.",
     url: "https://colab.research.google.com/",
     category: "AI & ML",
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -2109,7 +1928,6 @@ export const tools: Tool[] = [
     description: "An interactive visualization of a neural network running in your browser. Tweak hyperparameters and see the results in real-time.",
     url: "https://playground.tensorflow.org/",
     category: "AI & ML",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -2118,7 +1936,6 @@ export const tools: Tool[] = [
     description: "A visualizer for neural network, deep learning, and machine learning models. Supports formats like ONNX, TensorFlow Lite, and Caffe.",
     url: "https://netron.app/",
     category: "AI & ML",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -2127,7 +1944,6 @@ export const tools: Tool[] = [
     description: "A fast, easy way to create machine learning models for your sites, apps, and more – no expertise or coding required.",
     url: "https://teachablemachine.withgoogle.com/",
     category: "AI & ML",
-    embeddable: true,
     pricing: "Free",
   },
   {
@@ -2136,7 +1952,6 @@ export const tools: Tool[] = [
     description: 'An AI-chat-based conversational search engine that answers queries using natural language predictive text.',
     url: 'https://www.perplexity.ai/',
     category: 'AI & ML',
-    embeddable: true,
     pricing: "Freemium",
   },
   {
@@ -2145,7 +1960,6 @@ export const tools: Tool[] = [
     description: 'Run open-source machine learning models with a cloud API. No need to manage servers or dependencies.',
     url: 'https://replicate.com/explore',
     category: 'AI & ML',
-    embeddable: false,
     pricing: "Paid",
   },
   // APIs
@@ -2155,7 +1969,6 @@ export const tools: Tool[] = [
     description: 'A collaboration platform for API development. Create, share, test, and document your APIs.',
     url: 'https://www.postman.com/',
     category: 'APIs',
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -2164,7 +1977,6 @@ export const tools: Tool[] = [
     description: 'The open-source API client. Design, debug, and test APIs like a human, not a robot.',
     url: 'https://insomnia.rest/',
     category: 'APIs',
-    embeddable: false,
     pricing: "Freemium",
   },
   {
@@ -2173,7 +1985,6 @@ export const tools: Tool[] = [
     description: 'A collective list of free APIs for use in software and web development.',
     url: 'https://github.com/public-apis/public-apis',
     category: 'APIs',
-    embeddable: false,
     pricing: "Free",
   },
   {
@@ -2182,7 +1993,6 @@ export const tools: Tool[] = [
     description: 'An online API testing tool for REST and SOAP APIs. Test APIs directly from your browser.',
     url: 'https://reqbin.com/',
     category: 'APIs',
-    embeddable: true,
     pricing: "Freemium",
   },
   // Cloud Provider
@@ -2192,7 +2002,6 @@ export const tools: Tool[] = [
     description: 'The web-based user interface for Amazon Web Services. Manage your cloud infrastructure with ease.',
     url: 'https://aws.amazon.com/console/',
     category: 'Cloud Provider',
-    embeddable: false,
     pricing: "Paid",
   },
   {
@@ -2201,7 +2010,6 @@ export const tools: Tool[] = [
     description: 'The unified web UI for Google Cloud Platform. Manage all your GCP resources in one place.',
     url: 'https://console.cloud.google.com/',
     category: 'Cloud Provider',
-    embeddable: false,
     pricing: "Paid",
   },
   {
@@ -2210,7 +2018,6 @@ export const tools: Tool[] = [
     description: 'Build, manage, and monitor everything from simple web apps to complex cloud applications in a single, unified console.',
     url: 'https://portal.azure.com/',
     category: 'Cloud Provider',
-    embeddable: false,
     pricing: "Paid",
   },
   {
@@ -2219,7 +2026,6 @@ export const tools: Tool[] = [
     description: 'A simple cloud hosting platform, built for developers. Deploy, manage, and scale applications of any size.',
     url: 'https://www.digitalocean.com/',
     category: 'Cloud Provider',
-    embeddable: false,
     pricing: "Paid",
   },
   {
@@ -2228,7 +2034,6 @@ export const tools: Tool[] = [
     description: 'Manage your Firebase projects, check project health, and view analytics.',
     url: 'https://console.firebase.google.com/',
     category: 'Cloud Provider',
-    embeddable: false,
     pricing: "Freemium",
   },
 ];
