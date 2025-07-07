@@ -6,6 +6,7 @@ import { ArrowUp, BookOpen } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { slugify } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
 interface ListViewContentProps {
   tools: Tool[];
@@ -34,16 +35,16 @@ export const ListViewContent = React.forwardRef<
         </a>{' '}
         — {tool.description}
         {tool.pricing && (
-          <span className="ml-1 italic underline">{tool.pricing}</span>
+          <span className="ml-1">{tool.pricing}</span>
         )}.
         {hasFreeTier && (
-          <a
+           <a
             href={freeLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-2 underline"
+            className="ml-2"
           >
-            Try Free
+            <Badge variant="secondary">Try Free</Badge>
           </a>
         )}
       </li>
