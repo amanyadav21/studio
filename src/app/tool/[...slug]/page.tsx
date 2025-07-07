@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToolHeader } from "@/components/page/ToolHeader";
+import { ToolFrame } from "@/components/page/ToolFrame";
 
 const ToolPage = () => {
   const params = useParams();
@@ -71,12 +72,7 @@ const ToolPage = () => {
   // This view is for a single tool, no tabs or special views needed.
   const singleToolView = (
     <div className="flex-1">
-      <iframe
-        key={bundledTools[0].id}
-        src={bundledTools[0].url}
-        title={bundledTools[0].name}
-        className="h-full w-full border-0"
-      />
+      <ToolFrame tool={bundledTools[0]} />
     </div>
   );
   
@@ -89,11 +85,7 @@ const ToolPage = () => {
             key={tool.id}
             className="h-full flex-1 border-r border-border last:border-r-0"
           >
-            <iframe
-              src={tool.url}
-              title={tool.name}
-              className="h-full w-full border-0"
-            />
+            <ToolFrame tool={tool} />
           </div>
         ))}
       </div>
@@ -108,11 +100,7 @@ const ToolPage = () => {
             value={tool.id}
             className="h-full w-full m-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
           >
-            <iframe
-              src={tool.url}
-              title={tool.name}
-              className="h-full w-full border-0"
-            />
+            <ToolFrame tool={tool} />
           </TabsContent>
         ))}
       </div>

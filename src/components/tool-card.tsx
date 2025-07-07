@@ -112,9 +112,11 @@ export const ToolCard = React.memo(function ToolCard({
   const isEmbeddable = tool.embeddable ?? true;
   const launchUrl = `/tool/${tool.id}`;
 
-  const primaryLinkProps = isEmbeddable
-    ? { href: launchUrl }
-    : { href: tool.url, target: "_blank", rel: "noopener noreferrer" };
+  const hasFreeTier =
+    (tool.pricing === "Freemium" && tool.freeUrl) || tool.pricing === "Free";
+
+  const mainActionUrl = isEmbeddable ? launchUrl : tool.url;
+  const mainActionTarget = isEmbeddable ? "_self" : "_blank";
 
   const pricingVariant =
     tool.pricing === "Paid"
@@ -142,7 +144,7 @@ export const ToolCard = React.memo(function ToolCard({
       style={styles?.card}
     >
       <div className="relative overflow-hidden">
-        <Link {...primaryLinkProps}>
+        <Link href={mainActionUrl} target={mainActionTarget} rel={!isEmbeddable ? "noopener noreferrer" : undefined}>
           <Image
             src={imgSrc}
             onError={handleImageError}
@@ -185,8 +187,8 @@ export const ToolCard = React.memo(function ToolCard({
           )}
         </div>
         <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-60 transition-opacity duration-300 group-hover:opacity-100">
-          {isEmbeddable && (
-            <TooltipProvider>
+          <TooltipProvider>
+            {isEmbeddable && (
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -209,9 +211,7 @@ export const ToolCard = React.memo(function ToolCard({
                   {isInBundle ? "Remove from bundle" : "Add to bundle"}
                 </TooltipContent>
               </Tooltip>
-            </TooltipProvider>
-          )}
-          <TooltipProvider>
+            )}
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
@@ -238,7 +238,7 @@ export const ToolCard = React.memo(function ToolCard({
       </div>
       <CardHeader className="flex flex-col flex-grow p-4">
         <CardTitle className="text-lg font-semibold" style={styles?.title}>
-           <Link {...primaryLinkProps} className="hover:underline">
+           <Link href={mainActionUrl} target={mainActionTarget} rel={!isEmbeddable ? "noopener noreferrer" : undefined} className="hover:underline">
             {tool.name}
           </Link>
         </CardTitle>
@@ -276,20 +276,30 @@ export const ToolCard = React.memo(function ToolCard({
             </Button>
           </div>
         ) : (
-          <div className="flex w-full items-center justify-center">
+          <div className="flex w-full items-center justify-end">
             <Button
               asChild
               size="default"
               className="w-full font-semibold rounded-xl"
               style={styles?.button}
             >
-              <Link {...primaryLinkProps}>
-                {isEmbeddable ? (
-                  <Rocket className="h-4 w-4 mr-2" />
+              <Link href={mainActionUrl} target={mainActionTarget} rel={!isEmbeddable ? "noopener noreferrer" : undefined}>
+                {hasFreeTier ? (
+                  <>
+                    <Rocket className="h-4 w-4 mr-2" />
+                    Try Free
+                  </>
+                ) : isEmbeddable ? (
+                  <>
+                    <Rocket className="h-4 w-4 mr-2" />
+                    Launch
+                  </>
                 ) : (
-                  <ExternalLink className="h-4 w-4 mr-2" />
+                  <>
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Visit Site
+                  </>
                 )}
-                {isEmbeddable ? 'Launch' : 'Visit Site'}
               </Link>
             </Button>
           </div>
