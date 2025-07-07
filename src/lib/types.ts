@@ -38,13 +38,13 @@ export type ProductivitySubCategory =
 
 export type NoCodeSubCategory =
   | "Website Builders"
-  | "Mobile App Builders"
-  | "Backend / Database"
+  | "App Builders"
+  | "Backend & DB"
   | "Automation"
   | "Design Tools"
-  | "AI Tools"
-  | "Forms & CRM"
-  | "Auth & Login"
+  | "AI"
+  | "Forms"
+  | "Authentication"
   | "Analytics"
   | "Platforms";
 
