@@ -250,7 +250,7 @@ export const ToolCard = React.memo(function ToolCard({
           {tool.description}
         </CardDescription>
       </CardHeader>
-      <CardFooter className="p-4 mt-auto">
+      <CardFooter className="px-4 py-6 mt-auto">
         {isEmbeddable ? (
             <div className="flex w-full items-center justify-end gap-2">
               <Button
