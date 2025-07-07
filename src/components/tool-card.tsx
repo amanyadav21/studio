@@ -111,15 +111,10 @@ export const ToolCard = React.memo(function ToolCard({
 
   const isEmbeddable = tool.embeddable ?? true;
   const launchUrl = `/tool/${tool.id}`;
-  const externalUrl = tool.url;
 
-  const primaryActionProps = isEmbeddable
+  const primaryLinkProps = isEmbeddable
     ? { href: launchUrl }
-    : { href: externalUrl, target: "_blank", rel: "noopener noreferrer" };
-
-  const isFree = tool.pricing === 'Free';
-  const buttonText = isFree ? 'Try Free' : (isEmbeddable ? 'Launch' : 'Open Site');
-  const ButtonIcon = (isEmbeddable || isFree) ? Rocket : ExternalLink;
+    : { href: tool.url, target: "_blank", rel: "noopener noreferrer" };
 
   const pricingVariant =
     tool.pricing === "Paid"
@@ -147,7 +142,7 @@ export const ToolCard = React.memo(function ToolCard({
       style={styles?.card}
     >
       <div className="relative overflow-hidden">
-        <Link {...primaryActionProps}>
+        <Link {...primaryLinkProps}>
           <Image
             src={imgSrc}
             onError={handleImageError}
@@ -243,7 +238,7 @@ export const ToolCard = React.memo(function ToolCard({
       </div>
       <CardHeader className="flex flex-col flex-grow p-4">
         <CardTitle className="text-lg font-semibold" style={styles?.title}>
-           <Link {...primaryActionProps} className="hover:underline">
+           <Link {...primaryLinkProps} className="hover:underline">
             {tool.name}
           </Link>
         </CardTitle>
@@ -265,7 +260,7 @@ export const ToolCard = React.memo(function ToolCard({
             >
               <Link href={tool.url} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="h-4 w-4 mr-2" />
-                Website
+                Visit Site
               </Link>
             </Button>
             <Button
@@ -288,9 +283,13 @@ export const ToolCard = React.memo(function ToolCard({
               className="w-full font-semibold rounded-xl"
               style={styles?.button}
             >
-              <Link {...primaryActionProps}>
-                <ButtonIcon className="h-4 w-4 mr-2" />
-                {buttonText}
+              <Link {...primaryLinkProps}>
+                {isEmbeddable ? (
+                  <Rocket className="h-4 w-4 mr-2" />
+                ) : (
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                )}
+                {isEmbeddable ? 'Launch' : 'Visit Site'}
               </Link>
             </Button>
           </div>
