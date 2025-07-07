@@ -277,11 +277,11 @@ export const ToolCard = React.memo(function ToolCard({
               </Button>
             </div>
           ) : (
-            <div className="flex w-full items-center justify-end">
+            <div className="flex w-full items-center justify-center">
                 <Button
                 asChild
                 size="default"
-                className="font-semibold rounded-xl"
+                className="w-full font-semibold rounded-xl"
                 style={styles?.button}
                 >
                 <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
