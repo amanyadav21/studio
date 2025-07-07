@@ -53,6 +53,7 @@ export interface Tool {
   name: string;
   description: string;
   url: string;
+  freeUrl?: string;
   category: ToolCategory;
   subcategory?: FrameworkSubCategory | UiUxSubCategory | ProductivitySubCategory | NoCodeSubCategory;
   embeddable?: boolean;

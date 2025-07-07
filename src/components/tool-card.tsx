@@ -137,6 +137,8 @@ export const ToolCard = React.memo(function ToolCard({
     }
   }
 
+  const showTwoButtons = isEmbeddable && tool.pricing !== 'Free';
+
   return (
     <Card
       className="group relative flex h-full flex-col overflow-hidden rounded-xl transition-all duration-300 hover:z-10 hover:shadow-2xl hover:-translate-y-1.5"
@@ -154,11 +156,11 @@ export const ToolCard = React.memo(function ToolCard({
           />
         </Link>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-1.5">
+        <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-1">
           <Badge
             variant="outline"
-            className={cn({
-              "border-border/30 bg-background/50 backdrop-blur-sm": !cardColor,
+            className={cn("border-border/30 bg-background/50 backdrop-blur-sm", {
+              "border-transparent": cardColor,
             })}
             style={cardColor ? styles?.categoryBadge : {}}
           >
@@ -167,8 +169,8 @@ export const ToolCard = React.memo(function ToolCard({
           {tool.subcategory && (
             <Badge
                 variant="outline"
-                className={cn({
-                "border-border/30 bg-background/50 backdrop-blur-sm": !cardColor,
+                className={cn("border-border/30 bg-background/50 backdrop-blur-sm", {
+                    "border-transparent": cardColor,
                 })}
                 style={cardColor ? styles?.categoryBadge : {}}
             >
@@ -251,46 +253,75 @@ export const ToolCard = React.memo(function ToolCard({
         </CardDescription>
       </CardHeader>
       <CardFooter className="px-4 pt-0 pb-4">
-        {isEmbeddable ? (
-            <div className="flex w-full items-center justify-end gap-2">
-              <Button
-                asChild
-                variant="secondary"
-                size="default"
-                className="font-semibold rounded-xl"
-              >
-                <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Site
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="default"
-                className="font-semibold rounded-xl"
-                style={styles?.button}
-              >
-                <Link href={launchUrl}>
-                  <Rocket className="h-4 w-4 mr-2" />
-                  Launch
-                </Link>
-              </Button>
-            </div>
-          ) : (
-            <div className="flex w-full items-center justify-center">
-                <Button
-                asChild
-                size="default"
-                className="w-full font-semibold rounded-xl"
-                style={styles?.button}
-                >
-                <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
+        {tool.pricing === 'Freemium' && tool.freeUrl ? (
+          <div className="flex w-full items-center justify-end gap-2">
+            <Button
+              asChild
+              variant="secondary"
+              size="default"
+              className="font-semibold rounded-xl"
+            >
+              <Link href={tool.url} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Website
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="default"
+              className="font-semibold rounded-xl"
+              style={styles?.button}
+            >
+              <Link href={tool.freeUrl} target="_blank" rel="noopener noreferrer">
+                <Rocket className="h-4 w-4 mr-2" />
+                Try Free
+              </Link>
+            </Button>
+          </div>
+        ) : showTwoButtons ? (
+          <div className="flex w-full items-center justify-end gap-2">
+            <Button
+              asChild
+              variant="secondary"
+              size="default"
+              className="font-semibold rounded-xl"
+            >
+              <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Site
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="default"
+              className="font-semibold rounded-xl"
+              style={styles?.button}
+            >
+              <Link href={launchUrl}>
+                <Rocket className="h-4 w-4 mr-2" />
+                Launch
+              </Link>
+            </Button>
+          </div>
+        ) : (
+          <div className="flex w-full items-center justify-center">
+            <Button
+              asChild
+              size="default"
+              className="w-full font-semibold rounded-xl"
+              style={styles?.button}
+            >
+              <Link href={isEmbeddable ? launchUrl : externalUrl} target={isEmbeddable ? undefined : "_blank"} rel={isEmbeddable ? undefined : "noopener noreferrer"}>
+                {isEmbeddable ? (
+                    <Rocket className="h-4 w-4 mr-2" />
+                ) : (
                     <ExternalLink className="h-4 w-4 mr-2" />
-                    Open Site
-                </Link>
-                </Button>
-            </div>
-          )}
+                )}
+                {isEmbeddable ? 'Launch' : 'Open Site'}
+              </Link>
+            </Button>
+          </div>
+        )}
       </CardFooter>
     </Card>
   );
