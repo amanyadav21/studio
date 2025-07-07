@@ -256,8 +256,8 @@ export const ToolCard = React.memo(function ToolCard({
               <Button
                 asChild
                 variant="secondary"
-                size="sm"
-                className="font-semibold"
+                size="default"
+                className="font-semibold rounded-full"
               >
                 <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="h-4 w-4 mr-2" />
@@ -266,8 +266,8 @@ export const ToolCard = React.memo(function ToolCard({
               </Button>
               <Button
                 asChild
-                size="sm"
-                className="font-semibold"
+                size="default"
+                className="font-semibold rounded-full"
                 style={styles?.button}
               >
                 <Link href={launchUrl}>
@@ -279,8 +279,8 @@ export const ToolCard = React.memo(function ToolCard({
           ) : (
             <Button
               asChild
-              size="sm"
-              className="w-full font-semibold"
+              size="default"
+              className="w-full font-semibold rounded-full"
               style={styles?.button}
             >
               <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
