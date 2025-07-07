@@ -6,7 +6,7 @@ import * as React from "react";
 import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories } from "@/data/tools";
 import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
-import { cn } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 
 import { BundleBar } from "@/components/bundle-bar";
 import { Header } from "@/components/page/Header";
@@ -36,6 +36,7 @@ export default function Home() {
   );
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
+  const [activeCategory, setActiveCategory] = React.useState<string>("All");
   const [selectedSubCategory, setSelectedSubCategory] = React.useState<string | null>(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [bundle, setBundle] = React.useState<string[]>([]);
@@ -85,6 +86,48 @@ export default function Home() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
       }
   }, [selectedCategory]);
+
+  // Scrollspy effect
+  React.useEffect(() => {
+    if (selectedCategory !== 'All' || viewMode !== 'grid') {
+      setActiveCategory(selectedCategory);
+      return;
+    }
+    // Set a default for when we switch back to 'All'
+    setActiveCategory('All'); 
+
+    const sections = defaultCategories
+      .map(c => document.getElementById(slugify(c)))
+      .filter(Boolean);
+
+    if (sections.length === 0) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const categoryName = defaultCategories.find(c => slugify(c) === entry.target.id);
+            if (categoryName) {
+              setActiveCategory(categoryName);
+            }
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0px -80% 0px", // Highlight when section is in the top 20% of the viewport
+      }
+    );
+
+    sections.forEach(section => {
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach(section => {
+        if (section) observer.unobserve(section);
+      });
+    };
+  }, [selectedCategory, viewMode, allTools]);
 
 
   const togglePinned = React.useCallback(
@@ -228,7 +271,7 @@ export default function Home() {
       {viewMode === 'grid' ? (
         <div className="flex">
           <Sidebar
-            selectedCategory={selectedCategory}
+            selectedCategory={activeCategory}
             selectedSubCategory={selectedSubCategory}
             onCategoryChange={handleCategoryChange}
             pinnedCount={pinnedTools.length}
@@ -249,7 +292,7 @@ export default function Home() {
                   if (!toolsForCategory || toolsForCategory.length === 0) return null;
                   
                   return (
-                    <div key={category} className="mb-12">
+                    <div key={category} id={slugify(category)} className="mb-12 scroll-mt-24">
                       <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
                       <ToolGrid
                         tools={toolsForCategory}
