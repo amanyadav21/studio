@@ -117,6 +117,10 @@ export const ToolCard = React.memo(function ToolCard({
     ? { href: launchUrl }
     : { href: externalUrl, target: "_blank", rel: "noopener noreferrer" };
 
+  const isFree = tool.pricing === 'Free';
+  const buttonText = isFree ? 'Try Free' : (isEmbeddable ? 'Launch' : 'Open Site');
+  const ButtonIcon = (isEmbeddable || isFree) ? Rocket : ExternalLink;
+
   const pricingVariant =
     tool.pricing === "Paid"
       ? "destructive"
@@ -136,8 +140,6 @@ export const ToolCard = React.memo(function ToolCard({
             return styles.pricingBadge.free;
     }
   }
-
-  const showTwoButtons = isEmbeddable && tool.pricing !== 'Free';
 
   return (
     <Card
@@ -278,31 +280,6 @@ export const ToolCard = React.memo(function ToolCard({
               </Link>
             </Button>
           </div>
-        ) : showTwoButtons ? (
-          <div className="flex w-full items-center justify-end gap-2">
-            <Button
-              asChild
-              variant="secondary"
-              size="default"
-              className="font-semibold rounded-xl"
-            >
-              <Link href={externalUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Site
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="default"
-              className="font-semibold rounded-xl"
-              style={styles?.button}
-            >
-              <Link href={launchUrl}>
-                <Rocket className="h-4 w-4 mr-2" />
-                Launch
-              </Link>
-            </Button>
-          </div>
         ) : (
           <div className="flex w-full items-center justify-center">
             <Button
@@ -311,13 +288,9 @@ export const ToolCard = React.memo(function ToolCard({
               className="w-full font-semibold rounded-xl"
               style={styles?.button}
             >
-              <Link href={isEmbeddable ? launchUrl : externalUrl} target={isEmbeddable ? undefined : "_blank"} rel={isEmbeddable ? undefined : "noopener noreferrer"}>
-                {isEmbeddable ? (
-                    <Rocket className="h-4 w-4 mr-2" />
-                ) : (
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                )}
-                {isEmbeddable ? 'Launch' : 'Open Site'}
+              <Link {...primaryActionProps}>
+                <ButtonIcon className="h-4 w-4 mr-2" />
+                {buttonText}
               </Link>
             </Button>
           </div>
