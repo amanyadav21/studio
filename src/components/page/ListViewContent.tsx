@@ -44,7 +44,7 @@ export const ListViewContent = React.forwardRef<
             rel="noopener noreferrer"
             className="ml-2"
           >
-            <Badge variant="secondary">Try Free</Badge>
+            <Badge variant="default">Try Free</Badge>
           </a>
         )}
       </li>
