@@ -45,10 +45,6 @@ export const ToolCard = React.memo(function ToolCard({
     `https://s.wordpress.com/mshots/v1/${encodeURIComponent(tool.url)}?w=600&h=400`
   );
 
-  React.useEffect(() => {
-    setImgSrc(`https://s.wordpress.com/mshots/v1/${encodeURIComponent(tool.url)}?w=600&h=400`);
-  }, [tool.url]);
-
   const handleImageError = React.useCallback(() => {
     setImgSrc(`https://placehold.co/600x400.png`);
   }, []);

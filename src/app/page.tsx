@@ -150,6 +150,19 @@ export default function Home() {
     return searchedTools.filter((tool) => tool.category === selectedCategory);
   }, [searchedTools, selectedCategory, pinnedTools]);
 
+  const toolsByCategory = React.useMemo(() => {
+    if (selectedCategory !== "All") return {};
+
+    const categorizedTools: Record<string, Tool[]> = {};
+    for (const tool of gridTools) {
+      if (!categorizedTools[tool.category]) {
+        categorizedTools[tool.category] = [];
+      }
+      categorizedTools[tool.category].push(tool);
+    }
+    return categorizedTools;
+  }, [gridTools, selectedCategory]);
+
 
   const { pageTitle, pageDescription } = React.useMemo(() => {
     const category = defaultCategories.find(c => c === selectedCategory);
@@ -232,8 +245,8 @@ export default function Home() {
             {selectedCategory === "All" ? (
               <>
                 {defaultCategories.map((category) => {
-                  const toolsForCategory = gridTools.filter(t => t.category === category);
-                  if (toolsForCategory.length === 0) return null;
+                  const toolsForCategory = toolsByCategory[category];
+                  if (!toolsForCategory || toolsForCategory.length === 0) return null;
                   
                   return (
                     <div key={category} className="mb-12">
