@@ -81,10 +81,6 @@ export const Sidebar = React.memo(function Sidebar({
     }
   }, [selectedCategory]);
 
-  const handleToggleCollapsible = (id: string) => {
-    setOpenCollapsibles(prev => ({ ...prev, [id]: !prev[id] }));
-  };
-
   const renderNavItem = (item: NavItemConfig) => {
     const Icon = item.icon;
     const isActive = selectedCategory === item.id;
@@ -175,34 +171,34 @@ export const Sidebar = React.memo(function Sidebar({
     }
 
     return (
-       <Collapsible key={item.id} open={isOpen} onOpenChange={() => handleToggleCollapsible(item.id)} className="w-full">
-        <div className="relative flex w-full items-center">
-            <Button
-                variant="ghost"
-                className={cn(
-                "w-full justify-start h-10 relative text-muted-foreground font-normal",
-                isActive && "bg-secondary font-semibold text-secondary-foreground"
-                )}
-                onClick={() => onCategoryChange(item.id)}
-            >
-                {isActive && !selectedSubCategory && (
-                  <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
-                )}
-                <Icon
+       <Collapsible 
+          key={item.id} 
+          open={isOpen} 
+          onOpenChange={(open) => setOpenCollapsibles(prev => ({...prev, [item.id]: open}))} 
+          className="w-full"
+        >
+          <CollapsibleTrigger asChild>
+              <Button
+                  variant="ghost"
                   className={cn(
-                      "h-5 w-5 mr-3",
-                      isActive ? "text-primary" : "text-muted-foreground"
+                  "w-full justify-start h-10 relative text-muted-foreground font-normal",
+                  isActive && "bg-secondary font-semibold text-secondary-foreground"
                   )}
-                />
-                <span className="truncate pr-8">{item.label}</span>
-            </Button>
-            <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8">
-                    <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
-                    <span className="sr-only">Toggle Subcategories</span>
-                </Button>
-            </CollapsibleTrigger>
-        </div>
+                  onClick={() => onCategoryChange(item.id)}
+              >
+                  {isActive && !selectedSubCategory && (
+                    <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
+                  )}
+                  <Icon
+                    className={cn(
+                        "h-5 w-5 mr-3",
+                        isActive ? "text-primary" : "text-muted-foreground"
+                    )}
+                  />
+                  <span className="truncate">{item.label}</span>
+                  <ChevronRight className={cn("h-4 w-4 transition-transform ml-auto", isOpen && "rotate-90")} />
+              </Button>
+          </CollapsibleTrigger>
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
           <div className="flex flex-col gap-1 mt-1">
             {item.subCategories?.map(subCat => {
