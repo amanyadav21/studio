@@ -14,7 +14,8 @@ export type ToolCategory =
   | "APIs"
   | "Email"
   | "Education and Career Development"
-  | "Log Management";
+  | "Log Management"
+  | "Translation Management";
 
 export type FrameworkSubCategory =
   | "Frontend"

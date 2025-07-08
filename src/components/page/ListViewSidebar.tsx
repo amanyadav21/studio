@@ -17,6 +17,7 @@ import {
   GitBranch,
   ClipboardCheck,
   ListChecks,
+  Languages,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -45,6 +46,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   'Source Code Repos': GitBranch,
   'Code Quality': ClipboardCheck,
   'Log Management': ListChecks,
+  'Translation Management': Languages,
 };
 
 export function ListViewSidebar({

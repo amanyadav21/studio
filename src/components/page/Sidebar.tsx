@@ -21,6 +21,7 @@ import {
   GitBranch,
   ClipboardCheck,
   ListChecks,
+  Languages,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -70,6 +71,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "Cloud Provider", label: "Cloud Provider", icon: Cloud },
     { id: "Email", label: "Email", icon: Mail },
     { id: "Log Management", label: "Log Management", icon: ListChecks },
+    { id: "Translation Management", label: "Translation Mgmt", icon: Languages },
 ];
 
 export const Sidebar = React.memo(function Sidebar({
@@ -188,18 +190,7 @@ export const Sidebar = React.memo(function Sidebar({
        <Collapsible 
           key={item.id} 
           open={isOpen} 
-          onOpenChange={(open) => {
-            handleCollapsibleToggle(item.id, open)
-            if (!open) {
-                // If we are closing it, and the current selection is this category (but not a sub-category)
-                // then it makes sense to just keep it open.
-                // But if a user *wants* to close it, they should be able to.
-                // The main action is navigating.
-                // Let's just toggle and select.
-            } else {
-                 onCategoryChange(item.id)
-            }
-          }} 
+          onOpenChange={(open) => handleCollapsibleToggle(item.id, open)} 
           className="w-full"
         >
           <CollapsibleTrigger asChild>
@@ -209,11 +200,8 @@ export const Sidebar = React.memo(function Sidebar({
                     "w-full justify-start h-10 relative text-muted-foreground font-normal",
                     isActive && "bg-secondary font-semibold text-secondary-foreground"
                   )}
-                  onClick={(e) => {
-                      e.preventDefault();
-                      if (!isOpen) {
-                          onCategoryChange(item.id);
-                      }
+                  onClick={() => {
+                      onCategoryChange(item.id);
                       handleCollapsibleToggle(item.id, !isOpen);
                   }}
               >
@@ -229,7 +217,7 @@ export const Sidebar = React.memo(function Sidebar({
                         isActive ? "text-primary" : "text-muted-foreground"
                     )}
                   />
-                  <span className="truncate" onClick={(e) => { e.stopPropagation(); onCategoryChange(item.id); }}>{item.label}</span>
+                  <span className="truncate">{item.label}</span>
               </Button>
           </CollapsibleTrigger>
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
