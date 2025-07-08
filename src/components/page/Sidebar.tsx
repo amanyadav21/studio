@@ -20,6 +20,7 @@ import {
   GraduationCap,
   GitBranch,
   ClipboardCheck,
+  ListChecks,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -68,6 +69,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
     { id: "Cloud Provider", label: "Cloud Provider", icon: Cloud },
     { id: "Email", label: "Email", icon: Mail },
+    { id: "Log Management", label: "Log Management", icon: ListChecks },
 ];
 
 export const Sidebar = React.memo(function Sidebar({

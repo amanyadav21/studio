@@ -13,7 +13,8 @@ export type ToolCategory =
   | "Cloud Provider"
   | "APIs"
   | "Email"
-  | "Education and Career Development";
+  | "Education and Career Development"
+  | "Log Management";
 
 export type FrameworkSubCategory =
   | "Frontend"

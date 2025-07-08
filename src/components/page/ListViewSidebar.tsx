@@ -14,6 +14,9 @@ import {
   MousePointerClick,
   Mail,
   GraduationCap,
+  GitBranch,
+  ClipboardCheck,
+  ListChecks,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -39,6 +42,9 @@ const categoryIcons: Record<string, React.ElementType> = {
   'Cloud Provider': Cloud,
   'Email': Mail,
   'Education and Career Development': GraduationCap,
+  'Source Code Repos': GitBranch,
+  'Code Quality': ClipboardCheck,
+  'Log Management': ListChecks,
 };
 
 export function ListViewSidebar({
