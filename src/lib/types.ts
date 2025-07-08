@@ -48,6 +48,17 @@ export type NoCodeSubCategory =
   | "Analytics"
   | "Platforms";
 
+export type ApiSubCategory =
+  | "Development & Testing"
+  | "Data & Information"
+  | "Scraping & Automation"
+  | "PDF & Image Generation";
+
+export type AiMlSubCategory =
+  | "Platforms & MLOps"
+  | "Models & APIs"
+  | "Data Science & Notebooks";
+
 export interface Tool {
   id: string;
   name: string;
@@ -55,6 +66,12 @@ export interface Tool {
   url: string;
   freeUrl?: string;
   category: ToolCategory;
-  subcategory?: FrameworkSubCategory | UiUxSubCategory | ProductivitySubCategory | NoCodeSubCategory;
+  subcategory?:
+    | FrameworkSubCategory
+    | UiUxSubCategory
+    | ProductivitySubCategory
+    | NoCodeSubCategory
+    | ApiSubCategory
+    | AiMlSubCategory;
   pricing?: Pricing;
 }
