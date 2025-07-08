@@ -16,6 +16,7 @@ import {
   Cloud,
   Share2,
   MousePointerClick,
+  Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -60,6 +61,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: frameworkSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
     { id: "Cloud Provider", label: "Cloud Provider", icon: Cloud },
+    { id: "Email", label: "Email", icon: Mail },
 ];
 
 export const Sidebar = React.memo(function Sidebar({
@@ -80,6 +82,10 @@ export const Sidebar = React.memo(function Sidebar({
       setOpenCollapsibles(prev => ({ ...prev, [collapsibleCategory.id]: true }));
     }
   }, [selectedCategory]);
+
+  const handleCollapsibleToggle = (id: string, isOpen: boolean) => {
+    setOpenCollapsibles(prev => ({...prev, [id]: isOpen}));
+  }
 
   const renderNavItem = (item: NavItemConfig) => {
     const Icon = item.icon;
@@ -174,31 +180,33 @@ export const Sidebar = React.memo(function Sidebar({
        <Collapsible 
           key={item.id} 
           open={isOpen} 
-          onOpenChange={(open) => setOpenCollapsibles(prev => ({...prev, [item.id]: open}))} 
+          onOpenChange={(open) => handleCollapsibleToggle(item.id, open)} 
           className="w-full"
         >
-          <CollapsibleTrigger asChild>
-              <Button
-                  variant="ghost"
-                  className={cn(
-                  "w-full justify-start h-10 relative text-muted-foreground font-normal",
-                  isActive && "bg-secondary font-semibold text-secondary-foreground"
-                  )}
-                  onClick={() => onCategoryChange(item.id)}
-              >
-                  {isActive && !selectedSubCategory && (
-                    <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
-                  )}
-                  <Icon
-                    className={cn(
-                        "h-5 w-5 mr-3",
-                        isActive ? "text-primary" : "text-muted-foreground"
-                    )}
-                  />
-                  <span className="truncate">{item.label}</span>
-                  <ChevronRight className={cn("h-4 w-4 transition-transform ml-auto", isOpen && "rotate-90")} />
-              </Button>
-          </CollapsibleTrigger>
+          <Button
+              variant="ghost"
+              className={cn(
+                "w-full justify-start h-10 relative text-muted-foreground font-normal",
+                isActive && "bg-secondary font-semibold text-secondary-foreground"
+              )}
+              onClick={() => onCategoryChange(item.id)}
+          >
+              <CollapsibleTrigger asChild onClick={(e) => e.stopPropagation()}>
+                <span className="absolute right-2 top-1/2 -translate-y-1/2 p-2">
+                  <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
+                </span>
+              </CollapsibleTrigger>
+              {isActive && !selectedSubCategory && (
+                <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
+              )}
+              <Icon
+                className={cn(
+                    "h-5 w-5 mr-3",
+                    isActive ? "text-primary" : "text-muted-foreground"
+                )}
+              />
+              <span className="truncate">{item.label}</span>
+          </Button>
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
           <div className="flex flex-col gap-1 mt-1">
             {item.subCategories?.map(subCat => {

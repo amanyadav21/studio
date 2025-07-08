@@ -10,6 +10,7 @@ export const categories: ToolCategory[] = [
   "AI & ML",
   "APIs",
   "Cloud Provider",
+  "Email",
 ];
 
 export const uiUxSubCategories: UiUxSubCategory[] = [
@@ -1931,7 +1932,7 @@ export const tools: Tool[] = [
   {
     id: 'maxim-ai',
     name: 'Maxim AI',
-    description: 'Simulate, evaluate, and observe your AI agents. Maxim is an end-to-end evaluation and observability platform, helping teams ship their AI agents reliably and >5x faster. Free forever for indie developers and small teams (3 seats).',
+    description: 'Simulate, evaluate, and observe your AI agents. An end-to-end evaluation and observability platform. Free for indie developers and small teams.',
     url: 'https://maxim.ai/',
     category: 'AI & ML',
     subcategory: 'Platforms & MLOps',
@@ -1958,7 +1959,7 @@ export const tools: Tool[] = [
   {
     id: 'cometml',
     name: 'CometML',
-    description: 'The MLOps platform for experiment tracking, model production management, model registry, and complete data lineage, covering your workflow from training to production. Free for individuals and academics.',
+    description: 'The MLOps platform for experiment tracking and model production management. Free for individuals and academics.',
     url: 'https://www.comet.com/site/',
     category: 'AI & ML',
     subcategory: 'Platforms & MLOps',
@@ -2003,7 +2004,7 @@ export const tools: Tool[] = [
   {
     id: 'deepnote',
     name: 'Deepnote',
-    description: 'A new data science notebook. Jupyter is compatible with real-time collaboration and running in the cloud. The free tier includes unlimited personal projects, unlimited basic machines with 5GB RAM and 2vCPU, and teams with up to 3 editors.',
+    description: 'A new data science notebook. Jupyter is compatible with real-time collaboration and running in the cloud. Free tier includes unlimited personal projects.',
     url: 'https://deepnote.com/',
     category: 'AI & ML',
     subcategory: 'Data Science & Notebooks',
@@ -2048,7 +2049,7 @@ export const tools: Tool[] = [
   {
     id: 'mindee',
     name: 'Mindee',
-    description: 'Mindee is a powerful OCR software and an API-first platform that helps developers automate applications\' workflows by standardizing the document processing layer through data recognition for key information using computer vision and machine learning. The free tier offers 500 pages per month.',
+    description: 'Mindee is a powerful OCR software and an API-first platform that helps developers automate applications\' workflows. The free tier offers 500 pages per month.',
     url: 'https://mindee.com/',
     category: 'AI & ML',
     subcategory: 'Models & APIs',
@@ -2057,7 +2058,7 @@ export const tools: Tool[] = [
   {
     id: 'ocr-space',
     name: 'OCR.Space',
-    description: 'An OCR API parses image and pdf files that return the text results in JSON format. 25,000 requests per month are free and a 1MB file size limit.',
+    description: 'An OCR API parses image and pdf files that return the text results in JSON format. 25,000 requests per month are free.',
     url: 'https://ocr.space/',
     category: 'AI & ML',
     subcategory: 'Models & APIs',
@@ -2066,7 +2067,7 @@ export const tools: Tool[] = [
   {
     id: 'preset-cloud',
     name: 'Preset Cloud',
-    description: 'A hosted Apache Superset service. Forever free for teams of up to 5 users, featuring unlimited dashboards and charts, a no-code chart builder, and a collaborative SQL editor.',
+    description: 'A hosted Apache Superset service. Forever free for teams of up to 5 users, featuring unlimited dashboards and charts.',
     url: 'https://preset.io/',
     category: 'AI & ML',
     subcategory: 'Data Science & Notebooks',
@@ -2084,7 +2085,7 @@ export const tools: Tool[] = [
   {
     id: 'select-star',
     name: 'Select Star',
-    description: 'is an intelligent data discovery platform that automatically analyzes and documents your data. Free light tier with 2 Data Source, up to 1,000 Tables and 25 Users.',
+    description: 'is an intelligent data discovery platform that automatically analyzes and documents your data. Free light tier with 2 Data Source and up to 1,000 Tables.',
     url: 'https://www.selectstar.com/',
     category: 'AI & ML',
     subcategory: 'Platforms & MLOps',
@@ -2093,7 +2094,7 @@ export const tools: Tool[] = [
   {
     id: 'tavily-ai',
     name: 'Tavily AI',
-    description: 'API for online serach and rapid insights and comprehensive research, with the capability of organization of research results. 1000 request/month for the Free tier with No credit card required.',
+    description: 'API for online search and rapid insights, with organization of research results. 1000 request/month for the Free tier.',
     url: 'https://tavily.com/',
     category: 'AI & ML',
     subcategory: 'Models & APIs',
@@ -2102,7 +2103,7 @@ export const tools: Tool[] = [
   {
     id: 'weights-and-biases',
     name: 'Weights & Biases',
-    description: 'The developer-first MLOps platform. Build better models faster with experiment tracking, dataset versioning, and model management. Free tier for personal projects only, with 100 GB of storage included.',
+    description: 'The developer-first MLOps platform for experiment tracking and dataset versioning. Free tier for personal projects only.',
     url: 'https://wandb.ai/site',
     category: 'AI & ML',
     subcategory: 'Platforms & MLOps',
@@ -2166,7 +2167,7 @@ export const tools: Tool[] = [
   {
     id: 'apify',
     name: 'Apify',
-    description: 'Web scraping and automation platform to create an API for any website and extract data. Ready-made scrapers, integrated proxies, and custom solutions. Free plan with $5 platform credits included every month.',
+    description: 'Web scraping and automation platform to create an API for any website and extract data. Free plan with $5 platform credits included every month.',
     url: 'https://apify.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -2175,7 +2176,7 @@ export const tools: Tool[] = [
   {
     id: 'apitemplate-io',
     name: 'APITemplate.io',
-    description: 'Auto-generate images and PDF documents with a simple API or automation tools like Zapier & Airtable. No CSS/HTML is required. The free plan comes with 50 images/month and three templates.',
+    description: 'Auto-generate images and PDF documents with a simple API or automation tools like Zapier & Airtable. The free plan comes with 50 images/month.',
     url: 'https://apitemplate.io/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2184,7 +2185,7 @@ export const tools: Tool[] = [
   {
     id: 'apitoolkit-io',
     name: 'APIToolkit.io',
-    description: 'All the tools you need to fully understand what\'s going on in your APIs and Backends. With automatic API contract validation and monitoring. The free plan covers servers with up to 10,000 requests per day.',
+    description: 'All the tools you need to fully understand what\'s going on in your APIs and Backends. The free plan covers servers with up to 10,000 requests per day.',
     url: 'https://apitoolkit.io/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2193,7 +2194,7 @@ export const tools: Tool[] = [
   {
     id: 'apiverve',
     name: 'APIVerve',
-    description: 'Get instant access to over 120+ APIs for free, built with quality, consistency, and reliability in mind. The free plan covers up to 50 API Tokens per month.',
+    description: 'Get instant access to over 120+ APIs for free. The free plan covers up to 50 API Tokens per month.',
     url: 'https://apiverve.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2211,7 +2212,7 @@ export const tools: Tool[] = [
   {
     id: 'bigdatacloud',
     name: 'BigDataCloud',
-    description: 'Provides fast, accurate, and free (Unlimited or up to 10K-50K/month) APIs for modern web like IP Geolocation, Reverse Geocoding, Networking Insights, Email and Phone Validation, Client Info and more.',
+    description: 'Provides fast, accurate, and free (Unlimited or up to 10K-50K/month) APIs for modern web like IP Geolocation, Reverse Geocoding, and more.',
     url: 'https://www.bigdatacloud.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2265,7 +2266,7 @@ export const tools: Tool[] = [
   {
     id: 'commerce-layer',
     name: 'Commerce Layer',
-    description: 'Composable commerce API that can build, place, and manage orders from any front end. The developer plan allows 100 orders per month and up to 1,000 SKUs for free.',
+    description: 'Composable commerce API that can build, place, and manage orders from any front end. The developer plan allows 100 orders per month.',
     url: 'https://commercelayer.io/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2282,8 +2283,8 @@ export const tools: Tool[] = [
   },
   {
     id: 'country-state-city-api',
-    name: 'Country-State-City Microservice API',
-    description: 'API and Microservice to provides a wide range of information including countries, regions, provinces, cities, postal codes, and much more. The free tier includes up to 100 requests per day.',
+    name: 'Country-State-City API',
+    description: 'API to provide info on countries, regions, provinces, cities, postal codes, and more. The free tier includes up to 100 requests per day.',
     url: 'https://countrystatecity.in/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2292,7 +2293,7 @@ export const tools: Tool[] = [
   {
     id: 'coupler',
     name: 'Coupler',
-    description: 'Data integration tool that syncs between apps. It can create live dashboards and reports, transform and manipulate values, and collect and back up insights. The free plan has limitations.',
+    description: 'Data integration tool that syncs between apps. Create live dashboards and reports, transform values, and back up insights. Free plan has limitations.',
     url: 'https://www.coupler.io/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2301,7 +2302,7 @@ export const tools: Tool[] = [
   {
     id: 'craftmypdf',
     name: 'CraftMyPDF',
-    description: 'Auto-Generate PDF documents from reusable templates with a drop-and-drop editor and a simple API. The free plan comes with 100 PDFs/month and three templates.',
+    description: 'Auto-Generate PDF documents from reusable templates with a drop-and-drop editor and a simple API. The free plan comes with 100 PDFs/month.',
     url: 'https://craftmypdf.com/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2310,7 +2311,7 @@ export const tools: Tool[] = [
   {
     id: 'crawlbase',
     name: 'Crawlbase',
-    description: 'Crawl and scrape websites without proxies, infrastructure, or browsers. We solve captchas for you and prevent you from being blocked. The first 1000 calls are free of charge.',
+    description: 'Crawl and scrape websites without proxies, infrastructure, or browsers. We solve captchas and prevent blocks. The first 1000 calls are free.',
     url: 'https://crawlbase.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -2337,7 +2338,7 @@ export const tools: Tool[] = [
   {
     id: 'cube',
     name: 'Cube',
-    description: 'Cube helps data engineers and application developers access data from modern data stores, organize it into consistent definitions, and deliver it to every application. Free tier limited to 1,000 queries per day.',
+    description: 'Cube helps developers access data from modern data stores, organize it, and deliver it to every application. Free tier limited to 1,000 queries per day.',
     url: 'https://cube.dev/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2346,7 +2347,7 @@ export const tools: Tool[] = [
   {
     id: 'data-dead-drop',
     name: 'Data Dead Drop',
-    description: 'Simple, free file sharing. Data self-destroys after access. Upload and download data via the browser or your favorite command line client.',
+    description: 'Simple, free file sharing. Data self-destroys after access. Upload and download data via the browser or command line.',
     url: 'https://datadeaddrop.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2373,7 +2374,7 @@ export const tools: Tool[] = [
   {
     id: 'data-miner',
     name: 'Data Miner',
-    description: 'A browser extension (Google Chrome, MS Edge) for data extraction from web pages CSV or Excel. The free plan gives you 500 pages/month.',
+    description: 'A browser extension (Chrome, Edge) for data extraction from web pages to CSV or Excel. The free plan gives you 500 pages/month.',
     url: 'https://dataminer.io/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -2382,7 +2383,7 @@ export const tools: Tool[] = [
   {
     id: 'db-ip',
     name: 'DB-IP',
-    description: 'Free IP geolocation API with 1k request per IP per day.lite database under the CC-BY 4.0 License is free too.',
+    description: 'Free IP geolocation API with 1k request per IP per day. The lite database under the CC-BY 4.0 License is also free.',
     url: 'https://db-ip.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2400,7 +2401,7 @@ export const tools: Tool[] = [
   {
     id: 'disease-sh',
     name: 'Disease.sh',
-    description: 'A free API providing accurate data for building the Covid-19 related useful Apps.',
+    description: 'A free API providing accurate data for building Covid-19 related useful Apps.',
     url: 'https://disease.sh/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2409,7 +2410,7 @@ export const tools: Tool[] = [
   {
     id: 'doczilla',
     name: 'Doczilla',
-    description: 'SaaS API empowering the generation of screenshots or PDFs directly from HTML/CSS/JS code. The free plan allows 250 documents month.',
+    description: 'SaaS API empowering the generation of screenshots or PDFs directly from HTML/CSS/JS code. The free plan allows 250 documents a month.',
     url: 'https://doczilla.app/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2418,7 +2419,7 @@ export const tools: Tool[] = [
   {
     id: 'doppio',
     name: 'Doppio',
-    description: 'Managed API to generate and privately store PDFs and Screenshots using top rendering technology. The free plan allows 400 PDFs and Screenshots per month.',
+    description: 'Managed API to generate and privately store PDFs and Screenshots using top rendering technology. The free plan allows 400 PDFs/Screenshots per month.',
     url: 'https://doppio.sh/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2436,7 +2437,7 @@ export const tools: Tool[] = [
   {
     id: 'dreamfactory-com',
     name: 'dreamfactory.com',
-    description: 'Open source REST API backend for mobile, web, and IoT applications. Hook up any SQL/NoSQL database, file storage system, or external service, and it instantly creates a comprehensive REST API platform.',
+    description: 'Open source REST API backend for mobile, web, and IoT applications. Hook up any database and it instantly creates a REST API platform.',
     url: 'https://www.dreamfactory.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2445,7 +2446,7 @@ export const tools: Tool[] = [
   {
     id: 'duply-co',
     name: 'Duply.co',
-    description: 'Create dynamic images from API & URL, design template once and reuse it. The free tier offers 20 free credits.',
+    description: 'Create dynamic images from an API & URL. Design a template once and reuse it. The free tier offers 20 free credits.',
     url: 'https://duply.co/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2454,7 +2455,7 @@ export const tools: Tool[] = [
   {
     id: 'dynamicdocs',
     name: 'DynamicDocs',
-    description: 'Generate PDF documents with JSON to PDF API based on LaTeX templates. The free plan allows 50 API calls per month and access to a library of templates.',
+    description: 'Generate PDF documents with a JSON to PDF API based on LaTeX templates. The free plan allows 50 API calls per month.',
     url: 'https://dynamicdocs.dev/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2463,7 +2464,7 @@ export const tools: Tool[] = [
   {
     id: 'erd-lab',
     name: 'ERD Lab',
-    description: 'Free cloud-based entity relationship diagram (ERD) tool made for developers. Free trial includes 2 projecs with 10 tables each.',
+    description: 'Free cloud-based entity relationship diagram (ERD) tool made for developers. Free trial includes 2 projects with 10 tables each.',
     url: 'https://www.erdlab.io/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2481,7 +2482,7 @@ export const tools: Tool[] = [
   {
     id: 'export-sdk',
     name: 'Export SDK',
-    description: 'PDF generator API with drag-and-drop template editor that provides an SDK and no-code integrations. The free plan has 250 monthly pages, unlimited users, and three templates.',
+    description: 'PDF generator API with drag-and-drop template editor. The free plan has 250 monthly pages and three templates.',
     url: 'https://exportsdk.com/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2490,7 +2491,7 @@ export const tools: Tool[] = [
   {
     id: 'file-coffee',
     name: 'file.coffee',
-    description: 'A platform where you can store up to 15MB/file (30/MB file with an account).',
+    description: 'A platform where you can store up to 15MB/file (30MB/file with an account).',
     url: 'https://file.coffee/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2508,7 +2509,7 @@ export const tools: Tool[] = [
   {
     id: 'formatjsononline-com',
     name: 'FormatJSONOnline.com',
-    description: 'A free, browser-based tool to format, validate,compare and minify JSON data instantly.',
+    description: 'A free, browser-based tool to format, validate, compare, and minify JSON data instantly.',
     url: 'https://formatjsononline.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2517,7 +2518,7 @@ export const tools: Tool[] = [
   {
     id: 'fraudlabs-pro',
     name: 'FraudLabs Pro',
-    description: 'Screen an order transaction for credit card payment fraud. This REST API will detect all possible fraud traits based on the input parameters of an order. The Free Micro plan has 500 transactions per month.',
+    description: 'Screen an order transaction for credit card payment fraud. The Free Micro plan has 500 transactions per month.',
     url: 'https://www.fraudlabspro.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2544,7 +2545,7 @@ export const tools: Tool[] = [
   {
     id: 'glitterly',
     name: 'Glitterly',
-    description: 'Programmatically generate dynamic images from base templates. Restful API and nocode integrations. The free tier comes with 50 images/month and five templates.',
+    description: 'Programmatically generate dynamic images from base templates. The free tier comes with 50 images/month and five templates.',
     url: 'https://glitterly.app/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2553,7 +2554,7 @@ export const tools: Tool[] = [
   {
     id: 'hook0',
     name: 'Hook0',
-    description: 'Hook0 is an open-source Webhooks-as-a-service (WaaS) that makes it easy for online products to provide webhooks. Dispatch up to 100 events/day with seven days of history retention for free.',
+    description: 'An open-source Webhooks-as-a-service (WaaS) that makes it easy to provide webhooks. Dispatch up to 100 events/day for free.',
     url: 'https://hook0.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2571,7 +2572,7 @@ export const tools: Tool[] = [
   {
     id: 'hybiscus',
     name: 'Hybiscus',
-    description: 'Build pdf reports using a simple declarative API. The 14-day free tier includes 50 single-page reports with the ability to customize color palettes and fonts.',
+    description: 'Build pdf reports using a simple declarative API. The 14-day free tier includes 50 single-page reports.',
     url: 'https://www.hybiscus.com/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2580,7 +2581,7 @@ export const tools: Tool[] = [
   {
     id: 'invantive-cloud',
     name: 'Invantive Cloud',
-    description: 'Access over 70 (cloud)platforms such as Exact Online, Twinfield, ActiveCampaign or Visma using Invantive SQL or OData4. Includes data replication and exchange. Free plan for developers and implementation consultants.',
+    description: 'Access over 70 cloud platforms using Invantive SQL or OData4. Free plan for developers and consultants.',
     url: 'https://cloud.invantive.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2598,7 +2599,7 @@ export const tools: Tool[] = [
   {
     id: 'ip-api',
     name: 'ip-api',
-    description: 'IP Geolocation API, Free for non-commercial use, no API key required, limited to 45 req/minute from the same IP address for the free plan.',
+    description: 'IP Geolocation API, Free for non-commercial use, no API key required, limited to 45 req/minute from the same IP address.',
     url: 'https://ip-api.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2625,7 +2626,7 @@ export const tools: Tool[] = [
   {
     id: 'iplocate',
     name: 'IPLocate',
-    description: 'IP Geolocation API, free up to 1,000 requests/day. Includes proxy/VPN/hosting detection, ASN data, IP to Company, and more. IPLocate also offers free downloadable IP to Country and IP to ASN databases.',
+    description: 'IP Geolocation API, free up to 1,000 requests/day. Includes proxy/VPN/hosting detection, ASN data, and more.',
     url: 'https://iplocate.io/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2634,7 +2635,7 @@ export const tools: Tool[] = [
   {
     id: 'ip2location',
     name: 'IP2Location',
-    description: 'Freemium IP geolocation service. LITE database is available for free download. Import the database in the server and perform a local query to determine the city, coordinates, and ISP information.',
+    description: 'Freemium IP geolocation service. LITE database is available for free download for local queries.',
     url: 'https://www.ip2location.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2643,7 +2644,7 @@ export const tools: Tool[] = [
   {
     id: 'ip2location-io',
     name: 'IP2Location.io',
-    description: 'Freemium, fast, and reliable IP geolocation API. Get data like city, coordinates, ISP, and more. The free plan includes 50k credits per month. Also offers free WHOIS lookups.',
+    description: 'Freemium, fast, and reliable IP geolocation API. The free plan includes 50k credits per month and free WHOIS lookups.',
     url: 'https://www.ip2location.io/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2652,7 +2653,7 @@ export const tools: Tool[] = [
   {
     id: 'ipapi',
     name: 'ipapi',
-    description: 'IP Address Location API by Kloudend, Inc - A reliable geolocation API built on AWS, trusted by Fortune 500. The free tier offers 30k lookups/month (1k/day) without signup.',
+    description: 'A reliable geolocation API built on AWS. The free tier offers 30k lookups/month (1k/day) without signup.',
     url: 'https://ipapi.co/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2661,7 +2662,7 @@ export const tools: Tool[] = [
   {
     id: 'ipapi-is',
     name: 'ipapi.is',
-    description: 'A reliable IP Address API from Developers for Developers with the best Hosting Detection capabilities that exist. The free plan offers 1000 lookups without signup.',
+    description: 'A reliable IP Address API with hosting detection. The free plan offers 1000 lookups without signup.',
     url: 'https://ipapi.is/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2670,7 +2671,7 @@ export const tools: Tool[] = [
   {
     id: 'ipinfo',
     name: 'IPinfo',
-    description: 'Fast, accurate, and free (up to 50k/month) IP address data API. Offers APIs with details on geolocation, companies, carriers, IP ranges, domains, abuse contacts, and more. All paid APIs can be trialed for free.',
+    description: 'Fast, accurate, and free (up to 50k/month) IP address data API. Offers APIs for geolocation, companies, carriers, and more.',
     url: 'https://ipinfo.io/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2679,7 +2680,7 @@ export const tools: Tool[] = [
   {
     id: 'ipquery',
     name: 'IPQuery',
-    description: 'Unlimited IP API for developers, no ratelimits, or pricing.',
+    description: 'Unlimited IP API for developers, with no ratelimits or pricing.',
     url: 'https://ipquery.io/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2688,7 +2689,7 @@ export const tools: Tool[] = [
   {
     id: 'iptrace',
     name: 'IPTrace',
-    description: 'An embarrassingly simple API that provides your business with reliable and helpful IP geolocation data with 50,000 free lookups per month.',
+    description: 'A simple API that provides reliable IP geolocation data with 50,000 free lookups per month.',
     url: 'https://iptrace.io/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2706,7 +2707,7 @@ export const tools: Tool[] = [
   {
     id: 'json-ip',
     name: 'JSON IP',
-    description: 'Returns the Public IP address of the client it is requested from. No registration is required for the free tier. Using CORS, data can be requested using client-side JS directly from the browser. Unlimited Requests.',
+    description: 'Returns the Public IP address of the client it is requested from. No registration required and unlimited requests.',
     url: 'https://jsonip.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2715,7 +2716,7 @@ export const tools: Tool[] = [
   {
     id: 'json-serve',
     name: 'JSON Serve',
-    description: 'A free service that helps developers to store JSON objects and use that JSON as a REST API in their app.',
+    description: 'A free service that helps developers store JSON objects and use them as a REST API in their app.',
     url: 'https://jsonserve.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2733,7 +2734,7 @@ export const tools: Tool[] = [
   {
     id: 'konghq-com',
     name: 'konghq.com',
-    description: 'API Marketplace and powerful private and public API tools. With the free tier, some features such as monitoring, alerting, and support, are limited.',
+    description: 'API Marketplace and powerful private and public API tools. The free tier has limited features.',
     url: 'https://konghq.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2742,16 +2743,25 @@ export const tools: Tool[] = [
   {
     id: 'kreya',
     name: 'Kreya',
-    description: 'Free gRPC GUI client to call and test gRPC APIs. Can import gRPC APIs via server reflection.',
+    description: 'Free gRPC GUI client to call and test gRPC APIs. Can import APIs via server reflection.',
     url: 'https://kreya.app/',
     category: 'APIs',
     subcategory: 'Development & Testing',
     pricing: 'Free',
   },
   {
+    id: 'lightly-ai-ml',
+    name: 'Lightly',
+    description: 'Improve your machine-learning models by using the correct data. Use datasets of up to 1000 samples for free.',
+    url: 'https://www.lightly.ai/',
+    category: 'APIs',
+    subcategory: 'Data & Information',
+    pricing: 'Freemium',
+  },
+  {
     id: 'loginllama',
     name: 'LoginLlama',
-    description: 'A login security API to detect fraudulent and suspicious logins and notify your customers. Free for 1,000 logins per month.',
+    description: 'A login security API to detect fraudulent logins and notify your customers. Free for 1,000 logins per month.',
     url: 'https://loginllama.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2760,7 +2770,7 @@ export const tools: Tool[] = [
   {
     id: 'mailboxvalidator',
     name: 'MailboxValidator',
-    description: 'Email verification service using real mail server connection to confirm valid email. The free API plan has 100 verifications per month.',
+    description: 'Email verification service using real mail server connection. The free API plan has 100 verifications per month.',
     url: 'https://www.mailboxvalidator.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2769,7 +2779,7 @@ export const tools: Tool[] = [
   {
     id: 'market-data-api',
     name: 'Market Data API',
-    description: 'Provides real-time and historical financial data for stocks, options, mutual funds, and more. The Free Forever API tier allows for 100 daily API requests at no charge.',
+    description: 'Provides real-time and historical financial data. The Free Forever API tier allows for 100 daily API requests.',
     url: 'https://www.marketdata.app/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2778,7 +2788,7 @@ export const tools: Tool[] = [
   {
     id: 'meteosource-weather-api',
     name: 'Meteosource Weather API',
-    description: 'global weather API for current and forecasted weather data. Forecasts are based on a machine learning combination of more weather models to achieve better accuracy. The free plan comes with 400 calls per day.',
+    description: 'Global weather API for current and forecasted weather data. The free plan comes with 400 calls per day.',
     url: 'https://www.meteosource.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2787,7 +2797,7 @@ export const tools: Tool[] = [
   {
     id: 'microlink-io',
     name: 'microlink.io',
-    description: 'It turns any website into data such as metatags normalization, beauty link previews, scraping capabilities, or screenshots as a service. 50 requests per day, every day free.',
+    description: 'Turns any website into data like metatags, link previews, or screenshots. 50 free requests per day.',
     url: 'https://microlink.io/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -2796,7 +2806,7 @@ export const tools: Tool[] = [
   {
     id: 'mintlify',
     name: 'Mintlify',
-    description: 'Modern standard for API documentation. Beautiful and easy-to-maintain UI components, in-app search, and interactive playground. Free for 1 editor.',
+    description: 'Modern standard for API documentation. Beautiful UI components, in-app search, and interactive playground. Free for 1 editor.',
     url: 'https://mintlify.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2805,7 +2815,7 @@ export const tools: Tool[] = [
   {
     id: 'mockapi',
     name: 'MockAPI',
-    description: 'MockAPI is a simple tool that lets you quickly mock up APIs, generate custom data, and perform operations using a RESTful interface. One project/2 resources per project for free.',
+    description: 'A simple tool to quickly mock up APIs, generate custom data, and perform operations using a RESTful interface. One project for free.',
     url: 'https://mockapi.io/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2814,7 +2824,7 @@ export const tools: Tool[] = [
   {
     id: 'mockfly',
     name: 'Mockfly',
-    description: 'Mockfly is a trusted development tool for API mocking and feature flag management. Quickly generate and control mock APIs with an intuitive interface. The free tier offers 500 requests per day.',
+    description: 'A trusted development tool for API mocking and feature flag management. The free tier offers 500 requests per day.',
     url: 'https://mockfly.dev/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2823,7 +2833,7 @@ export const tools: Tool[] = [
   {
     id: 'mocki',
     name: 'Mocki',
-    description: 'A tool that lets you create mock GraphQL and REST APIs synced to a GitHub repository. Simple REST APIs are free to develop and use without signup.',
+    description: 'A tool to create mock GraphQL and REST APIs synced to a GitHub repository. Simple REST APIs are free.',
     url: 'https://mocki.io/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2832,7 +2842,7 @@ export const tools: Tool[] = [
   {
     id: 'mocko-dev',
     name: 'Mocko.dev',
-    description: 'Proxy your API, choose which endpoints to mock in the cloud and inspect traffic, for free. Speed up your development and integration tests.',
+    description: 'Proxy your API, choose which endpoints to mock in the cloud and inspect traffic, for free.',
     url: 'https://mocko.dev/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2850,7 +2860,7 @@ export const tools: Tool[] = [
   {
     id: 'mock-n-roll',
     name: 'Mock N Roll',
-    description: 'Free Mocks API Service—a powerful tool to simulate real API responses without backend delays. Perfect for frontend devs, QA testers, and DevOps teams.',
+    description: 'Free Mocks API Service—a powerful tool to simulate real API responses without backend delays.',
     url: 'https://mocknroll.dev/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2867,8 +2877,8 @@ export const tools: Tool[] = [
   },
   {
     id: 'multi-exit-ip-address-checker',
-    name: 'Multi-Exit IP Address Checker',
-    description: 'A free and simple tool to check your exit IP address across multiple nodes and understand how your IP appears to different global regions and services.',
+    name: 'Multi-Exit IP Checker',
+    description: 'A free tool to check your exit IP address across multiple nodes and understand how your IP appears to different global regions.',
     url: 'https://controld.com/network-check',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2886,7 +2896,7 @@ export const tools: Tool[] = [
   {
     id: 'news-api',
     name: 'News API',
-    description: 'Search news on the web with code, and get JSON results. Developers get 100 queries free each day. Articles have a 24 hour delay.',
+    description: 'Search news on the web with code, and get JSON results. Developers get 100 queries free each day.',
     url: 'https://newsapi.org/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -2922,7 +2932,7 @@ export const tools: Tool[] = [
   {
     id: 'parseur',
     name: 'Parseur',
-    description: '20 free pages/month: Extract data from PDFs, emails. AI powered. Full API access.',
+    description: '20 free pages/month: Extract data from PDFs and emails. AI powered. Full API access.',
     url: 'https://parseur.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -2931,7 +2941,7 @@ export const tools: Tool[] = [
   {
     id: 'pdfbolt',
     name: 'PDFBolt',
-    description: 'Developer-focused PDF generation API designed with privacy in mind. It offers Stripe-inspired documentation and includes 500 free PDF conversions per month.',
+    description: 'Developer-focused PDF generation API with privacy in mind. It offers 500 free PDF conversions per month.',
     url: 'https://pdfbolt.com/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2949,7 +2959,7 @@ export const tools: Tool[] = [
   {
     id: 'pdf-api-io',
     name: 'PDF-API.io',
-    description: 'PDF Automation API, visual template editor or HTML to PDF, dynamic data integration, and PDF rendering with an API. The free plan comes with one template, 100 PDFs/month.',
+    description: 'PDF Automation API with a visual template editor or HTML to PDF conversion. The free plan comes with one template and 100 PDFs/month.',
     url: 'https://pdf-api.io/',
     category: 'APIs',
     subcategory: 'PDF & Image Generation',
@@ -2967,7 +2977,7 @@ export const tools: Tool[] = [
   {
     id: 'postman',
     name: 'Postman',
-    description: 'Simplify workflows and create better APIs – faster – with Postman, a collaboration platform for API development. Use the Postman App for free forever. Postman cloud features are also free forever with certain limits.',
+    description: 'A collaboration platform for API development. Use the Postman App for free forever. Cloud features are also free with certain limits.',
     url: 'https://www.postman.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -2985,7 +2995,7 @@ export const tools: Tool[] = [
   {
     id: 'prefectcloud',
     name: 'PrefectCloud',
-    description: 'A complete platform for dataflow automation. Free plan includes 5 deployed workflows and 500 minutes of serverless compute credits per month.',
+    description: 'A complete platform for dataflow automation. Free plan includes 5 deployed workflows per month.',
     url: 'https://www.prefect.io/cloud/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -2994,7 +3004,7 @@ export const tools: Tool[] = [
   {
     id: 'promptloop',
     name: 'PromptLoop',
-    description: 'PromptLoop delivers 10X easier AI web scraping with near-zero adoption time, 85%+ time saved on existing workflows, and operates 4X faster than manual research without compromise and includes a REST API endpoint for all research tasks. The first 1,000 credits are free each month.',
+    description: 'AI web scraping with near-zero adoption time. The first 1,000 credits are free each month.',
     url: 'https://promptloop.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -3002,7 +3012,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'public-apis-repo',
-    name: 'Public-Apis Github Repo',
+    name: 'Public-Apis Repo',
     description: 'A list of free public APIs.',
     url: 'https://github.com/public-apis/public-apis',
     category: 'APIs',
@@ -3012,7 +3022,7 @@ export const tools: Tool[] = [
   {
     id: 'rapidapi',
     name: 'RapidAPI',
-    description: 'World’s Largest API Hub Millions of developers find and connect to thousands of APIs, API Development using fun challenges (with solutions!) and interactive examples.',
+    description: 'World’s Largest API Hub. Millions of developers find and connect to thousands of APIs.',
     url: 'https://rapidapi.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3021,7 +3031,7 @@ export const tools: Tool[] = [
   {
     id: 'requestbin-com',
     name: 'RequestBin.com',
-    description: 'Create a free endpoint to which you can send HTTP requests. Any HTTP requests sent to that endpoint will be recorded with the associated payload and headers so you can observe recommendations from webhooks and other services.',
+    description: 'Create a free endpoint to which you can send HTTP requests to observe recommendations from webhooks and other services.',
     url: 'https://requestbin.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3048,7 +3058,7 @@ export const tools: Tool[] = [
   {
     id: 'scrapers-proxy',
     name: 'Scraper\'s Proxy',
-    description: 'Simple HTTP proxy API for scraping. Scrape anonymously without having to worry about restrictions, blocks, or captchas. First 100 successful scrapes per month free.',
+    description: 'Simple HTTP proxy API for scraping. Scrape anonymously without worrying about restrictions or blocks. First 100 successful scrapes per month free.',
     url: 'https://scrapersproxy.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -3057,7 +3067,7 @@ export const tools: Tool[] = [
   {
     id: 'scrapingant',
     name: 'ScrapingAnt',
-    description: 'Headless Chrome scraping API and free checked proxies service. Javascript rendering, premium rotating proxies, CAPTCHAs avoiding. Free 10,000 API credits.',
+    description: 'Headless Chrome scraping API and free checked proxies service. Free 10,000 API credits.',
     url: 'https://scrapingant.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -3075,7 +3085,7 @@ export const tools: Tool[] = [
   {
     id: 'sheetson',
     name: 'Sheetson',
-    description: 'Instantly turn any Google Sheets into a RESTful API. Free plan available, including 1,000 free rows per sheet.',
+    description: 'Instantly turn any Google Sheet into a RESTful API. Free plan available, including 1,000 free rows per sheet.',
     url: 'https://sheetson.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -3084,7 +3094,7 @@ export const tools: Tool[] = [
   {
     id: 'shipyard',
     name: 'Shipyard',
-    description: 'Low-code data orchestration platform for the cloud. Build with a mix of low-code templates and your code (Python, Node.js, Bash, SQL). Our free developer plan offers 10 hours of runtime every month.',
+    description: 'Low-code data orchestration platform. Our free developer plan offers 10 hours of runtime every month.',
     url: 'https://www.shipyardapp.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -3093,7 +3103,7 @@ export const tools: Tool[] = [
   {
     id: 'siterelic',
     name: 'Siterelic',
-    description: 'Siterelic API lets you take screenshots, audit websites, TLS scan, DNS lookup, test TTFB, and more. The free plan offers 100 API requests per month.',
+    description: 'Siterelic API lets you take screenshots, audit websites, TLS scan, DNS lookup, and more. The free plan offers 100 API requests per month.',
     url: 'https://siterelic.com/tools/api',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3102,7 +3112,7 @@ export const tools: Tool[] = [
   {
     id: 'serpapi',
     name: 'SerpApi',
-    description: 'Real-time search engine scraping API. Returns structured JSON results for Google, YouTube, Bing, Baidu, Walmart, and many other machines. The free plan includes 100 successful API calls per month.',
+    description: 'Real-time search engine scraping API. Returns structured JSON results for Google, YouTube, Bing, and more. The free plan includes 100 successful API calls per month.',
     url: 'https://serpapi.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -3111,7 +3121,7 @@ export const tools: Tool[] = [
   {
     id: 'smartparse',
     name: 'SmartParse',
-    description: 'SmartParse is a data migration and CSV to API platform that offers time- and cost-saving developer tools. The Free tier includes 300 Processing Units per month.',
+    description: 'A data migration and CSV to API platform. The Free tier includes 300 Processing Units per month.',
     url: 'https://smartparse.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -3120,7 +3130,7 @@ export const tools: Tool[] = [
   {
     id: 'sofodata',
     name: 'Sofodata',
-    description: 'Create secure RESTful APIs from CSV files. Upload a CSV file and instantly access the data via its API allowing faster application development. The free plan includes 2 APIs and 2,500 API calls per month.',
+    description: 'Create secure RESTful APIs from CSV files. The free plan includes 2 APIs and 2,500 API calls per month.',
     url: 'https://www.sofodata.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -3129,7 +3139,7 @@ export const tools: Tool[] = [
   {
     id: 'yourgpt-csv-to-json',
     name: 'YourGPT CSV to JSON',
-    description: 'A fast, free, and privacy-focused online tool to easily convert CSV files into structured JSON data right in your browser.',
+    description: 'A fast, free, and privacy-focused online tool to easily convert CSV files into structured JSON data.',
     url: 'https://yourgpt.ai/tools/csv-to-json',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3138,7 +3148,7 @@ export const tools: Tool[] = [
   {
     id: 'sqlable',
     name: 'Sqlable',
-    description: 'A collection of free online SQL tools, including an SQL formatter and validator, SQL regex tester, fake data generator, and interactive database playgrounds.',
+    description: 'A collection of free online SQL tools, including an SQL formatter, validator, regex tester, and fake data generator.',
     url: 'https://sqlable.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3147,7 +3157,7 @@ export const tools: Tool[] = [
   {
     id: 'stoplight',
     name: 'Stoplight',
-    description: 'Saas for collaboratively designing and documenting for APIs. The free plan offers free design, mocking, and documentation tools.',
+    description: 'SaaS for collaboratively designing and documenting for APIs. The free plan offers free design, mocking, and documentation tools.',
     url: 'https://stoplight.io/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3174,7 +3184,7 @@ export const tools: Tool[] = [
   {
     id: 'the-ip-api',
     name: 'The IP API',
-    description: 'IP Geolocation API with 1000 free requests / day. Provides information about the location of an IP address, including country, city, region, and more.',
+    description: 'IP Geolocation API with 1000 free requests / day. Provides information about the location of an IP address.',
     url: 'https://theipapi.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -3183,7 +3193,7 @@ export const tools: Tool[] = [
   {
     id: 'tinymce',
     name: 'TinyMCE',
-    description: 'rich text editing API. Core features are free for unlimited usage.',
+    description: 'Rich text editing API. Core features are free for unlimited usage.',
     url: 'https://www.tiny.cloud/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3191,8 +3201,8 @@ export const tools: Tool[] = [
   },
   {
     id: 'tomorrow-io-weather-api',
-    name: 'Tomorrow.io Weather API',
-    description: 'Offers free plan of weather API. Provides accurate and up-to-date weather forecasting with global coverage, historical data and weather monitoring solutions.',
+    name: 'Tomorrow.io API',
+    description: 'Weather API providing accurate forecasting with global coverage and historical data. Free plan available.',
     url: 'https://www.tomorrow.io/weather-api/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -3201,7 +3211,7 @@ export const tools: Tool[] = [
   {
     id: 'treblle',
     name: 'Treblle',
-    description: 'Treblle helps teams build, ship, and govern APIs. With advanced API log aggregation, observability, docs, and debugging. You get all features for free, but there is a limit of up to 250k requests per month.',
+    description: 'Helps teams build, ship, and govern APIs with log aggregation, observability, and debugging. Free up to 250k requests per month.',
     url: 'https://treblle.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3210,7 +3220,7 @@ export const tools: Tool[] = [
   {
     id: 'unirateapi',
     name: 'UniRateAPI',
-    description: 'Real-time exchange rates for 590+ currencies and crypto. Unlimited API calls on the free plan, perfect for developers and finance apps.',
+    description: 'Real-time exchange rates for 590+ currencies and crypto. Unlimited API calls on the free plan.',
     url: 'https://unirateapi.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -3228,7 +3238,7 @@ export const tools: Tool[] = [
   {
     id: 'weatherxu',
     name: 'WeatherXu',
-    description: 'Global weather data including current conditions, hourly and daily forecasts, and weather alerts via our API. Free tier includes 10,000 API calls/month.',
+    description: 'Global weather data including current conditions, forecasts, and alerts. Free tier includes 10,000 API calls/month.',
     url: 'https://weatherxu.com/',
     category: 'APIs',
     subcategory: 'Data & Information',
@@ -3237,7 +3247,7 @@ export const tools: Tool[] = [
   {
     id: 'webhook-store',
     name: 'Webhook Store',
-    description: 'Tool for storing third-party webhooks and debug them on localhost (ngrok style). Open source and self-hostable. Free personal domain.',
+    description: 'Tool for storing third-party webhooks and debug them on localhost. Open source and self-hostable.',
     url: 'https://webhook.store/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3246,7 +3256,7 @@ export const tools: Tool[] = [
   {
     id: 'webscraping-ai',
     name: 'WebScraping.AI',
-    description: 'Simple Web Scraping API with built-in parsing, Chrome rendering, and proxies. Two thousand free API calls per month.',
+    description: 'Simple Web Scraping API with built-in parsing, Chrome rendering, and proxies. 2,000 free API calls per month.',
     url: 'https://webscraping.ai/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -3264,7 +3274,7 @@ export const tools: Tool[] = [
   {
     id: 'zenscrape',
     name: 'Zenscrape',
-    description: 'Web scraping API with headless browsers, residentials IPs, and straightforward pricing. One thousand free API calls/month and extra credits for students and non-profits.',
+    description: 'Web scraping API with headless browsers and residential IPs. 1,000 free API calls/month.',
     url: 'https://zenscrape.com/',
     category: 'APIs',
     subcategory: 'Scraping & Automation',
@@ -3291,7 +3301,7 @@ export const tools: Tool[] = [
   {
     id: 'zuplo',
     name: 'Zuplo',
-    description: 'Free API Management platform to design, build, and deploy APIs to the Edge. Add API Key authentication, rate limiting, and more. The free plan offers up to 10 projects and 1M monthly requests.',
+    description: 'Free API Management platform to design, build, and deploy APIs to the Edge. The free plan offers up to 10 projects and 1M monthly requests.',
     url: 'https://zuplo.com/',
     category: 'APIs',
     subcategory: 'Development & Testing',
@@ -3337,5 +3347,550 @@ export const tools: Tool[] = [
     url: 'https://console.firebase.google.com/',
     category: 'Cloud Provider',
     pricing: "Freemium",
+  },
+  // Email
+  {
+    id: '10minutemail',
+    name: '10minutemail',
+    description: 'Free, temporary email for testing.',
+    url: 'https://www.10minutemail.com/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'ahasend',
+    name: 'AhaSend',
+    description: 'Transactional email service, free for 1000 emails per month, with unlimited domains and team members.',
+    url: 'https://ahasend.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'anonaddy',
+    name: 'AnonAddy',
+    description: 'Open-source anonymous email forwarding, create unlimited email aliases for free.',
+    url: 'https://anonaddy.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'antideo',
+    name: 'Antideo',
+    description: '10 API requests per hour for email verification, IP, and phone number validation in the free tier.',
+    url: 'https://antideo.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'brevo',
+    name: 'Brevo',
+    description: 'A popular email marketing service that offers 9,000 emails per month and 300 emails per day for free.',
+    url: 'https://www.brevo.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'onesignal-email',
+    name: 'OneSignal',
+    description: 'Customer engagement platform that offers 10,000 emails per month for free, with no credit card required.',
+    url: 'https://onesignal.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'bump-email',
+    name: 'Bump',
+    description: 'Free service offering 10 Bump email addresses and one custom domain for anonymous email forwarding.',
+    url: 'https://bump.email/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'burnermail',
+    name: 'Burnermail',
+    description: 'Provides 5 free burner email addresses, 1 mailbox, and a 7-day mailbox history for privacy.',
+    url: 'https://burnermail.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'buttondown',
+    name: 'Buttondown',
+    description: 'A simple and elegant newsletter service that allows up to 100 subscribers for free.',
+    url: 'https://buttondown.email/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'cloudmailin',
+    name: 'CloudMailin',
+    description: 'Receive incoming emails via HTTP POST and send transactional outbound emails, with 10,000 free emails/month.',
+    url: 'https://www.cloudmailin.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'contact-do',
+    name: 'Contact.do',
+    description: 'A simple contact form that can be shared via a link, like a Bitly for contact forms.',
+    url: 'https://contact.do/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'debugmail-io',
+    name: 'debugmail.io',
+    description: 'An easy-to-use testing mail server designed specifically for developers to debug email functionalities.',
+    url: 'https://debugmail.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'dnsexit',
+    name: 'DNSExit',
+    description: 'Get up to 2 free email addresses under your own domain with 100MB of storage space and full protocol support.',
+    url: 'https://dnsexit.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'emaillabs-io',
+    name: 'EmailLabs.io',
+    description: 'Send up to 9,000 emails for free every month, with a daily limit of 300 emails.',
+    url: 'https://emaillabs.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'emailoctopus',
+    name: 'EmailOctopus',
+    description: 'Manage up to 2,500 subscribers and send 10,000 emails per month for free.',
+    url: 'https://emailoctopus.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'emailjs',
+    name: 'EmailJS',
+    description: 'A client-side email sending service with a free tier of 200 monthly requests and 2 email templates.',
+    url: 'https://www.emailjs.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'etherealmail',
+    name: 'EtherealMail',
+    description: 'A free fake SMTP service, perfect for testing emails in development, especially with Nodemailer.',
+    url: 'https://ethereal.email/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'temp-mail-org',
+    name: 'Temp-Mail.org',
+    description: 'A free disposable email generator with a variety of domains. Addresses refresh on every page load.',
+    url: 'https://temp-mail.org/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'tempmaildetector-com',
+    name: 'TempMailDetector.com',
+    description: 'Verify up to 200 emails a month for free to check if an email address is temporary or disposable.',
+    url: 'https://www.tempmaildetector.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'emailvalidation-io',
+    name: 'Emailvalidation.io',
+    description: 'Provides 100 free email verifications per month to ensure your mailing lists are clean.',
+    url: 'https://emailvalidation.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'fakemailgenerator-com',
+    name: 'FakeMailGenerator.com',
+    description: 'A free temporary/disposable email generator with support for 10 domains and unlimited addresses.',
+    url: 'https://www.fakemailgenerator.com/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'forwardemail-net',
+    name: 'forwardemail.net',
+    description: 'Free and open-source email forwarding for custom domains. Create unlimited forwarding addresses.',
+    url: 'https://forwardemail.net/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'imitate-email',
+    name: 'Imitate Email',
+    description: 'A sandbox email server for testing email functionality. Free accounts receive 15 emails a day.',
+    url: 'https://imitate.email/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'improvmx',
+    name: 'ImprovMX',
+    description: 'A popular and free email forwarding service for your custom domain names.',
+    url: 'https://improvmx.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'eforw',
+    name: 'EForw',
+    description: 'Provides free email forwarding for one domain, allowing you to receive and send from your domain.',
+    url: 'https://eforw.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'inboxes-app',
+    name: 'Inboxes App',
+    description: 'Create up to 3 temporary emails a day and manage them from a handy Chrome extension.',
+    url: 'https://inboxes.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'inboxkitten-com',
+    name: 'inboxkitten.com',
+    description: 'A free, open-source, temporary/disposable email inbox with auto-deleting emails.',
+    url: 'https://inboxkitten.com/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'mail-tester-com',
+    name: 'mail-tester.com',
+    description: 'Test your email\'s DNS, SPF, DKIM, and DMARC settings to ensure deliverability. 20 free tests per month.',
+    url: 'https://www.mail-tester.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'dkimvalidator-com',
+    name: 'dkimvalidator.com',
+    description: 'A free service to validate your email\'s DNS, SPF, DKIM, and DMARC settings.',
+    url: 'https://dkimvalidator.com/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'mailcatcher-me',
+    name: 'mailcatcher.me',
+    description: 'An open-source tool that catches mail and serves it through a local web interface for testing.',
+    url: 'http://mailcatcher.me/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'mailchannels-com',
+    name: 'mailchannels.com',
+    description: 'An email API with REST and SMTP integrations, offering up to 3,000 free emails per month.',
+    url: 'https://www.mailchannels.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mailcheck-ai',
+    name: 'Mailcheck.ai',
+    description: 'Prevent users from signing up with temporary email addresses. Free tier offers 120 requests/hour.',
+    url: 'https://mailcheck.ai/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mailchimp',
+    name: 'Mailchimp',
+    description: 'Email marketing platform that provides 500 subscribers and 1,000 emails per month for free.',
+    url: 'https://mailchimp.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'maildroppa',
+    name: 'Maildroppa',
+    description: 'Manage up to 100 subscribers and send unlimited emails with free marketing automation features.',
+    url: 'https://maildroppa.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mailerlite-com',
+    name: 'MailerLite.com',
+    description: 'Email marketing service with a free plan for 1,000 subscribers and 12,000 emails per month.',
+    url: 'https://www.mailerlite.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mailersend-com',
+    name: 'MailerSend.com',
+    description: 'Email API and SMTP service with 3,000 free transactional emails per month.',
+    url: 'https://www.mailersend.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mailinator-com',
+    name: 'mailinator.com',
+    description: 'A free, public email system where you can use any inbox you want for receiving emails.',
+    url: 'https://www.mailinator.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mailjet',
+    name: 'Mailjet',
+    description: 'Send up to 6,000 emails per month for free, with a daily sending limit of 200 emails.',
+    url: 'https://www.mailjet.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mailnesia',
+    name: 'Mailnesia',
+    description: 'A free temporary/disposable email service that automatically visits registration links.',
+    url: 'https://mailnesia.com/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'mailsac-com',
+    name: 'mailsac.com',
+    description: 'A free API for temporary email testing, public email hosting, and outbound capture features.',
+    url: 'https://mailsac.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mailtrap-io',
+    name: 'Mailtrap.io',
+    description: 'A fake SMTP server for development. Free plan includes one inbox and 100 messages.',
+    url: 'https://mailtrap.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'mail7-io',
+    name: 'Mail7.io',
+    description: 'Free temporary email addresses for QA developers. Create addresses instantly via web or API.',
+    url: 'https://www.mail7.io/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'momentary-email',
+    name: 'Momentary Email',
+    description: 'Free temporary email addresses. Read incoming emails on the website or via an RSS feed.',
+    url: 'https://momentary.email/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'mutant-mail',
+    name: 'Mutant Mail',
+    description: 'Get a single mailbox for all your email IDs. Free plan includes 10 email IDs and 1 domain.',
+    url: 'https://www.mutantmail.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'outlook-com',
+    name: 'Outlook.com',
+    description: 'Microsoft\'s free personal email and calendar service.',
+    url: 'https://outlook.live.com/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'parsio-io',
+    name: 'Parsio.io',
+    description: 'A free email parser that lets you forward emails, extract data, and send it to your server.',
+    url: 'https://parsio.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'pepipost-com',
+    name: 'pepipost.com',
+    description: 'Email delivery service offering 30k free emails for the first month, then 100 free emails per day.',
+    url: 'https://pepipost.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'plunk',
+    name: 'Plunk',
+    description: 'Transactional email service that offers 3,000 free emails per month.',
+    url: 'https://useplunk.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'postmark',
+    name: 'Postmark',
+    description: 'Email delivery service with 100 free emails per month and unlimited DMARC weekly digests.',
+    url: 'https://postmarkapp.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'proton-mail',
+    name: 'Proton Mail',
+    description: 'A secure email account service with built-in end-to-end encryption. Free plan includes 1GB of storage.',
+    url: 'https://proton.me/mail',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'queuemail-dev',
+    name: 'Queuemail.dev',
+    description: 'A reliable email delivery API with a free tier of 10,000 emails per month.',
+    url: 'https://queuemail.dev/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'quickemailverification',
+    name: 'QuickEmailVerification',
+    description: 'Verify 100 emails daily for free, along with other free tools like a DEA Detector and DNS Lookup.',
+    url: 'https://quickemailverification.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'resend',
+    name: 'Resend',
+    description: 'A transactional email API for developers. Free plan offers 3,000 emails/month and one custom domain.',
+    url: 'https://resend.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'sender',
+    name: 'Sender',
+    description: 'Email marketing platform offering up to 15,000 emails per month for up to 2,500 subscribers for free.',
+    url: 'https://www.sender.net/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'sendpulse',
+    name: 'Sendpulse',
+    description: 'Manage 500 subscribers and send 15,000 emails per month for free.',
+    url: 'https://sendpulse.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'simplelogin',
+    name: 'SimpleLogin',
+    description: 'An open-source email alias/forwarding solution. Free plan includes 5 aliases.',
+    url: 'https://simplelogin.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'substack-email',
+    name: 'Substack',
+    description: 'An unlimited free newsletter service. You only pay when you start charging for subscriptions.',
+    url: 'https://substack.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'sweego',
+    name: 'Sweego',
+    description: 'A European transactional email API for developers, offering 500 free emails per day.',
+    url: 'https://sweego.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'takeout-fyi',
+    name: 'Takeout',
+    description: 'A constantly updated email service that makes sending emails easy. 500 free transactional emails per month.',
+    url: 'https://takeout.fyi/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'temp-mail-io',
+    name: 'temp-mail.io',
+    description: 'A free disposable temporary email service with support for multiple simultaneous emails and forwarding.',
+    url: 'https://temp-mail.io/',
+    category: 'Email',
+    pricing: 'Free'
+  },
+  {
+    id: 'tinyletter-com',
+    name: 'tinyletter.com',
+    description: 'A simple newsletter service from Mailchimp, offering 5,000 subscribers per month for free.',
+    url: 'https://tinyletter.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'touchlead',
+    name: 'Touchlead',
+    description: 'A multi-purpose marketing automation tool. Free plan is available for a limited number of leads.',
+    url: 'https://touchlead.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'trashmail-com',
+    name: 'trashmail.com',
+    description: 'Provides free disposable email addresses with forwarding and automatic address expiration.',
+    url: 'https://www.trashmail.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'tuta',
+    name: 'Tuta',
+    description: 'A secure, end-to-end encrypted email service. Free plan includes 1GB of storage.',
+    url: 'https://tuta.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'verifalia',
+    name: 'Verifalia',
+    description: 'A real-time email verification API. Free plan includes 25 email verifications per day.',
+    url: 'https://verifalia.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'verimail-io',
+    name: 'verimail.io',
+    description: 'A bulk and API email verification service with 100 free verifications per month.',
+    url: 'https://verimail.io/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'zoho-mail',
+    name: 'Zoho',
+    description: 'A suite of services including email, docs, and project management, many with free plans available.',
+    url: 'https://www.zoho.com/',
+    category: 'Email',
+    pricing: 'Freemium'
+  },
+  {
+    id: 'maileroo',
+    name: 'Maileroo',
+    description: 'An SMTP relay and email API for developers, offering 5,000 free emails per month.',
+    url: 'https://maileroo.com/',
+    category: 'Email',
+    pricing: 'Freemium'
   },
 ];
