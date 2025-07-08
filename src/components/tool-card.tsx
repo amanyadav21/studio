@@ -4,7 +4,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Pin, ExternalLink } from "lucide-react";
+import { Bookmark, ExternalLink } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -26,15 +26,15 @@ import {
 
 interface ToolCardProps {
   tool: Tool;
-  isPinned: boolean;
-  onTogglePinned: (id: string) => void;
+  isSaved: boolean;
+  onToggleSaved: (id: string) => void;
   cardColor: string | null;
 }
 
 export const ToolCard = React.memo(function ToolCard({
   tool,
-  isPinned,
-  onTogglePinned,
+  isSaved,
+  onToggleSaved,
   cardColor,
 }: ToolCardProps) {
   const [imgSrc, setImgSrc] = React.useState(
@@ -45,13 +45,13 @@ export const ToolCard = React.memo(function ToolCard({
     setImgSrc(`https://placehold.co/600x400.png`);
   }, []);
 
-  const handleTogglePinned = React.useCallback(
+  const handleToggleSaved = React.useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      onTogglePinned(tool.id);
+      onToggleSaved(tool.id);
     },
-    [onTogglePinned, tool.id]
+    [onToggleSaved, tool.id]
   );
 
   const styles = React.useMemo(() => {
@@ -175,19 +175,19 @@ export const ToolCard = React.memo(function ToolCard({
                   variant="secondary"
                   size="icon"
                   className="h-8 w-8 rounded-full shadow-lg"
-                  onClick={handleTogglePinned}
+                  onClick={handleToggleSaved}
                 >
-                  <Pin
+                  <Bookmark
                     className={cn(
                       "h-4 w-4 text-muted-foreground",
-                      isPinned && "fill-primary text-primary"
+                      isSaved && "fill-primary text-primary"
                     )}
                   />
-                  <span className="sr-only">Toggle Pinned</span>
+                  <span className="sr-only">Toggle Saved</span>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                {isPinned ? "Unpin tool" : "Pin tool"}
+                {isSaved ? "Unsave tool" : "Save tool"}
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

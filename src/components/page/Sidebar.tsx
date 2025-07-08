@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import {
-  Pin,
+  Bookmark,
   LayoutGrid,
   Palette,
   PenSquare,
@@ -32,7 +32,7 @@ import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
 interface NavItemConfig {
-    id: ToolCategory | "Pinned" | "All";
+    id: ToolCategory | "Saved" | "All";
     label: string;
     icon: React.ElementType;
     subCategories?: string[];
@@ -43,13 +43,13 @@ interface SidebarProps {
   selectedCategory: string;
   selectedSubCategory: string | null;
   onCategoryChange: (category: string, subCategoryToScroll?: string) => void;
-  pinnedCount: number;
+  savedCount: number;
   isCollapsed: boolean;
   onToggleSidebar: () => void;
 }
 
 const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
-    { id: "Pinned", label: "Pinned", icon: Pin },
+    { id: "Saved", label: "Saved", icon: Bookmark },
     { id: "All", label: "All Tools", icon: LayoutGrid },
     { type: 'separator' },
     { id: "UI & UX", label: "UI & UX", icon: Palette, subCategories: uiUxSubCategories, isCollapsible: true },
@@ -66,7 +66,7 @@ export const Sidebar = React.memo(function Sidebar({
   selectedCategory,
   selectedSubCategory,
   onCategoryChange,
-  pinnedCount,
+  savedCount,
   isCollapsed,
   onToggleSidebar,
 }: SidebarProps) {
@@ -88,7 +88,7 @@ export const Sidebar = React.memo(function Sidebar({
   const renderNavItem = (item: NavItemConfig) => {
     const Icon = item.icon;
     const isActive = selectedCategory === item.id;
-    const count = item.id === "Pinned" ? pinnedCount : 0;
+    const count = item.id === "Saved" ? savedCount : 0;
 
     if (isCollapsed) {
       return (
@@ -101,7 +101,7 @@ export const Sidebar = React.memo(function Sidebar({
             >
               <Icon className="h-5 w-5" />
               <span className="sr-only">{item.label}</span>
-              {item.id === "Pinned" && count > 0 && (
+              {item.id === "Saved" && count > 0 && (
                   <Badge
                     variant="default"
                     className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full p-0 text-[9px] font-bold"
@@ -123,7 +123,7 @@ export const Sidebar = React.memo(function Sidebar({
         className={cn(
           "w-full justify-start h-10 relative",
           isActive && "bg-secondary font-semibold",
-          item.id !== "Pinned" && item.id !== "All" && "text-muted-foreground font-normal"
+          item.id !== "Saved" && item.id !== "All" && "text-muted-foreground font-normal"
         )}
         onClick={() => onCategoryChange(item.id)}
       >
@@ -137,7 +137,7 @@ export const Sidebar = React.memo(function Sidebar({
           )}
         />
         <span className="truncate">{item.label}</span>
-        {item.id === "Pinned" && count > 0 && (
+        {item.id === "Saved" && count > 0 && (
           <Badge
             variant={isActive ? "default" : "secondary"}
             className="ml-auto"

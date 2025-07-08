@@ -14,7 +14,7 @@ import { CategoryHeader } from "@/components/page/CategoryHeader";
 import { ToolGrid } from "@/components/page/ToolGrid";
 import { ListView } from "@/components/page/ListView";
 
-const INITIAL_PINNED_TOOLS: string[] = [];
+const INITIAL_SAVED_TOOLS: string[] = [];
 type ViewMode = "grid" | "list";
 
 const subCategoryMap: Record<string, string[]> = {
@@ -25,9 +25,9 @@ const subCategoryMap: Record<string, string[]> = {
 };
 
 export default function Home() {
-  const [pinnedTools, setPinnedTools] = useLocalStorage<string[]>(
-    "pinned-tools",
-    INITIAL_PINNED_TOOLS
+  const [savedTools, setSavedTools] = useLocalStorage<string[]>(
+    "saved-tools",
+    INITIAL_SAVED_TOOLS
   );
   const [cardColor, setCardColor] = useLocalStorage<string | null>(
     "card-color",
@@ -128,15 +128,15 @@ export default function Home() {
   }, [selectedCategory, viewMode, allTools]);
 
 
-  const togglePinned = React.useCallback(
+  const toggleSaved = React.useCallback(
     (toolId: string) => {
-      setPinnedTools((prev) =>
+      setSavedTools((prev) =>
         prev.includes(toolId)
           ? prev.filter((id) => id !== toolId)
           : [...prev, toolId]
       );
     },
-    [setPinnedTools]
+    [setSavedTools]
   );
 
   const toggleSidebar = React.useCallback(() => {
@@ -167,14 +167,14 @@ export default function Home() {
   }, [allTools, debouncedSearchTerm]);
 
   const gridTools = React.useMemo(() => {
-    if (selectedCategory === "Pinned") {
-      return searchedTools.filter((tool) => pinnedTools.includes(tool.id));
+    if (selectedCategory === "Saved") {
+      return searchedTools.filter((tool) => savedTools.includes(tool.id));
     }
     if (selectedCategory === "All") {
       return searchedTools;
     }
     return searchedTools.filter((tool) => tool.category === selectedCategory);
-  }, [searchedTools, selectedCategory, pinnedTools]);
+  }, [searchedTools, selectedCategory, savedTools]);
 
   const toolsByCategory = React.useMemo(() => {
     if (selectedCategory !== "All") return {};
@@ -195,8 +195,8 @@ export default function Home() {
     if (selectedCategory === 'All') {
         return { pageTitle: "All Tools", pageDescription: "A comprehensive list of all available tools, sorted by category." };
     }
-    if (selectedCategory === 'Pinned') {
-        return { pageTitle: "Pinned Tools", pageDescription: "Your hand-picked tools for quick and easy access." };
+    if (selectedCategory === 'Saved') {
+        return { pageTitle: "Saved Tools", pageDescription: "Your hand-picked tools for quick and easy access." };
     }
     if (category) {
         const subcategories = subCategoryMap[category];
@@ -226,8 +226,8 @@ export default function Home() {
             </h2>
             <ToolGrid
               tools={toolsForSubCategory}
-              pinnedTools={pinnedTools}
-              onTogglePinned={togglePinned}
+              savedTools={savedTools}
+              onToggleSaved={toggleSaved}
               cardColor={cardColor}
             />
           </div>
@@ -255,7 +255,7 @@ export default function Home() {
             selectedCategory={activeCategory}
             selectedSubCategory={selectedSubCategory}
             onCategoryChange={handleCategoryChange}
-            pinnedCount={pinnedTools.length}
+            savedCount={savedTools.length}
             isCollapsed={isSidebarCollapsed}
             onToggleSidebar={toggleSidebar}
           />
@@ -277,8 +277,8 @@ export default function Home() {
                       <CategoryHeader title={category} description={`A collection of tools for ${category.toLowerCase()}.`} />
                       <ToolGrid
                         tools={toolsForCategory}
-                        pinnedTools={pinnedTools}
-                        onTogglePinned={togglePinned}
+                        savedTools={savedTools}
+                        onToggleSaved={toggleSaved}
                         cardColor={cardColor}
                       />
                     </div>
@@ -295,10 +295,10 @@ export default function Home() {
                 />
                 <ToolGrid
                   tools={gridTools}
-                  pinnedTools={pinnedTools}
-                  onTogglePinned={togglePinned}
+                  savedTools={savedTools}
+                  onToggleSaved={toggleSaved}
                   cardColor={cardColor}
-                  isPinnedSection={selectedCategory === "Pinned"}
+                  isSavedSection={selectedCategory === "Saved"}
                 />
               </>
             )}

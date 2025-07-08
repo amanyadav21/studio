@@ -1,34 +1,34 @@
 
 "use client";
 
-import { BookOpen, Pin } from "lucide-react";
+import { BookOpen, Bookmark } from "lucide-react";
 import type { Tool } from "@/lib/types";
 import { ToolCard } from "@/components/tool-card";
 import * as React from "react";
 
 interface ToolGridProps {
   tools: Tool[];
-  pinnedTools: string[];
-  onTogglePinned: (id: string) => void;
+  savedTools: string[];
+  onToggleSaved: (id: string) => void;
   cardColor: string | null;
-  isPinnedSection?: boolean;
+  isSavedSection?: boolean;
 }
 
 export const ToolGrid = React.memo(function ToolGrid({
   tools,
-  pinnedTools,
-  onTogglePinned,
+  savedTools,
+  onToggleSaved,
   cardColor,
-  isPinnedSection = false,
+  isSavedSection = false,
 }: ToolGridProps) {
   if (tools.length === 0) {
-    if (isPinnedSection) {
+    if (isSavedSection) {
       return (
         <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 p-12 text-center">
-          <Pin className="mx-auto h-12 w-12 text-muted-foreground" />
-          <h3 className="mt-4 text-lg font-semibold">No Pinned Tools</h3>
+          <Bookmark className="mx-auto h-12 w-12 text-muted-foreground" />
+          <h3 className="mt-4 text-lg font-semibold">No Saved Tools</h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            Click the pin icon on any tool card to add it to this list for quick
+            Click the bookmark icon on any tool card to add it to this list for quick
             access.
           </p>
         </div>
@@ -51,8 +51,8 @@ export const ToolGrid = React.memo(function ToolGrid({
         <ToolCard
           key={tool.id}
           tool={tool}
-          isPinned={pinnedTools.includes(tool.id)}
-          onTogglePinned={onTogglePinned}
+          isSaved={savedTools.includes(tool.id)}
+          onToggleSaved={onToggleSaved}
           cardColor={cardColor}
         />
       ))}
