@@ -174,13 +174,16 @@ export const ToolCard = React.memo(function ToolCard({
                 <Button
                   variant="secondary"
                   size="icon"
-                  className="h-8 w-8 rounded-full shadow-lg"
+                  className={cn(
+                    "h-8 w-8 rounded-full shadow-lg transition-colors",
+                    isSaved && "bg-primary/10 hover:bg-primary/20"
+                  )}
                   onClick={handleToggleSaved}
                 >
                   <Bookmark
                     className={cn(
-                      "h-4 w-4 text-muted-foreground",
-                      isSaved && "fill-primary text-primary"
+                      "h-4 w-4 text-muted-foreground transition-all",
+                      isSaved && "fill-primary text-primary scale-110"
                     )}
                   />
                   <span className="sr-only">Toggle Saved</span>
