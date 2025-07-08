@@ -7,6 +7,8 @@ export type ToolCategory =
   | "Productivity Tools"
   | "No-Code / Low-Code"
   | "Frameworks & Libraries"
+  | "Source Code Repos"
+  | "Code Quality"
   | "AI & ML"
   | "Cloud Provider"
   | "APIs"

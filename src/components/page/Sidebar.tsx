@@ -18,6 +18,8 @@ import {
   MousePointerClick,
   Mail,
   GraduationCap,
+  GitBranch,
+  ClipboardCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -60,6 +62,8 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "No-Code / Low-Code", label: "No-Code / Low-Code", icon: MousePointerClick, subCategories: noCodeSubCategories, isCollapsible: true },
     { id: "Education and Career Development", label: "Education & Career", icon: GraduationCap },
     { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: frameworkSubCategories, isCollapsible: true },
+    { id: "Source Code Repos", label: "Source Code Repos", icon: GitBranch },
+    { id: "Code Quality", label: "Code Quality", icon: ClipboardCheck },
     { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: aiMlSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
     { id: "Cloud Provider", label: "Cloud Provider", icon: Cloud },
@@ -203,7 +207,13 @@ export const Sidebar = React.memo(function Sidebar({
                     "w-full justify-start h-10 relative text-muted-foreground font-normal",
                     isActive && "bg-secondary font-semibold text-secondary-foreground"
                   )}
-                  onClick={() => onCategoryChange(item.id)}
+                  onClick={(e) => {
+                      e.preventDefault();
+                      if (!isOpen) {
+                          onCategoryChange(item.id);
+                      }
+                      handleCollapsibleToggle(item.id, !isOpen);
+                  }}
               >
                   <span className="absolute right-2 top-1/2 -translate-y-1/2 p-2">
                     <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
@@ -217,7 +227,7 @@ export const Sidebar = React.memo(function Sidebar({
                         isActive ? "text-primary" : "text-muted-foreground"
                     )}
                   />
-                  <span className="truncate">{item.label}</span>
+                  <span className="truncate" onClick={(e) => { e.stopPropagation(); onCategoryChange(item.id); }}>{item.label}</span>
               </Button>
           </CollapsibleTrigger>
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
