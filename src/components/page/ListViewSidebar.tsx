@@ -12,6 +12,8 @@ import {
   Cloud,
   Share2,
   MousePointerClick,
+  Mail,
+  GraduationCap,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -35,6 +37,8 @@ const categoryIcons: Record<string, React.ElementType> = {
   'AI & ML': BrainCircuit,
   APIs: Share2,
   'Cloud Provider': Cloud,
+  'Email': Mail,
+  'Education and Career Development': GraduationCap,
 };
 
 export function ListViewSidebar({

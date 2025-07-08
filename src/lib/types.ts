@@ -10,7 +10,8 @@ export type ToolCategory =
   | "AI & ML"
   | "Cloud Provider"
   | "APIs"
-  | "Email";
+  | "Email"
+  | "Education and Career Development";
 
 export type FrameworkSubCategory =
   | "Frontend"
