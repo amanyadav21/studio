@@ -4,17 +4,17 @@ const placeholderDescription = 'A step-by-step guide to master the skills requir
 const placeholderLegend: Roadmap['legend'] = [
       {
         title: 'Recommendation',
-        className: 'border-purple-500 bg-purple-500/10',
+        className: 'recommended',
         description: 'Recommended for most developers.',
       },
       {
         title: 'Alternative',
-        className: 'border-dashed border-sky-500 bg-sky-500/10',
+        className: 'alternative',
         description: 'Alternative option to the recommendation.',
       },
       {
         title: 'Optional',
-        className: 'border-dashed border-muted-foreground bg-muted/50',
+        className: 'optional',
         description: 'Optional, but good to know.',
       },
     ];
@@ -31,150 +31,139 @@ export const roadmaps: Roadmap[] = [
   {
     slug: 'frontend',
     title: 'Frontend',
-    description: 'Step by step guide to becoming a modern frontend developer.',
+    description: 'Step by step guide to becoming a modern frontend developer in 2024. This is a curated list of tools and technologies to learn.',
     legend: [
       {
-        title: 'Recommendation',
-        className: 'border-purple-500 bg-purple-500/10',
-        description: 'Recommended for most developers.',
+        title: 'Personal Recommendation',
+        className: 'recommended',
+        description: 'Our recommendation for the best path.',
       },
       {
-        title: 'Alternative',
-        className: 'border-dashed border-sky-500 bg-sky-500/10',
-        description: 'Alternative option to the recommendation.',
+        title: 'Alternative Option',
+        className: 'alternative',
+        description: 'A viable alternative to our recommendation.',
       },
       {
         title: 'Optional',
-        className: 'border-dashed border-muted-foreground bg-muted/50',
-        description: 'Optional, but good to know.',
+        className: 'optional',
+        description: 'Can be learned anytime or skipped.',
       },
     ],
     sections: [
       {
-        title: 'Internet Basics',
         nodes: [
-          { title: 'How does the internet work?' },
-          { title: 'What is HTTP?' },
-          { title: 'Browsers and how they work?' },
-          { title: 'DNS and how it works?' },
-          { title: 'What is Domain Name?' },
-          { title: 'What is hosting?' },
-        ],
-      },
-      {
-        title: 'HTML & CSS',
-        nodes: [
-          { title: 'HTML', description: 'Learn the basics of HTML.' },
-          { title: 'CSS', description: 'Learn the basics of CSS for styling.' },
-          {
-            title: 'CSS Frameworks',
-            isRecommended: true,
-            description: 'Frameworks provide pre-built components and styles to speed up development.',
-            tools: [{ id: 'tailwindcss', name: 'Tailwind CSS' }],
+          { 
+            title: 'Internet',
+            type: 'hub',
             children: [
-                { title: 'Bootstrap', isOptional: true },
-                { title: 'Bulma', isOptional: true },
+              { title: 'How does the internet work?', recommendation: 'recommended' },
+              { title: 'What is HTTP?', recommendation: 'recommended' },
+              { title: 'Browsers and how they work?', recommendation: 'recommended' },
+              { title: 'DNS and how it works?', recommendation: 'recommended' },
+              { title: 'What is Domain Name?', recommendation: 'recommended' },
+              { title: 'What is hosting?', recommendation: 'recommended' },
             ]
           },
-        ],
-      },
-      {
-        title: 'JavaScript',
-        nodes: [
-          { title: 'JavaScript Basics', description: 'The core programming language of the web.' },
-          { title: 'DOM Manipulation' },
-          { title: 'Fetch API / Ajax (XHR)' },
-          { title: 'ES6+ Features' },
-        ],
-      },
-      {
-        title: 'Pick a Framework',
-        nodes: [
           {
-            title: 'React',
-            isRecommended: true,
-            description: 'A JavaScript library for building user interfaces.',
-            tools: [{ id: 'react', name: 'React' }],
+            title: 'HTML',
+            type: 'hub',
+            children: [
+              { title: 'Learn the basics', recommendation: 'recommended' },
+              { title: 'Writing Semantic HTML', recommendation: 'recommended' },
+              { title: 'Forms and Validations', recommendation: 'recommended' },
+              { title: 'Accessibility', recommendation: 'recommended' },
+              { title: 'SEO Basics', recommendation: 'optional' },
+            ]
           },
           {
-            title: 'Vue.js',
-            isOptional: true,
-            description: 'The Progressive JavaScript Framework.',
-            tools: [{ id: 'vuejs', name: 'Vue.js' }],
+            title: 'CSS',
+            type: 'hub',
+            children: [
+              { title: 'Learn the basics', recommendation: 'recommended' },
+              { title: 'Responsive Design', recommendation: 'recommended' },
+              { 
+                title: 'Tailwind CSS',
+                recommendation: 'recommended',
+                description: 'A utility-first CSS framework for rapid UI development.',
+                tools: [{ id: 'tailwindcss', name: 'Tailwind CSS' }]
+              },
+               { 
+                title: 'Bootstrap',
+                recommendation: 'alternative',
+                description: 'The world’s most popular front-end open source toolkit.',
+                tools: []
+              },
+            ]
+          },
+           {
+            title: 'JavaScript',
+            type: 'hub',
+            children: [
+              { title: 'Learn the basics', recommendation: 'recommended' },
+              { title: 'DOM Manipulation', recommendation: 'recommended' },
+              { title: 'Fetch API / AJAX', recommendation: 'recommended' },
+              { title: 'ES6+ Features', recommendation: 'recommended' },
+            ]
           },
           {
-            title: 'Angular',
-            isOptional: true,
-            description: 'A platform for building mobile and desktop web applications.',
-            tools: [{ id: 'angular', name: 'Angular' }],
+            title: 'Version Control',
+            type: 'hub',
+            children: [
+              { title: 'Git', recommendation: 'recommended' },
+              { title: 'GitHub', recommendation: 'recommended', tools: [{id: 'github', name: 'GitHub'}]},
+              { title: 'GitLab', recommendation: 'alternative', tools: [{id: 'gitlab', name: 'GitLab'}]},
+              { title: 'Bitbucket', recommendation: 'alternative', tools: [{id: 'bitbucket', name: 'Bitbucket'}]},
+            ]
           },
           {
-            title: 'Svelte',
-            isOptional: true,
-            description: 'Cybernetically enhanced web apps.',
-            tools: [{ id: 'svelte', name: 'Svelte' }],
+            title: 'Pick a Framework',
+            type: 'hub',
+            children: [
+              {
+                title: 'React',
+                recommendation: 'recommended',
+                tools: [{ id: 'react', name: 'React' }],
+              },
+              {
+                title: 'Vue.js',
+                recommendation: 'alternative',
+                tools: [{ id: 'vuejs', name: 'Vue.js' }],
+              },
+              {
+                title: 'Angular',
+                recommendation: 'alternative',
+                tools: [{ id: 'angular', name: 'Angular' }],
+              },
+              {
+                title: 'Svelte',
+                recommendation: 'alternative',
+                tools: [{ id: 'svelte', name: 'Svelte' }],
+              },
+            ],
           },
-        ],
-      },
-      {
-        title: 'Modern Frameworks (Meta-frameworks)',
-        nodes: [
-          {
-            title: 'Next.js',
-            isRecommended: true,
-            description: 'The React Framework for Production.',
-            tools: [{ id: 'nextjs', name: 'Next.js' }],
-          },
-          {
-            title: 'Remix',
-            isOptional: true,
-            description: 'A full stack web framework that lets you focus on the user interface.',
-            tools: [{ id: 'remix', name: 'Remix' }],
-          },
-          {
-            title: 'Astro',
-            isOptional: true,
-            description: 'The web framework for content-driven websites.',
-            tools: [{ id: 'astro', name: 'Astro' }],
-          },
-        ],
-      },
-      {
-        title: 'State Management',
-        nodes: [
-          {
-            title: 'Zustand',
-            isRecommended: true,
-            description: 'A small, fast and scalable bearbones state-management solution.',
-            tools: [{ id: 'zustand', name: 'Zustand' }],
-          },
-          {
-            title: 'Jotai',
-            isOptional: true,
-            description: 'Primitive and flexible state management for React.',
-            tools: [{ id: 'jotai', name: 'Jotai' }],
-          },
-          {
-            title: 'Redux',
-            isOptional: true,
-            description: 'A predictable state container for JavaScript apps.',
-          },
-        ],
-      },
-      {
-        title: 'Build Tools',
-        nodes: [
-          {
-            title: 'Vite',
-            isRecommended: true,
-            description: 'Next-generation frontend tooling. It\'s fast!',
-            tools: [{ id: 'vite', name: 'Vite' }],
-          },
-          {
-            title: 'Webpack',
-            isOptional: true,
-            description: 'A static module bundler for modern JavaScript applications.',
-            tools: [{ id: 'webpack', name: 'Webpack' }],
+           {
+            title: 'Meta Frameworks',
+            type: 'hub',
+            children: [
+              {
+                title: 'Next.js',
+                description: 'The React Framework for Production.',
+                recommendation: 'recommended',
+                tools: [{ id: 'nextjs', name: 'Next.js' }],
+              },
+              {
+                title: 'Remix',
+                description: 'A full stack web framework by Shopify.',
+                recommendation: 'alternative',
+                tools: [{ id: 'remix', name: 'Remix' }],
+              },
+               {
+                title: 'Astro',
+                description: 'The web framework for content-driven websites.',
+                recommendation: 'alternative',
+                tools: [{ id: 'astro', name: 'Astro' }],
+              },
+            ],
           },
         ],
       },

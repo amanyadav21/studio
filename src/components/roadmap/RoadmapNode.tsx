@@ -4,20 +4,37 @@ import type { RoadmapNode as RoadmapNodeType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { tools } from '@/data/tools';
+import { CheckCircle2 } from 'lucide-react';
 
 interface RoadmapNodeProps {
   node: RoadmapNodeType;
   isFirst?: boolean;
 }
 
+const RecommendationIcon = ({ recommendation }: { recommendation: RoadmapNodeType['recommendation'] }) => {
+  if (!recommendation) return null;
+
+  const ICONS: Record<NonNullable<RoadmapNodeType['recommendation']>, React.ReactNode> = {
+    recommended: <CheckCircle2 className="h-6 w-6 text-purple-400" />,
+    alternative: <CheckCircle2 className="h-6 w-6 text-green-400" />,
+    optional: <CheckCircle2 className="h-6 w-6 text-muted-foreground/80" />,
+  };
+
+  return (
+    <div className="absolute top-3 -left-3 z-10 bg-background rounded-full">
+      {ICONS[recommendation]}
+    </div>
+  )
+};
+
 export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
+  const isHub = node.type === 'hub';
+
   const nodeClasses = cn(
-    'relative w-full max-w-xs text-center px-6 py-4 border-2 rounded-xl shadow-md bg-card hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1',
+    'relative w-full max-w-sm text-center px-6 py-4 border-2 rounded-xl shadow-md bg-card hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1',
     {
-      'border-purple-500/80 bg-purple-500/10 hover:border-purple-500': node.isRecommended,
-      'border-dashed border-sky-500/80 bg-sky-500/10 hover:border-sky-500': !node.isRecommended && node.isOptional,
-      'border-dashed border-muted-foreground/30 bg-muted/20 text-muted-foreground': !node.isRecommended && !node.isOptional && node.title.match(/\?$/),
-      'border-border': !node.isRecommended && !node.isOptional && !node.title.match(/\?$/),
+      'bg-yellow-400/10 border-yellow-500/50 hover:border-yellow-500': isHub,
+      'border-border': !isHub,
     }
   );
 
@@ -25,13 +42,20 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
   const horizontalLineClasses = "absolute top-0 left-1/2 -translate-x-1/2 h-[2px] bg-border";
 
   return (
-    <div className="relative flex flex-col items-center group">
+    <div className="relative flex flex-col items-center group w-full">
       {!isFirst && (
         <div className={cn(verticalLineClasses, "top-0 -translate-y-full h-8")} />
       )}
 
       <div className={nodeClasses}>
-        <h3 className="text-base font-bold text-card-foreground">{node.title}</h3>
+        <RecommendationIcon recommendation={node.recommendation} />
+        <h3 className={cn(
+            "text-lg font-bold text-card-foreground",
+            isHub && "text-xl text-yellow-300"
+          )}
+        >
+          {node.title}
+        </h3>
         {node.description && (
           <p className="text-sm text-muted-foreground mt-2">{node.description}</p>
         )}
@@ -40,7 +64,7 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
             {node.tools.map((toolRef) => {
               const toolData = tools.find(t => t.id === toolRef.id);
               return toolData ? (
-                <Button key={toolRef.id} size="sm" variant="secondary" asChild className="h-auto px-2 py-1 text-xs font-semibold rounded-full hover:bg-accent">
+                <Button key={toolRef.id} size="sm" variant="secondary" asChild className="h-auto px-3 py-1 text-xs font-semibold rounded-full hover:bg-accent">
                   <Link href={toolData.url} target="_blank" rel="noopener noreferrer">
                     {toolRef.name}
                   </Link>
@@ -63,7 +87,7 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
           
           <div className="flex justify-center gap-x-8 gap-y-16 pt-8 flex-wrap">
             {node.children.map((childNode) => (
-              <div key={childNode.title} className="relative flex flex-col items-center">
+              <div key={childNode.title} className="relative flex flex-col items-center max-w-xs">
                  {/* Vertical line from horizontal line to child */}
                 <div className={cn(verticalLineClasses, "bottom-full h-8")} />
                 

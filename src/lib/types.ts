@@ -1,4 +1,3 @@
-
 export type Pricing = "Free" | "Paid" | "Freemium";
 
 export type ToolCategory =
@@ -89,8 +88,8 @@ export interface RoadmapTool {
 
 export interface RoadmapNode {
   title: string;
-  isRecommended?: boolean;
-  isOptional?: boolean;
+  type?: 'hub' | 'default';
+  recommendation?: 'recommended' | 'alternative' | 'optional';
   description?: string;
   tools?: RoadmapTool[];
   children?: RoadmapNode[];
