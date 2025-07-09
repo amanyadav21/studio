@@ -54,8 +54,8 @@ const colors = [
 
 interface ColorPickerProps {
   selectedColor: string | null;
-  onColorChange: (color: string) => void;
-  onClear: () => void;
+  onColorChange?: (color: string) => void;
+  onClear?: () => void;
 }
 
 export function ColorPicker({
@@ -83,7 +83,7 @@ export function ColorPicker({
                   selectedColor === color && "ring-2 ring-ring ring-offset-2"
                 )}
                 style={{ backgroundColor: color }}
-                onClick={() => onColorChange(color)}
+                onClick={() => onColorChange?.(color)}
               >
                 {selectedColor === color && (
                   <Check
@@ -100,7 +100,7 @@ export function ColorPicker({
               variant="ghost"
               size="sm"
               className="w-full justify-center"
-              onClick={onClear}
+              onClick={() => onClear?.()}
             >
               <X className="mr-2 h-4 w-4" />
               Reset Color
