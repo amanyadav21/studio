@@ -12,13 +12,13 @@ interface RoadmapLegendProps {
 
 export function RoadmapLegend({ legendItems }: RoadmapLegendProps) {
   return (
-    <div className="p-4 border rounded-lg bg-card">
-      <h3 className="text-lg font-semibold mb-3">Legend</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm">
+      <h3 className="text-lg font-bold mb-4">Legend</h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
         {legendItems.map((item) => (
           <div key={item.title} className="flex items-start gap-3">
             <div
-              className={cn('w-12 h-6 mt-1 shrink-0 rounded-md border-2', item.className)}
+              className={cn('w-5 h-5 mt-1 shrink-0 rounded-md border-2', item.className)}
             />
             <div>
               <p className="font-semibold">{item.title}</p>
