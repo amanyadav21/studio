@@ -200,17 +200,7 @@ export const Sidebar = React.memo(function Sidebar({
                     "w-full justify-start h-10 relative text-muted-foreground font-normal",
                     isActive && "bg-secondary font-semibold text-secondary-foreground"
                   )}
-                  onClick={() => {
-                      onCategoryChange(item.id);
-                      handleCollapsibleToggle(item.id, !isOpen);
-                  }}
               >
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 p-2">
-                    <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
-                  </span>
-                  {isActive && !selectedSubCategory && (
-                    <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
-                  )}
                   <Icon
                     className={cn(
                         "h-5 w-5 mr-3",
@@ -218,10 +208,25 @@ export const Sidebar = React.memo(function Sidebar({
                     )}
                   />
                   <span className="truncate">{item.label}</span>
+                  <ChevronRight className={cn("h-4 w-4 ml-auto transition-transform", isOpen && "rotate-90")} />
               </Button>
           </CollapsibleTrigger>
         <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
           <div className="flex flex-col gap-1 mt-1">
+            <Button
+              key={`${item.id}-all`}
+              variant="ghost"
+              className={cn(
+                "w-full justify-start h-9 relative text-muted-foreground font-normal",
+                isActive && !selectedSubCategory && "font-semibold text-primary"
+              )}
+              onClick={() => onCategoryChange(item.id)}
+            >
+              {isActive && !selectedSubCategory && (
+                <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />
+              )}
+              All
+            </Button>
             {item.subCategories?.map(subCat => {
               const isSubActive = selectedSubCategory === subCat && isActive;
               return (
