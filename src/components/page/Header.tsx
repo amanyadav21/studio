@@ -4,6 +4,7 @@
 import {
   LayoutGrid,
   List,
+  Map,
   Search,
 } from "lucide-react";
 import * as React from "react";
@@ -15,9 +16,13 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { ColorPicker } from "@/components/color-picker";
 import { Kbd } from "@/components/ui/kbd";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Separator } from "../ui/separator";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Separator } from "@/components/ui/separator";
 
 interface HeaderProps {
   searchTerm: string;
@@ -77,6 +82,24 @@ export const Header = React.memo(function Header({
                 <Kbd>⌘K</Kbd>
                 </div>
             </div>
+            
+            <Separator orientation="vertical" className="h-6 hidden sm:block" />
+            
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-9 w-9" asChild>
+                    <Link href="/roadmap">
+                      <Map className="h-4 w-4" />
+                      <span className="sr-only">Roadmaps</span>
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View Roadmaps</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
             <div className="hidden sm:flex items-center gap-1 rounded-md bg-muted p-1">
                 <Button

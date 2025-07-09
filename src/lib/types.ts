@@ -81,3 +81,34 @@ export interface Tool {
     | AiMlSubCategory;
   pricing?: Pricing;
 }
+
+export interface RoadmapTool {
+  id: string;
+  name: string;
+}
+
+export interface RoadmapNode {
+  title: string;
+  isRecommended?: boolean;
+  isOptional?: boolean;
+  description?: string;
+  tools?: RoadmapTool[];
+  children?: RoadmapNode[];
+}
+
+export interface RoadmapSection {
+  title?: string;
+  nodes: RoadmapNode[];
+}
+
+export interface Roadmap {
+  slug: string;
+  title: string;
+  description: string;
+  legend: {
+    title: string;
+    className: string;
+    description: string;
+  }[];
+  sections: RoadmapSection[];
+}
