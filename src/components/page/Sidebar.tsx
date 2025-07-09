@@ -82,26 +82,42 @@ export const Sidebar = React.memo(function Sidebar({
   isCollapsed,
   onToggleSidebar,
 }: SidebarProps) {
-  const [openCollapsibles, setOpenCollapsibles] = React.useState<Record<string, boolean>>({});
+  const [openCollapsible, setOpenCollapsible] = React.useState<string | null>(null);
 
+  // Effect to automatically open the correct collapsible section based on the
+  // currently active category or subcategory.
   React.useEffect(() => {
-    const collapsibleCategory = sidebarStructure.find(
-      (item) => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
+    // Find the parent category if a subcategory is selected
+    const parentOfSelectedSub = sidebarStructure.find(
+      (item): item is NavItemConfig =>
+        'subCategories' in item && item.subCategories?.includes(selectedSubCategory || '')
     );
-    if (collapsibleCategory && 'id' in collapsibleCategory) {
-      setOpenCollapsibles(prev => ({ ...prev, [collapsibleCategory.id]: true }));
+
+    if (parentOfSelectedSub) {
+      setOpenCollapsible(parentOfSelectedSub.id);
+    } else {
+      // Otherwise, open the selected category if it's collapsible
+      const collapsibleCategory = sidebarStructure.find(
+        (item): item is NavItemConfig => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
+      );
+      if (collapsibleCategory) {
+        setOpenCollapsible(collapsibleCategory.id);
+      }
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, selectedSubCategory]);
 
-  const handleCollapsibleToggle = (id: string, isOpen: boolean) => {
-    setOpenCollapsibles(prev => ({...prev, [id]: isOpen}));
-  }
-
-  const renderNavItem = (item: NavItemConfig) => {
+  // Toggles collapsible sections in an accordion-style (only one open at a time).
+  const handleToggle = (id: string) => {
+    setOpenCollapsible(prevId => (prevId === id ? null : id));
+  };
+  
+  const renderItem = (item: NavItemConfig) => {
     const Icon = item.icon;
     const isActive = selectedCategory === item.id;
-    const count = item.id === "Saved" ? savedCount : 0;
+    const isSubCategorySelected = isActive && !!selectedSubCategory;
+    const isOpen = openCollapsible === item.id;
 
+    // Collapsed View (Icons Only)
     if (isCollapsed) {
       return (
         <Tooltip key={item.id}>
@@ -113,12 +129,12 @@ export const Sidebar = React.memo(function Sidebar({
             >
               <Icon className="h-5 w-5" />
               <span className="sr-only">{item.label}</span>
-              {item.id === "Saved" && count > 0 && (
+              {item.id === "Saved" && savedCount > 0 && (
                   <Badge
                     variant="default"
                     className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full p-0 text-[9px] font-bold"
                   >
-                    {count}
+                    {savedCount}
                   </Badge>
                 )}
             </Button>
@@ -128,6 +144,64 @@ export const Sidebar = React.memo(function Sidebar({
       );
     }
 
+    // Expanded View (Full Text and Submenus)
+    if (item.isCollapsible) {
+      return (
+        <Collapsible
+            key={item.id}
+            open={isOpen}
+            onOpenChange={() => handleToggle(item.id)}
+            className="w-full"
+        >
+            <CollapsibleTrigger asChild>
+                <Button
+                    variant="ghost"
+                    className={cn(
+                        "w-full justify-start h-10 relative",
+                        isActive && !isSubCategorySelected && "bg-secondary font-semibold",
+                        "text-muted-foreground font-normal"
+                    )}
+                    onClick={() => {
+                      onCategoryChange(item.id);
+                      handleToggle(item.id);
+                    }}
+                >
+                    {isActive && !isSubCategorySelected && (
+                        <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
+                    )}
+                    <Icon className={cn("h-5 w-5 mr-3", isActive ? "text-primary" : "text-muted-foreground")} />
+                    <span className="truncate">{item.label}</span>
+                    <ChevronRight className={cn("h-4 w-4 ml-auto transition-transform", isOpen && "rotate-90")} />
+                </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
+                <div className="flex flex-col gap-1 mt-1">
+                    {item.subCategories?.map(subCat => {
+                        const isSubActive = selectedSubCategory === subCat;
+                        return (
+                            <Button
+                                key={subCat}
+                                variant="ghost"
+                                className={cn(
+                                    "w-full justify-start h-9 relative text-muted-foreground font-normal",
+                                    isSubActive && "font-semibold text-primary"
+                                )}
+                                onClick={() => onCategoryChange(item.id, subCat)}
+                            >
+                                {isSubActive && (
+                                    <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />
+                                )}
+                                {subCat}
+                            </Button>
+                        )
+                    })}
+                </div>
+            </CollapsibleContent>
+        </Collapsible>
+      )
+    }
+
+    // Regular Non-Collapsible Item
     return (
       <Button
         key={item.id}
@@ -149,109 +223,18 @@ export const Sidebar = React.memo(function Sidebar({
           )}
         />
         <span className="truncate">{item.label}</span>
-        {item.id === "Saved" && count > 0 && (
+        {item.id === "Saved" && savedCount > 0 && (
           <Badge
             variant={isActive ? "default" : "secondary"}
             className="ml-auto"
           >
-            {count}
+            {savedCount}
           </Badge>
         )}
       </Button>
     );
   };
   
-  const renderCollapsibleCategory = (
-    item: NavItemConfig
-  ) => {
-    const Icon = item.icon;
-    const isActive = selectedCategory === item.id;
-    const isOpen = openCollapsibles[item.id] || false;
-
-    if (isCollapsed) {
-       return (
-        <Tooltip key={item.id}>
-          <TooltipTrigger asChild>
-            <Button
-              variant={isActive ? "secondary" : "ghost"}
-              className="relative h-10 w-10 justify-center p-0"
-              onClick={() => onCategoryChange(item.id)}
-            >
-              <Icon className="h-5 w-5" />
-              <span className="sr-only">{item.label}</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right">{item.label}</TooltipContent>
-        </Tooltip>
-      );
-    }
-
-    return (
-       <Collapsible 
-          key={item.id} 
-          open={isOpen} 
-          onOpenChange={(open) => handleCollapsibleToggle(item.id, open)} 
-          className="w-full"
-        >
-          <CollapsibleTrigger asChild>
-              <Button
-                  variant="ghost"
-                  className={cn(
-                    "w-full justify-start h-10 relative text-muted-foreground font-normal",
-                    isActive && "bg-secondary font-semibold text-secondary-foreground"
-                  )}
-              >
-                  <Icon
-                    className={cn(
-                        "h-5 w-5 mr-3",
-                        isActive ? "text-primary" : "text-muted-foreground"
-                    )}
-                  />
-                  <span className="truncate">{item.label}</span>
-                  <ChevronRight className={cn("h-4 w-4 ml-auto transition-transform", isOpen && "rotate-90")} />
-              </Button>
-          </CollapsibleTrigger>
-        <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
-          <div className="flex flex-col gap-1 mt-1">
-            <Button
-              key={`${item.id}-all`}
-              variant="ghost"
-              className={cn(
-                "w-full justify-start h-9 relative text-muted-foreground font-normal",
-                isActive && !selectedSubCategory && "font-semibold text-primary"
-              )}
-              onClick={() => onCategoryChange(item.id)}
-            >
-              {isActive && !selectedSubCategory && (
-                <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />
-              )}
-              All
-            </Button>
-            {item.subCategories?.map(subCat => {
-              const isSubActive = selectedSubCategory === subCat && isActive;
-              return (
-                <Button
-                  key={subCat}
-                  variant="ghost"
-                  className={cn(
-                    "w-full justify-start h-9 relative text-muted-foreground font-normal",
-                    isSubActive && "font-semibold text-primary"
-                  )}
-                  onClick={() => onCategoryChange(item.id, subCat)}
-                >
-                  {isSubActive && (
-                    <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />
-                  )}
-                  {subCat}
-                </Button>
-              )
-            })}
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
-    )
-  }
-
   return (
     <aside
       className={cn(
@@ -299,11 +282,7 @@ export const Sidebar = React.memo(function Sidebar({
               if ('type' in item && item.type === 'separator') {
                 return <Separator key={`sep-${index}`} className="my-4" />;
               }
-              const navItem = item as NavItemConfig;
-              if (navItem.isCollapsible) {
-                return renderCollapsibleCategory(navItem);
-              }
-              return renderNavItem(navItem);
+              return renderItem(item as NavItemConfig);
             })}
           </nav>
         </div>
