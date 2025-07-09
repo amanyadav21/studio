@@ -4,6 +4,7 @@ import type { RoadmapNode as RoadmapNodeType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { tools } from '@/data/tools';
+import { Badge } from '@/components/ui/badge';
 
 interface RoadmapNodeProps {
   node: RoadmapNodeType;
@@ -50,6 +51,36 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
             {node.description}
           </p>
         )}
+        
+        {/* Render children as chips for Hub nodes */}
+        {isHub && node.children && node.children.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2 justify-center">
+            {node.children.map((child) => {
+              const chipClasses = cn(
+                'border text-xs font-semibold h-auto px-3 py-1',
+                {
+                  'bg-purple-100/80 border-purple-300 text-purple-800 dark:bg-purple-900/50 dark:border-purple-700/50 dark:text-purple-200':
+                    child.recommendation === 'recommended',
+                  'bg-green-100/80 border-green-300 text-green-800 dark:bg-green-900/50 dark:border-green-700/50 dark:text-green-200':
+                    child.recommendation === 'alternative',
+                  'bg-muted/80 border-border text-muted-foreground':
+                    child.recommendation === 'optional',
+                  'bg-card border-border': !child.recommendation,
+                }
+              );
+              return (
+                <Badge
+                  key={child.title}
+                  variant="outline"
+                  className={chipClasses}
+                >
+                  {child.title}
+                </Badge>
+              );
+            })}
+          </div>
+        )}
+
         {node.tools && node.tools.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2 justify-center">
             {node.tools.map((toolRef) => {
@@ -76,7 +107,8 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
         )}
       </div>
 
-      {node.children && node.children.length > 0 && (
+      {/* Render children as separate nodes for non-hub nodes */}
+      {!isHub && node.children && node.children.length > 0 && (
         <div className="relative mt-8 w-full">
           {/* Vertical line from parent to horizontal line */}
           <div className={cn(verticalLineClasses, 'bottom-full h-8')} />
