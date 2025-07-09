@@ -84,10 +84,9 @@ export const Sidebar = React.memo(function Sidebar({
 }: SidebarProps) {
   const [openCollapsible, setOpenCollapsible] = React.useState<string | null>(null);
 
-  // Effect to automatically open the correct collapsible section based on the
-  // currently active category or subcategory.
+  // This effect synchronizes the open menu with the selected category from props.
+  // It ensures the correct menu is open on page load or when navigating via subcategory links.
   React.useEffect(() => {
-    // Find the parent category if a subcategory is selected
     const parentOfSelectedSub = sidebarStructure.find(
       (item): item is NavItemConfig =>
         'subCategories' in item && item.subCategories?.includes(selectedSubCategory || '')
@@ -96,25 +95,36 @@ export const Sidebar = React.memo(function Sidebar({
     if (parentOfSelectedSub) {
       setOpenCollapsible(parentOfSelectedSub.id);
     } else {
-      // Otherwise, open the selected category if it's collapsible
       const collapsibleCategory = sidebarStructure.find(
         (item): item is NavItemConfig => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
       );
       if (collapsibleCategory) {
         setOpenCollapsible(collapsibleCategory.id);
+      } else {
+        // If the selected category is not collapsible (e.g., "Saved", "All"), close any open menu.
+        setOpenCollapsible(null);
       }
     }
   }, [selectedCategory, selectedSubCategory]);
 
-  // Toggles collapsible sections in an accordion-style (only one open at a time).
-  const handleToggle = (id: string) => {
-    setOpenCollapsible(prevId => (prevId === id ? null : id));
+  const handleCollapsibleClick = (id: string) => {
+    // If the user clicks the currently open category, just close it.
+    if (openCollapsible === id) {
+      setOpenCollapsible(null);
+    } else {
+    // Otherwise, navigate to the category. The useEffect will handle opening it.
+      onCategoryChange(id);
+    }
   };
+  
+  const handleRegularClick = (id: string) => {
+      onCategoryChange(id);
+      // The useEffect will handle closing any open menu.
+  }
   
   const renderItem = (item: NavItemConfig) => {
     const Icon = item.icon;
-    const isActive = selectedCategory === item.id;
-    const isSubCategorySelected = isActive && !!selectedSubCategory;
+    const isParentActive = selectedCategory === item.id;
     const isOpen = openCollapsible === item.id;
 
     // Collapsed View (Icons Only)
@@ -123,7 +133,7 @@ export const Sidebar = React.memo(function Sidebar({
         <Tooltip key={item.id}>
           <TooltipTrigger asChild>
             <Button
-              variant={isActive ? "secondary" : "ghost"}
+              variant={isParentActive ? "secondary" : "ghost"}
               className="relative h-10 w-10 justify-center p-0"
               onClick={() => onCategoryChange(item.id)}
             >
@@ -150,7 +160,7 @@ export const Sidebar = React.memo(function Sidebar({
         <Collapsible
             key={item.id}
             open={isOpen}
-            onOpenChange={() => handleToggle(item.id)}
+            onOpenChange={() => handleCollapsibleClick(item.id)}
             className="w-full"
         >
             <CollapsibleTrigger asChild>
@@ -158,18 +168,14 @@ export const Sidebar = React.memo(function Sidebar({
                     variant="ghost"
                     className={cn(
                         "w-full justify-start h-10 relative",
-                        isActive && !isSubCategorySelected && "bg-secondary font-semibold",
+                        isParentActive && !selectedSubCategory && "bg-secondary font-semibold",
                         "text-muted-foreground font-normal"
                     )}
-                    onClick={() => {
-                      onCategoryChange(item.id);
-                      handleToggle(item.id);
-                    }}
                 >
-                    {isActive && !isSubCategorySelected && (
+                    {isParentActive && !selectedSubCategory && (
                         <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
                     )}
-                    <Icon className={cn("h-5 w-5 mr-3", isActive ? "text-primary" : "text-muted-foreground")} />
+                    <Icon className={cn("h-5 w-5 mr-3", isParentActive ? "text-primary" : "text-muted-foreground")} />
                     <span className="truncate">{item.label}</span>
                     <ChevronRight className={cn("h-4 w-4 ml-auto transition-transform", isOpen && "rotate-90")} />
                 </Button>
@@ -177,7 +183,7 @@ export const Sidebar = React.memo(function Sidebar({
             <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
                 <div className="flex flex-col gap-1 mt-1">
                     {item.subCategories?.map(subCat => {
-                        const isSubActive = selectedSubCategory === subCat;
+                        const isSubActive = isParentActive && selectedSubCategory === subCat;
                         return (
                             <Button
                                 key={subCat}
@@ -208,24 +214,24 @@ export const Sidebar = React.memo(function Sidebar({
         variant="ghost"
         className={cn(
           "w-full justify-start h-10 relative",
-          isActive && "bg-secondary font-semibold",
+          isParentActive && "bg-secondary font-semibold",
           item.id !== "Saved" && item.id !== "All" && "text-muted-foreground font-normal"
         )}
-        onClick={() => onCategoryChange(item.id)}
+        onClick={() => handleRegularClick(item.id)}
       >
-        {isActive && (
+        {isParentActive && (
           <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
         )}
         <Icon
           className={cn(
             "h-5 w-5 mr-3",
-            isActive ? "text-primary" : "text-muted-foreground"
+            isParentActive ? "text-primary" : "text-muted-foreground"
           )}
         />
         <span className="truncate">{item.label}</span>
         {item.id === "Saved" && savedCount > 0 && (
           <Badge
-            variant={isActive ? "default" : "secondary"}
+            variant={isParentActive ? "default" : "secondary"}
             className="ml-auto"
           >
             {savedCount}
@@ -238,7 +244,7 @@ export const Sidebar = React.memo(function Sidebar({
   return (
     <aside
       className={cn(
-        "fixed top-16 left-0 z-30 h-[calc(100vh-4rem)] hidden flex-col border-r bg-background md:flex",
+        "fixed top-14 left-0 z-30 h-[calc(100vh-3.5rem)] hidden flex-col border-r bg-background md:flex",
         "transition-all duration-300 ease-in-out",
         isCollapsed ? "w-20" : "w-64"
       )}
