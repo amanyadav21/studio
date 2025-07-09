@@ -1,34 +1,75 @@
 'use client';
 
 import * as React from 'react';
-import { ArrowUp, BookOpen } from 'lucide-react';
+import { ArrowUp, BookOpen, Bookmark } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { Button } from '@/components/ui/button';
-import { slugify } from '@/lib/utils';
+import { slugify, cn } from '@/lib/utils';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 interface ListViewContentProps {
   tools: Tool[];
   categories: ToolCategory[];
+  savedTools: string[];
+  onToggleSaved: (id: string) => void;
 }
 
 export const ListViewContent = React.forwardRef<
   HTMLElement,
   ListViewContentProps
->(function ListViewContent({ tools, categories }, ref) {
+>(function ListViewContent({ tools, categories, savedTools, onToggleSaved }, ref) {
   
   const renderToolItem = (tool: Tool) => {
+    const isSaved = savedTools.includes(tool.id);
+
+    const handleToggleSaved = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onToggleSaved(tool.id);
+    };
+
     return (
-      <li key={tool.id}>
-        <a
-          href={tool.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-semibold text-primary no-underline hover:underline"
-        >
-          {tool.name}
-        </a>
-        {' - '}
-        <span className="text-muted-foreground">{tool.description}</span>
+      <li key={tool.id} className="not-prose flex items-start gap-2 py-1">
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={handleToggleSaved}
+                className="flex items-center justify-center p-2 rounded-full transition-colors hover:bg-muted"
+                aria-label={isSaved ? `Unsave ${tool.name}` : `Save ${tool.name}`}
+              >
+                <Bookmark
+                  className={cn(
+                    "h-4 w-4 text-muted-foreground transition-all",
+                    isSaved && "fill-primary text-primary"
+                  )}
+                />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{isSaved ? 'Unsave tool' : 'Save tool'}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <div className="prose prose-slate dark:prose-invert max-w-none prose-a:font-semibold prose-a:text-primary prose-p:my-0 flex-grow">
+          <p>
+            <a
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary no-underline hover:underline"
+            >
+              {tool.name}
+            </a>
+            {' - '}
+            <span className="text-muted-foreground">{tool.description}</span>
+          </p>
+        </div>
       </li>
     );
   };
@@ -36,7 +77,7 @@ export const ListViewContent = React.forwardRef<
   const renderToolsList = (tools: Tool[]) => {
     if (tools.length === 0) return null;
     return (
-      <ul className="list-disc space-y-2 py-2 pl-6">
+      <ul className="list-none space-y-2 py-2 pl-0">
         {tools.map(renderToolItem)}
       </ul>
     );

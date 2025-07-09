@@ -305,7 +305,12 @@ export default function Home() {
           </main>
         </div>
       ) : (
-        <ListView tools={searchedTools} categories={defaultCategories} />
+        <ListView
+          tools={searchedTools}
+          categories={defaultCategories}
+          savedTools={savedTools}
+          onToggleSaved={toggleSaved}
+        />
       )}
     </div>
   );

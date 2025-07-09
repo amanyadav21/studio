@@ -10,9 +10,16 @@ import { ListViewContent } from './ListViewContent';
 interface ListViewProps {
   tools: Tool[];
   categories: ToolCategory[];
+  savedTools: string[];
+  onToggleSaved: (id: string) => void;
 }
 
-export function ListView({ tools, categories }: ListViewProps) {
+export function ListView({
+  tools,
+  categories,
+  savedTools,
+  onToggleSaved,
+}: ListViewProps) {
   const [activeCategory, setActiveCategory] = React.useState('');
   const contentRef = React.useRef<HTMLElement>(null);
 
@@ -77,6 +84,8 @@ export function ListView({ tools, categories }: ListViewProps) {
         ref={contentRef}
         tools={tools}
         categories={allCategories}
+        savedTools={savedTools}
+        onToggleSaved={onToggleSaved}
       />
     </div>
   );
