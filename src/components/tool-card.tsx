@@ -231,7 +231,7 @@ export const ToolCard = React.memo(function ToolCard({
             >
               <Link href={tool.freeUrl} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="h-4 w-4 mr-2" />
-                Try Free
+                Free
               </Link>
             </Button>
           </div>
@@ -245,7 +245,7 @@ export const ToolCard = React.memo(function ToolCard({
             >
               <Link href={tool.url} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="h-4 w-4 mr-2" />
-                {hasFreeTier ? 'Try Free' : 'Visit Site'}
+                {hasFreeTier ? 'Free' : 'Visit Site'}
               </Link>
             </Button>
           </div>

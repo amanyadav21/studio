@@ -20,7 +20,7 @@ export const ListViewContent = React.forwardRef<
     const hasFreeTier =
       (tool.pricing === 'Freemium' && tool.freeUrl) || tool.pricing === 'Free';
     const primaryLink = hasFreeTier && tool.freeUrl ? tool.freeUrl : tool.url;
-    const primaryActionText = hasFreeTier ? 'Try Free' : 'Visit Site';
+    const primaryActionText = hasFreeTier ? 'Free' : 'Visit Site';
 
     return (
       <div key={tool.id} className="py-6">
