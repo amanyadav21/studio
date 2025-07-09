@@ -1,9 +1,36 @@
 import type { Roadmap } from '@/lib/types';
 
+const placeholderDescription = 'A step-by-step guide to master the skills required for this role, with curated tools from our collection.';
+const placeholderLegend: Roadmap['legend'] = [
+      {
+        title: 'Recommendation',
+        className: 'border-purple-500 bg-purple-500/10',
+        description: 'Recommended for most developers.',
+      },
+      {
+        title: 'Alternative',
+        className: 'border-dashed border-sky-500 bg-sky-500/10',
+        description: 'Alternative option to the recommendation.',
+      },
+      {
+        title: 'Optional',
+        className: 'border-dashed border-muted-foreground bg-muted/50',
+        description: 'Optional, but good to know.',
+      },
+    ];
+
+const placeholderSections: Roadmap['sections'] = [
+    {
+        nodes: [
+            { title: 'Coming Soon!', description: 'This roadmap is currently under construction. Check back later for updates.' }
+        ]
+    }
+];
+
 export const roadmaps: Roadmap[] = [
   {
     slug: 'frontend',
-    title: 'Frontend Developer',
+    title: 'Frontend',
     description: 'Step by step guide to becoming a modern frontend developer.',
     legend: [
       {
@@ -153,4 +180,24 @@ export const roadmaps: Roadmap[] = [
       },
     ],
   },
+  { slug: 'backend', title: 'Backend', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'devops', title: 'DevOps', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'full-stack', title: 'Full Stack', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'ai-engineer', title: 'AI Engineer', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'data-analyst', title: 'Data Analyst', isNew: true, description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'ai-and-data-scientist', title: 'AI and Data Scientist', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'android', title: 'Android', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'ios', title: 'iOS', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'postgresql', title: 'PostgreSQL', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'blockchain', title: 'Blockchain', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'qa', title: 'QA', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'software-architect', title: 'Software Architect', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'cyber-security', title: 'Cyber Security', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'ux-design', title: 'UX Design', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'game-developer', title: 'Game Developer', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'technical-writer', title: 'Technical Writer', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'mlops', title: 'MLOps', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'product-manager', title: 'Product Manager', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'engineering-manager', title: 'Engineering Manager', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { slug: 'developer-relations', title: 'Developer Relations', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
 ];

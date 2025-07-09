@@ -105,6 +105,7 @@ export interface Roadmap {
   slug: string;
   title: string;
   description: string;
+  isNew?: boolean;
   legend: {
     title: string;
     className: string;
