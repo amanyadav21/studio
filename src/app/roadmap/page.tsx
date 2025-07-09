@@ -1,17 +1,21 @@
 import Link from 'next/link';
-import { Bookmark } from 'lucide-react';
+import { Bookmark, Map } from 'lucide-react';
 import { roadmaps } from '@/data/roadmaps';
 import { Badge } from '@/components/ui/badge';
 
 export default function RoadmapsPage() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-16">
       <header className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
-          Role Based Roadmaps
+        <Badge variant="outline" className="mb-6 border-primary/50 text-primary py-1 px-3 text-sm font-semibold">
+            <Map className="mr-2 h-4 w-4" />
+            Learning Paths
+        </Badge>
+        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
+          Developer Roadmaps
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          Step-by-step guides and paths for developers to progress in their careers.
+        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+          Step-by-step guides and curated resources to help you learn and advance in your developer career.
         </p>
       </header>
 
