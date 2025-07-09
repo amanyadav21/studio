@@ -1,6 +1,8 @@
 import type { Roadmap } from '@/lib/types';
 import { RoadmapLegend } from './RoadmapLegend';
 import { RoadmapNode } from './RoadmapNode';
+import { Badge } from '@/components/ui/badge';
+import { Map } from 'lucide-react';
 
 interface RoadmapDisplayProps {
   roadmap: Roadmap;
@@ -10,6 +12,10 @@ export function RoadmapDisplay({ roadmap }: RoadmapDisplayProps) {
   return (
     <div className="max-w-6xl mx-auto">
       <header className="text-center mb-16">
+        <Badge variant="outline" className="mb-6 border-primary/50 text-primary py-1 px-3 text-sm font-semibold">
+          <Map className="mr-2 h-4 w-4" />
+          Roadmap
+        </Badge>
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
           {roadmap.title}
         </h1>

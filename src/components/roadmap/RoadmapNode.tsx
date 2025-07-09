@@ -57,13 +57,13 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
           <div className="mt-4 flex flex-wrap gap-2 justify-center">
             {node.children.map((child) => {
               const chipClasses = cn(
-                'border text-xs font-semibold h-auto px-3 py-1',
+                'border text-xs font-medium h-auto px-3 py-1 rounded-full transition-colors',
                 {
-                  'bg-purple-100/80 border-purple-300 text-purple-800 dark:bg-purple-900/50 dark:border-purple-700/50 dark:text-purple-200':
+                  'border-purple-500/50 bg-purple-500/10 text-purple-700 dark:text-purple-300 hover:bg-purple-500/20':
                     child.recommendation === 'recommended',
-                  'bg-green-100/80 border-green-300 text-green-800 dark:bg-green-900/50 dark:border-green-700/50 dark:text-green-200':
+                  'border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300 hover:bg-green-500/20':
                     child.recommendation === 'alternative',
-                  'bg-muted/80 border-border text-muted-foreground':
+                  'border-border bg-muted/50 text-muted-foreground hover:bg-muted':
                     child.recommendation === 'optional',
                   'bg-card border-border': !child.recommendation,
                 }
