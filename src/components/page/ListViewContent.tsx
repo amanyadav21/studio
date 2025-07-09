@@ -2,7 +2,7 @@
 'use client';
 
 import * as React from 'react';
-import { ArrowUp, BookOpen } from 'lucide-react';
+import { ArrowUp, BookOpen, ExternalLink } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { slugify } from '@/lib/utils';
@@ -19,35 +19,53 @@ export const ListViewContent = React.forwardRef<
 >(function ListViewContent({ tools, categories }, ref) {
   const renderToolItem = (tool: Tool) => {
     const hasFreeTier =
-      (tool.pricing === "Freemium" && tool.freeUrl) || tool.pricing === "Free";
-    const freeLink = (
-      tool.pricing === "Freemium" ? tool.freeUrl : tool.url
-    ) as string;
+      (tool.pricing === 'Freemium' && tool.freeUrl) || tool.pricing === 'Free';
+    const primaryLink = hasFreeTier && tool.freeUrl ? tool.freeUrl : tool.url;
+    const primaryActionText = hasFreeTier ? 'Try Free' : 'Visit Site';
 
     return (
-      <li key={tool.id}>
-        <a
-          href={tool.url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {tool.name}
-        </a>{' '}
-        — {tool.description}
-        {tool.pricing && (
-          <span className="ml-1">{tool.pricing}</span>
-        )}.
-        {hasFreeTier && (
-           <a
-            href={freeLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-2"
-          >
-            <Badge variant="default">Try Free</Badge>
-          </a>
-        )}
-      </li>
+      <div key={tool.id} className="py-6">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:justify-between">
+          <div className="flex-1">
+            <a
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+            >
+              <h4 className="text-lg font-semibold text-primary group-hover:underline">
+                {tool.name}
+              </h4>
+            </a>
+            <p className="mt-1 text-muted-foreground line-clamp-3">
+              {tool.description}
+            </p>
+            {tool.pricing && (
+                <div className="mt-3">
+                    <Badge
+                        variant={
+                            tool.pricing === "Paid"
+                            ? "destructive"
+                            : tool.pricing === "Freemium"
+                            ? "default"
+                            : "secondary"
+                        }
+                    >
+                        {tool.pricing}
+                    </Badge>
+                </div>
+            )}
+          </div>
+          <div className="flex w-full flex-shrink-0 sm:w-auto">
+            <Button asChild size="sm" className="w-full sm:w-auto">
+              <a href={primaryLink} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                {primaryActionText}
+              </a>
+            </Button>
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -62,7 +80,7 @@ export const ListViewContent = React.forwardRef<
           </p>
         </div>
       ) : (
-        <div className="prose dark:prose-invert max-w-none">
+        <div className="space-y-12">
           {categories.map((category) => {
             const categorySlug = slugify(category);
             const toolsForCategory = tools.filter(
@@ -81,26 +99,26 @@ export const ListViewContent = React.forwardRef<
                 id={categorySlug}
                 className="scroll-mt-24"
               >
-                <h2>{category}</h2>
+                <h2 className="border-b pb-2 text-2xl font-bold tracking-tight">{category}</h2>
 
                 {subCategories.length > 0 ? (
                   <>
                     {subCategories.map((subCat) => (
-                      <div key={subCat}>
-                        <h3>{subCat}</h3>
-                        <ul>
+                      <div key={subCat} className="mt-6">
+                        <h3 className="text-lg font-semibold tracking-tight text-muted-foreground">{subCat}</h3>
+                        <div className="divide-y">
                           {toolsForCategory
                             .filter((t) => t.subcategory === subCat)
                             .map(renderToolItem)}
-                        </ul>
+                        </div>
                       </div>
                     ))}
                   </>
                 ) : (
-                  <ul>{toolsForCategory.map(renderToolItem)}</ul>
+                  <div className="divide-y">{toolsForCategory.map(renderToolItem)}</div>
                 )}
 
-                <div className="not-prose mt-6 text-right">
+                <div className="mt-6 text-right">
                   <Button asChild variant="ghost" size="sm">
                     <a href="#top">
                       <ArrowUp className="mr-2 h-4 w-4" /> Back to Top
