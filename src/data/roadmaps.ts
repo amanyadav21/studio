@@ -3,19 +3,19 @@ import type { Roadmap } from '@/lib/types';
 const placeholderDescription = 'A step-by-step guide to master the skills required for this role, with curated tools from our collection.';
 const placeholderLegend: Roadmap['legend'] = [
       {
-        title: 'Recommendation',
+        title: 'Recommended',
         className: 'recommended',
-        description: 'Recommended for most developers.',
+        description: 'Our top pick for most developers.',
       },
       {
         title: 'Alternative',
         className: 'alternative',
-        description: 'Alternative option to the recommendation.',
+        description: 'A solid alternative choice.',
       },
       {
         title: 'Optional',
         className: 'optional',
-        description: 'Optional, but good to know.',
+        description: 'Good to know, but not required.',
       },
     ];
 
@@ -34,19 +34,19 @@ export const roadmaps: Roadmap[] = [
     description: 'Step by step guide to becoming a modern frontend developer in 2024. This is a curated list of tools and technologies to learn.',
     legend: [
       {
-        title: 'Personal Recommendation',
+        title: 'Recommended',
         className: 'recommended',
-        description: 'Our recommendation for the best path.',
+        description: 'Our top pick for most developers.',
       },
       {
-        title: 'Alternative Option',
+        title: 'Alternative',
         className: 'alternative',
-        description: 'A viable alternative to our recommendation.',
+        description: 'A solid alternative choice.',
       },
       {
         title: 'Optional',
         className: 'optional',
-        description: 'Can be learned anytime or skipped.',
+        description: 'Good to know, but not required.',
       },
     ],
     sections: [
