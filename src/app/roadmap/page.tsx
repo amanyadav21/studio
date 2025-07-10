@@ -1,139 +1,180 @@
-
 import Link from 'next/link';
 import {
-  Bookmark,
   Code,
-  Smartphone,
-  Database,
+  Server,
+  CloudCog,
+  Layers,
   BrainCircuit,
+  BarChartBig,
+  FlaskConical,
+  Smartphone,
+  Apple,
+  Database,
+  Link as LinkIcon,
+  CheckCircle,
   ShieldCheck,
-  Briefcase,
-  GitBranch,
-  Map as MapIcon,
+  Architecture,
+  Lock,
   Palette,
+  Gamepad2,
+  BookUser,
   BotMessageSquare,
   PenTool,
+  ArrowRight,
 } from 'lucide-react';
 import { roadmaps } from '@/data/roadmaps';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
+  CardContent,
+  CardFooter,
 } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import type { ReactNode } from 'react';
 
-const roadmapCategories = [
-  {
-    title: 'Web Development',
-    description: 'Learn to build modern web applications from frontend to backend.',
+const roadmapIcons: Record<string, { icon: ReactNode; className: string }> = {
+  frontend: {
     icon: <Code className="h-6 w-6" />,
-    roadmaps: [
-      'frontend',
-      'backend',
-      'full-stack',
-      'devops',
-      'postgresql',
-    ],
+    className: 'bg-blue-500/10 text-blue-400',
   },
-  {
-    title: 'AI & Data Science',
-    description: 'Dive into the world of artificial intelligence, data analysis, and MLOps.',
+  backend: {
+    icon: <Server className="h-6 w-6" />,
+    className: 'bg-green-500/10 text-green-400',
+  },
+  'full-stack': {
+    icon: <Layers className="h-6 w-6" />,
+    className: 'bg-purple-500/10 text-purple-400',
+  },
+  devops: {
+    icon: <CloudCog className="h-6 w-6" />,
+    className: 'bg-orange-500/10 text-orange-400',
+  },
+  postgresql: {
+    icon: <Database className="h-6 w-6" />,
+    className: 'bg-sky-500/10 text-sky-400',
+  },
+  'ai-engineer': {
     icon: <BrainCircuit className="h-6 w-6" />,
-    roadmaps: [
-      'ai-engineer',
-      'data-analyst',
-      'ai-and-data-scientist',
-      'mlops',
-    ],
+    className: 'bg-rose-500/10 text-rose-400',
   },
-  {
-    title: 'Mobile & Desktop',
-    description: 'Create applications for mobile devices and desktop operating systems.',
-    icon: <Smartphone className="h-6 w-6" />,
-    roadmaps: ['android', 'ios', 'game-developer'],
+  'data-analyst': {
+    icon: <BarChartBig className="h-6 w-6" />,
+    className: 'bg-teal-500/10 text-teal-400',
   },
-  {
-    title: 'Specialized Engineering',
-    description: 'Explore specialized fields like blockchain, security, and quality assurance.',
-    icon: <ShieldCheck className="h-6 w-6" />,
-    roadmaps: ['blockchain', 'qa', 'cyber-security'],
+  'ai-and-data-scientist': {
+    icon: <FlaskConical className="h-6 w-6" />,
+    className: 'bg-pink-500/10 text-pink-400',
   },
-  {
-    title: 'Product & Design',
-    description: 'Focus on user experience, product management, and design principles.',
-    icon: <Palette className="h-6 w-6" />,
-    roadmaps: ['ux-design', 'product-manager'],
-  },
-  {
-    title: 'Community & Content',
-    description: 'Roles centered around community building, content creation, and developer advocacy.',
+  mlops: {
     icon: <BotMessageSquare className="h-6 w-6" />,
-    roadmaps: ['technical-writer', 'developer-relations'],
+    className: 'bg-indigo-500/10 text-indigo-400',
   },
-   {
-    title: 'Leadership & Architecture',
-    description: 'Guides for senior roles focused on architecture and team leadership.',
-    icon: <GitBranch className="h-6 w-6" />,
-    roadmaps: ['software-architect', 'engineering-manager'],
+  android: {
+    icon: <Smartphone className="h-6 w-6" />,
+    className: 'bg-emerald-500/10 text-emerald-400',
   },
-];
+  ios: {
+    icon: <Apple className="h-6 w-6" />,
+    className: 'bg-slate-400/10 text-slate-300',
+  },
+  'game-developer': {
+    icon: <Gamepad2 className="h-6 w-6" />,
+    className: 'bg-amber-500/10 text-amber-400',
+  },
+  blockchain: {
+    icon: <LinkIcon className="h-6 w-6" />,
+    className: 'bg-yellow-500/10 text-yellow-400',
+  },
+  qa: {
+    icon: <CheckCircle className="h-6 w-6" />,
+    className: 'bg-lime-500/10 text-lime-400',
+  },
+  'cyber-security': {
+    icon: <Lock className="h-6 w-6" />,
+    className: 'bg-red-500/10 text-red-400',
+  },
+  'ux-design': {
+    icon: <Palette className="h-6 w-6" />,
+    className: 'bg-violet-500/10 text-violet-400',
+  },
+  'product-manager': {
+    icon: <BookUser className="h-6 w-6" />,
+    className: 'bg-cyan-500/10 text-cyan-400',
+  },
+  'technical-writer': {
+    icon: <PenTool className="h-6 w-6" />,
+    className: 'bg-fuchsia-500/10 text-fuchsia-400',
+  },
+  'developer-relations': {
+    icon: <BotMessageSquare className="h-6 w-6" />,
+    className: 'bg-indigo-500/10 text-indigo-400',
+  },
+  'software-architect': {
+    icon: <Architecture className="h-6 w-6" />,
+    className: 'bg-gray-400/10 text-gray-300',
+  },
+  'engineering-manager': {
+    icon: <ShieldCheck className="h-6 w-6" />,
+    className: 'bg-blue-500/10 text-blue-400',
+  },
+};
 
 export default function RoadmapsPage() {
-  const roadmapMap = new Map(roadmaps.map((r) => [r.slug, r]));
-
   return (
     <div className="space-y-16">
       <header className="text-center">
-        <Badge
-          variant="outline"
-          className="mb-6 border-primary/50 text-primary py-1 px-3 text-sm font-semibold"
-        >
-          <MapIcon className="mr-2 h-4 w-4" />
-          Learning Paths
-        </Badge>
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-          Developer Roadmaps
+          Role Based Roadmaps
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-          Step-by-step guides and curated resources to help you learn and
-          advance in your developer career.
+          Your ultimate guide to mastering new skills. Curated step-by-step
+          paths for every role in the tech industry.
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {roadmapCategories.map((category) => (
-          <Card key={category.title} className="flex flex-col">
-            <CardHeader className="flex flex-row items-start gap-4">
-               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
-                {category.icon}
-              </div>
-              <div>
-                <CardTitle>{category.title}</CardTitle>
-                <CardDescription className="mt-1">{category.description}</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <div className="flex flex-col gap-3">
-                {category.roadmaps
-                  .map((slug) => roadmapMap.get(slug))
-                  .filter(Boolean)
-                  .map((roadmap) => (
-                    <Link
-                      key={roadmap!.slug}
-                      href={`/roadmap/${roadmap!.slug}`}
-                      className="group flex items-center gap-3 rounded-md p-2 -m-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {roadmaps.map((roadmap) => {
+          const { icon, className } = roadmapIcons[roadmap.slug] || {
+            icon: <Code className="h-6 w-6" />,
+            className: 'bg-gray-500/10 text-gray-400',
+          };
+          return (
+            <Link key={roadmap.slug} href={`/roadmap/${roadmap.slug}`} passHref>
+              <Card className="relative flex flex-col h-full bg-card/60 hover:bg-card/90 transition-all duration-300 hover:-translate-y-1 group">
+                <CardHeader className="relative">
+                  <div className="flex items-start justify-between">
+                    <div
+                      className={cn(
+                        'flex h-12 w-12 items-center justify-center rounded-lg',
+                        className
+                      )}
                     >
-                      <Bookmark className="h-4 w-4 flex-shrink-0 text-primary/70 group-hover:text-primary transition-colors" />
-                      <span className="flex-grow truncate">{roadmap!.title}</span>
-                      {roadmap!.isNew && <Badge>New</Badge>}
-                    </Link>
-                  ))}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                      {icon}
+                    </div>
+                  </div>
+                  {roadmap.isNew && (
+                    <Badge className="absolute top-4 right-4 bg-blue-500 text-white border-blue-500">NEW</Badge>
+                  )}
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <h2 className="text-xl font-bold">{roadmap.title}</h2>
+                  <p className="mt-2 text-muted-foreground line-clamp-2">
+                    {roadmap.description}
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <div className="flex items-center gap-2 text-sm font-semibold text-primary group-hover:underline">
+                    <span>Explore Path</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </CardFooter>
+              </Card>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
