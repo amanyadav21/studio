@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import {
   Bookmark,
@@ -8,7 +9,7 @@ import {
   ShieldCheck,
   Briefcase,
   GitBranch,
-  Map,
+  Map as MapIcon,
   Palette,
   BotMessageSquare,
   PenTool,
@@ -90,7 +91,7 @@ export default function RoadmapsPage() {
           variant="outline"
           className="mb-6 border-primary/50 text-primary py-1 px-3 text-sm font-semibold"
         >
-          <Map className="mr-2 h-4 w-4" />
+          <MapIcon className="mr-2 h-4 w-4" />
           Learning Paths
         </Badge>
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
