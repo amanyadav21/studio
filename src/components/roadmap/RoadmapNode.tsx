@@ -53,7 +53,6 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
           </p>
         )}
         
-        {/* Render children as chips for Hub nodes */}
         {isHub && node.children && node.children.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2 justify-center">
             {node.children.map((child) => {
@@ -86,7 +85,8 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
           <div className="mt-4 flex flex-wrap gap-2 justify-center">
             {node.tools.map((toolRef) => {
               const toolData = tools.find((t) => t.id === toolRef.id);
-              return toolData ? (
+              const href = toolRef.url || toolData?.url;
+              return href ? (
                 <Button
                   key={toolRef.id}
                   size="sm"
@@ -95,7 +95,7 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
                   className="h-auto px-3 py-1 text-xs font-semibold rounded-full hover:bg-accent"
                 >
                   <Link
-                    href={toolData.url}
+                    href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -108,13 +108,10 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
         )}
       </div>
 
-      {/* Render children as separate nodes for non-hub nodes */}
       {!isHub && node.children && node.children.length > 0 && (
         <div className="relative mt-8 w-full">
-          {/* Vertical line from parent to horizontal line */}
           <div className={cn(verticalLineClasses, 'bottom-full h-8')} />
 
-          {/* Horizontal line connecting children */}
           {node.children.length > 1 && (
             <div className={cn(horizontalLineClasses, 'w-[calc(100%-4rem)]')} />
           )}
@@ -125,10 +122,8 @@ export function RoadmapNode({ node, isFirst = false }: RoadmapNodeProps) {
                 key={childNode.title}
                 className="relative flex flex-col items-center max-w-xs"
               >
-                {/* Vertical line from horizontal line to child */}
                 <div className={cn(verticalLineClasses, 'bottom-full h-8')} />
 
-                {/* Small dot connector for multi-child connections */}
                 {node.children.length > 1 && (
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 -mb-1 w-2 h-2 rounded-full bg-border" />
                 )}

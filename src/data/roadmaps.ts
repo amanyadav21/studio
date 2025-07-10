@@ -66,106 +66,168 @@ export const roadmaps: Roadmap[] = [
             ]
           },
           {
-            title: 'HTML',
-            type: 'hub',
+            title: 'HTML & CSS',
             children: [
-              { title: 'Learn the basics', recommendation: 'recommended' },
-              { title: 'Writing Semantic HTML', recommendation: 'recommended' },
-              { title: 'Forms and Validations', recommendation: 'recommended' },
-              { title: 'Accessibility', recommendation: 'recommended' },
-              { title: 'SEO Basics', recommendation: 'optional' },
+              {
+                title: 'Learn the Basics',
+                description: 'HTML for structure, CSS for styling. These are the fundamental building blocks of the web.',
+                tools: [
+                  { id: 'freecodecamp', name: 'Responsive Web Design Course', url: 'https://www.freecodecamp.org/learn/2022/responsive-web-design/' }
+                ]
+              },
+              {
+                title: 'Pick a CSS Framework',
+                description: 'Frameworks provide pre-built components and styles to speed up development.',
+                children: [
+                  { 
+                    title: 'Tailwind CSS',
+                    recommendation: 'recommended',
+                    tools: [{ id: 'tailwindcss', name: 'Tailwind CSS' }]
+                  },
+                  { 
+                    title: 'Bootstrap',
+                    recommendation: 'alternative',
+                    tools: []
+                  },
+                  {
+                    title: 'Bulma',
+                    recommendation: 'alternative',
+                    tools: []
+                  }
+                ]
+              }
             ]
           },
           {
-            title: 'CSS',
-            type: 'hub',
-            children: [
-              { title: 'Learn the basics', recommendation: 'recommended' },
-              { title: 'Responsive Design', recommendation: 'recommended' },
-              { 
-                title: 'Tailwind CSS',
-                recommendation: 'recommended',
-                description: 'A utility-first CSS framework for rapid UI development.',
-                tools: [{ id: 'tailwindcss', name: 'Tailwind CSS' }]
-              },
-               { 
-                title: 'Bootstrap',
-                recommendation: 'alternative',
-                description: 'The world’s most popular front-end open source toolkit.',
-                tools: []
-              },
-            ]
-          },
-           {
             title: 'JavaScript',
-            type: 'hub',
             children: [
-              { title: 'Learn the basics', recommendation: 'recommended' },
-              { title: 'DOM Manipulation', recommendation: 'recommended' },
-              { title: 'Fetch API / AJAX', recommendation: 'recommended' },
-              { title: 'ES6+ Features', recommendation: 'recommended' },
+              {
+                title: 'Learn the Basics',
+                description: 'The core programming language of the web.',
+                tools: [
+                  { id: 'javascript-info', name: 'The Modern JavaScript Tutorial', url: 'https://javascript.info/' },
+                  { id: 'js-for-impatient-programmers', name: 'JS for Impatient Programmers (Free Ebook)', url: 'https://exploringjs.com/impatient-js/toc.html' }
+                ]
+              },
+              {
+                title: 'Key Concepts',
+                type: 'hub',
+                children: [
+                  { title: 'DOM Manipulation', recommendation: 'recommended' },
+                  { title: 'Fetch API / AJAX', recommendation: 'recommended' },
+                  { title: 'ES6+ Features', recommendation: 'recommended' },
+                ]
+              }
             ]
           },
           {
             title: 'Version Control',
-            type: 'hub',
+            description: 'Essential for tracking changes and collaborating with other developers.',
+            tools: [{ id: 'github', name: 'GitHub' }],
             children: [
-              { title: 'Git', recommendation: 'recommended' },
-              { title: 'GitHub', recommendation: 'recommended', tools: [{id: 'github', name: 'GitHub'}]},
-              { title: 'GitLab', recommendation: 'alternative', tools: [{id: 'gitlab', name: 'GitLab'}]},
-              { title: 'Bitbucket', recommendation: 'alternative', tools: [{id: 'bitbucket', name: 'Bitbucket'}]},
+              {
+                title: 'GitLab',
+                recommendation: 'alternative',
+                tools: [{ id: 'gitlab', name: 'GitLab' }]
+              },
+              {
+                title: 'Bitbucket',
+                recommendation: 'alternative',
+                tools: [{ id: 'bitbucket', name: 'Bitbucket' }]
+              }
             ]
           },
           {
-            title: 'Pick a Framework',
-            type: 'hub',
+            title: 'Pick a JS Framework',
             children: [
               {
                 title: 'React',
                 recommendation: 'recommended',
-                tools: [{ id: 'react', name: 'React' }],
+                description: 'A JavaScript library for building user interfaces.',
+                tools: [{ id: 'react', name: 'React Docs', url: 'https://react.dev/' }],
+                children: [
+                  {
+                    title: 'State Management',
+                    children: [
+                      {
+                        title: 'Zustand',
+                        recommendation: 'recommended',
+                        tools: [{id: 'zustand', name: 'Zustand'}]
+                      },
+                      {
+                        title: 'Jotai',
+                        recommendation: 'alternative',
+                        tools: [{id: 'jotai', name: 'Jotai'}]
+                      },
+                      {
+                        title: 'Redux',
+                        recommendation: 'optional',
+                        tools: [{id: 'redux', name: 'Redux'}]
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 title: 'Vue.js',
                 recommendation: 'alternative',
-                tools: [{ id: 'vuejs', name: 'Vue.js' }],
+                description: 'The Progressive JavaScript Framework.',
+                tools: [{ id: 'vuejs', name: 'Vue.js Docs', url: 'https://vuejs.org/' }]
               },
               {
                 title: 'Angular',
                 recommendation: 'alternative',
-                tools: [{ id: 'angular', name: 'Angular' }],
+                description: 'A platform for building mobile and desktop web applications.',
+                tools: [{ id: 'angular', name: 'Angular Docs', url: 'https://angular.dev/' }]
               },
               {
                 title: 'Svelte',
                 recommendation: 'alternative',
-                tools: [{ id: 'svelte', name: 'Svelte' }],
-              },
-            ],
+                description: 'Cybernetically enhanced web apps.',
+                tools: [{ id: 'svelte', name: 'Svelte Docs', url: 'https://svelte.dev/' }]
+              }
+            ]
           },
-           {
-            title: 'Meta Frameworks',
-            type: 'hub',
+          {
+            title: 'Pick a Meta-Framework',
+            description: 'Full-stack frameworks that build on top of a UI library like React.',
             children: [
               {
                 title: 'Next.js',
-                description: 'The React Framework for Production.',
                 recommendation: 'recommended',
+                description: 'The React Framework for Production.',
                 tools: [{ id: 'nextjs', name: 'Next.js' }],
               },
               {
                 title: 'Remix',
-                description: 'A full stack web framework by Shopify.',
                 recommendation: 'alternative',
+                description: 'A full stack web framework by Shopify.',
                 tools: [{ id: 'remix', name: 'Remix' }],
               },
                {
                 title: 'Astro',
-                description: 'The web framework for content-driven websites.',
                 recommendation: 'alternative',
+                description: 'The web framework for content-driven websites.',
                 tools: [{ id: 'astro', name: 'Astro' }],
               },
-            ],
+            ]
           },
+          {
+            title: 'Build Tools',
+            type: 'hub',
+            children: [
+                {
+                    title: 'Vite',
+                    recommendation: 'recommended',
+                    tools: [{ id: 'vite', name: 'Vite' }]
+                },
+                {
+                    title: 'Webpack',
+                    recommendation: 'alternative',
+                    tools: [{ id: 'webpack', name: 'Webpack' }]
+                }
+            ]
+          }
         ],
       },
     ],

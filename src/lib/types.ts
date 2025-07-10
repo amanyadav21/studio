@@ -84,6 +84,7 @@ export interface Tool {
 export interface RoadmapTool {
   id: string;
   name: string;
+  url?: string;
 }
 
 export interface RoadmapNode {
