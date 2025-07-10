@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 import { roadmaps } from '@/data/roadmaps';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -103,36 +102,33 @@ export default function RoadmapsPage() {
         </p>
       </header>
 
-      <div className="space-y-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {roadmapCategories.map((category) => (
-          <Card key={category.title}>
-            <CardHeader className="flex flex-row items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <Card key={category.title} className="flex flex-col">
+            <CardHeader className="flex flex-row items-start gap-4">
+               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
                 {category.icon}
               </div>
               <div>
                 <CardTitle>{category.title}</CardTitle>
-                <CardDescription>{category.description}</CardDescription>
+                <CardDescription className="mt-1">{category.description}</CardDescription>
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            <CardContent className="flex-grow">
+              <div className="flex flex-col gap-3">
                 {category.roadmaps
                   .map((slug) => roadmapMap.get(slug))
                   .filter(Boolean)
                   .map((roadmap) => (
-                    <Button
+                    <Link
                       key={roadmap!.slug}
-                      variant="outline"
-                      asChild
-                      className="justify-start gap-2 h-auto py-2"
+                      href={`/roadmap/${roadmap!.slug}`}
+                      className="group flex items-center gap-3 rounded-md p-2 -m-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                     >
-                      <Link href={`/roadmap/${roadmap!.slug}`}>
-                        <Bookmark className="h-4 w-4 text-muted-foreground" />
-                        <span className="font-medium">{roadmap!.title}</span>
-                        {roadmap!.isNew && <Badge className="ml-auto">New</Badge>}
-                      </Link>
-                    </Button>
+                      <Bookmark className="h-4 w-4 flex-shrink-0 text-primary/70 group-hover:text-primary transition-colors" />
+                      <span className="flex-grow truncate">{roadmap!.title}</span>
+                      {roadmap!.isNew && <Badge>New</Badge>}
+                    </Link>
                   ))}
               </div>
             </CardContent>
