@@ -1,3 +1,4 @@
+
 import type { Roadmap } from '@/lib/types';
 
 const placeholderDescription = 'A step-by-step guide to master the skills required for this role, with curated tools from our collection.';
@@ -182,7 +183,141 @@ export const roadmaps: Roadmap[] = [
   { slug: 'qa', title: 'QA', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
   { slug: 'software-architect', title: 'Software Architect', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
   { slug: 'cyber-security', title: 'Cyber Security', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
-  { slug: 'ux-design', title: 'UX Design', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
+  { 
+    slug: 'ux-design', 
+    title: 'UX Design', 
+    description: "A comprehensive guide to becoming a skilled UX Designer, covering key concepts from user psychology to prototyping.", 
+    legend: placeholderLegend, 
+    sections: [
+        {
+          title: "Foundations",
+          nodes: [
+            {
+              title: "Human Decision Making",
+              type: "hub",
+              children: [
+                { title: "BJ Fogg's Behavior Model" },
+                { title: "CREATE Action Funnel" },
+                { title: "Spectrum of Thinking Interventions" },
+                { title: "Dual Process Theory" },
+              ]
+            },
+            {
+              title: "Behavior Change Strategies",
+              type: "hub",
+              children: [
+                { title: "BJ Fogg's Behavior Grid" },
+                { title: "Classifying Behavior" },
+              ]
+            }
+          ]
+        },
+        {
+          title: "Core UX Concepts",
+          nodes: [
+            {
+              title: "Cheating",
+              description: "Leveraging cognitive biases.",
+              children: [
+                { title: "Defaulting" },
+                { title: "Making it Incidental" },
+                { title: "Automate the Act of Repetition" },
+              ]
+            },
+            {
+              title: "Make or Change Habits",
+              description: "Influencing user routines."
+            },
+            {
+              title: "Support Conscious Action",
+              description: "Assisting deliberate user choices."
+            },
+            {
+              title: "Educate & Encourage User",
+              type: "hub",
+              children: [
+                { title: "Help User think about their Action" },
+              ]
+            }
+          ]
+        },
+        {
+          title: "User & Product Definition",
+          nodes: [
+            {
+              title: "Understanding the Product",
+              children: [
+                 {
+                    title: "Define Target Users",
+                    children: [ { title: "Create User Personas" } ]
+                 },
+                 {
+                    title: "Clarify Product",
+                    children: [
+                      { title: "Target Outcome" },
+                      { title: "Target Actor" },
+                      { title: "Target Action" },
+                    ]
+                 },
+                 {
+                   title: "Business Model",
+                   type: "hub",
+                   children: [
+                     { title: "Existing Business Model" },
+                     { title: "Business Model Canvas" },
+                     { title: "Lean Canvas" },
+                     { title: "New Business Model" },
+                     { title: "Business Model Inspirator" },
+                     { title: "Competitor Analysis" },
+                     { title: "Five Forces Model" },
+                     { title: "SWOT Analysis" },
+                   ]
+                 }
+              ]
+            }
+          ]
+        },
+        {
+          title: "Design & Prototyping",
+          nodes: [
+            {
+              title: "Conceptual Design",
+              children: [
+                {
+                  title: "Create Product Backlog",
+                  children: [{ title: "User Stories" }]
+                },
+              ]
+            },
+            {
+              title: "Wireframing",
+              type: "hub",
+              children: [
+                { title: "Figma", tools: [{ id: 'figma', name: 'Figma' }] },
+                { title: "Adobe XD", tools: [{ id: 'adobe-xd', name: 'Adobe XD' }] },
+                { title: "Sketch", tools: [{ id: 'sketch', name: 'Sketch' }] },
+                { title: "Balsamiq" },
+              ]
+            },
+            {
+              title: "Prototyping",
+              children: [
+                {
+                  title: "UX Patterns",
+                  type: "hub",
+                  children: [
+                    { title: "Call to Action" },
+                    { title: "How-to-Tips" },
+                    { title: "Status Reports" },
+                    { title: "Reminders & Planning Prompts" },
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+    ]
+  },
   { slug: 'game-developer', title: 'Game Developer', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
   { slug: 'technical-writer', title: 'Technical Writer', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
   { slug: 'mlops', title: 'MLOps', description: placeholderDescription, legend: placeholderLegend, sections: placeholderSections },
