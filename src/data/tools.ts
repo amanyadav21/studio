@@ -1802,7 +1802,7 @@ export const tools: Tool[] = [
     id: 'entity-framework-core',
     name: 'Entity Framework Core',
     description: 'Modern object-database mapper for .NET.',
-    url: 'https://docs.microsoft.com/en-us/ef/core/',
+    url: 'https://learn.microsoft.com/en-us/ef/core/',
     category: 'Frameworks & Libraries',
     subcategory: 'Backend',
     pricing: 'Free',
@@ -2333,14 +2333,6 @@ export const tools: Tool[] = [
     url: "https://www.webceo.com/",
     category: "Code Quality",
     pricing: "Freemium",
-  },
-  {
-    id: "rigor",
-    name: "Rigor",
-    description: "Fix the performance of your websites with detailed analysis (formerly Zoompf).",
-    url: "https://rigor.com/",
-    category: "Code Quality",
-    pricing: "Paid",
   },
   // AI & ML
   {
@@ -4452,7 +4444,7 @@ export const tools: Tool[] = [
     id: "logentries",
     name: "logentries.com",
     description: "Free up to 5 GB/month with seven days retention.",
-    url: "https://www.logentries.com/",
+    url: "https://www.loggly.com/product-tour/log-management/",
     category: "Log Management",
     pricing: "Freemium",
   },
