@@ -92,8 +92,6 @@ function Sidebar({
 }: SidebarProps) {
   const [openCollapsible, setOpenCollapsible] = React.useState<string | null>(null);
 
-  // This effect synchronizes the open menu with the selected category from props.
-  // It ensures the correct menu is open on page load or when navigating via subcategory links.
   React.useEffect(() => {
     const parentOfSelectedSub = sidebarStructure.find(
       (item): item is NavItemConfig =>
@@ -103,33 +101,26 @@ function Sidebar({
     if (parentOfSelectedSub) {
       setOpenCollapsible(parentOfSelectedSub.id);
     } else {
-      const collapsibleCategory = sidebarStructure.find(
-        (item): item is NavItemConfig => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
+      const isCollapsibleSelected = sidebarStructure.some(
+        (item) => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
       );
-      if (collapsibleCategory) {
-        setOpenCollapsible(collapsibleCategory.id);
+      if (isCollapsibleSelected) {
+        setOpenCollapsible(selectedCategory);
       } else {
-        // If the selected category is not collapsible (e.g., "Saved", "All"), close any open menu.
         setOpenCollapsible(null);
       }
     }
   }, [selectedCategory, selectedSubCategory]);
 
   const handleCollapsibleClick = (id: string) => {
-    // If the user clicks the currently open category, just close it.
+    onCategoryChange(id);
     if (openCollapsible === id) {
       setOpenCollapsible(null);
     } else {
-    // Otherwise, navigate to the category. The useEffect will handle opening it.
-      onCategoryChange(id);
+      setOpenCollapsible(id);
     }
   };
-  
-  const handleRegularClick = (id: string) => {
-      onCategoryChange(id);
-      // The useEffect will handle closing any open menu.
-  }
-  
+
   const renderItem = (item: NavItemConfig) => {
     const Icon = item.icon;
     const isParentActive = selectedCategory === item.id;
@@ -225,7 +216,7 @@ function Sidebar({
           isParentActive && "bg-secondary font-semibold",
           item.id !== "Saved" && item.id !== "All" && "text-muted-foreground font-normal"
         )}
-        onClick={() => handleRegularClick(item.id)}
+        onClick={() => onCategoryChange(item.id)}
       >
         {isParentActive && (
           <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
