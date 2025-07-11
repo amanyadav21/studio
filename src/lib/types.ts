@@ -14,6 +14,7 @@ export type ToolCategory =
   | "APIs"
   | "Web Hosting"
   | "Storage and Media Processing"
+  | "Data Visualization on Maps"
   | "Email"
   | "Educational Plan"
   | "Log Management"

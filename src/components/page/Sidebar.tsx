@@ -25,6 +25,7 @@ import {
   Shield,
   Server,
   Database,
+  Map as MapIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -71,6 +72,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "Code Quality", label: "Code Quality", icon: ClipboardCheck },
     { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: aiMlSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
+    { id: "Data Visualization on Maps", label: "Maps & Geo", icon: MapIcon },
     { id: "Major Cloud Providers", label: "Major Cloud Providers", icon: Cloud },
     { id: "Web Hosting", label: "Web Hosting", icon: Server },
     { id: "Storage and Media Processing", label: "Storage & Media", icon: Database, subCategories: storageSubCategories, isCollapsible: true },

@@ -21,6 +21,7 @@ import {
   Shield,
   Server,
   Database,
+  Map,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -53,6 +54,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   'CDN and Protection': Shield,
   'Web Hosting': Server,
   'Storage and Media Processing': Database,
+  'Data Visualization on Maps': Map,
 };
 
 export function ListViewSidebar({
