@@ -14,6 +14,7 @@ export type ToolCategory =
   | "Cloud Provider"
   | "APIs"
   | "Email"
+  | "Educational Plan"
   | "Education and Career Development"
   | "Log Management"
   | "Translation Management";
@@ -66,6 +67,15 @@ export type AiMlSubCategory =
   | "Models & APIs"
   | "Data Science & Notebooks";
 
+export type EducationalPlanSubCategory =
+  | "Coding & Development"
+  | "Developer Tools & APIs"
+  | "Cloud & Hosting"
+  | "Learning Platforms"
+  | "Design & Creativity"
+  | "Student Discounts"
+  | "Bonus Tools";
+
 export interface Tool {
   id: string;
   name: string;
@@ -80,7 +90,8 @@ export interface Tool {
     | ProductivitySubCategory
     | NoCodeSubCategory
     | ApiSubCategory
-    | AiMlSubCategory;
+    | AiMlSubCategory
+    | EducationalPlanSubCategory;
   pricing?: Pricing;
 }
 

@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import type { ToolCategory } from "@/lib/types";
-import { frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories, apiSubCategories, aiMlSubCategories } from "@/data/tools";
+import { frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories, apiSubCategories, aiMlSubCategories, educationalPlanSubCategories } from "@/data/tools";
 import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
@@ -62,6 +62,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "Writing & Notes", label: "Writing & Notes", icon: PenSquare },
     { id: "Productivity Tools", label: "Productivity Tools", icon: Zap, subCategories: productivitySubCategories, isCollapsible: true },
     { id: "No-Code / Low-Code", label: "No-Code / Low-Code", icon: MousePointerClick, subCategories: noCodeSubCategories, isCollapsible: true },
+    { id: "Educational Plan", label: "Educational Plan", icon: GraduationCap, subCategories: educationalPlanSubCategories, isCollapsible: true },
     { id: "Education and Career Development", label: "Education & Career", icon: GraduationCap },
     { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: frameworkSubCategories, isCollapsible: true },
     { id: "Source Code Repos", label: "Source Code Repos", icon: GitBranch },
