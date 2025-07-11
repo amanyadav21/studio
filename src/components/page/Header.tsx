@@ -17,13 +17,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { ColorPicker } from "@/components/color-picker";
 import { Kbd } from "@/components/ui/kbd";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   searchTerm?: string;
@@ -88,51 +83,43 @@ export const Header = React.memo(function Header({
             
             <Separator orientation="vertical" className="h-6 hidden sm:block" />
             
-            {!isRoadmapPage && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-9 w-9" asChild>
-                      <Link href="/roadmap">
-                        <Map className="h-4 w-4" />
-                        <span className="sr-only">Roadmaps</span>
-                      </Link>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>View Roadmaps</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
+            <div className="hidden sm:flex items-center gap-1 rounded-md border bg-muted p-1">
+              <Button
+                  variant={viewMode === 'grid' && !isRoadmapPage ? 'secondary' : 'ghost'}
+                  size="sm"
+                  className="px-3"
+                  onClick={() => onSearchTermChange === undefined ? window.location.href = '/' : onViewModeChange?.('grid')}
+              >
+                  <LayoutGrid className="mr-2 h-4 w-4" />
+                  Grid
+              </Button>
+              <Button
+                  variant={viewMode === 'list' && !isRoadmapPage ? 'secondary' : 'ghost'}
+                  size="sm"
+                  className="px-3"
+                  onClick={() => onSearchTermChange === undefined ? window.location.href = '/' : onViewModeChange?.('list')}
+              >
+                  <List className="mr-2 h-4 w-4" />
+                  List
+              </Button>
+               <Button
+                variant={isRoadmapPage ? 'secondary' : 'ghost'}
+                size="sm"
+                className="px-3"
+                asChild
+              >
+                <Link href="/roadmap">
+                  <Map className="mr-2 h-4 w-4" />
+                  Roadmaps
+                </Link>
+              </Button>
+            </div>
 
-            <>
-              <div className="hidden sm:flex items-center gap-1 rounded-md bg-muted p-1">
-                  <Button
-                      variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
-                      size="sm"
-                      className="px-2"
-                      onClick={() => onViewModeChange?.('grid')}
-                  >
-                      <LayoutGrid className="h-4 w-4" />
-                      <span className="sr-only">Grid View</span>
-                  </Button>
-                  <Button
-                      variant={viewMode === 'list' ? 'secondary' : 'ghost'}
-                      size="sm"
-                      className="px-2"
-                      onClick={() => onViewModeChange?.('list')}
-                  >
-                      <List className="h-4 w-4" />
-                      <span className="sr-only">List View</span>
-                  </Button>
-              </div>
-              <ColorPicker
-                  selectedColor={cardColor ?? null}
-                  onColorChange={onCardColorChange}
-                  onClear={onClearCardColor}
-              />
-            </>
+            <ColorPicker
+                selectedColor={cardColor ?? null}
+                onColorChange={onCardColorChange}
+                onClear={onClearCardColor}
+            />
             <ThemeToggle />
         </div>
       </div>
