@@ -13,7 +13,6 @@ import {
   Link as LinkIcon,
   CheckCircle,
   ShieldCheck,
-  Sitemap,
   Lock,
   Palette,
   Gamepad2,
@@ -113,7 +112,7 @@ const roadmapIcons: Record<string, { icon: ReactNode; className: string }> = {
     className: 'bg-indigo-500/10 text-indigo-400',
   },
   'software-architect': {
-    icon: <Sitemap className="h-6 w-6" />,
+    icon: <BotMessageSquare className="h-6 w-6" />,
     className: 'bg-gray-400/10 text-gray-300',
   },
   'engineering-manager': {
