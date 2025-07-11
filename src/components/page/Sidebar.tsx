@@ -22,6 +22,7 @@ import {
   ClipboardCheck,
   ListChecks,
   Languages,
+  Shield,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -33,7 +34,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import type { ToolCategory } from "@/lib/types";
-import { frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories, apiSubCategories, aiMlSubCategories, educationalPlanSubCategories } from "@/data/tools";
+import { frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories, apiSubCategories, aiMlSubCategories, educationalPlanSubCategories, cdnSubCategories } from "@/data/tools";
 import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
@@ -69,6 +70,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: aiMlSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
     { id: "Major Cloud Providers", label: "Major Cloud Providers", icon: Cloud },
+    { id: "CDN and Protection", label: "CDN & Protection", icon: Shield, subCategories: cdnSubCategories, isCollapsible: true },
     { id: "Email", label: "Email", icon: Mail },
     { id: "Log Management", label: "Log Management", icon: ListChecks },
     { id: "Translation Management", label: "Translation Mgmt", icon: Languages },

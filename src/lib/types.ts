@@ -15,7 +15,8 @@ export type ToolCategory =
   | "Email"
   | "Educational Plan"
   | "Log Management"
-  | "Translation Management";
+  | "Translation Management"
+  | "CDN and Protection";
 
 export type FrameworkSubCategory =
   | "Frontend"
@@ -74,6 +75,8 @@ export type EducationalPlanSubCategory =
   | "Student Discounts"
   | "Bonus Tools";
 
+export type CdnSubCategory = "CDN" | "Security";
+
 export interface Tool {
   id: string;
   name: string;
@@ -89,7 +92,8 @@ export interface Tool {
     | NoCodeSubCategory
     | ApiSubCategory
     | AiMlSubCategory
-    | EducationalPlanSubCategory;
+    | EducationalPlanSubCategory
+    | CdnSubCategory;
   pricing?: Pricing;
 }
 

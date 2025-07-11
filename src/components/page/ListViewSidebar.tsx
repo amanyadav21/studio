@@ -18,6 +18,7 @@ import {
   ClipboardCheck,
   ListChecks,
   Languages,
+  Shield,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -47,6 +48,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   'Code Quality': ClipboardCheck,
   'Log Management': ListChecks,
   'Translation Management': Languages,
+  'CDN and Protection': Shield,
 };
 
 export function ListViewSidebar({
