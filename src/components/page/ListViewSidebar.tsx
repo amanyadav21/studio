@@ -19,6 +19,7 @@ import {
   ListChecks,
   Languages,
   Shield,
+  Server,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -49,6 +50,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   'Log Management': ListChecks,
   'Translation Management': Languages,
   'CDN and Protection': Shield,
+  'Web Hosting': Server,
 };
 
 export function ListViewSidebar({

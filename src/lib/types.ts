@@ -12,6 +12,7 @@ export type ToolCategory =
   | "AI & ML"
   | "Major Cloud Providers"
   | "APIs"
+  | "Web Hosting"
   | "Email"
   | "Educational Plan"
   | "Log Management"

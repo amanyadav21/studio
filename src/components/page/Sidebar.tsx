@@ -23,6 +23,7 @@ import {
   ListChecks,
   Languages,
   Shield,
+  Server,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -70,6 +71,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: aiMlSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
     { id: "Major Cloud Providers", label: "Major Cloud Providers", icon: Cloud },
+    { id: "Web Hosting", label: "Web Hosting", icon: Server },
     { id: "CDN and Protection", label: "CDN & Protection", icon: Shield, subCategories: cdnSubCategories, isCollapsible: true },
     { id: "Email", label: "Email", icon: Mail },
     { id: "Log Management", label: "Log Management", icon: ListChecks },
