@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import {
   Code,
@@ -141,31 +142,31 @@ export default function RoadmapsPage() {
             className: 'bg-gray-500/10 text-gray-400',
           };
           return (
-            <Link key={roadmap.slug} href={`/roadmap/${roadmap.slug}`} passHref>
-              <Card className="relative flex flex-col h-full bg-card/60 hover:bg-card/90 transition-all duration-300 hover:-translate-y-1 group">
-                <CardHeader className="relative p-5">
-                  <div className="flex items-start justify-between">
-                    <div
-                      className={cn(
-                        'flex h-12 w-12 items-center justify-center rounded-lg',
-                        className
-                      )}
-                    >
-                      {icon}
-                    </div>
-                     {roadmap.isNew && (
-                        <Badge variant="outline" className="border-blue-500/50 bg-blue-500/10 text-blue-400">NEW</Badge>
-                     )}
+            <Link
+              key={roadmap.slug}
+              href={`/roadmap/${roadmap.slug}`}
+              passHref
+              className="group"
+            >
+              <Card className="relative flex flex-col h-full bg-card/60 hover:bg-card/90 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                {roadmap.isNew && (
+                  <Badge variant="outline" className="absolute top-3 right-3 border-blue-500/50 bg-blue-500/10 text-blue-400 z-10">NEW</Badge>
+                )}
+                <CardHeader className="flex-row items-center gap-4 space-y-0 p-4">
+                  <div className={cn('flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg', className)}>
+                    {icon}
+                  </div>
+                  <div>
+                    <CardTitle className="text-base font-bold">{roadmap.title}</CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent className="flex-grow p-5">
-                  <h2 className="text-lg font-bold">{roadmap.title}</h2>
-                  <p className="mt-1 text-sm text-muted-foreground line-clamp-3">
+                <CardContent className="flex-grow p-4 pt-0">
+                  <p className="text-sm text-muted-foreground line-clamp-2">
                     {roadmap.description}
                   </p>
                 </CardContent>
-                <CardFooter className="p-5 pt-0">
-                  <div className="flex items-center gap-2 text-sm font-bold text-primary/80 group-hover:text-primary group-hover:underline">
+                <CardFooter className="p-4 pt-0">
+                  <div className="flex items-center gap-1 text-sm font-semibold text-primary/80 group-hover:text-primary transition-colors">
                     <span>Explore Path</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
