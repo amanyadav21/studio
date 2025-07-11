@@ -68,6 +68,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "Code Quality", label: "Code Quality", icon: ClipboardCheck },
     { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: aiMlSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
+    { id: "Major Cloud Providers", label: "Major Cloud Providers", icon: Cloud },
     { id: "Cloud Provider", label: "Cloud Provider", icon: Cloud },
     { id: "Email", label: "Email", icon: Mail },
     { id: "Log Management", label: "Log Management", icon: ListChecks },

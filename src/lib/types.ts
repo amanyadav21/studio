@@ -1,3 +1,4 @@
+
 export type Pricing = "Free" | "Paid" | "Freemium";
 
 export type ToolCategory =
@@ -9,6 +10,7 @@ export type ToolCategory =
   | "Source Code Repos"
   | "Code Quality"
   | "AI & ML"
+  | "Major Cloud Providers"
   | "Cloud Provider"
   | "APIs"
   | "Email"
