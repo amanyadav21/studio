@@ -136,6 +136,23 @@ export const ToolCard = React.memo(function ToolCard({
           />
         </Link>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        
+        {tool.isRecommended && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="absolute top-3 left-3 h-3 w-3">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <p>Recommended</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
+
         <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-1">
           <Badge
             variant="outline"

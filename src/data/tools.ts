@@ -109,6 +109,7 @@ export const tools: Tool[] = [
     category: "UI & UX",
     subcategory: "UI Design Tools",
     pricing: "Freemium",
+    isRecommended: true,
   },
   {
     id: "penpot",
@@ -228,6 +229,7 @@ export const tools: Tool[] = [
     category: "UI & UX",
     subcategory: "UI Kits & Templates",
     pricing: "Free",
+    isRecommended: true,
   },
   {
     id: "sketch-repo",
@@ -273,6 +275,7 @@ export const tools: Tool[] = [
     category: "UI & UX",
     subcategory: "Assets",
     pricing: "Free",
+    isRecommended: true,
   },
   {
     id: "undraw",
@@ -445,6 +448,7 @@ export const tools: Tool[] = [
       freeUrl: "https://www.notion.so/signup",
       category: 'Writing & Notes',
       pricing: 'Freemium',
+      isRecommended: true,
   },
   {
       id: 'microsoft-onenote',
@@ -485,6 +489,7 @@ export const tools: Tool[] = [
       url: 'https://obsidian.md',
       category: 'Writing & Notes',
       pricing: 'Freemium',
+      isRecommended: true,
   },
   {
       id: 'remnote',
@@ -650,6 +655,7 @@ export const tools: Tool[] = [
     category: "Productivity Tools",
     subcategory: "Task Management",
     pricing: "Freemium",
+    isRecommended: true,
   },
   {
     id: "clickup",
@@ -849,6 +855,7 @@ export const tools: Tool[] = [
     category: "Productivity Tools",
     subcategory: "Mind & Notes",
     pricing: "Free",
+    isRecommended: true,
   },
   {
     id: "microsoft-whiteboard",
@@ -967,6 +974,7 @@ export const tools: Tool[] = [
     category: "No-Code / Low-Code",
     subcategory: "Website Builders",
     pricing: "Freemium",
+    isRecommended: true,
   },
   {
     id: "carrd",
@@ -1111,6 +1119,7 @@ export const tools: Tool[] = [
     category: "No-Code / Low-Code",
     subcategory: "Backend & DB",
     pricing: "Freemium",
+    isRecommended: true,
   },
   {
     id: "zapier-automation",
@@ -1355,6 +1364,7 @@ export const tools: Tool[] = [
     category: "Frameworks & Libraries",
     subcategory: "Frontend",
     pricing: "Free",
+    isRecommended: true,
   },
   {
     id: "vuejs",
@@ -1490,6 +1500,7 @@ export const tools: Tool[] = [
     category: "Frameworks & Libraries",
     subcategory: "Fullstack",
     pricing: "Free",
+    isRecommended: true,
   },
   {
     id: "remix",
@@ -1998,6 +2009,7 @@ export const tools: Tool[] = [
     url: "https://github.com/",
     category: "Source Code Repos",
     pricing: "Freemium",
+    isRecommended: true,
   },
   {
     id: "gitlab",
@@ -2396,6 +2408,7 @@ export const tools: Tool[] = [
     category: 'AI & ML',
     subcategory: 'Data Science & Notebooks',
     pricing: 'Free',
+    isRecommended: true,
   },
   {
     id: 'cometml',
@@ -2477,6 +2490,7 @@ export const tools: Tool[] = [
     category: 'AI & ML',
     subcategory: 'Platforms & MLOps',
     pricing: 'Freemium',
+    isRecommended: true,
   },
   {
     id: 'lightly',
@@ -3423,6 +3437,7 @@ export const tools: Tool[] = [
     category: 'APIs',
     subcategory: 'Development & Testing',
     pricing: 'Freemium',
+    isRecommended: true,
   },
   {
     id: 'insomnia',
@@ -3789,6 +3804,7 @@ export const tools: Tool[] = [
     url: 'https://cloud.google.com/free',
     category: 'Major Cloud Providers',
     pricing: 'Freemium',
+    isRecommended: true,
   },
   {
     id: 'aws-free-tier',
@@ -4025,6 +4041,7 @@ export const tools: Tool[] = [
     url: 'https://www.netlify.com/',
     category: 'Web Hosting',
     pricing: 'Freemium',
+    isRecommended: true,
   },
   {
     id: 'pandastack',
@@ -4097,6 +4114,7 @@ export const tools: Tool[] = [
     url: 'https://vercel.com/',
     category: 'Web Hosting',
     pricing: 'Freemium',
+    isRecommended: true,
   },
   {
     id: 'versoly',
@@ -4225,7 +4243,7 @@ export const tools: Tool[] = [
     url: "https://cloudinary.com/",
     category: "Storage and Media Processing",
     subcategory: "Image & Video Processing",
-    pricing: "Freemium"
+    pricing: "Freemium",
   },
   {
     id: "embedly",
@@ -4468,7 +4486,7 @@ export const tools: Tool[] = [
     url: "https://tinypng.com/",
     category: "Storage and Media Processing",
     subcategory: "Image & Video Processing",
-    pricing: "Freemium"
+    pricing: "Freemium",
   },
   {
     id: "transloadit",
@@ -4482,7 +4500,7 @@ export const tools: Tool[] = [
   {
     id: "twicpics",
     name: "Twicpics",
-    description: "Responsive images as a service. It provides an image CDN, a media processing API, and a frontend library. Free for up to 3GB of traffic/per month.",
+    description: "Responsive images as a service. It provides an image CDN, a media processing API, and a frontend library to automate image optimization. The service is free for up to 3GB of traffic/per month.",
     url: "https://www.twicpics.com/",
     category: "Storage and Media Processing",
     subcategory: "Image & Video Processing",
@@ -4983,7 +5001,8 @@ export const tools: Tool[] = [
     description: 'A transactional email API for developers. Free plan offers 3,000 emails/month and one custom domain.',
     url: 'https://resend.com/',
     category: 'Email',
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    isRecommended: true,
   },
   {
     id: 'sender',
@@ -5372,6 +5391,7 @@ export const tools: Tool[] = [
     category: 'Educational Plan',
     subcategory: 'Coding & Development',
     pricing: 'Free',
+    isRecommended: true,
   },
   {
     id: 'replit-student',

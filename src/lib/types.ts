@@ -107,6 +107,7 @@ export interface Tool {
     | CdnSubCategory
     | StorageSubCategory;
   pricing?: Pricing;
+  isRecommended?: boolean;
 }
 
 export interface RoadmapTool {
@@ -131,7 +132,7 @@ export interface RoadmapSection {
 
 export interface Roadmap {
   slug: string;
-  title: string;
+  title:string;
   description: string;
   isNew?: boolean;
   legend: {
