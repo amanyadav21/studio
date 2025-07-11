@@ -60,51 +60,14 @@ export const Header = React.memo(function Header({
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between gap-4 px-6">
-        {/* Left Section - Logo & Main Nav */}
-        <div className="flex items-center gap-6">
+        {/* Left Section: Logo & Search */}
+        <div className="flex flex-1 items-center gap-6">
           <Link href="/" className="flex flex-shrink-0 items-center gap-2">
             <AppLogo className="h-6 w-6" />
             <span className="hidden font-bold sm:inline-block">Coderkart</span>
           </Link>
-          <div className="hidden sm:flex items-center justify-center">
-              <div className="flex items-center gap-1 rounded-md border bg-muted p-1">
-                <Button
-                    variant={viewMode === 'grid' && !isRoadmapPage ? 'secondary' : 'ghost'}
-                    size="sm"
-                    className="px-3"
-                    onClick={() => onSearchTermChange === undefined ? window.location.href = '/' : onViewModeChange?.('grid')}
-                >
-                    <LayoutGrid className="mr-2 h-4 w-4" />
-                    Grid
-                </Button>
-                <Button
-                    variant={viewMode === 'list' && !isRoadmapPage ? 'secondary' : 'ghost'}
-                    size="sm"
-                    className="px-3"
-                    onClick={() => onSearchTermChange === undefined ? window.location.href = '/' : onViewModeChange?.('list')}
-                >
-                    <List className="mr-2 h-4 w-4" />
-                    List
-                </Button>
-                 <Button
-                  variant={isRoadmapPage ? 'secondary' : 'ghost'}
-                  size="sm"
-                  className="px-3"
-                  asChild
-                >
-                  <Link href="/roadmap">
-                    <Map className="mr-2 h-4 w-4" />
-                    Roadmaps
-                  </Link>
-                </Button>
-              </div>
-          </div>
-        </div>
-
-        {/* Right Section - Search & Actions */}
-        <div className="flex flex-1 items-center justify-end gap-2">
-            {showSearch && (
-              <div className="relative w-full max-w-[200px]">
+           {showSearch && (
+              <div className="relative hidden md:block w-full max-w-[200px]">
                   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     ref={searchInputRef}
@@ -119,6 +82,45 @@ export const Header = React.memo(function Header({
                   </div>
               </div>
             )}
+        </div>
+
+        {/* Center Section: Main Nav */}
+        <div className="hidden sm:flex items-center justify-center">
+            <div className="flex items-center gap-1 rounded-md border bg-muted p-1">
+              <Button
+                  variant={viewMode === 'grid' && !isRoadmapPage ? 'secondary' : 'ghost'}
+                  size="sm"
+                  className="px-3"
+                  onClick={() => onSearchTermChange === undefined ? window.location.href = '/' : onViewModeChange?.('grid')}
+              >
+                  <LayoutGrid className="mr-2 h-4 w-4" />
+                  Grid
+              </Button>
+              <Button
+                  variant={viewMode === 'list' && !isRoadmapPage ? 'secondary' : 'ghost'}
+                  size="sm"
+                  className="px-3"
+                  onClick={() => onSearchTermChange === undefined ? window.location.href = '/' : onViewModeChange?.('list')}
+              >
+                  <List className="mr-2 h-4 w-4" />
+                  List
+              </Button>
+               <Button
+                variant={isRoadmapPage ? 'secondary' : 'ghost'}
+                size="sm"
+                className="px-3"
+                asChild
+              >
+                <Link href="/roadmap">
+                  <Map className="mr-2 h-4 w-4" />
+                  Roadmaps
+                </Link>
+              </Button>
+            </div>
+        </div>
+
+        {/* Right Section - Actions */}
+        <div className="flex flex-1 items-center justify-end gap-2">
             <ColorPicker
                 selectedColor={cardColor ?? null}
                 onColorChange={onCardColorChange}
