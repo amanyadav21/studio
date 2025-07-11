@@ -55,35 +55,41 @@ export const Header = React.memo(function Header({
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  const showSearch = onSearchTermChange !== undefined;
+
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between gap-4 px-6">
-        <div className="flex items-center gap-4">
-            <Link href="/" className="flex flex-shrink-0 items-center gap-2">
-                <AppLogo className="h-6 w-6" />
-                <span className="hidden font-bold sm:inline-block">Coderkart</span>
-            </Link>
+        {/* Left Section */}
+        <div className="flex items-center gap-4 flex-1">
+          <Link href="/" className="flex flex-shrink-0 items-center gap-2">
+            <AppLogo className="h-6 w-6" />
+            <span className="hidden font-bold sm:inline-block">Coderkart</span>
+          </Link>
+          {showSearch && (
+            <>
+              <Separator orientation="vertical" className="h-6 hidden sm:block" />
+              <div className="relative w-full max-w-xs sm:max-w-sm">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    ref={searchInputRef}
+                    type="search"
+                    placeholder="Search tools..."
+                    className="h-9 w-full pl-9 pr-16"
+                    value={searchTerm || ""}
+                    onChange={(e) => onSearchTermChange?.(e.target.value)}
+                  />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <Kbd>⌘K</Kbd>
+                  </div>
+              </div>
+            </>
+          )}
         </div>
 
-        <div className="flex flex-1 items-center justify-end gap-2 sm:gap-4">
-            <div className="relative w-full max-w-xs sm:max-w-sm">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                ref={searchInputRef}
-                type="search"
-                placeholder="Search tools..."
-                className="h-9 w-full pl-9 pr-16"
-                value={searchTerm || ""}
-                onChange={(e) => onSearchTermChange?.(e.target.value)}
-                />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <Kbd>⌘K</Kbd>
-                </div>
-            </div>
-            
-            <Separator orientation="vertical" className="h-6 hidden sm:block" />
-            
-            <div className="hidden sm:flex items-center gap-1 rounded-md border bg-muted p-1">
+        {/* Center Section */}
+        <div className="hidden sm:flex items-center justify-center">
+            <div className="flex items-center gap-1 rounded-md border bg-muted p-1">
               <Button
                   variant={viewMode === 'grid' && !isRoadmapPage ? 'secondary' : 'ghost'}
                   size="sm"
@@ -114,7 +120,10 @@ export const Header = React.memo(function Header({
                 </Link>
               </Button>
             </div>
+        </div>
 
+        {/* Right Section */}
+        <div className="flex flex-1 items-center justify-end gap-2">
             <ColorPicker
                 selectedColor={cardColor ?? null}
                 onColorChange={onCardColorChange}
