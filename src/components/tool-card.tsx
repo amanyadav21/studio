@@ -211,12 +211,12 @@ export const ToolCard = React.memo(function ToolCard({
       </CardHeader>
       <CardFooter className="px-4 pt-0 pb-4">
         {tool.pricing === 'Freemium' && tool.freeUrl ? (
-          <div className="flex w-full items-center justify-end gap-2">
+          <div className="flex w-full items-center gap-2">
             <Button
               asChild
               variant="secondary"
               size="default"
-              className="font-semibold rounded-xl"
+              className="font-semibold rounded-xl w-1/2"
             >
               <Link href={tool.url} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="h-4 w-4 mr-2" />
@@ -226,7 +226,7 @@ export const ToolCard = React.memo(function ToolCard({
             <Button
               asChild
               size="default"
-              className="font-semibold rounded-xl"
+              className="font-semibold rounded-xl w-1/2"
               style={styles?.button}
             >
               <Link href={tool.freeUrl} target="_blank" rel="noopener noreferrer">
