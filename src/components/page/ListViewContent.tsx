@@ -69,6 +69,13 @@ export const ListViewContent = React.forwardRef<
             {' - '}
             <span className="text-muted-foreground">{tool.description}</span>
           </p>
+          {tool.details && (
+            <ul className="list-disc pl-5 mt-2 text-sm text-muted-foreground space-y-1">
+              {tool.details.map((detail, index) => (
+                <li key={index}>{detail}</li>
+              ))}
+            </ul>
+          )}
         </div>
       </li>
     );

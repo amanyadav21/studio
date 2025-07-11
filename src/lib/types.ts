@@ -70,6 +70,7 @@ export interface Tool {
   id: string;
   name: string;
   description: string;
+  details?: string[];
   url: string;
   freeUrl?: string;
   category: ToolCategory;
