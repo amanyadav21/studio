@@ -8,10 +8,10 @@ import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn, slugify } from "@/lib/utils";
 
-import { Header } from "@/components/page/Header";
-import { Sidebar } from "@/components/page/Sidebar";
-import { CategoryHeader } from "@/components/page/CategoryHeader";
-import { ToolGrid } from "@/components/page/ToolGrid";
+import Header from "@/components/page/Header";
+import Sidebar from "@/components/page/Sidebar";
+import CategoryHeader from "@/components/page/CategoryHeader";
+import ToolGrid from "@/components/page/ToolGrid";
 import { ListView } from "@/components/page/ListView";
 
 const INITIAL_SAVED_TOOLS: string[] = [];
@@ -199,7 +199,7 @@ export default function Home() {
         return { pageTitle: "Saved Tools", pageDescription: "Your hand-picked tools for quick and easy access." };
     }
     if (category) {
-        const subcategories = subCategoryMap[category];
+        const subcategories = subCategoryMap[category as keyof typeof subCategoryMap];
         const description = subcategories 
             ? `A curated collection of essential tools for ${category}.`
             : `A collection of tools for ${category.toLowerCase()}.`;
@@ -236,7 +236,7 @@ export default function Home() {
     </>
   );
 
-  const subcategoriesForSelected = subCategoryMap[selectedCategory];
+  const subcategoriesForSelected = subCategoryMap[selectedCategory as keyof typeof subCategoryMap];
 
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">

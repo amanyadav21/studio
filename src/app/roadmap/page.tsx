@@ -21,6 +21,8 @@ import {
   BotMessageSquare,
   PenTool,
   ArrowRight,
+  Network,
+  Users,
 } from 'lucide-react';
 import { roadmaps } from '@/data/roadmaps';
 import { Badge } from '@/components/ui/badge';
@@ -109,11 +111,11 @@ const roadmapIcons: Record<string, { icon: ReactNode; className: string }> = {
     className: 'bg-fuchsia-500/10 text-fuchsia-400',
   },
   'developer-relations': {
-    icon: <BotMessageSquare className="h-6 w-6" />,
+    icon: <Users className="h-6 w-6" />,
     className: 'bg-indigo-500/10 text-indigo-400',
   },
   'software-architect': {
-    icon: <BotMessageSquare className="h-6 w-6" />,
+    icon: <Network className="h-6 w-6" />,
     className: 'bg-gray-400/10 text-gray-300',
   },
   'engineering-manager': {

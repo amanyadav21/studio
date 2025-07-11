@@ -6,7 +6,7 @@ interface CategoryHeaderProps {
     description: string;
 }
 
-export const CategoryHeader = React.memo(function CategoryHeader({ title, description }: CategoryHeaderProps) {
+function CategoryHeader({ title, description }: CategoryHeaderProps) {
     return (
         <div className="mb-6">
             <h1 className="text-3xl font-bold tracking-tight">
@@ -17,4 +17,6 @@ export const CategoryHeader = React.memo(function CategoryHeader({ title, descri
             </p>
         </div>
     );
-});
+}
+
+export default React.memo(CategoryHeader);

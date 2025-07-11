@@ -14,7 +14,7 @@ interface ToolGridProps {
   isSavedSection?: boolean;
 }
 
-export const ToolGrid = React.memo(function ToolGrid({
+function ToolGrid({
   tools,
   savedTools,
   onToggleSaved,
@@ -58,4 +58,6 @@ export const ToolGrid = React.memo(function ToolGrid({
       ))}
     </div>
   );
-});
+}
+
+export default React.memo(ToolGrid);

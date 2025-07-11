@@ -11,11 +11,9 @@ export type ToolCategory =
   | "Code Quality"
   | "AI & ML"
   | "Major Cloud Providers"
-  | "Cloud Provider"
   | "APIs"
   | "Email"
   | "Educational Plan"
-  | "Education and Career Development"
   | "Log Management"
   | "Translation Management";
 

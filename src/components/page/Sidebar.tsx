@@ -63,20 +63,18 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "Productivity Tools", label: "Productivity Tools", icon: Zap, subCategories: productivitySubCategories, isCollapsible: true },
     { id: "No-Code / Low-Code", label: "No-Code / Low-Code", icon: MousePointerClick, subCategories: noCodeSubCategories, isCollapsible: true },
     { id: "Educational Plan", label: "Educational Plan", icon: GraduationCap, subCategories: educationalPlanSubCategories, isCollapsible: true },
-    { id: "Education and Career Development", label: "Education & Career", icon: GraduationCap },
     { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: frameworkSubCategories, isCollapsible: true },
     { id: "Source Code Repos", label: "Source Code Repos", icon: GitBranch },
     { id: "Code Quality", label: "Code Quality", icon: ClipboardCheck },
     { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: aiMlSubCategories, isCollapsible: true },
     { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
     { id: "Major Cloud Providers", label: "Major Cloud Providers", icon: Cloud },
-    { id: "Cloud Provider", label: "Cloud Provider", icon: Cloud },
     { id: "Email", label: "Email", icon: Mail },
     { id: "Log Management", label: "Log Management", icon: ListChecks },
     { id: "Translation Management", label: "Translation Mgmt", icon: Languages },
 ];
 
-export const Sidebar = React.memo(function Sidebar({
+function Sidebar({
   selectedCategory,
   selectedSubCategory,
   onCategoryChange,
@@ -297,4 +295,6 @@ export const Sidebar = React.memo(function Sidebar({
       </TooltipProvider>
     </aside>
   );
-});
+}
+
+export default React.memo(Sidebar);
