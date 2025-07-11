@@ -143,7 +143,7 @@ export default function RoadmapsPage() {
           return (
             <Link key={roadmap.slug} href={`/roadmap/${roadmap.slug}`} passHref>
               <Card className="relative flex flex-col h-full bg-card/60 hover:bg-card/90 transition-all duration-300 hover:-translate-y-1 group">
-                <CardHeader className="relative">
+                <CardHeader className="relative p-5">
                   <div className="flex items-start justify-between">
                     <div
                       className={cn(
@@ -153,19 +153,19 @@ export default function RoadmapsPage() {
                     >
                       {icon}
                     </div>
+                     {roadmap.isNew && (
+                        <Badge variant="outline" className="border-blue-500/50 bg-blue-500/10 text-blue-400">NEW</Badge>
+                     )}
                   </div>
-                  {roadmap.isNew && (
-                    <Badge className="absolute top-4 right-4 bg-blue-500 text-white border-blue-500">NEW</Badge>
-                  )}
                 </CardHeader>
-                <CardContent className="flex-grow">
-                  <h2 className="text-xl font-bold">{roadmap.title}</h2>
-                  <p className="mt-2 text-muted-foreground line-clamp-2">
+                <CardContent className="flex-grow p-5">
+                  <h2 className="text-lg font-bold">{roadmap.title}</h2>
+                  <p className="mt-1 text-sm text-muted-foreground line-clamp-3">
                     {roadmap.description}
                   </p>
                 </CardContent>
-                <CardFooter>
-                  <div className="flex items-center gap-2 text-sm font-semibold text-primary group-hover:underline">
+                <CardFooter className="p-5 pt-0">
+                  <div className="flex items-center gap-2 text-sm font-bold text-primary/80 group-hover:text-primary group-hover:underline">
                     <span>Explore Path</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
