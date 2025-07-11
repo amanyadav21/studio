@@ -13,6 +13,7 @@ export type ToolCategory =
   | "Major Cloud Providers"
   | "APIs"
   | "Web Hosting"
+  | "Storage and Media Processing"
   | "Email"
   | "Educational Plan"
   | "Log Management"
@@ -78,6 +79,14 @@ export type EducationalPlanSubCategory =
 
 export type CdnSubCategory = "CDN" | "Security";
 
+export type StorageSubCategory = 
+  | "File Storage & Backup"
+  | "Image & Video Processing"
+  | "Data & JSON Storage"
+  | "Package Repositories"
+  | "File Conversion"
+  | "Utilities";
+
 export interface Tool {
   id: string;
   name: string;
@@ -94,7 +103,8 @@ export interface Tool {
     | ApiSubCategory
     | AiMlSubCategory
     | EducationalPlanSubCategory
-    | CdnSubCategory;
+    | CdnSubCategory
+    | StorageSubCategory;
   pricing?: Pricing;
 }
 

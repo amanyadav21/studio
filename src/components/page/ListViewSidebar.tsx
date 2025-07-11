@@ -20,6 +20,7 @@ import {
   Languages,
   Shield,
   Server,
+  Database,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -51,6 +52,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   'Translation Management': Languages,
   'CDN and Protection': Shield,
   'Web Hosting': Server,
+  'Storage and Media Processing': Database,
 };
 
 export function ListViewSidebar({

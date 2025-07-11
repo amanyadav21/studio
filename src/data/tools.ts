@@ -1,5 +1,5 @@
 
-import type { Tool, ToolCategory, FrameworkSubCategory, UiUxSubCategory, ProductivitySubCategory, NoCodeSubCategory, ApiSubCategory, AiMlSubCategory, EducationalPlanSubCategory, CdnSubCategory } from "@/lib/types";
+import type { Tool, ToolCategory, FrameworkSubCategory, UiUxSubCategory, ProductivitySubCategory, NoCodeSubCategory, ApiSubCategory, AiMlSubCategory, EducationalPlanSubCategory, CdnSubCategory, StorageSubCategory } from "@/lib/types";
 
 export const categories: ToolCategory[] = [
   "UI & UX",
@@ -14,6 +14,7 @@ export const categories: ToolCategory[] = [
   "APIs",
   "Major Cloud Providers",
   "Web Hosting",
+  "Storage and Media Processing",
   "Email",
   "Log Management",
   "Translation Management",
@@ -85,6 +86,16 @@ export const educationalPlanSubCategories: EducationalPlanSubCategory[] = [
 ];
 
 export const cdnSubCategories: CdnSubCategory[] = ["CDN", "Security"];
+
+export const storageSubCategories: StorageSubCategory[] = [
+    "File Storage & Backup",
+    "Image & Video Processing",
+    "Data & JSON Storage",
+    "Package Repositories",
+    "File Conversion",
+    "Utilities"
+];
+
 
 export const tools: Tool[] = [
   // UI & UX
@@ -3773,7 +3784,6 @@ export const tools: Tool[] = [
       'Cloud Build - 120 build-minutes per day',
       'Cloud Source Repositories - Up to 5 Users, 50 GB Storage, 50 GB Egress',
       'Google Colab - Free Jupyter Notebooks development environment.',
-      'Firebase Studio Google Firebase Studio (formerly Project IDX). Online VSCode running on Google Cloud.',
     ],
     url: 'https://cloud.google.com/free',
     category: 'Major Cloud Providers',
@@ -3799,7 +3809,7 @@ export const tools: Tool[] = [
       'Lambda - 1 million requests per month',
       'SNS - 1 million publishes per month',
       'SES - 3.000 messages per month (12mo)',
-      'SQS - 1 million messaging queue requests'
+      'SQS - 1 million messaging queue requests',
     ],
     url: 'https://aws.amazon.com/free/',
     category: 'Major Cloud Providers',
@@ -3845,7 +3855,7 @@ export const tools: Tool[] = [
       'Databases - 2 DBs, 20 GB each',
       'Bandwidth - 10 TB egress per month, speed limited to 50 Mbps on x64-based VM, 500 Mbps * core count on ARM-based VM',
       'Public IP - 2 IPv4 for VMs, 1 IPv4 for load balancer',
-      'Notifications - 1 million delivery options per month, 1000 emails sent per month'
+      'Notifications - 1 million delivery options per month, 1000 emails sent per month',
     ],
     url: 'https://www.oracle.com/cloud/free/',
     category: 'Major Cloud Providers',
@@ -4142,6 +4152,412 @@ export const tools: Tool[] = [
     url: 'https://sevalla.com/',
     category: 'Web Hosting',
     pricing: 'Freemium',
+  },
+  // Storage and Media Processing
+  {
+    id: "androidfilehost",
+    name: "AndroidFileHost",
+    description: "Free file-sharing platform with unlimited speed, bandwidth, and file count, mainly for Android dev-related files but accepts any file type.",
+    url: "https://androidfilehost.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Free"
+  },
+  {
+    id: "borgbase",
+    name: "BorgBase",
+    description: "Simple and secure offsite backup hosting for Borg Backup. 10 GB free backup space and two repositories.",
+    url: "https://www.borgbase.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "icedrive",
+    name: "Icedrive",
+    description: "Simple cloud storage service with 10 GB free storage.",
+    url: "https://icedrive.net/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "sync",
+    name: "Sync.com",
+    description: "End-to-End encrypted cloud storage service with 5 GB of free storage.",
+    url: "https://www.sync.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "pcloud",
+    name: "pCloud",
+    description: "Cloud storage service offering up to 10 GB of free storage.",
+    url: "https://www.pcloud.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "sirv",
+    name: "Sirv",
+    description: "Smart Image CDN with on-the-fly image optimization and resizing. The free tier includes 500 MB of storage and 2 GB of bandwidth.",
+    url: "https://sirv.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "cloudimage",
+    name: "Cloudimage",
+    description: "Full image optimization and CDN service. Free monthly plan with 25GB of CDN traffic, 25GB of cache storage, and unlimited transformations.",
+    url: "https://www.cloudimage.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "cloudinary",
+    name: "Cloudinary",
+    description: "Image and video upload, manipulation, storage, and delivery. Free tier includes 25 monthly credits (1 credit = 1k transforms, 1GB storage, or 1GB egress).",
+    url: "https://cloudinary.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "embedly",
+    name: "Embed.ly",
+    description: "Provides APIs for embedding media, responsive image scaling, and extracting elements from a webpage. Free for up to 5,000 URLs/month.",
+    url: "https://embed.ly/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "filestack",
+    name: "Filestack",
+    description: "File picker, transform, and deliver. Free for 250 files, 500 transformations, and 3 GB bandwidth.",
+    url: "https://www.filestack.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Conversion",
+    pricing: "Freemium"
+  },
+  {
+    id: "fileio",
+    name: "File.io",
+    description: "2 GB storage of files. A file is auto-deleted after one download. REST API available with a rate limit of one request/minute.",
+    url: "https://www.file.io/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "freetools-site",
+    name: "FreeTools.site",
+    description: "Free online tools to convert or edit documents, images, audio, video, and more.",
+    url: "https://freetools.site/",
+    category: "Storage and Media Processing",
+    subcategory: "File Conversion",
+    pricing: "Free"
+  },
+  {
+    id: "gofile",
+    name: "GoFile.io",
+    description: "Free file sharing and storage platform with a web UI & API. No limits on file size or bandwidth, but files are deleted after 10 days of inactivity.",
+    url: "https://gofile.io/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Free"
+  },
+  {
+    id: "gumlet",
+    name: "Gumlet",
+    description: "Image and video hosting, processing, and streaming via CDN. Generous free tier of 250 GB/month for videos and 30 GB/month for images.",
+    url: "https://www.gumlet.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "image-charts",
+    name: "Image-charts.com",
+    description: "Unlimited image chart generation with a watermark.",
+    url: "https://www.image-charts.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Utilities",
+    pricing: "Freemium"
+  },
+  {
+    id: "imgbot",
+    name: "Imgbot",
+    description: "A friendly robot that optimizes your images and saves you time. Free for open source.",
+    url: "https://imgbot.net/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "imgbb",
+    name: "ImgBB",
+    description: "Unlimited image hosting service. 32 MB/image limit. Provides direct links, BBCode, and HTML thumbnails.",
+    url: "https://imgbb.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Free"
+  },
+  {
+    id: "imgen",
+    name: "Imgen",
+    description: "Free unlimited social cover image generation API with no watermark.",
+    url: "https://imgen.dev/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Free"
+  },
+  {
+    id: "imgix",
+    name: "Imgix",
+    description: "Image caching, management, and CDN. Free plan includes 1000 origin images and 100 GB bandwidth.",
+    url: "https://www.imgix.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "krakenio",
+    name: "Kraken.io",
+    description: "Image optimization as a service. Free plan for up to 1 MB file size.",
+    url: "https://kraken.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "kvstore",
+    name: "KVStore.io",
+    description: "Key-value storage service. The free tier allows 100 keys, 1KB/key, and 100 calls/hour.",
+    url: "https://www.kvstore.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Data & JSON Storage",
+    pricing: "Freemium"
+  },
+  {
+    id: "npoint",
+    name: "npoint.io",
+    description: "JSON store with collaborative schema editing.",
+    url: "https://www.npoint.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Data & JSON Storage",
+    pricing: "Free"
+  },
+  {
+    id: "nitropack",
+    name: "Nitropack",
+    description: "Accelerate your site's speed on autopilot with caching, image/code optimization, and CDN. Free for up to 5,000 pageviews/month.",
+    url: "https://nitropack.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Utilities",
+    pricing: "Freemium"
+  },
+  {
+    id: "otixo",
+    name: "Otixo",
+    description: "Encrypt, share, copy, and move all your cloud storage files from one place. Free plan with unlimited file transfer (250 MB max file size).",
+    url: "https://www.otixo.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "packagecloud",
+    name: "Packagecloud",
+    description: "Hosted Package Repositories for YUM, APT, RubyGem, and PyPI. Limited free plans and open-source plans available.",
+    url: "https://packagecloud.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Package Repositories",
+    pricing: "Freemium"
+  },
+  {
+    id: "pantry",
+    name: "Pantry",
+    description: "A simple JSON data storage API perfect for personal projects, hackathons, and mobile apps.",
+    url: "https://getpantry.cloud/",
+    category: "Storage and Media Processing",
+    subcategory: "Data & JSON Storage",
+    pricing: "Free"
+  },
+  {
+    id: "pinata",
+    name: "Pinata IPFS",
+    description: "The simplest way to upload and manage files on IPFS. 1 GB storage free, along with API access.",
+    url: "https://www.pinata.cloud/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "placekitten",
+    name: "PlaceKitten",
+    description: "A quick and simple service for getting pictures of kittens for use as placeholders.",
+    url: "https://placekitten.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Utilities",
+    pricing: "Free"
+  },
+  {
+    id: "plotly",
+    name: "Plot.ly",
+    description: "Graph and share your data. The free tier includes unlimited public files and ten private files.",
+    url: "https://plot.ly/",
+    category: "Storage and Media Processing",
+    subcategory: "Utilities",
+    pricing: "Freemium"
+  },
+  {
+    id: "qrme",
+    name: "QRME.SH",
+    description: "Fast, beautiful bulk QR code generator – no login, no watermark, no ads. Up to 100 URLs per bulk export.",
+    url: "https://qrme.sh/",
+    category: "Storage and Media Processing",
+    subcategory: "Utilities",
+    pricing: "Free"
+  },
+  {
+    id: "quickchart",
+    name: "QuickChart",
+    description: "Generate embeddable image charts, graphs, and QR codes.",
+    url: "https://quickchart.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Utilities",
+    pricing: "Freemium"
+  },
+  {
+    id: "redbooth",
+    name: "Redbooth",
+    description: "P2P file syncing, free for up to 2 users.",
+    url: "https://redbooth.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "resmushit",
+    name: "reSmush.it",
+    description: "A FREE API that provides image optimization, implemented on the most common CMS such as WordPress, Drupal, or Magento.",
+    url: "https://resmush.it/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Free"
+  },
+  {
+    id: "shotstack",
+    name: "Shotstack",
+    description: "API to generate and edit video at scale. Free up to 20 minutes of rendered video per month.",
+    url: "https://shotstack.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "tinypng",
+    name: "TinyPNG",
+    description: "API to compress and resize PNG and JPEG images, offers 500 compressions for free each month.",
+    url: "https://tinypng.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "transloadit",
+    name: "Transloadit",
+    description: "Handles file uploads and encoding of video, audio, images, and documents. Free for Open source, charities, and students.",
+    url: "https://transloadit.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Conversion",
+    pricing: "Freemium"
+  },
+  {
+    id: "twicpics",
+    name: "Twicpics",
+    description: "Responsive images as a service. It provides an image CDN, a media processing API, and a frontend library. Free for up to 3GB of traffic/per month.",
+    url: "https://www.twicpics.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "uploadcare",
+    name: "Uploadcare",
+    description: "Media pipeline with file uploading, image CDN, and smart compression. Free tier has 3000 uploads, 3 GB traffic, and 3 GB storage.",
+    url: "https://uploadcare.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "imagekit",
+    name: "ImageKit.io",
+    description: "Image CDN with automatic optimization and real-time transformation. The free plan includes up to 20GB of bandwidth per month.",
+    url: "https://imagekit.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "internxt",
+    name: "Internxt",
+    description: "Zero-knowledge file storage service based on privacy and security. 10 GB free forever.",
+    url: "https://internxt.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "degoo",
+    name: "Degoo",
+    description: "AI-based cloud storage with up to 20 GB free, on three devices, with a 5 GB referral bonus.",
+    url: "https://degoo.com/",
+    category: "Storage and Media Processing",
+    subcategory: "File Storage & Backup",
+    pricing: "Freemium"
+  },
+  {
+    id: "mconverter",
+    name: "MConverter.eu",
+    description: "Convert files in bulk. Extract all image frames from videos. Free for up to ten 100MB-files per day.",
+    url: "https://mconverter.eu/",
+    category: "Storage and Media Processing",
+    subcategory: "File Conversion",
+    pricing: "Freemium"
+  },
+  {
+    id: "imageengine",
+    name: "ImageEngine",
+    description: "Easy-to-use global image CDN with AVIF and JPEGXL support. Free developer account available.",
+    url: "https://imageengine.io/",
+    category: "Storage and Media Processing",
+    subcategory: "Image & Video Processing",
+    pricing: "Freemium"
+  },
+  {
+    id: "docsparse",
+    name: "DocsParse",
+    description: "GPT-powered AI processing of PDFs and Images into structured data. 30 free credits each month.",
+    url: "https://docsparse.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Utilities",
+    pricing: "Freemium"
+  },
+  {
+    id: "libreqr",
+    name: "LibreQR",
+    description: "Free QR code generator focused on privacy and no tracking. No data collection.",
+    url: "https://www.libreqr.com/",
+    category: "Storage and Media Processing",
+    subcategory: "Utilities",
+    pricing: "Free"
   },
   // Email
   {
