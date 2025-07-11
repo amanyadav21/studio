@@ -1,6 +1,6 @@
-import { Header } from "@/components/page/Header";
+import Header from "@/components/page/Header";
 
-export default function RoadmapLayout({
+export default function PackagesLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ export default function RoadmapLayout({
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {children}
         </div>
       </main>

@@ -110,6 +110,15 @@ export interface Tool {
   isRecommended?: boolean;
 }
 
+export interface Package {
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
+  tools: string[];
+}
+
+
 export interface RoadmapTool {
   id: string;
   name: string;

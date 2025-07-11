@@ -4,7 +4,7 @@
 import {
   LayoutGrid,
   List,
-  Map,
+  Package,
   Search,
 } from "lucide-react";
 import * as React from "react";
@@ -41,7 +41,7 @@ function Header({
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-  const isRoadmapPage = pathname.startsWith('/roadmap');
+  const isPackagesPage = pathname.startsWith('/packages');
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -76,22 +76,6 @@ function Header({
             <AppLogo className="h-6 w-6" />
             <span className="hidden font-bold sm:inline-block">Coderkart</span>
           </Link>
-           {showSearch && (
-              <div className="relative hidden md:block w-full max-w-[200px]">
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    ref={searchInputRef}
-                    type="search"
-                    placeholder="Search..."
-                    className="h-9 w-full pl-9 pr-16"
-                    value={searchTerm || ""}
-                    onChange={(e) => onSearchTermChange?.(e.target.value)}
-                  />
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                    <Kbd>⌘K</Kbd>
-                  </div>
-              </div>
-            )}
         </div>
 
         <div className="hidden sm:flex items-center justify-center">
@@ -115,20 +99,36 @@ function Header({
                   List
               </Button>
                <Button
-                variant={isRoadmapPage ? 'secondary' : 'ghost'}
+                variant={isPackagesPage ? 'secondary' : 'ghost'}
                 size="sm"
                 className="px-3"
                 asChild
               >
-                <Link href="/roadmap">
-                  <Map className="mr-2 h-4 w-4" />
-                  Roadmaps
+                <Link href="/packages">
+                  <Package className="mr-2 h-4 w-4" />
+                  Packages
                 </Link>
               </Button>
             </div>
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-2">
+            {showSearch && (
+              <div className="relative hidden md:block w-full max-w-[200px]">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    ref={searchInputRef}
+                    type="search"
+                    placeholder="Search..."
+                    className="h-9 w-full pl-9 pr-16"
+                    value={searchTerm || ""}
+                    onChange={(e) => onSearchTermChange?.(e.target.value)}
+                  />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <Kbd>⌘K</Kbd>
+                  </div>
+              </div>
+            )}
             <ColorPicker
                 selectedColor={cardColor ?? null}
                 onColorChange={onCardColorChange}
