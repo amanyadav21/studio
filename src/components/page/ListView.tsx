@@ -3,9 +3,11 @@
 
 import * as React from 'react';
 import type { Tool, ToolCategory } from '@/lib/types';
-import { slugify } from '@/lib/utils';
+import { slugify, cn } from '@/lib/utils';
 import { ListViewSidebar } from './ListViewSidebar';
 import { ListViewContent } from './ListViewContent';
+import { Button } from '@/components/ui/button';
+import { ArrowUp } from 'lucide-react';
 
 interface ListViewProps {
   tools: Tool[];
@@ -21,6 +23,7 @@ export function ListView({
   onToggleSaved,
 }: ListViewProps) {
   const [activeCategory, setActiveCategory] = React.useState('');
+  const [showScroll, setShowScroll] = React.useState(false);
   const contentRef = React.useRef<HTMLElement>(null);
 
   const allCategories = React.useMemo(() => {
@@ -45,6 +48,14 @@ export function ListView({
   }, [allCategories, activeCategory]);
 
   React.useEffect(() => {
+    const checkScrollTop = () => {
+      if (!showScroll && window.scrollY > 200) {
+        setShowScroll(true);
+      } else if (showScroll && window.scrollY <= 200) {
+        setShowScroll(false);
+      }
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -59,11 +70,13 @@ export function ListView({
 
     const sections = contentRef.current?.querySelectorAll('section[id]');
     sections?.forEach((section) => observer.observe(section));
+    window.addEventListener('scroll', checkScrollTop);
 
     return () => {
       sections?.forEach((section) => observer.unobserve(section));
+      window.removeEventListener('scroll', checkScrollTop);
     };
-  }, [tools]); // Rerun observer setup if tools/categories change
+  }, [tools, showScroll]); 
 
   const handleCategoryClick = React.useCallback((slug: string) => {
       document.getElementById(slug)?.scrollIntoView({
@@ -71,6 +84,10 @@ export function ListView({
           block: 'start',
       });
   }, []);
+  
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="flex w-full gap-8 py-8 px-6 lg:px-8 xl:gap-12 xl:px-12">
@@ -87,6 +104,18 @@ export function ListView({
         savedTools={savedTools}
         onToggleSaved={onToggleSaved}
       />
+      <Button
+        variant="secondary"
+        size="icon"
+        onClick={scrollTop}
+        className={cn(
+          'fixed bottom-8 right-8 z-50 h-12 w-12 rounded-full shadow-lg transition-opacity duration-300',
+          showScroll ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        )}
+      >
+        <ArrowUp className="h-6 w-6" />
+        <span className="sr-only">Scroll to top</span>
+      </Button>
     </div>
   );
 }

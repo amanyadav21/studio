@@ -1,9 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { ArrowUp, BookOpen, Bookmark } from 'lucide-react';
+import { BookOpen, Bookmark } from 'lucide-react';
 import type { Tool, ToolCategory } from '@/lib/types';
-import { Button } from '@/components/ui/button';
 import { slugify, cn } from '@/lib/utils';
 import {
   Tooltip,
@@ -131,14 +130,6 @@ export const ListViewContent = React.forwardRef<
                     {renderToolsList(toolsForCategory.filter((t) => t.subcategory === subCat))}
                   </React.Fragment>
                 ))}
-                
-                <div className="mt-6 text-right not-prose">
-                  <Button asChild variant="ghost" size="sm">
-                    <a href="#top">
-                      <ArrowUp className="mr-2 h-4 w-4" /> Back to Top
-                    </a>
-                  </Button>
-                </div>
               </section>
             );
           })}
