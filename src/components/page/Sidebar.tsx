@@ -38,9 +38,9 @@ import {
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import type { ToolCategory } from "@/lib/types";
-import { frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories, apiSubCategories, aiMlSubCategories, educationalPlanSubCategories, cdnSubCategories, storageSubCategories } from "@/data/tools";
 import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface NavItemConfig {
     id: ToolCategory | "Saved" | "All";
@@ -63,22 +63,22 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "Saved", label: "Saved", icon: Bookmark },
     { id: "All", label: "All Tools", icon: LayoutGrid },
     { type: 'separator' },
-    { id: "UI & UX", label: "UI & UX", icon: Palette, subCategories: uiUxSubCategories, isCollapsible: true },
+    { id: "UI & UX", label: "UI & UX", icon: Palette, subCategories: ["UI Design Tools", "UI Kits & Templates", "Assets", "Prototyping & Testing", "Inspiration"], isCollapsible: true },
     { id: "Writing & Notes", label: "Writing & Notes", icon: PenSquare },
-    { id: "Productivity Tools", label: "Productivity Tools", icon: Zap, subCategories: productivitySubCategories, isCollapsible: true },
-    { id: "No-Code / Low-Code", label: "No-Code / Low-Code", icon: MousePointerClick, subCategories: noCodeSubCategories, isCollapsible: true },
-    { id: "Educational Plan", label: "Educational Plan", icon: GraduationCap, subCategories: educationalPlanSubCategories, isCollapsible: true },
-    { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: frameworkSubCategories, isCollapsible: true },
+    { id: "Productivity Tools", label: "Productivity Tools", icon: Zap, subCategories: ["Task Management", "Time & Focus", "Mind & Notes", "Utilities", "Dev Task Tools"], isCollapsible: true },
+    { id: "No-Code / Low-Code", label: "No-Code / Low-Code", icon: MousePointerClick, subCategories: ["Website Builders", "App Builders", "Backend & DB", "Automation", "Design Tools", "AI", "Forms", "Authentication", "Analytics", "Platforms"], isCollapsible: true },
+    { id: "Educational Plan", label: "Educational Plan", icon: GraduationCap, subCategories: ["Coding & Development", "Developer Tools & APIs", "Cloud & Hosting", "Learning Platforms", "Design & Creativity", "Student Discounts", "Bonus Tools"], isCollapsible: true },
+    { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: ["Frontend", "Backend", "Fullstack", "Mobile", "Desktop", "Testing", "Build Tools", "AI / ML", "CLI / Dev Tools"], isCollapsible: true },
     { id: "Free Domains", label: "Free Domains", icon: Globe },
     { id: "Source Code Repos", label: "Source Code Repos", icon: GitBranch },
     { id: "Code Quality", label: "Code Quality", icon: ClipboardCheck },
-    { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: aiMlSubCategories, isCollapsible: true },
-    { id: "APIs", label: "APIs", icon: Share2, subCategories: apiSubCategories, isCollapsible: true },
+    { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: ["Platforms & MLOps", "Models & APIs", "Data Science & Notebooks"], isCollapsible: true },
+    { id: "APIs", label: "APIs", icon: Share2, subCategories: ["Development & Testing", "Data & Information", "Scraping & Automation", "PDF & Image Generation"], isCollapsible: true },
     { id: "Data Visualization on Maps", label: "Maps & Geo", icon: MapIcon },
     { id: "Major Cloud Providers", label: "Major Cloud Providers", icon: Cloud },
     { id: "Web Hosting", label: "Web Hosting", icon: Server },
-    { id: "Storage and Media Processing", label: "Storage & Media", icon: Database, subCategories: storageSubCategories, isCollapsible: true },
-    { id: "CDN and Protection", label: "CDN & Protection", icon: Shield, subCategories: cdnSubCategories, isCollapsible: true },
+    { id: "Storage and Media Processing", label: "Storage & Media", icon: Database, subCategories: ["File Storage & Backup", "Image & Video Processing", "Data & JSON Storage", "Package Repositories", "File Conversion", "Utilities"], isCollapsible: true },
+    { id: "CDN and Protection", label: "CDN & Protection", icon: Shield, subCategories: ["CDN", "Security"], isCollapsible: true },
     { id: "Email", label: "Email", icon: Mail },
     { id: "Log Management", label: "Log Management", icon: ListChecks },
     { id: "Translation Management", label: "Translation Mgmt", icon: Languages },
@@ -251,48 +251,40 @@ function Sidebar({
       )}
     >
       <TooltipProvider delayDuration={0}>
-        <div
-          className={cn(
-            "flex-1 overflow-y-auto py-4",
-            isCollapsed ? "px-2" : "px-4"
-          )}
-        >
-          <nav
-            className={cn(
-              "flex w-full flex-col gap-1",
-              isCollapsed && "items-center"
-            )}
-          >
-            <div className={cn("mb-4 flex w-full", isCollapsed ? "justify-center" : "justify-end")}>
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button
-                        onClick={onToggleSidebar}
-                        variant="ghost"
-                        size="icon"
-                        >
-                        {isCollapsed ? (
-                            <PanelRightClose className="h-5 w-5" />
-                        ) : (
-                            <PanelLeftClose className="h-5 w-5" />
-                        )}
-                        <span className="sr-only">Toggle sidebar</span>
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="right">
-                        <p>{isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}</p>
-                    </TooltipContent>
-                </Tooltip>
-            </div>
-            
-            {sidebarStructure.map((item, index) => {
-              if ('type' in item && item.type === 'separator') {
-                return <Separator key={`sep-${index}`} className="my-4" />;
-              }
-              return renderItem(item as NavItemConfig);
-            })}
-          </nav>
+        <div className={cn("flex w-full p-4", isCollapsed ? "justify-center" : "justify-end")}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button onClick={onToggleSidebar} variant="ghost" size="icon">
+                {isCollapsed ? (
+                  <PanelRightClose className="h-5 w-5" />
+                ) : (
+                  <PanelLeftClose className="h-5 w-5" />
+                )}
+                <span className="sr-only">Toggle sidebar</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p>{isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
+        <ScrollArea className="flex-1">
+          <div className={cn("flex-1 py-4", isCollapsed ? "px-2" : "px-4")}>
+            <nav
+              className={cn(
+                "flex w-full flex-col gap-1",
+                isCollapsed && "items-center"
+              )}
+            >
+              {sidebarStructure.map((item, index) => {
+                if ('type' in item && item.type === 'separator') {
+                  return <Separator key={`sep-${index}`} className="my-4" />;
+                }
+                return renderItem(item as NavItemConfig);
+              })}
+            </nav>
+          </div>
+        </ScrollArea>
       </TooltipProvider>
     </aside>
   );
