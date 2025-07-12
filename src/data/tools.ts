@@ -8,6 +8,7 @@ export const categories: ToolCategory[] = [
   "No-Code / Low-Code",
   "Educational Plan",
   "Frameworks & Libraries",
+  "Free Domains",
   "Source Code Repos",
   "Code Quality",
   "AI & ML",
@@ -4486,7 +4487,7 @@ export const tools: Tool[] = [
     url: "https://tinypng.com/",
     category: "Storage and Media Processing",
     subcategory: "Image & Video Processing",
-    pricing: "Freemium",
+    pricing: "Freemium"
   },
   {
     id: "transloadit",
@@ -5991,5 +5992,71 @@ export const tools: Tool[] = [
     url: "https://geokeo.com/",
     category: "Data Visualization on Maps",
     pricing: "Freemium",
+  },
+  // Free Domains
+  {
+    id: 'freenom',
+    name: 'Freenom',
+    description: 'Free domains (.tk, .ml, .ga, .cf, .gq) for 12 months (renewable), but can sometimes be unstable or banned.',
+    url: 'https://www.freenom.com',
+    category: 'Free Domains',
+    pricing: 'Free'
+  },
+  {
+    id: 'infinityfree',
+    name: 'InfinityFree',
+    description: 'Free subdomains (e.g., yourname.epizy.com) and free website hosting.',
+    url: 'https://infinityfree.net',
+    category: 'Free Domains',
+    pricing: 'Free'
+  },
+  {
+    id: 'awardspace-domain',
+    name: 'AwardSpace',
+    description: 'Free subdomain (e.g., yourname.awardspace.com) included with their free hosting plan.',
+    url: 'https://www.awardspace.com',
+    category: 'Free Domains',
+    pricing: 'Free'
+  },
+  {
+    id: '000webhost',
+    name: '000WebHost',
+    description: 'Free subdomain (e.g., yourname.000webhostapp.com) along with free hosting.',
+    url: 'https://www.000webhost.com',
+    category: 'Free Domains',
+    pricing: 'Free'
+  },
+  {
+    id: 'github-pages',
+    name: 'GitHub Pages',
+    description: 'Free subdomain (yourusername.github.io). Best for static websites, portfolios, or project sites.',
+    url: 'https://pages.github.com',
+    category: 'Free Domains',
+    pricing: 'Free',
+    isRecommended: true
+  },
+  {
+    id: 'netlify-domain',
+    name: 'Netlify',
+    description: 'Free subdomain (yourname.netlify.app). Ideal for hosting modern frontend & full-stack applications.',
+    url: 'https://www.netlify.com',
+    category: 'Free Domains',
+    pricing: 'Free'
+  },
+  {
+    id: 'vercel-domain',
+    name: 'Vercel',
+    description: 'Free subdomain (yourproject.vercel.app). Primarily used for hosting React and Next.js projects.',
+    url: 'https://vercel.com',
+    category: 'Free Domains',
+    pricing: 'Free'
+  },
+  {
+    id: 'namecheap-student-domain',
+    name: 'Namecheap (via GitHub Pack)',
+    description: 'Free .me domain for one year for students with a valid college email, available through the GitHub Student Developer Pack.',
+    url: 'https://education.github.com/pack',
+    category: 'Free Domains',
+    pricing: 'Free'
   },
 ];

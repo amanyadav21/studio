@@ -22,6 +22,7 @@ import {
   Server,
   Database,
   Map,
+  Globe,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -55,6 +56,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   'Web Hosting': Server,
   'Storage and Media Processing': Database,
   'Data Visualization on Maps': Map,
+  'Free Domains': Globe,
 };
 
 export function ListViewSidebar({

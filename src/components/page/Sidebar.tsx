@@ -26,6 +26,7 @@ import {
   Server,
   Database,
   Map as MapIcon,
+  Globe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -68,6 +69,7 @@ const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
     { id: "No-Code / Low-Code", label: "No-Code / Low-Code", icon: MousePointerClick, subCategories: noCodeSubCategories, isCollapsible: true },
     { id: "Educational Plan", label: "Educational Plan", icon: GraduationCap, subCategories: educationalPlanSubCategories, isCollapsible: true },
     { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: frameworkSubCategories, isCollapsible: true },
+    { id: "Free Domains", label: "Free Domains", icon: Globe },
     { id: "Source Code Repos", label: "Source Code Repos", icon: GitBranch },
     { id: "Code Quality", label: "Code Quality", icon: ClipboardCheck },
     { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: aiMlSubCategories, isCollapsible: true },

@@ -19,7 +19,8 @@ export type ToolCategory =
   | "Educational Plan"
   | "Log Management"
   | "Translation Management"
-  | "CDN and Protection";
+  | "CDN and Protection"
+  | "Free Domains";
 
 export type FrameworkSubCategory =
   | "Frontend"
