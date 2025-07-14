@@ -948,15 +948,6 @@ export const tools: Tool[] = [
     subcategory: "Dev Task Tools",
     pricing: "Free",
   },
-  {
-    id: "todomvc",
-    name: "ToDoMVC",
-    description: "A project which helps you select a client-side MV* framework. It's a simple, yet non-trivial, todo application that demonstrates different frameworks with local storage persistence.",
-    url: "http://todomvc.com/",
-    category: "Productivity Tools",
-    subcategory: "Dev Task Tools",
-    pricing: "Free",
-  },
   // No-Code / Low-Code
   {
     id: "wix",
@@ -1760,15 +1751,6 @@ export const tools: Tool[] = [
     name: 'FastAPI',
     description: 'High-performance backend framework for APIs with Python 3.6+.',
     url: 'https://fastapi.tiangolo.com/',
-    category: 'Frameworks & Libraries',
-    subcategory: 'Backend',
-    pricing: 'Free',
-  },
-  {
-    id: 'tornado-web',
-    name: 'Tornado',
-    description: 'A Python web framework and asynchronous networking library.',
-    url: 'https://www.tornadoweb.org/en/stable/',
     category: 'Frameworks & Libraries',
     subcategory: 'Backend',
     pricing: 'Free',
@@ -4231,7 +4213,7 @@ export const tools: Tool[] = [
   {
     id: "cloudimage",
     name: "Cloudimage",
-    description: "Full image optimization and CDN service. Free monthly plan with 25GB of CDN traffic, 25GB of cache storage, and unlimited transformations.",
+    description: "Full image optimization and CDN service. A variety of image resizing, compression, and watermarking functions. Free monthly plan with 25GB of CDN traffic, 25GB of cache storage, and unlimited transformations.",
     url: "https://www.cloudimage.io/",
     category: "Storage and Media Processing",
     subcategory: "Image & Video Processing",
@@ -4244,7 +4226,7 @@ export const tools: Tool[] = [
     url: "https://cloudinary.com/",
     category: "Storage and Media Processing",
     subcategory: "Image & Video Processing",
-    pricing: "Freemium",
+    pricing: "Freemium"
   },
   {
     id: "embedly",
@@ -4312,7 +4294,7 @@ export const tools: Tool[] = [
   {
     id: "imgbot",
     name: "Imgbot",
-    description: "A friendly robot that optimizes your images and saves you time. Free for open source.",
+    description: "A friendly robot that optimizes your images and saves you time. Optimized images mean smaller file sizes without sacrificing quality. It's free for open source.",
     url: "https://imgbot.net/",
     category: "Storage and Media Processing",
     subcategory: "Image & Video Processing",
@@ -4348,7 +4330,7 @@ export const tools: Tool[] = [
   {
     id: "krakenio",
     name: "Kraken.io",
-    description: "Image optimization as a service. Free plan for up to 1 MB file size.",
+    description: "Image optimization for website performance as a service, free plan for up to 1 MB file size.",
     url: "https://kraken.io/",
     category: "Storage and Media Processing",
     subcategory: "Image & Video Processing",
