@@ -5,28 +5,9 @@ import * as React from "react";
 import {
   Bookmark,
   LayoutGrid,
-  Palette,
-  PenSquare,
-  Zap,
-  Package,
   ChevronRight,
   PanelLeftClose,
   PanelRightClose,
-  BrainCircuit,
-  Cloud,
-  Share2,
-  MousePointerClick,
-  Mail,
-  GraduationCap,
-  GitBranch,
-  ClipboardCheck,
-  ListChecks,
-  Languages,
-  Shield,
-  Server,
-  Database,
-  Map as MapIcon,
-  Globe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -41,8 +22,10 @@ import type { ToolCategory } from "@/lib/types";
 import { Separator } from "../ui/separator";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { sidebarStructure } from "@/data/sidebar";
 
-interface NavItemConfig {
+
+export interface NavItemConfig {
     id: ToolCategory | "Saved" | "All";
     label: string;
     icon: React.ElementType;
@@ -59,30 +42,7 @@ interface SidebarProps {
   onToggleSidebar: () => void;
 }
 
-const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
-    { id: "Saved", label: "Saved", icon: Bookmark },
-    { id: "All", label: "All Tools", icon: LayoutGrid },
-    { type: 'separator' },
-    { id: "UI & UX", label: "UI & UX", icon: Palette, subCategories: ["UI Design Tools", "UI Kits & Templates", "Assets", "Prototyping & Testing", "Inspiration"], isCollapsible: true },
-    { id: "Writing & Notes", label: "Writing & Notes", icon: PenSquare },
-    { id: "Productivity Tools", label: "Productivity Tools", icon: Zap, subCategories: ["Task Management", "Time & Focus", "Mind & Notes", "Utilities", "Dev Task Tools"], isCollapsible: true },
-    { id: "No-Code / Low-Code", label: "No-Code / Low-Code", icon: MousePointerClick, subCategories: ["Website Builders", "App Builders", "Backend & DB", "Automation", "Design Tools", "AI", "Forms", "Authentication", "Analytics", "Platforms"], isCollapsible: true },
-    { id: "Educational Plan", label: "Educational Plan", icon: GraduationCap, subCategories: ["Coding & Development", "Developer Tools & APIs", "Cloud & Hosting", "Learning Platforms", "Design & Creativity", "Student Discounts", "Bonus Tools"], isCollapsible: true },
-    { id: "Frameworks & Libraries", label: "Frameworks & Libraries", icon: Package, subCategories: ["Frontend", "Backend", "Fullstack", "Mobile", "Desktop", "Testing", "Build Tools", "AI / ML", "CLI / Dev Tools"], isCollapsible: true },
-    { id: "Free Domains", label: "Free Domains", icon: Globe },
-    { id: "Source Code Repos", label: "Source Code Repos", icon: GitBranch },
-    { id: "Code Quality", label: "Code Quality", icon: ClipboardCheck },
-    { id: "AI & ML", label: "AI & ML", icon: BrainCircuit, subCategories: ["Platforms & MLOps", "Models & APIs", "Data Science & Notebooks"], isCollapsible: true },
-    { id: "APIs", label: "APIs", icon: Share2, subCategories: ["Development & Testing", "Data & Information", "Scraping & Automation", "PDF & Image Generation"], isCollapsible: true },
-    { id: "Data Visualization on Maps", label: "Maps & Geo", icon: MapIcon },
-    { id: "Major Cloud Providers", label: "Major Cloud Providers", icon: Cloud },
-    { id: "Web Hosting", label: "Web Hosting", icon: Server },
-    { id: "Storage and Media Processing", label: "Storage & Media", icon: Database, subCategories: ["File Storage & Backup", "Image & Video Processing", "Data & JSON Storage", "Package Repositories", "File Conversion", "Utilities"], isCollapsible: true },
-    { id: "CDN and Protection", label: "CDN & Protection", icon: Shield, subCategories: ["CDN", "Security"], isCollapsible: true },
-    { id: "Email", label: "Email", icon: Mail },
-    { id: "Log Management", label: "Log Management", icon: ListChecks },
-    { id: "Translation Management", label: "Translation Mgmt", icon: Languages },
-];
+
 
 function Sidebar({
   selectedCategory,
@@ -104,7 +64,7 @@ function Sidebar({
       setOpenCollapsible(parentOfSelectedSub.id);
     } else {
       const isCollapsibleSelected = sidebarStructure.some(
-        (item) => 'isCollapsible' in item && item.isCollapsible && item.id === selectedCategory
+        (item) => 'isCollapsible' in item && item.isCollapsible && (item as NavItemConfig).id === selectedCategory
       );
       if (isCollapsibleSelected) {
         setOpenCollapsible(selectedCategory);
@@ -115,13 +75,14 @@ function Sidebar({
   }, [selectedCategory, selectedSubCategory]);
 
   const handleCollapsibleClick = (id: string) => {
-    onCategoryChange(id);
+    // Only toggle if we are clicking the main category header
     if (openCollapsible === id) {
-      setOpenCollapsible(null);
+        setOpenCollapsible(null);
     } else {
-      setOpenCollapsible(id);
+        setOpenCollapsible(id);
     }
   };
+
 
   const renderItem = (item: NavItemConfig) => {
     const Icon = item.icon;
@@ -172,6 +133,7 @@ function Sidebar({
                         isParentActive && !selectedSubCategory && "bg-secondary font-semibold",
                         "text-muted-foreground font-normal"
                     )}
+                    onClick={() => onCategoryChange(item.id)}
                 >
                     {isParentActive && !selectedSubCategory && (
                         <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
@@ -193,7 +155,10 @@ function Sidebar({
                                     "w-full justify-start h-9 relative text-muted-foreground font-normal",
                                     isSubActive && "font-semibold text-primary"
                                 )}
-                                onClick={() => onCategoryChange(item.id, subCat)}
+                                onClick={(e) => {
+                                  e.stopPropagation(); // Prevent collapsible from closing
+                                  onCategoryChange(item.id, subCat);
+                                }}
                             >
                                 {isSubActive && (
                                     <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />

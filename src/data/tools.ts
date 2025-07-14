@@ -23,82 +23,6 @@ export const categories: ToolCategory[] = [
   "CDN and Protection",
 ];
 
-export const uiUxSubCategories: UiUxSubCategory[] = [
-  "UI Design Tools",
-  "UI Kits & Templates",
-  "Assets",
-  "Prototyping & Testing",
-  "Inspiration",
-];
-
-export const frameworkSubCategories: FrameworkSubCategory[] = [
-  "Frontend",
-  "Backend",
-  "Fullstack",
-  "Mobile",
-  "Desktop",
-  "Testing",
-  "Build Tools",
-  "AI / ML",
-  "CLI / Dev Tools",
-];
-
-export const productivitySubCategories: ProductivitySubCategory[] = [
-  "Task Management",
-  "Time & Focus",
-  "Mind & Notes",
-  "Utilities",
-  "Dev Task Tools",
-];
-
-export const noCodeSubCategories: NoCodeSubCategory[] = [
-  "Website Builders",
-  "App Builders",
-  "Backend & DB",
-  "Automation",
-  "Design Tools",
-  "AI",
-  "Forms",
-  "Authentication",
-  "Analytics",
-  "Platforms",
-];
-
-export const apiSubCategories: ApiSubCategory[] = [
-  "Development & Testing",
-  "Data & Information",
-  "Scraping & Automation",
-  "PDF & Image Generation",
-];
-
-export const aiMlSubCategories: AiMlSubCategory[] = [
-  "Platforms & MLOps",
-  "Models & APIs",
-  "Data Science & Notebooks",
-];
-
-export const educationalPlanSubCategories: EducationalPlanSubCategory[] = [
-  "Coding & Development",
-  "Developer Tools & APIs",
-  "Cloud & Hosting",
-  "Learning Platforms",
-  "Design & Creativity",
-  "Student Discounts",
-  "Bonus Tools",
-];
-
-export const cdnSubCategories: CdnSubCategory[] = ["CDN", "Security"];
-
-export const storageSubCategories: StorageSubCategory[] = [
-    "File Storage & Backup",
-    "Image & Video Processing",
-    "Data & JSON Storage",
-    "Package Repositories",
-    "File Conversion",
-    "Utilities"
-];
-
-
 export const tools: Tool[] = [
   // UI & UX
   {
@@ -2541,7 +2465,7 @@ export const tools: Tool[] = [
   {
     id: 'weights-and-biases',
     name: 'Weights & Biases',
-    description: 'The developer-first MLOps platform for experiment tracking and dataset versioning. Free tier for personal projects only.',
+    description: 'The developer-first MLOps platform for experiment tracking and model production management. Free tier for personal projects only.',
     url: 'https://wandb.ai/site',
     category: 'AI & ML',
     subcategory: 'Platforms & MLOps',
@@ -5810,7 +5734,8 @@ export const tools: Tool[] = [
   {
     id: "arcgis-devs",
     name: "ArcGIS for Developers",
-    description: "APIs and SDKs for maps, geospatial data storage, analysis, geocoding, routing, and more. Generous free tier.",
+    description: "APIs and SDKs for maps, geospatial data storage, analysis, geocoding, routing, and more across web, desktop, and mobile.",
+    details: ["2M free basemap tiles/month", "20k non-stored geocodes/month", "5k drive time calculations/month", "5GB free tile & data storage"],
     url: "https://developers.arcgis.com/",
     category: "Data Visualization on Maps",
     pricing: "Freemium",

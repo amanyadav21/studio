@@ -3,7 +3,8 @@
 
 import * as React from "react";
 
-import { categories as defaultCategories, tools as defaultTools, frameworkSubCategories, uiUxSubCategories, productivitySubCategories, noCodeSubCategories } from "@/data/tools";
+import { categories as defaultCategories, tools as defaultTools } from "@/data/tools";
+import { sidebarStructure } from "@/data/sidebar";
 import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { cn, slugify } from "@/lib/utils";
@@ -13,16 +14,19 @@ import Sidebar from "@/components/page/Sidebar";
 import CategoryHeader from "@/components/page/CategoryHeader";
 import ToolGrid from "@/components/page/ToolGrid";
 import { ListView } from "@/components/page/ListView";
+import type { NavItemConfig } from "@/components/page/Sidebar";
 
 const INITIAL_SAVED_TOOLS: string[] = [];
 type ViewMode = "grid" | "list";
 
-const subCategoryMap: Record<string, string[]> = {
-  "Frameworks & Libraries": frameworkSubCategories,
-  "UI & UX": uiUxSubCategories,
-  "Productivity Tools": productivitySubCategories,
-  "No-Code / Low-Code": noCodeSubCategories,
-};
+
+const subCategoryMap = sidebarStructure.reduce((acc, item) => {
+  if ('subCategories' in item && item.subCategories) {
+    acc[item.id as string] = item.subCategories;
+  }
+  return acc;
+}, {} as Record<string, string[]>);
+
 
 export default function Home() {
   const [savedTools, setSavedTools] = useLocalStorage<string[]>(
@@ -57,7 +61,7 @@ export default function Home() {
   React.useEffect(() => {
     if (!scrollTo) return;
 
-    const element = document.getElementById(scrollTo);
+    const element = document.getElementById(slugify(scrollTo));
     if (element) {
         element.scrollIntoView({
             behavior: 'smooth',
@@ -191,19 +195,21 @@ export default function Home() {
 
 
   const { pageTitle, pageDescription } = React.useMemo(() => {
-    const category = defaultCategories.find(c => c === selectedCategory);
+    const categoryInfo = sidebarStructure.find(
+      (item): item is NavItemConfig => 'id' in item && item.id === selectedCategory
+    );
+
     if (selectedCategory === 'All') {
         return { pageTitle: "All Tools", pageDescription: "A comprehensive list of all available tools, sorted by category." };
     }
     if (selectedCategory === 'Saved') {
         return { pageTitle: "Saved Tools", pageDescription: "Your hand-picked tools for quick and easy access." };
     }
-    if (category) {
-        const subcategories = subCategoryMap[category as keyof typeof subCategoryMap];
-        const description = subcategories 
-            ? `A curated collection of essential tools for ${category}.`
-            : `A collection of tools for ${category.toLowerCase()}.`;
-        return { pageTitle: category, pageDescription: description };
+    if (categoryInfo) {
+        const description = categoryInfo.subCategories
+            ? `A curated collection of essential tools for ${categoryInfo.label}.`
+            : `A collection of tools for ${categoryInfo.label.toLowerCase()}.`;
+        return { pageTitle: categoryInfo.label, pageDescription: description };
     }
     return { pageTitle: "Tools", pageDescription: "" };
   }, [selectedCategory]);
@@ -220,7 +226,7 @@ export default function Home() {
         if (toolsForSubCategory.length === 0) return null;
         
         return (
-          <div key={subCategory} id={subCategory} className="mb-12 scroll-mt-24">
+          <div key={subCategory} id={slugify(subCategory)} className="mb-12 scroll-mt-24">
             <h2 className="mb-6 border-b pb-2 text-2xl font-semibold tracking-tight">
               {subCategory}
             </h2>
