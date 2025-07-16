@@ -160,8 +160,8 @@ function Sidebar({
                                 key={subCat}
                                 variant="ghost"
                                 className={cn(
-                                    "w-full justify-start h-9 relative text-muted-foreground font-normal",
-                                    isSubActive && "font-semibold text-primary"
+                                    "w-full justify-start h-9 relative font-normal",
+                                    isSubActive ? "font-semibold text-primary" : "text-muted-foreground"
                                 )}
                                 onClick={(e) => {
                                   e.stopPropagation(); // Prevent collapsible from closing
