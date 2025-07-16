@@ -4,7 +4,6 @@
 import * as React from "react";
 import {
   Bookmark,
-  LayoutGrid,
   ChevronRight,
   PanelLeftClose,
   PanelRightClose,
@@ -76,11 +75,7 @@ function Sidebar({
 
   const handleCollapsibleClick = (id: string) => {
     // Only toggle if we are clicking the main category header
-    if (openCollapsible === id) {
-        setOpenCollapsible(null);
-    } else {
-        setOpenCollapsible(id);
-    }
+    setOpenCollapsible(prev => prev === id ? null : id);
   };
 
 
@@ -133,7 +128,12 @@ function Sidebar({
                         isParentActive && !selectedSubCategory && "bg-secondary font-semibold",
                         "text-muted-foreground font-normal"
                     )}
-                    onClick={() => onCategoryChange(item.id)}
+                    onClick={(e) => {
+                      if (!isOpen) { // If it's closed, clicking the header should open it and navigate
+                        handleCollapsibleClick(item.id);
+                      }
+                      onCategoryChange(item.id)
+                    }}
                 >
                     {isParentActive && !selectedSubCategory && (
                         <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
