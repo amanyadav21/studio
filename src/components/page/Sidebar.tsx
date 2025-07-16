@@ -75,7 +75,12 @@ function Sidebar({
 
   const handleCollapsibleClick = (id: string) => {
     // Only toggle if we are clicking the main category header
-    setOpenCollapsible(prev => prev === id ? null : id);
+    if (openCollapsible === id) {
+      setOpenCollapsible(null);
+    } else {
+      setOpenCollapsible(id);
+      onCategoryChange(id);
+    }
   };
 
 
@@ -134,14 +139,7 @@ function Sidebar({
                         isParentActive && !selectedSubCategory && "bg-secondary font-semibold",
                         "text-muted-foreground font-normal"
                     )}
-                    onClick={() => {
-                      if (!isOpen) { 
-                        setOpenCollapsible(item.id);
-                        onCategoryChange(item.id);
-                      } else {
-                        onCategoryChange(item.id);
-                      }
-                    }}
+                    onClick={() => handleCollapsibleClick(item.id)}
                 >
                     {isParentActive && !selectedSubCategory && (
                         <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
