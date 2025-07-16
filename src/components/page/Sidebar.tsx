@@ -117,7 +117,13 @@ function Sidebar({
         <Collapsible
             key={item.id}
             open={isOpen}
-            onOpenChange={() => handleCollapsibleClick(item.id)}
+            onOpenChange={(isOpen) => {
+              if (isOpen) {
+                setOpenCollapsible(item.id);
+              } else if (openCollapsible === item.id) {
+                setOpenCollapsible(null);
+              }
+            }}
             className="w-full"
         >
             <CollapsibleTrigger asChild>
@@ -128,19 +134,21 @@ function Sidebar({
                         isParentActive && !selectedSubCategory && "bg-secondary font-semibold",
                         "text-muted-foreground font-normal"
                     )}
-                    onClick={(e) => {
-                      if (!isOpen) { // If it's closed, clicking the header should open it and navigate
-                        handleCollapsibleClick(item.id);
+                    onClick={() => {
+                      if (!isOpen) { 
+                        setOpenCollapsible(item.id);
+                        onCategoryChange(item.id);
+                      } else {
+                        onCategoryChange(item.id);
                       }
-                      onCategoryChange(item.id)
                     }}
                 >
                     {isParentActive && !selectedSubCategory && (
                         <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
                     )}
-                    <Icon className={cn("h-5 w-5 mr-3", isParentActive ? "text-primary" : "text-muted-foreground")} />
-                    <span className="truncate">{item.label}</span>
-                    <ChevronRight className={cn("h-4 w-4 ml-auto transition-transform", isOpen && "rotate-90")} />
+                    <Icon className={cn("h-5 w-5 mr-3 flex-shrink-0", isParentActive ? "text-primary" : "text-muted-foreground")} />
+                    <span className="truncate flex-grow text-left">{item.label}</span>
+                    <ChevronRight className={cn("h-4 w-4 ml-auto transition-transform flex-shrink-0", isOpen && "rotate-90")} />
                 </Button>
             </CollapsibleTrigger>
             <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
@@ -163,7 +171,7 @@ function Sidebar({
                                 {isSubActive && (
                                     <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />
                                 )}
-                                {subCat}
+                                <span className="truncate">{subCat}</span>
                             </Button>
                         )
                     })}
@@ -190,11 +198,11 @@ function Sidebar({
         )}
         <Icon
           className={cn(
-            "h-5 w-5 mr-3",
+            "h-5 w-5 mr-3 flex-shrink-0",
             isParentActive ? "text-primary" : "text-muted-foreground"
           )}
         />
-        <span className="truncate">{item.label}</span>
+        <span className="truncate flex-grow text-left">{item.label}</span>
         {item.id === "Saved" && savedCount > 0 && (
           <Badge
             variant={isParentActive ? "default" : "secondary"}
