@@ -5,6 +5,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Bookmark, ExternalLink } from "lucide-react";
+import toast from "react-hot-toast";
 import type { Tool } from "@/lib/types";
 import { cn, getContrastingTextColor } from "@/lib/utils";
 
@@ -50,8 +51,18 @@ export const ToolCard = React.memo(function ToolCard({
       e.preventDefault();
       e.stopPropagation();
       onToggleSaved(tool.id);
+      
+      if (isSaved) {
+        toast.success(`Removed ${tool.name} from saved tools`, {
+          icon: '🗑️',
+        });
+      } else {
+        toast.success(`Added ${tool.name} to saved tools`, {
+          icon: '🔖',
+        });
+      }
     },
-    [onToggleSaved, tool.id]
+    [onToggleSaved, tool.id, tool.name, isSaved]
   );
 
   const styles = React.useMemo(() => {

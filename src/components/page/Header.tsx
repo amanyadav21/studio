@@ -6,7 +6,9 @@ import {
   List,
   Package,
   Search,
+  Loader2,
 } from "lucide-react";
+import toast from "react-hot-toast";
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
@@ -27,6 +29,7 @@ interface HeaderProps {
   onClearCardColor?: () => void;
   viewMode?: 'grid' | 'list';
   onViewModeChange?: (mode: 'grid' | 'list') => void;
+  isSearching?: boolean;
 }
 
 function Header({
@@ -37,6 +40,7 @@ function Header({
   onClearCardColor,
   viewMode,
   onViewModeChange,
+  isSearching,
 }: HeaderProps) {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const pathname = usePathname();
@@ -115,7 +119,11 @@ function Header({
         <div className="flex flex-1 items-center justify-end gap-2">
             {showSearch && (
               <div className="relative hidden md:block w-full max-w-[200px]">
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  {isSearching ? (
+                    <Loader2 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground animate-spin" />
+                  ) : (
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  )}
                   <Input
                     ref={searchInputRef}
                     type="search"

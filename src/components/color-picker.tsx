@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import { Palette, Check, X } from "lucide-react";
+import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -83,7 +84,12 @@ export function ColorPicker({
                   selectedColor === color && "ring-2 ring-ring ring-offset-2"
                 )}
                 style={{ backgroundColor: color }}
-                onClick={() => onColorChange?.(color)}
+                onClick={() => {
+                  onColorChange?.(color);
+                  toast.success('Card color updated!', {
+                    icon: '🎨',
+                  });
+                }}
               >
                 {selectedColor === color && (
                   <Check
@@ -100,7 +106,12 @@ export function ColorPicker({
               variant="ghost"
               size="sm"
               className="w-full justify-center"
-              onClick={() => onClear?.()}
+              onClick={() => {
+                onClear?.();
+                toast.success('Card color reset!', {
+                  icon: '🔄',
+                });
+              }}
             >
               <X className="mr-2 h-4 w-4" />
               Reset Color

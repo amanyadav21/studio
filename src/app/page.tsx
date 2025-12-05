@@ -3,10 +3,11 @@
 
 import * as React from "react";
 
-import { categories as defaultCategories, tools as defaultTools } from "@/data/tools";
+import { categories as defaultCategories } from "@/data/tools";
 import { sidebarStructure } from "@/data/sidebar";
 import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
+import { useOptimizedSearch, clearSearchCache } from "@/hooks/useOptimizedSearch";
 import { cn, slugify } from "@/lib/utils";
 
 import Header from "@/components/page/Header";
@@ -41,22 +42,22 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
   const [activeCategory, setActiveCategory] = React.useState<string>("All");
   const [selectedSubCategory, setSelectedSubCategory] = React.useState<string | null>(null);
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useLocalStorage<boolean>("sidebar-collapsed", false);
   const [scrollTo, setScrollTo] = React.useState<string | null>(null);
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>('view-mode', 'grid');
-
-  const allTools = defaultTools;
-
+  const [allTools, setAllTools] = React.useState<Tool[]>([]);
+  const [toolsLoaded, setToolsLoaded] = React.useState(false);
+  // Load tools data dynamically for better performance
   React.useEffect(() => {
-    const timerId = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 300);
+    import('@/data/tools').then(({ tools }) => {
+      setAllTools(tools);
+      setToolsLoaded(true);
+      clearSearchCache(); // Clear cache when tools change
+    });
+  }, []);
 
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [searchTerm]);
+  // Use optimized search with caching
+  const { searchResults: searchedTools, isSearching } = useOptimizedSearch(allTools, searchTerm);
 
   React.useEffect(() => {
     if (!scrollTo) return;
@@ -159,18 +160,10 @@ export default function Home() {
     setViewMode(mode);
   }, [setViewMode]);
   
-  const searchedTools = React.useMemo(() => {
-    const lowercasedTerm = debouncedSearchTerm.toLowerCase();
-    if (!lowercasedTerm) return allTools;
-
-    return allTools.filter(
-      (tool) =>
-        tool.name.toLowerCase().includes(lowercasedTerm) ||
-        tool.description.toLowerCase().includes(lowercasedTerm)
-    );
-  }, [allTools, debouncedSearchTerm]);
+  // Search results are now handled by the optimized hook
 
   const gridTools = React.useMemo(() => {
+    if (!toolsLoaded) return [];
     if (selectedCategory === "Saved") {
       return searchedTools.filter((tool) => savedTools.includes(tool.id));
     }
@@ -178,7 +171,7 @@ export default function Home() {
       return searchedTools;
     }
     return searchedTools.filter((tool) => tool.category === selectedCategory);
-  }, [searchedTools, selectedCategory, savedTools]);
+  }, [searchedTools, selectedCategory, savedTools, toolsLoaded]);
 
   const toolsByCategory = React.useMemo(() => {
     if (selectedCategory !== "All") return {};
@@ -243,6 +236,27 @@ export default function Home() {
   );
 
   const subcategoriesForSelected = subCategoryMap[selectedCategory as keyof typeof subCategoryMap];
+
+  // Show loading state while tools are being loaded
+  if (!toolsLoaded) {
+    return (
+      <div className="min-h-screen w-full bg-background font-sans text-foreground">
+        <Header
+          searchTerm={searchTerm}
+          onSearchTermChange={setSearchTerm}
+          cardColor={cardColor}
+          onCardColorChange={onCardColorChange}
+          onClearCardColor={onClearCardColor}
+          viewMode={viewMode}
+          onViewModeChange={onViewModeChange}
+          isSearching={isSearching}
+        />
+        <div className="flex items-center justify-center h-96">
+          <div className="text-lg text-muted-foreground">Loading tools...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full bg-background font-sans text-foreground">
