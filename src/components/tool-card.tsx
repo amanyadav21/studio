@@ -132,7 +132,10 @@ export const ToolCard = React.memo(function ToolCard({
 
   return (
     <Card
-      className="group relative flex h-full flex-col overflow-hidden rounded-xl transition-all duration-300 hover:z-10 hover:shadow-2xl hover:-translate-y-1.5"
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
+        isSaved && "ring-2 ring-primary/20"
+      )}
       style={styles?.card}
     >
       <div className="relative overflow-hidden">
@@ -143,7 +146,7 @@ export const ToolCard = React.memo(function ToolCard({
             alt={tool.name}
             width={600}
             height={400}
-            className="aspect-video w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            className="aspect-video w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
           />
         </Link>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -195,43 +198,43 @@ export const ToolCard = React.memo(function ToolCard({
             </Badge>
           )}
         </div>
-        <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-60 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute top-3 right-3 opacity-80 transition-opacity duration-200 group-hover:opacity-100">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="secondary"
-                  size="icon"
+                  variant={isSaved ? "default" : "secondary"}
+                  size="icon-sm"
                   className={cn(
-                    "h-8 w-8 rounded-full shadow-lg transition-colors",
-                    isSaved && "bg-primary/10 hover:bg-primary/20"
+                    "h-9 w-9 bg-background/90 backdrop-blur-sm border border-border/20 shadow-sm transition-all duration-200",
+                    isSaved && "bg-primary text-primary-foreground border-primary/20"
                   )}
                   onClick={handleToggleSaved}
                 >
                   <Bookmark
                     className={cn(
-                      "h-4 w-4 text-muted-foreground transition-all",
-                      isSaved && "fill-primary text-primary scale-110"
+                      "h-4 w-4 transition-all duration-200",
+                      isSaved ? "fill-current" : "text-outline"
                     )}
                   />
                   <span className="sr-only">Toggle Saved</span>
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>
-                {isSaved ? "Unsave tool" : "Save tool"}
+              <TooltipContent className="font-medium">
+                {isSaved ? "Remove from saved" : "Save tool"}
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
       </div>
-      <CardHeader className="flex flex-col flex-grow p-4">
-        <CardTitle className="text-lg font-semibold" style={styles?.title}>
-           <Link href={tool.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+      <CardHeader className="flex flex-col flex-grow p-5">
+        <CardTitle className="text-lg font-semibold leading-tight mb-2" style={styles?.title}>
+           <Link href={tool.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors duration-200">
             {tool.name}
           </Link>
         </CardTitle>
         <CardDescription
-          className="mt-1 text-sm line-clamp-2"
+          className="text-sm line-clamp-3 leading-relaxed text-outline"
           style={styles?.description}
         >
           {tool.description}

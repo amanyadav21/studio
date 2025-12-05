@@ -95,11 +95,17 @@ function Sidebar({
         <Tooltip key={item.id}>
           <TooltipTrigger asChild>
             <Button
-              variant={isParentActive ? "secondary" : "ghost"}
-              className="relative h-10 w-10 justify-center p-0"
+              variant={isParentActive ? "filled" : "ghost"}
+              className={cn(
+                "relative h-11 w-11 justify-center p-0 transition-all duration-200",
+                isParentActive && "bg-primary/10 text-primary shadow-sm"
+              )}
               onClick={() => onCategoryChange(item.id)}
             >
-              <Icon className="h-5 w-5" />
+              <Icon className={cn(
+                "h-5 w-5 transition-colors",
+                isParentActive ? "text-primary" : "text-outline"
+              )} />
               <span className="sr-only">{item.label}</span>
               {item.id === "Saved" && savedCount && savedCount > 0 && (
                   <Badge
@@ -111,7 +117,7 @@ function Sidebar({
                 )}
             </Button>
           </TooltipTrigger>
-          <TooltipContent side="right">{item.label}</TooltipContent>
+          <TooltipContent side="right" className="font-medium">{item.label}</TooltipContent>
         </Tooltip>
       );
     }
@@ -135,9 +141,9 @@ function Sidebar({
                 <Button
                     variant="ghost"
                     className={cn(
-                        "w-full justify-start h-10 relative",
-                        isParentActive && !selectedSubCategory && "bg-secondary font-semibold",
-                        "text-muted-foreground font-normal"
+                        "w-full justify-start h-10 relative transition-all duration-200",
+                        isParentActive && !selectedSubCategory ? "bg-secondary font-medium" : "font-normal hover:bg-muted/50",
+                        "text-outline"
                     )}
                     onClick={() => handleCollapsibleClick(item.id)}
                 >
@@ -185,9 +191,9 @@ function Sidebar({
         key={item.id}
         variant="ghost"
         className={cn(
-          "w-full justify-start h-10 relative",
-          isParentActive && "bg-secondary font-semibold",
-          item.id !== "Saved" && item.id !== "All" && "text-muted-foreground font-normal"
+          "w-full justify-start h-10 relative transition-all duration-200",
+          isParentActive ? "bg-secondary font-medium" : "font-normal hover:bg-muted/50",
+          item.id !== "Saved" && item.id !== "All" ? "text-outline" : "text-foreground"
         )}
         onClick={() => onCategoryChange(item.id)}
       >
@@ -216,25 +222,30 @@ function Sidebar({
   return (
     <aside
       className={cn(
-        "fixed top-14 left-0 z-30 h-[calc(100vh-3.5rem)] hidden flex-col border-r bg-background md:flex",
+        "fixed top-16 left-0 z-30 h-[calc(100vh-4rem)] hidden flex-col border-r border-border/50 bg-background/95 backdrop-blur-sm md:flex",
         "transition-all duration-300 ease-in-out",
-        isCollapsed ? "w-20" : "w-64"
+        isCollapsed ? "w-20" : "w-68"
       )}
     >
       <TooltipProvider delayDuration={0}>
-        <div className={cn("flex w-full p-4", isCollapsed ? "justify-center" : "justify-end")}>
+        <div className={cn("flex w-full py-3 px-4 border-b border-border/50", isCollapsed ? "justify-center" : "justify-end")}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button onClick={onToggleSidebar} variant="ghost" size="icon">
+              <Button 
+                onClick={onToggleSidebar} 
+                variant="ghost" 
+                size="icon-sm"
+                className="transition-all duration-200"
+              >
                 {isCollapsed ? (
-                  <PanelRightClose className="h-5 w-5" />
+                  <PanelRightClose className="h-4 w-4" />
                 ) : (
-                  <PanelLeftClose className="h-5 w-5" />
+                  <PanelLeftClose className="h-4 w-4" />
                 )}
                 <span className="sr-only">Toggle sidebar</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent side="right">
+            <TooltipContent side="right" className="font-medium">
               <p>{isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}</p>
             </TooltipContent>
           </Tooltip>

@@ -73,15 +73,15 @@ function Header({
   const showSearch = onSearchTermChange !== undefined;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/90 shadow-sm">
       {/* Parent Div with Full Width and Space Between */}
-      <div className="w-full flex h-16 items-center justify-between px-4 lg:px-6">
+      <div className="w-full flex h-16 items-center justify-between px-6 max-w-7xl mx-auto">
         
         {/* Left Child Div - Logo & Name */}
         <div className="flex items-center">
-          <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-            <AppLogo className="h-7 w-7" />
-            <span className="hidden font-bold text-lg tracking-tight sm:inline-block bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+          <Link href="/" className="flex items-center gap-3 transition-all duration-200 hover:opacity-90 rounded-lg p-2 -m-2">
+            <AppLogo className="h-8 w-8" />
+            <span className="hidden font-semibold text-xl tracking-tight sm:inline-block bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
               Coderkart
             </span>
           </Link>
@@ -93,39 +93,45 @@ function Header({
           {showSearch && (
             <div className="relative">
                 {isSearching ? (
-                  <Loader2 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground animate-spin" />
+                  <Loader2 className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-outline animate-spin" />
                 ) : (
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-outline" />
                 )}
                 <Input
                   ref={searchInputRef}
                   type="search"
                   placeholder="Search tools..."
-                  className="h-10 w-80 pl-10 pr-20 rounded-lg border-muted-foreground/20 bg-muted/30 transition-all focus:bg-background focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+                  className="h-11 w-80 pl-12 pr-16 rounded-full border border-border bg-muted/50 transition-all duration-200 focus:bg-background focus:border-primary hover:bg-muted/70"
                   value={searchTerm || ""}
                   onChange={(e) => onSearchTermChange?.(e.target.value)}
                 />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
-                  <Kbd className="bg-muted-foreground/10 text-muted-foreground/70">⌘K</Kbd>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                  <Kbd className="bg-muted text-muted-foreground text-xs px-1.5 py-0.5 rounded">⌘K</Kbd>
                 </div>
             </div>
           )}
           
           {/* Grid & List Buttons */}
-          <div className="flex items-center gap-1 rounded-lg border bg-muted/50 p-1 shadow-sm">
+          <div className="flex items-center gap-1 rounded-full bg-muted/60 p-1">
             <Button
-                variant={isHomePage && viewMode === 'grid' ? 'secondary' : 'ghost'}
+                variant={isHomePage && viewMode === 'grid' ? 'filled' : 'ghost'}
                 size="sm"
-                className="px-4 py-2 font-medium transition-all hover:scale-105"
+                className={cn(
+                  "px-4 py-1.5 font-medium transition-all duration-200",
+                  isHomePage && viewMode === 'grid' && "bg-background shadow-sm"
+                )}
                 onClick={() => handleViewChange('grid')}
             >
                 <LayoutGrid className="mr-2 h-4 w-4" />
                 Grid
             </Button>
             <Button
-                variant={isHomePage && viewMode === 'list' ? 'secondary' : 'ghost'}
+                variant={isHomePage && viewMode === 'list' ? 'filled' : 'ghost'}
                 size="sm"
-                className="px-4 py-2 font-medium transition-all hover:scale-105"
+                className={cn(
+                  "px-4 py-1.5 font-medium transition-all duration-200",
+                  isHomePage && viewMode === 'list' && "bg-background shadow-sm"
+                )}
                 onClick={() => handleViewChange('list')}
             >
                 <List className="mr-2 h-4 w-4" />
@@ -136,12 +142,14 @@ function Header({
 
         {/* Right Child Div - Color & Theme Controls */}
         <div className="flex items-center gap-2">
-          <ColorPicker
-              selectedColor={cardColor ?? null}
-              onColorChange={onCardColorChange}
-              onClear={onClearCardColor}
-          />
-          <ThemeToggle />
+          <div className="flex items-center gap-1 rounded-full bg-muted/40 p-1">
+            <ColorPicker
+                selectedColor={cardColor ?? null}
+                onColorChange={onCardColorChange}
+                onClear={onClearCardColor}
+            />
+            <ThemeToggle />
+          </div>
           
           {/* Mobile Navigation */}
           <div className="flex md:hidden items-center gap-1 ml-2">
