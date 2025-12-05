@@ -56,7 +56,7 @@ function Sidebar({
   React.useEffect(() => {
     const parentOfSelectedSub = sidebarStructure.find(
       (item): item is NavItemConfig =>
-        'subCategories' in item && item.subCategories?.includes(selectedSubCategory || '')
+        'subCategories' in item && Array.isArray(item.subCategories) && item.subCategories.includes(selectedSubCategory || '')
     );
 
     if (parentOfSelectedSub) {
