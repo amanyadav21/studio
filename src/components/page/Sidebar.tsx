@@ -101,7 +101,7 @@ function Sidebar({
             >
               <Icon className="h-5 w-5" />
               <span className="sr-only">{item.label}</span>
-              {item.id === "Saved" && savedCount > 0 && (
+              {item.id === "Saved" && savedCount && savedCount > 0 && (
                   <Badge
                     variant="default"
                     className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full p-0 text-[9px] font-bold"
@@ -201,7 +201,7 @@ function Sidebar({
           )}
         />
         <span className="truncate flex-grow text-left">{item.label}</span>
-        {item.id === "Saved" && savedCount > 0 && (
+        {item.id === "Saved" && savedCount && savedCount > 0 && (
           <Badge
             variant={isParentActive ? "default" : "secondary"}
             className="ml-auto"
