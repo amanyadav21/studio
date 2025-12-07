@@ -5,11 +5,6 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
-  // Disable ESLint during build to avoid circular dependency issues
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu'],
