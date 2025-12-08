@@ -2,6 +2,7 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 
 import { categories as defaultCategories } from "@/data/tools";
 import { sidebarStructure } from "@/data/sidebar";
@@ -15,7 +16,13 @@ import Header from "@/components/page/Header";
 import Sidebar from "@/components/page/Sidebar";
 import CategoryHeader from "@/components/page/CategoryHeader";
 import ToolGrid from "@/components/page/ToolGrid";
-import { ListView } from "@/components/page/ListView";
+
+// Dynamic import for ListView - code splitting
+const ListView = dynamic(() => import("@/components/page/ListView").then(mod => ({ default: mod.ListView })), {
+  loading: () => <div className="text-center py-8 text-muted-foreground">Loading list view...</div>,
+  ssr: false,
+});
+
 import type { NavItemConfig } from "@/components/page/Sidebar";
 
 type ViewMode = "grid" | "list";

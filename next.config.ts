@@ -5,9 +5,12 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
+  // Enable production source maps for monitoring
+  productionBrowserSourceMaps: true,
+  
   // Experimental features for better performance
   experimental: {
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu'],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', 'zustand'],
   },
   
   // Turbopack configuration (moved from experimental.turbo)
@@ -72,6 +75,43 @@ const nextConfig: NextConfig = {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Enable automatic image optimization
+    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year for static images
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  
+  // Headers for caching and performance
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, stale-while-revalidate=86400',
+          },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
+        ],
+      },
+      {
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
+  
+  // Redirects configuration
+  async redirects() {
+    return [];
   },
 };
 

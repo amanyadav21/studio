@@ -13,6 +13,7 @@ import {
   Bookmark,
   ChevronDown,
 } from "lucide-react";
+import Image from "next/image";
 import toast from "react-hot-toast";
 import * as React from "react";
 import Link from "next/link";
@@ -125,15 +126,21 @@ function Header({
         {/* Left Child Div - Logo & Name */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center gap-3 transition-all duration-200 hover:opacity-90 rounded-lg p-2 -m-2">
-            <img 
+            <Image 
               src="/logo/coderkart-black.png" 
               alt="Coderkart" 
+              width={32}
+              height={32}
               className="h-8 w-8 block dark:hidden" 
+              priority
             />
-            <img 
+            <Image 
               src="/logo/coderkart-white.png" 
               alt="Coderkart" 
+              width={32}
+              height={32}
               className="h-8 w-8 hidden dark:block" 
+              priority
             />
             <span className="font-panchang font-bold text-xl tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
               Coderkart
