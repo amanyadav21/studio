@@ -16,7 +16,7 @@ import {
 import toast from "react-hot-toast";
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/auth-context';
 import { AuthModal } from '@/components/auth-modal';
 
@@ -62,6 +62,7 @@ function Header({
 }: HeaderProps) {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const pathname = usePathname();
+  const router = useRouter();
   const isHomePage = pathname === '/';
   const isPackagesPage = pathname.startsWith('/packages');
   const { user, loading, logout } = useAuth();
@@ -111,9 +112,7 @@ function Header({
   };
 
   const handleNavigateToSaved = () => {
-    if (onCategoryChange) {
-      onCategoryChange('Saved');
-    }
+    router.push('/saved');
   };
 
   const showSearch = onSearchTermChange !== undefined;
@@ -166,7 +165,7 @@ function Header({
             </div>
           )}
           
-          {/* Grid & List Buttons */}
+          {/* Grid, List & Saved Buttons */}
           <div className="flex items-center gap-1 rounded-full bg-muted/60 p-1">
             <Button
                 variant={isHomePage && viewMode === 'grid' ? 'filled' : 'ghost'}
@@ -191,6 +190,20 @@ function Header({
             >
                 <List className="mr-2 h-4 w-4" />
                 List
+            </Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                className="px-4 py-1.5 font-medium transition-all duration-200 relative"
+                onClick={() => router.push('/saved')}
+            >
+                <Bookmark className="mr-2 h-4 w-4" />
+                Saved
+                {savedCount !== undefined && savedCount > 0 && (
+                  <span className="ml-1 text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">
+                    {savedCount}
+                  </span>
+                )}
             </Button>
           </div>
         </div>

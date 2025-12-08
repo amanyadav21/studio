@@ -90,7 +90,7 @@ export function ListView({
   };
 
   return (
-    <div className="flex w-full gap-8 py-8 px-6 lg:px-8 xl:gap-12 xl:px-12">
+    <div className="flex w-full gap-4 py-6 px-3 sm:px-4 lg:px-6 xl:gap-6 min-w-0">
       <ListViewSidebar
         categories={allCategories}
         activeCategory={activeCategory}

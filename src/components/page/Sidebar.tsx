@@ -2,6 +2,8 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import {
   Bookmark,
   ChevronRight,
@@ -51,6 +53,8 @@ function Sidebar({
   isCollapsed,
   onToggleSidebar,
 }: SidebarProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [openCollapsible, setOpenCollapsible] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -100,7 +104,7 @@ function Sidebar({
                 "relative h-11 w-11 justify-center p-0 transition-all duration-200",
                 isParentActive && "bg-primary/10 text-primary shadow-sm"
               )}
-              onClick={() => onCategoryChange(item.id)}
+              onClick={() => item.id === "Saved" ? router.push('/saved') : onCategoryChange(item.id)}
             >
               <Icon className={cn(
                 "h-5 w-5 transition-colors",
@@ -193,7 +197,7 @@ function Sidebar({
           "w-full justify-start h-11 relative transition-all duration-200 rounded-lg",
           isParentActive ? "bg-primary/5 font-medium text-primary" : "font-normal hover:bg-muted/60"
         )}
-        onClick={() => onCategoryChange(item.id)}
+        onClick={() => item.id === "Saved" ? router.push('/saved') : onCategoryChange(item.id)}
       >
         {isParentActive && (
           <div className="absolute left-0 top-2.5 h-6 w-1 rounded-r-full bg-primary" />

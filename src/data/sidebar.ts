@@ -27,7 +27,6 @@ import {
 import type { NavItemConfig } from "@/components/page/Sidebar";
 
 export const sidebarStructure: (NavItemConfig | { type: 'separator' })[] = [
-    { id: "Saved", label: "Saved", icon: Bookmark },
     { id: "All", label: "All Tools", icon: LayoutGrid },
     { type: 'separator' },
     { id: "UI & UX", label: "UI & UX", icon: Palette, subCategories: ["UI Design Tools", "UI Kits & Templates", "Assets", "Prototyping & Testing", "Inspiration"], isCollapsible: true },

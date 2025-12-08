@@ -7,6 +7,7 @@ import { categories as defaultCategories } from "@/data/tools";
 import { sidebarStructure } from "@/data/sidebar";
 import type { Tool } from "@/lib/types";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
+import { useSavedToolsStore } from "@/store/saved-tools-store";
 import { useOptimizedSearch, clearSearchCache } from "@/hooks/useOptimizedSearch";
 import { cn, slugify } from "@/lib/utils";
 
@@ -17,7 +18,6 @@ import ToolGrid from "@/components/page/ToolGrid";
 import { ListView } from "@/components/page/ListView";
 import type { NavItemConfig } from "@/components/page/Sidebar";
 
-const INITIAL_SAVED_TOOLS: string[] = [];
 type ViewMode = "grid" | "list";
 
 
@@ -30,10 +30,7 @@ const subCategoryMap = sidebarStructure.reduce((acc, item) => {
 
 
 export default function Home() {
-  const [savedTools, setSavedTools] = useLocalStorage<string[]>(
-    "saved-tools",
-    INITIAL_SAVED_TOOLS
-  );
+  const { savedTools, toggleSaved } = useSavedToolsStore();
   const [cardColor, setCardColor] = useLocalStorage<string | null>(
     "card-color",
     null
@@ -132,17 +129,6 @@ export default function Home() {
     };
   }, [selectedCategory, viewMode, allTools]);
 
-
-  const toggleSaved = React.useCallback(
-    (toolId: string) => {
-      setSavedTools((prev) =>
-        prev.includes(toolId)
-          ? prev.filter((id) => id !== toolId)
-          : [...prev, toolId]
-      );
-    },
-    [setSavedTools]
-  );
 
   const toggleSidebar = React.useCallback(() => {
     setIsSidebarCollapsed((prev) => !prev);

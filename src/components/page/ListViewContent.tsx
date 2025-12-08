@@ -101,7 +101,7 @@ export const ListViewContent = React.forwardRef<
   };
 
   return (
-    <main className="flex-1" id="top" ref={ref}>
+    <main className="flex-1 min-w-0" id="top" ref={ref}>
       {tools.length === 0 ? (
         <div className="flex h-full min-h-[40vh] flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 p-12 text-center">
           <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
