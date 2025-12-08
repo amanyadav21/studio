@@ -106,8 +106,17 @@ function Header({
         {/* Left Child Div - Logo & Name */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center gap-3 transition-all duration-200 hover:opacity-90 rounded-lg p-2 -m-2">
-            <AppLogo className="h-8 w-8" />
-            <span className="hidden font-semibold text-xl tracking-tight sm:inline-block bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            <img 
+              src="/logo/coderkart-black.png" 
+              alt="Coderkart" 
+              className="h-8 w-8 block dark:hidden" 
+            />
+            <img 
+              src="/logo/coderkart-white.png" 
+              alt="Coderkart" 
+              className="h-8 w-8 hidden dark:block" 
+            />
+            <span className="font-semibold text-xl tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
               Coderkart
             </span>
           </Link>
