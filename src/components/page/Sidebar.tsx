@@ -141,22 +141,21 @@ function Sidebar({
                 <Button
                     variant="ghost"
                     className={cn(
-                        "w-full justify-start h-10 relative transition-all duration-200",
-                        isParentActive && !selectedSubCategory ? "bg-secondary font-medium" : "font-normal hover:bg-muted/50",
-                        "text-outline"
+                        "w-full justify-start h-11 relative transition-all duration-200 rounded-lg",
+                        isParentActive && !selectedSubCategory ? "bg-primary/5 font-medium text-primary" : "font-normal hover:bg-muted/60",
                     )}
                     onClick={() => handleCollapsibleClick(item.id)}
                 >
                     {isParentActive && !selectedSubCategory && (
-                        <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
+                        <div className="absolute left-0 top-2.5 h-6 w-1 rounded-r-full bg-primary" />
                     )}
-                    <Icon className={cn("h-5 w-5 mr-3 flex-shrink-0", isParentActive ? "text-primary" : "text-muted-foreground")} />
-                    <span className="truncate flex-grow text-left">{item.label}</span>
-                    <ChevronRight className={cn("h-4 w-4 ml-auto transition-transform flex-shrink-0", isOpen && "rotate-90")} />
+                    <Icon className={cn("h-5 w-5 mr-3 flex-shrink-0 transition-colors", isParentActive ? "text-primary" : "text-muted-foreground")} />
+                    <span className="truncate flex-grow text-left text-sm">{item.label}</span>
+                    <ChevronRight className={cn("h-4 w-4 ml-auto transition-transform duration-200 flex-shrink-0", isOpen && "rotate-90")} />
                 </Button>
             </CollapsibleTrigger>
-            <CollapsibleContent className="pl-8 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
-                <div className="flex flex-col gap-1 mt-1">
+            <CollapsibleContent className="pl-7 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
+                <div className="flex flex-col gap-0.5 mt-1 mb-1">
                     {item.subCategories?.map(subCat => {
                         const isSubActive = isParentActive && selectedSubCategory === subCat;
                         return (
@@ -164,8 +163,8 @@ function Sidebar({
                                 key={subCat}
                                 variant="ghost"
                                 className={cn(
-                                    "w-full justify-start h-9 relative font-normal",
-                                    isSubActive ? "font-semibold text-primary" : "text-muted-foreground"
+                                    "w-full justify-start h-9 relative font-normal rounded-lg transition-all duration-200",
+                                    isSubActive ? "font-medium text-primary bg-primary/5" : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                                 )}
                                 onClick={(e) => {
                                   e.stopPropagation(); // Prevent collapsible from closing
@@ -175,7 +174,7 @@ function Sidebar({
                                 {isSubActive && (
                                     <div className="absolute left-0 top-1.5 h-6 w-1 rounded-r-full bg-primary" />
                                 )}
-                                <span className="truncate">{subCat}</span>
+                                <span className="truncate text-sm">{subCat}</span>
                             </Button>
                         )
                     })}
@@ -191,22 +190,21 @@ function Sidebar({
         key={item.id}
         variant="ghost"
         className={cn(
-          "w-full justify-start h-10 relative transition-all duration-200",
-          isParentActive ? "bg-secondary font-medium" : "font-normal hover:bg-muted/50",
-          item.id !== "Saved" && item.id !== "All" ? "text-outline" : "text-foreground"
+          "w-full justify-start h-11 relative transition-all duration-200 rounded-lg",
+          isParentActive ? "bg-primary/5 font-medium text-primary" : "font-normal hover:bg-muted/60"
         )}
         onClick={() => onCategoryChange(item.id)}
       >
         {isParentActive && (
-          <div className="absolute left-0 top-2 h-6 w-1 rounded-r-full bg-primary" />
+          <div className="absolute left-0 top-2.5 h-6 w-1 rounded-r-full bg-primary" />
         )}
         <Icon
           className={cn(
-            "h-5 w-5 mr-3 flex-shrink-0",
+            "h-5 w-5 mr-3 flex-shrink-0 transition-colors",
             isParentActive ? "text-primary" : "text-muted-foreground"
           )}
         />
-        <span className="truncate flex-grow text-left">{item.label}</span>
+        <span className="truncate flex-grow text-left text-sm">{item.label}</span>
         {item.id === "Saved" && savedCount && savedCount > 0 && (
           <Badge
             variant={isParentActive ? "default" : "secondary"}
@@ -222,13 +220,13 @@ function Sidebar({
   return (
     <aside
       className={cn(
-        "fixed top-16 left-0 z-30 h-[calc(100vh-4rem)] hidden flex-col border-r border-border/50 bg-background/95 backdrop-blur-sm md:flex",
+        "fixed top-16 left-0 z-30 h-[calc(100vh-4rem)] hidden flex-col border-r-2 border-border bg-background/95 backdrop-blur-sm md:flex shadow-sm",
         "transition-all duration-300 ease-in-out",
-        isCollapsed ? "w-20" : "w-68"
+        isCollapsed ? "w-20" : "w-80"
       )}
     >
       <TooltipProvider delayDuration={0}>
-        <div className={cn("flex w-full py-3 px-4 border-b border-border/50", isCollapsed ? "justify-center" : "justify-end")}>
+        <div className={cn("flex w-full py-2 border-b border-border/50", isCollapsed ? "justify-center px-2" : "justify-end px-3")}>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button 
@@ -251,10 +249,10 @@ function Sidebar({
           </Tooltip>
         </div>
         <ScrollArea className="flex-1">
-          <div className={cn("flex-1 py-4", isCollapsed ? "px-2" : "px-4")}>
+          <div className={cn("flex-1 py-3", isCollapsed ? "px-2" : "px-3")}>
             <nav
               className={cn(
-                "flex w-full flex-col gap-1",
+                "flex w-full flex-col gap-1.5",
                 isCollapsed && "items-center"
               )}
             >

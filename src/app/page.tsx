@@ -286,8 +286,8 @@ export default function Home() {
           />
 
           <main className={cn(
-            "flex-1 p-6 transition-all duration-300 ease-in-out",
-            isSidebarCollapsed ? "md:ml-20" : "md:ml-64"
+            "w-full p-6 transition-all duration-300 ease-in-out",
+            isSidebarCollapsed ? "md:ml-20" : "md:ml-80"
           )}>
             {selectedCategory === "All" ? (
               <>
