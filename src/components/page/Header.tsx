@@ -7,11 +7,15 @@ import {
   Package,
   Search,
   Loader2,
+  User,
+  LogOut,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/contexts/auth-context';
+import { AuthModal } from '@/components/auth-modal';
 
 import { Input } from "@/components/ui/input";
 import { AppLogo } from "@/components/icons";
@@ -46,6 +50,9 @@ function Header({
   const pathname = usePathname();
   const isHomePage = pathname === '/';
   const isPackagesPage = pathname.startsWith('/packages');
+  const { user, loading, logout } = useAuth();
+  const [authModalOpen, setAuthModalOpen] = React.useState(false);
+  const [authMode, setAuthMode] = React.useState<'signin' | 'signup'>('signin');
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -68,7 +75,26 @@ function Header({
       url.searchParams.set('view', newView);
       window.location.href = url.toString();
     }
-  }
+  };
+
+  const handleSignIn = () => {
+    setAuthMode('signin');
+    setAuthModalOpen(true);
+  };
+
+  const handleSignUp = () => {
+    setAuthMode('signup');
+    setAuthModalOpen(true);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success('Signed out successfully!');
+    } catch (error) {
+      toast.error('Failed to sign out');
+    }
+  };
 
   const showSearch = onSearchTermChange !== undefined;
 
@@ -140,8 +166,52 @@ function Header({
           </div>
         </div>
 
-        {/* Right Child Div - Color & Theme Controls */}
-        <div className="flex items-center gap-2">
+        {/* Right Child Div - Auth, Color & Theme Controls */}
+        <div className="flex items-center gap-3">
+          {/* Auth Buttons */}
+          {!loading && (
+            <div className="flex items-center gap-2">
+              {user ? (
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/40">
+                    <User className="h-4 w-4" />
+                    <span className="text-sm font-medium hidden sm:inline-block">
+                      {user.email?.split('@')[0]}
+                    </span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleLogout}
+                    className="px-3 py-1.5 h-auto"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    <span className="hidden sm:inline">Sign Out</span>
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1 rounded-full bg-muted/40 p-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleSignIn}
+                    className="px-3 py-1.5 font-medium transition-all duration-200"
+                  >
+                    Sign In
+                  </Button>
+                  <Button
+                    variant="filled"
+                    size="sm"
+                    onClick={handleSignUp}
+                    className="px-3 py-1.5 font-medium transition-all duration-200"
+                  >
+                    Sign Up
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
+          
           <div className="flex items-center gap-1 rounded-full bg-muted/40 p-1">
             <ColorPicker
                 selectedColor={cardColor ?? null}
@@ -172,6 +242,12 @@ function Header({
           </div>
         </div>
       </div>
+      
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        initialMode={authMode}
+      />
     </header>
   );
 }
