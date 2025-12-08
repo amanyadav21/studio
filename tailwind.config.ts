@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         sans: ['"Inter"', 'sans-serif'],
         code: ['monospace'],
+        panchang: ['"Panchang-Bold"', '"Panchang-Semibold"', '"Panchang-Medium"', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
