@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { BookOpen, Bookmark } from 'lucide-react';
+import toast from 'react-hot-toast';
 import type { Tool, ToolCategory } from '@/lib/types';
 import { slugify, cn } from '@/lib/utils';
 import {
@@ -30,6 +31,16 @@ export const ListViewContent = React.forwardRef<
       e.preventDefault();
       e.stopPropagation();
       onToggleSaved(tool.id);
+      
+      if (isSaved) {
+        toast.success(`Removed ${tool.name} from saved tools`, {
+          icon: '🗑️',
+        });
+      } else {
+        toast.success(`Added ${tool.name} to saved tools`, {
+          icon: '🔖',
+        });
+      }
     };
 
     return (
