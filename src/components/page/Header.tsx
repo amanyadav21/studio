@@ -9,6 +9,9 @@ import {
   Loader2,
   User,
   LogOut,
+  Settings,
+  Bookmark,
+  ChevronDown,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import * as React from "react";
@@ -18,12 +21,19 @@ import { useAuth } from '@/contexts/auth-context';
 import { AuthModal } from '@/components/auth-modal';
 
 import { Input } from "@/components/ui/input";
-import { AppLogo } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { ColorPicker } from "@/components/color-picker";
 import { Kbd } from "@/components/ui/kbd";
 import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
   searchTerm?: string;
@@ -34,6 +44,8 @@ interface HeaderProps {
   viewMode?: 'grid' | 'list';
   onViewModeChange?: (mode: 'grid' | 'list') => void;
   isSearching?: boolean;
+  onCategoryChange?: (category: string) => void;
+  savedCount?: number;
 }
 
 function Header({
@@ -45,6 +57,8 @@ function Header({
   viewMode,
   onViewModeChange,
   isSearching,
+  onCategoryChange,
+  savedCount,
 }: HeaderProps) {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const pathname = usePathname();
@@ -96,6 +110,12 @@ function Header({
     }
   };
 
+  const handleNavigateToSaved = () => {
+    if (onCategoryChange) {
+      onCategoryChange('Saved');
+    }
+  };
+
   const showSearch = onSearchTermChange !== undefined;
 
   return (
@@ -116,7 +136,7 @@ function Header({
               alt="Coderkart" 
               className="h-8 w-8 hidden dark:block" 
             />
-            <span className="font-panchang font-bold text-xl tracking-tight bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
+            <span className="font-panchang font-bold text-xl tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
               Coderkart
             </span>
           </Link>
@@ -175,29 +195,60 @@ function Header({
           </div>
         </div>
 
-        {/* Right Child Div - Auth, Color & Theme Controls */}
+        {/* Right Child Div - Color, Theme & Auth Controls */}
         <div className="flex items-center gap-3">
+          {/* Color & Theme Controls */}
+          <div className="flex items-center gap-1 rounded-full bg-muted/40 p-1">
+            <ColorPicker
+                selectedColor={cardColor ?? null}
+                onColorChange={onCardColorChange}
+                onClear={onClearCardColor}
+            />
+            <ThemeToggle />
+          </div>
+          
           {/* Auth Buttons */}
           {!loading && (
             <div className="flex items-center gap-2">
               {user ? (
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/40">
-                    <User className="h-4 w-4" />
-                    <span className="text-sm font-medium hidden sm:inline-block">
-                      {user.email?.split('@')[0]}
-                    </span>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleLogout}
-                    className="px-3 py-1.5 h-auto"
-                  >
-                    <LogOut className="h-4 w-4 mr-2" />
-                    <span className="hidden sm:inline">Sign Out</span>
-                  </Button>
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="flex items-center gap-2 px-3 py-1.5 h-auto rounded-full hover:bg-muted/40">
+                      <User className="h-4 w-4" />
+                      <span className="text-sm font-medium hidden sm:inline-block">
+                        {user.email?.split('@')[0]}
+                      </span>
+                      <ChevronDown className="h-3 w-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">{user.email?.split('@')[0]}</p>
+                        <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleNavigateToSaved} className="cursor-pointer">
+                      <Bookmark className="mr-2 h-4 w-4" />
+                      <span>Saved Tools</span>
+                      {savedCount !== undefined && savedCount > 0 && (
+                        <span className="ml-auto text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">
+                          {savedCount}
+                        </span>
+                      )}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive focus:text-destructive">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Sign Out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               ) : (
                 <div className="flex items-center gap-1 rounded-full bg-muted/40 p-1">
                   <Button
@@ -206,7 +257,7 @@ function Header({
                     onClick={handleSignIn}
                     className="px-3 py-1.5 font-medium transition-all duration-200"
                   >
-                    Sign In
+                    Login
                   </Button>
                   <Button
                     variant="filled"
@@ -220,15 +271,6 @@ function Header({
               )}
             </div>
           )}
-          
-          <div className="flex items-center gap-1 rounded-full bg-muted/40 p-1">
-            <ColorPicker
-                selectedColor={cardColor ?? null}
-                onColorChange={onCardColorChange}
-                onClear={onClearCardColor}
-            />
-            <ThemeToggle />
-          </div>
           
           {/* Mobile Navigation */}
           <div className="flex md:hidden items-center gap-1 ml-2">

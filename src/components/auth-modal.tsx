@@ -23,6 +23,13 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Update mode when initialMode changes or modal opens
+  React.useEffect(() => {
+    if (isOpen) {
+      setMode(initialMode);
+    }
+  }, [isOpen, initialMode]);
+
   const resetForm = () => {
     setEmail('');
     setPassword('');

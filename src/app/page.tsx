@@ -250,6 +250,8 @@ export default function Home() {
           viewMode={viewMode}
           onViewModeChange={onViewModeChange}
           isSearching={isSearching}
+          onCategoryChange={handleCategoryChange}
+          savedCount={savedTools.length}
         />
         <div className="flex items-center justify-center h-96">
           <div className="text-lg text-muted-foreground">Loading tools...</div>
@@ -268,6 +270,9 @@ export default function Home() {
         onClearCardColor={onClearCardColor}
         viewMode={viewMode}
         onViewModeChange={onViewModeChange}
+        isSearching={isSearching}
+        onCategoryChange={handleCategoryChange}
+        savedCount={savedTools.length}
       />
       {viewMode === 'grid' ? (
         <div className="flex">
