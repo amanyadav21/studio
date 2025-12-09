@@ -198,33 +198,24 @@ export const ToolCard = React.memo(function ToolCard({
             </Badge>
           )}
         </div>
-        <div className="absolute top-3 right-3 opacity-80 transition-opacity duration-200 group-hover:opacity-100">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant={isSaved ? "default" : "secondary"}
-                  size="icon-sm"
-                  className={cn(
-                    "h-9 w-9 bg-background/90 backdrop-blur-sm border border-border/20 shadow-sm transition-all duration-200",
-                    isSaved && "bg-primary text-primary-foreground border-primary/20"
-                  )}
-                  onClick={handleToggleSaved}
-                >
-                  <Bookmark
-                    className={cn(
-                      "h-4 w-4 transition-all duration-200",
-                      isSaved ? "fill-current" : "text-outline"
-                    )}
-                  />
-                  <span className="sr-only">Toggle Saved</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent className="font-medium">
-                {isSaved ? "Remove from saved" : "Save tool"}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+        <div className="absolute top-3 right-3 z-20 opacity-80 transition-opacity duration-200 group-hover:opacity-100">
+          <Button
+            variant={isSaved ? "default" : "secondary"}
+            size="icon-sm"
+            className={cn(
+              "h-9 w-9 bg-background/90 backdrop-blur-sm border border-border/20 shadow-sm transition-all duration-200",
+              isSaved && "bg-primary text-primary-foreground border-primary/20"
+            )}
+            onClick={handleToggleSaved}
+          >
+            <Bookmark
+              className={cn(
+                "h-4 w-4 transition-all duration-200",
+                isSaved ? "fill-current" : "text-outline"
+              )}
+            />
+            <span className="sr-only">Toggle Saved</span>
+          </Button>
         </div>
       </div>
       <CardHeader className="flex flex-col flex-grow p-5">
