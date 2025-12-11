@@ -215,18 +215,13 @@ function Header({
           </div>
         </div>
 
-        {/* Right Child Div - Color, Theme & Auth Controls */}
+        {/* Right Child Div - Theme & Auth Controls */}
         <div className="flex items-center gap-3">
-          {/* Color & Theme Controls */}
+          {/* Theme Control (color moved into account menu) */}
           <div className="flex items-center gap-1 rounded-full bg-muted/40 p-1">
-            <ColorPicker
-                selectedColor={cardColor ?? null}
-                onColorChange={onCardColorChange}
-                onClear={onClearCardColor}
-            />
             <ThemeToggle />
           </div>
-          
+
           {/* Auth Buttons */}
           {!loading && (
             <div className="flex items-center gap-2">
@@ -241,7 +236,7 @@ function Header({
                       <ChevronDown className="h-3 w-3" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuContent align="end" className="w-64">
                     <DropdownMenuLabel>
                       <div className="flex flex-col space-y-1">
                         <p className="text-sm font-medium leading-none">{user.email?.split('@')[0]}</p>
@@ -262,6 +257,15 @@ function Header({
                       <Settings className="mr-2 h-4 w-4" />
                       <span>Settings</span>
                     </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <div className="px-2 py-2 space-y-2">
+                      <p className="text-xs font-semibold text-muted-foreground">Card color</p>
+                      <ColorPicker
+                        selectedColor={cardColor ?? null}
+                        onColorChange={onCardColorChange}
+                        onClear={onClearCardColor}
+                      />
+                    </div>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive focus:text-destructive">
                       <LogOut className="mr-2 h-4 w-4" />
